@@ -1,0 +1,1 @@
+Копируем и вставляем в mods/era scripts rus/data/ERA scripts rus.snd

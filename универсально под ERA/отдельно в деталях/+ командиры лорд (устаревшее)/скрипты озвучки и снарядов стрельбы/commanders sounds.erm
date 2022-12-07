@@ -1,0 +1,67 @@
+ZVSE
+
+*?FU111112
+!?FU(SetSounds);
+!!UN:C4697553/4/?y1; y1 - MonInfo Table
+!!VRy2:S116*x1+y1+8; y2 - address of sound pointer
+!!UN:Cy2/4/?y3;
+!!SN:K4/z1/y3/1;
+
+!?PI;           [При старте новой карты]
+*!VRz1:S^S174^; Замок (174/183 Паладин)
+*!FU(SetSounds):P174;
+*!FU(SetSounds):P183;
+!!VRz1:S^S175^; Оплот (175/184 Жрица Луны)
+!!FU(SetSounds):P175;
+!!FU(SetSounds):P184;
+!!VRz1:S^S176^; Башня (176/185 Страж Башни)
+!!FU(SetSounds):P176;
+!!FU(SetSounds):P185;
+!!VRz1:S^S177^; Инферно (177/186 Суккуб)
+!!FU(SetSounds):P177;
+!!FU(SetSounds):P186;
+!!VRz1:S^S178^; Некрополь (178/187 Высший Лич)
+!!FU(SetSounds):P178;
+!!FU(SetSounds):P187;
+!!VRz1:S^S179^; Подземье (179/188 Минотавр)
+!!FU(SetSounds):P179;
+!!FU(SetSounds):P188;
+!!VRz1:S^S180^; Цитадель (180/189 Командир Огров)
+!!FU(SetSounds):P180;
+!!FU(SetSounds):P189;
+!!VRz1:S^S181^; Крепость (181/190 Следопыт)
+!!FU(SetSounds):P181;
+!!FU(SetSounds):P190;
+!!VRz1:S^S182^; Сопряжение (182/191 Астральный Дух)
+!!FU(SetSounds):P182;
+!!FU(SetSounds):P191;
+
+!?GM0;          [При загрузке карты]
+*!VRz1:S^S174^; Замок (174/183 Паладин)
+*!FU(SetSounds):P174;
+*!FU(SetSounds):P183;
+!!VRz1:S^S175^; Оплот (175/184 Жрица Луны)
+!!FU(SetSounds):P175;
+!!FU(SetSounds):P184;
+!!VRz1:S^S176^; Башня (176/185 Страж Башни)
+!!FU(SetSounds):P176;
+!!FU(SetSounds):P185;
+!!VRz1:S^S177^; Инферно (177/186 Суккуб)
+!!FU(SetSounds):P177;
+!!FU(SetSounds):P186;
+!!VRz1:S^S178^; Некрополь (178/187 Высший Лич)
+!!FU(SetSounds):P178;
+!!FU(SetSounds):P187;
+!!VRz1:S^S179^; Подземье (179/188 Минотавр)
+!!FU(SetSounds):P179;
+!!FU(SetSounds):P188;
+!!VRz1:S^S180^; Цитадель (180/189 Командир Огров)
+!!FU(SetSounds):P180;
+!!FU(SetSounds):P189;
+!!VRz1:S^S181^; Крепость (181/190 Следопыт)
+!!FU(SetSounds):P181;
+!!FU(SetSounds):P190;
+!!VRz1:S^S182^; Сопряжение (182/191 Астральный Дух)
+!!FU(SetSounds):P182;
+!!FU(SetSounds):P191;
+

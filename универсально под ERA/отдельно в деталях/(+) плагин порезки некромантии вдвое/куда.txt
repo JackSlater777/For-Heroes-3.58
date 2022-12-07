@@ -1,0 +1,4 @@
+dll - /mods/fixes and improvements/eraplugins
+скрипты - /mods/fixes and improvements/data/s
+txt - /mods/wog rus/data/.pac
+не забыть активировать в плагин менеджере

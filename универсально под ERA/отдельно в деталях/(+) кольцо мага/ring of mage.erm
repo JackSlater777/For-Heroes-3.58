@@ -1,0 +1,35 @@
+ZVSE
+
+** ENHANCED ARTIFACTS  -  ERM script 71
+
+** Collar of Conjuring increases spell damage by 5%
+** Ring of Conjuring increases spell damage by 10%
+** Cape of Conjuring increases spell damage by 15%
+** Ring of the Magi increases spell damage by 20% (total of 50%)
+
+!?FU(WOG_StartGame);
+!!FU(WOG3_SetArtsDescription):P76/1/175292; [collar of conjuring]
+!!FU(WOG3_SetArtsDescription):P77/1/175293; [ring of conjuring]
+!!FU(WOG3_SetArtsDescription):P78/1/175294; [cape of conjuring]
+!!FU(WOG3_SetArtsDescription):P139/1/175311; [ring of the magi]
+
+!?MR0;                        [перед расчетом сопротивления]
+!!BG:A?y1;                    [y1 - тип действия]
+!!FU|y1<>1:E;                 [выход, если не каст героя]
+!!BG:Q?y1;                    [y1 - текущая сторона]
+!!BA:Hy1/?y2;                 [y2 - герой]
+;!IF:M^Номер героя: %Y2^;
+; -2 - если героя нет
+!!FU&y2=-2:E;                 [выход, если нет героя]
+
+!!MR:D?y3;                    [y3 - базовый урон заклинания]
+
+;Герои с артефактами Кольца Мага с включенным скриптом: до +50% урона
+!!HEy2:A2/76/d/?y5 A2/77/d/?y6 A2/78/d/?y7 A2/139/d/?y8; [y5-y8 - Ожерелье/Кольцо/Накидка/Сборник Мага надетые на героя]
+!!VRy3&y5>0:*105 :100;      [+5% к урону заклинания, если на герое надето Магическое Ожерелье]
+!!VRy3&y6>0:*11 :10;        [+10% к урону заклинания, если на герое надето Магическое Кольцо]
+!!VRy3&y7>0:*115 :100;      [+15% к урону заклинания, если на герое надето Магическая Накидка]
+!!VRy3&y8>0:*3 :2;          [+50% к урону заклинания, если на герое надето Кольцо Мага]
+
+** end
+

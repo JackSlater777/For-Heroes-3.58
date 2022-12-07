@@ -1,0 +1,3 @@
+dll - /mods/fixes and improvements/eraplugins
+скрипты - /mods/fixes and improvements/data/s
+не забыть активировать в плагин менеджере

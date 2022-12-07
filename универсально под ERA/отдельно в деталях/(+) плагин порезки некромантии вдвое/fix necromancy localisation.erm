@@ -1,0 +1,31 @@
+ZVSE
+
+*** Описание пофикшенной некромантии
+
+!?FU(OnAfterErmInstructions); [перед началом новой игры или после загрузки старой]
+!!FU(Fun_SetDescriptionFromERT):P0/12/1/179612;      [Устанавливаем базовое описание навыка]
+!!FU(Fun_SetDescriptionFromERT):P0/12/2/179613;      [Устанавливаем продвинутое описание навыка]
+!!FU(Fun_SetDescriptionFromERT):P0/12/3/179614;      [Устанавливаем экспертное описание навыка]
+!!re y1/0/155:;               [Устанавливаем описание специализации]
+  !!HEy1:X?y2/?y3/?y4/?y5/?y6/?y7/?y8;
+  !!FU(Fun_SetDescriptionFromERT)&y2=0/y3=12:P2/y1/2/179615;
+!!en:;
+!!FU(Fun_SetDescriptionFromERT):P3/54/1/179616;      [Описание Амулета]
+!!FU(Fun_SetDescriptionFromERT):P3/55/1/179617;      [Описание Мантии]
+!!FU(Fun_SetDescriptionFromERT):P3/56/1/179618;      [Описание Сапог]
+!!FU(Fun_SetDescriptionFromERT):P3/130/1/179619;     [Описание Сборника-Плаща]
+
+!?FU(OnAfterLoadGame);        [после загрузки]
+!!FU(Fun_SetDescriptionFromERT):P0/12/1/179612;      [Устанавливаем базовое описание навыка]
+!!FU(Fun_SetDescriptionFromERT):P0/12/2/179613;      [Устанавливаем продвинутое описание навыка]
+!!FU(Fun_SetDescriptionFromERT):P0/12/3/179614;      [Устанавливаем экспертное описание навыка]
+!!re y1/0/155:;               [Устанавливаем описание специализации]
+  !!HEy1:X?y2/?y3/?y4/?y5/?y6/?y7/?y8;
+  !!FU(Fun_SetDescriptionFromERT)&y2=0/y3=12:P2/y1/2/179615;
+!!en:;
+!!FU(Fun_SetDescriptionFromERT):P3/54/1/179616;      [Описание Амулета]
+!!FU(Fun_SetDescriptionFromERT):P3/55/1/179617;      [Описание Мантии]
+!!FU(Fun_SetDescriptionFromERT):P3/56/1/179618;      [Описание Сапог]
+!!FU(Fun_SetDescriptionFromERT):P3/130/1/179619;     [Описание Сборника-Плаща]
+**end
+

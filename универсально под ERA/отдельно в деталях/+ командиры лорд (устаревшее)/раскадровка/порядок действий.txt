@@ -1,0 +1,14 @@
+(≈—Ћ» ƒ≈Ћј≈ћ — Ќ”Ћя)
+cprsmall.def:
+CPrS 174n.ig2
+....
+CPrS 191n.ig2
+(и в лорде, и в воге они совпадают номерами)
+
+twcrport.def:
+CPrL 174N.w23
+...
+CPrL 191N.w23
+
+(≈—Ћ» «јћ≈Ќя≈ћ ‘ј…Ћ)
+кинуть с заменой в mods/wog/data/hmm35wog.pac

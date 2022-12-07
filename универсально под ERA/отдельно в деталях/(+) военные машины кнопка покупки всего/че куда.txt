@@ -1,0 +1,5 @@
+ERM - кидать в mods/wog scripts/data/s
+ERT - кидать в mods/wog scripts rus/data/s
+
+(строка 495 багает в хранилищах) ???
+

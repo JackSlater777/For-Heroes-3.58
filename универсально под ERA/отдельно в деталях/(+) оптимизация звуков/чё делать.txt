@@ -1,0 +1,1 @@
+Впихнуть в Mods\Wog\Data\wog.snd файл.

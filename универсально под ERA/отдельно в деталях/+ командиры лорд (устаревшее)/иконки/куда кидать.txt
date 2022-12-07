@@ -1,0 +1,3 @@
+/mods/wog/data/zvs/Lib1.res
+
+сдюкхрэ тюик!!!! mods/wog/EraPlugins/wog native dialogs.era

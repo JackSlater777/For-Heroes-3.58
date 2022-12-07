@@ -1,0 +1,7 @@
+42 wog ERM - â /mods/wog/data/s
+55 wog ERM - â /mods/wog/data/s
+
+42 wog ERT - â /mods/wog rus/data/s
+
+option 879 ERM - â /mods/ERA scripts rus/data/s
+option 879 ERT - â /mods/ERA scripts rus/data/s

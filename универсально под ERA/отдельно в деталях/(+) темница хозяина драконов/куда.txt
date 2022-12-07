@@ -1,0 +1,2 @@
+erm - /mods/wog scripts/data/s
+ert - /mods/wog scripts rus/data/s
