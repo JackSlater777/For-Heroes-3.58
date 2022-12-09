@@ -1,6 +1,6 @@
 ZVSE
 
-*** Описание пофикшенной некромантии
+*** Описание HoA Scouting
 
 !?FU(OnAfterErmInstructions); [перед началом новой игры или после загрузки старой]
 !!UN:P215/?y1;  [Check for Scouting I]
