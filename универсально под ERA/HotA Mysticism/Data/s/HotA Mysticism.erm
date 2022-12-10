@@ -1,0 +1,41 @@
+ZVSE
+
+*** ќписание HotA Mysticism
+
+!?FU(OnAfterErmInstructions); [перед началом новой игры или после загрузки старой]
+!!FU(Fun_SetDescriptionFromERT):P0/8/1/660000;[”станавливаем базовое описание навыка]
+!!FU(Fun_SetDescriptionFromERT):P0/8/2/660001;[”станавливаем продвинутое описание навыка]
+!!FU(Fun_SetDescriptionFromERT):P0/8/3/660002;[”станавливаем экспертное описание навыка]
+
+!?FU(OnAfterLoadGame);        [после загрузки]
+!!FU(Fun_SetDescriptionFromERT):P0/8/1/660000;[”станавливаем базовое описание навыка]
+!!FU(Fun_SetDescriptionFromERT):P0/8/2/660001;[”станавливаем продвинутое описание навыка]
+!!FU(Fun_SetDescriptionFromERT):P0/8/3/660002;[”станавливаем экспертное описание навыка]
+
+!?FU(WOG_Hero_GetFullSpellPoints);
+; x1 - hero id
+!!HEx1:Z?y1;                            // get hero structure
+*!HEx1:S24/?y3;                         // ѕровер€ем y3 - лвл интеллекта
+!!UN:Cy1/1145/1/?y2;                    // get hero knowledge
+!!SN:E5131040/6/y1;                     // get Intelligence power
+!!VRe1:*10 *y2;                         // emul to get max SP
+!!VRx2:Se1;                             // return max hero SP
+
+!?FU(OnEveryDay);                       // в начале нового игрового дн€ (до таймеров)
+!!OW:H-1/1/0; !!VRy1:Sv1;               // y1 - кол-во героев текущего игрока
+!!re k/1/y1:;
+  !!OW:H-1/1/k; !!VRy2:Sv1;             // y2 - номер геро€
+  !!FU(WOG_Hero_GetFullSpellPoints):Py2/?y4; // ѕолучаем y4 - максимум SP дл€ геро€ y2
+  !!HEy2:I?y3/1;                        // y3 - очки маны (SP)
+  !!FU&y3>=y4:E;                        // exit if current spell points >= maximum
+
+  !!HEy2:S8/?y5;                        // ѕровер€ем y5 - лвл мистицизма
+  !!VRy3&y5=1/j<>8:-2 +5;               // Ѕазовый мистицизм - пересчет SP с +2 до +5
+  !!VRy3&y5=2/j<>8:-3 +10;              // ѕродвинутый мистицизм - пересчет SP с +3 до +10
+  !!VRy3&y5=3/j<>8:-4 +15;              // Ёкспертный мистицизм - пересчет SP с +4 до +15
+  
+  !!VRy3&y3>y4:Sy4;                     // check for add SP > max
+  !!HEy2:Iy3/1;                         // обновление SP геро€
+!!en:;
+**end
+

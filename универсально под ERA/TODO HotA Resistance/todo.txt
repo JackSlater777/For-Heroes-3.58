@@ -1,0 +1,9 @@
+посмотреть функцию 7006 и её вызывающую. Сделать то же самое, но для SP героя (Interference)
+
+Basic Interference: lowers the power skill of the enemy hero by 10% in combat.
+
+Advanced Interference: lowers the power skill of the enemy hero by 20% in combat.
+
+Expert Interference: lowers the power skill of the enemy hero by 30% in combat.
+
+Округляется вниз, но не может быть ниже 1.
