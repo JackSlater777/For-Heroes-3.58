@@ -1,0 +1,35 @@
+{
+	"caption": {
+		"Cn_Simp": "",
+		"en_US": "Lan Fix",
+		"ru_RU": "Lan Fix"
+	},
+	"description": {
+		"full": {
+			"Cn_Simp": "",
+			"en_US": "description.txt",
+			"ru_RU": "description_rus.txt"
+		},
+		"short": {
+			"Cn_Simp": "",
+			"en_US": "Lan Fix.",
+			"ru_RU": "Фиксы для сетевой игры."
+		}
+	},
+	"author": "",
+	"homepage": "http://wforum.heroes35.net/",
+	"icon": {
+		"file": "Lan Fix.ico",
+		"index": 0
+	},
+	"mod_version": "",
+	"priority": 1,
+	"compatibility": {
+		"class": "all",
+		"entries": {}
+	},
+	"platform": "era",
+	"info_version": "3.8.x",
+	"plugins": {},
+	"category": "gameplay"
+}

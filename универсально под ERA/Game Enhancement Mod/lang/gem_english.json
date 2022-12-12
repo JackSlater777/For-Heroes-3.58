@@ -1,0 +1,81 @@
+{
+"0_gem_map": {
+
+"route_1": "@hero_name@ cannot reach this place.",
+"route_2": "The path length is: {@path_lenght@} movement points.\n\n@hero_name@ cannot reach this place on this turn.",
+"route_3": "The path length is: {@path_lenght@} movement points.\n\n@hero_name@ will have: {@hero_movepoints@} movement points.",
+
+"battlelist1": "Quick Combat Battle Options",
+"battlelist2": "Play out the battle normally",
+"battlelist3": "Use Quick Combat to resolve the battle",
+"battlelist4": "Use Quick Combat but don't cast hero spells (conserve spell points)",
+
+"battle1": "{Quick Combat is} DISABLED",
+"battle2": "{Quick Combat is} WITH MAGIC",
+"battle3": "{Quick Combat is} WITHOUT MAGIC",
+"battle4": "{Set Combat Type} BEFORE THE BATTLE",
+
+"button1hint":  "Normal battle mode button",
+"button2hint":	"Button to enable automatic battle mode using spells",
+"button3hint":	"Button to enable automatic battle mode without using spells",
+"button4hint":	"Button to enable the choice of the battle mode before the battle",
+"button5hint":	"Button for additional settings",
+"button5click":	"{Ohhh... There is a new button...}\n\nBut {Wog Scipts} mod is disabled..",
+"button6hint":	"Showing the amount of Mithril",
+"button6click":	"{Ohhh... There is a new button...}\n\nBut {Mithril Display} script is disabled.",
+"button7hint":	"Battle mode indicator",
+"buttondelete":	"Delete the buttons?\n\nI haven’t written a script to return them yet, hehe hehe",
+
+"herotake": "LOL - Nice try :P",
+"herokill": "Are you sure, that you want to {dismiss} {@hero_name@}?",
+
+"time1": "{Time:}",
+"time2": "{Battery charge:}",
+
+"battlesave": "Battlesave!",
+},
+"0_gem_hero":{
+
+"backpack": "Click to open backpack.",
+"questlog": "Click to open quest log.",
+
+},
+"0_gem_battle":{
+
+"AllwaitDescr": "Waiting for all units",
+"magog1": "Should the Magogs Fireball attack damage own troops?",
+"magog2": "Yes",
+"magog3": "No",
+},
+"0_gem_settings":{
+"out":"{Value out of range!}\n\nspecify a value from 1 to 254\n\n(more than 128 disables messages)",
+"value":"pecify a value from 1 to 254\n\n(more than 128 disables messages)",
+"realy":"Seriously?",
+"line1":"Welcome to GEM settings",
+"line2": "Autosave before battle",
+"opt2":"AUTO SAVE BEFORE BATTLE.\n\n[author: igrik] (script79 - wog)\n\nAutomatic create save game before the battle.\n\nThe save file is called {BattleSave!}",
+"line3": "Life on the map without towns",
+"opt3":"RPG mode\n\n[author: ???] (script - gem_settings)\n\nThe script allows players to live without cities",
+"line4":"Disable the free join of neutrals",
+"opt4":"DISABLE THE FREE JOIN OF NEUTRALS\n\n[author: igrik] (script79 - wog)\n\nThe script disables the free cost joining of neutral creatures.When the script is enabled, joining is possible only for money.\n\nAttention! This option will not allow you to join your abandoned monsters.\nsee option 010 Troops left will rejoin their owner",
+"line5":"Hero window in battle",
+"opt5":"THE HERO'S WINDOW IN BATTLE\n\n[author: igrik] (script79 - wog)\n\nYou can view the hero window in battle\nright click on the hero's image",
+"line6":"New interface buttons on the map",
+"opt6":"NEW INTERFACE BUTTONS\n\n[author: daemon_n, totkotoriy]\n\nButtons and indicator showing the current selection of the type of quick battle",
+"line7":"NOT_USED",
+"opt7":"NOT_USED",
+"line8":"NOT_USED",
+"opt8":"NOT_USED",
+"line9":"NOT_USED",
+"opt9":"NOT_USED",
+"hint1":"Welcome to GEM settings",
+"hint2": "Automatic save creation before every battle by human player.",
+"hint3": "Life on the map without towns",
+"hint4": "Disable free joining of neutral monsters",
+"hint5": "You can view the hero window in battle",
+"hint6": "NEW INTERFACE BUTTONS",
+"hint7": "NOT_USED",
+"hint8": "NOT_USED",
+"hint9": "NOT_USED",
+},
+}

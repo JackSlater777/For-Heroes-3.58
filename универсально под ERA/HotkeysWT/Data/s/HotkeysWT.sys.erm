@@ -1,0 +1,1778 @@
+ ZVSE
+; © Heroes 3 World Tournament - SCRIPT 02
+; Скрипт быстрого управления армий (с обновлением графики):
+;    [SHIFT] + Щелчок - разделяет отряд поровну на два.
+;    [ALT] + Щелчок - собирает в один слот войска того же типа из слотов героя/города
+;    [CTRL] + Щелчок - отделяет от отряда в свободный слот одну «единичку».
+;    [CTRL] + [SHIFT] + Щелчок - отделяет от отряда во все пустые слоты героя/города по одному существу.
+;    [ALT] + [SHIFT] + Щелчок - разделяет отряд во все пустые слоты героя/города.
+; Задействованные переменные:
+;    Функции 23015 - 23016, 23019, 23160 - 23162, 23150 - 23153, 23165, 23176 - 23180, 35490, 35493, 35420.
+;    Переменные: v6103, v6350 - v6352.
+; Также можно управлять армией или посмотреть монстра в информационной панели героя/города в правом нижнем углу окна.
+; Скрипт работает с опытом армий и артефактом Знаменя Полководца.
+; Найм войск в окне города при клике на маленьких иконках существ.
+; Есть поддерка сетевого режима
+
+; Огромнейшее спасибо: 1. автору(ам) скрипта!
+;                      2. Master Of Puppets'у!
+;                      3. Berserker'y
+;
+;-------------------------------------------------------------------------------
+; stack experience calculation (to v6100)
+!?FU23009; x1,x2 - quantities, x3,x4 - corresponding experience values
+!!VRy1:Sx1*x3;
+!!VRy2:Sx2*x4;
+!!VRy3:Sx1+x2;
+!!VRv6100:Sy1+y2:y3;
+
+;---------------разделение по shift---------------------- start
+!?FU23169;
+!!OW:C?y1; узнаем цвет текущего героя
+!!HEx1:O?y3; узнаем хозяина текущего героя
+!!FU&y1<>y3:E;
+
+!!VRv6352:Sx1;
+!!VRv6350:Sx2;
+!!FU35490:P0/1/2/3/4/5/6;
+;---------------разделение по shift---------------------- end
+
+; -------------- передать слот существ в окне города ---------------- start
+!?FU23155;
+!!if&x1=1:;
+  !!HEx2:O?y1;
+  !!HEx4:O?y3;
+  !!FU&y1<>y3:E;
+  !!HEx4:C0/x3/?y5/?y6/?y9/2;
+  !!EXx4/x3:R?y10/156/?y11/?y12;
+  !!VRy-21:S0;
+  !!VRy-22:S-1;
+  !!DO23156/-1/6/1:P1/x2/x3;
+  !!FU&y-21=0:E;
+  !!HEx4:C0/x3/-1/0/0/2;
+  !!EXx4/x3:R0/0/0/0;
+  !!HEx2:C0/y-22/y5/y6/y9/2;
+  !!EXx2/y-22:Ry10/156/y11/y12;
+!!en:;
+!!if&x1=2:;
+  !!CAx4/x5/x6:O?y1;
+  !!HEx2:O?y3;
+  !!FU&y1<>y3:E;
+  !!CAx4/x5/x6:M2/x3/?y5/?y6;
+  !!EXx4/x5/x6/x3/2&y5<>-1:A?y5/?y6/?y7;
+  !!EXx4/x5/x6/x3/2&y5<>-1:R?y10/156/?y11/?y12;
+  !!VRy-21:S0;
+  !!VRy-22:S-1;
+  !!DO23156/-1/6/1:P1/x2/x3;
+  !!FU&y-21=0:E;
+  !!CAx4/x5/x6:M2/x3/-1/0;
+  !!EXx4/x5/x6/x3/2:A-1/0/0;
+  !!EXx4/x5/x6/x3/2:R0/156/0/0;
+  !!HEx2:C0/y-22/y5/y6/y7/2;
+  !!EXx2/y-22:Ry10/156/y11/y12;
+!!en:;
+!!if&x1=3:;
+  !!CAx4/x5/x6:O?y1;
+  !!HEx2:O?y3;
+  !!FU&y1<>y3:E;
+  !!HEx2:C0/x3/?y5/?y6/?y9/2;
+  !!EXx2/x3:R?y10/156/?y11/?y12;
+  !!VRy-21:S0;
+  !!VRy-22:S-1;
+  !!DO23156/-1/6/1:P2/x3/x4/x5/x6;
+  !!FU&y-21=0:E;
+  !!HEx2:C0/x3/-1/0/0/2;
+  !!EXx2/x3:R0/0/0/0;
+  !!CAx4/x5/x6:M2/y-22/y5/y6;
+  !!EXx4/x5/x6/y-22/2:Ay5/y6/y9;
+  !!EXx4/x5/x6/y-22/2&y5<>-1:Ry10/156/y11/y12;
+!!en:;
+!?FU23156;
+!!if&x1=1:;
+  !!HEx2&x16=-1:C0/x3/?y5/?y6/?y9/2;
+  !!HEx2&x16<>-1:C0/x16/?y5/?y6/?y9/2;
+  !!if&y5=-1:;
+    !!VRy-21:S1;
+    !!VRy-22&x16=-1:Sx3;
+    !!VRy-22&x16<>-1:Sx16;
+    !!VRx16:S8;
+  !!en:;
+!!el:;
+  !!CAx3/x4/x5&x16=-1:M2/x2/?y7/?y8;
+  !!CAx3/x4/x5&x16<>-1:M2/x16/?y7/?y8;
+  !!if&y7=-1:;
+    !!VRy-21:S1;
+    !!VRy-22&x16=-1:Sx2;
+    !!VRy-22&x16<>-1:Sx16;
+    !!VRx16:S8;
+  !!en:;
+!!en:;
+; -------------- передать слот существ ---------------- end
+
+; ----------- exchange stacks ---------------------------start: перемещение стеков в маленьком окне города
+!?FU23154;
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;
+;mode 1: Hero #x1, stacks #x2, #x3, x4-x6 don't matter
+;mode 2: #x1=-2, stacks #x2, #x3, x4/x5/x6 - town coordinates
+;rem: exchange even if one slot is empty
+!!if&x1=-2:;
+!!OW:C?y1;            [узнаем цвет текущего героя]
+!!CAx4/x5/x6:O?y3;    [узнаем хозяина текущего героя]
+!!FU&y1<>y3:E;        [выход, если условие не соблюдено]
+!!EXx4/x5/x6/x2/2:A?y1/?y2/?y3;
+!!EXx4/x5/x6/x2:R?y85/?y86/?y87/?y88;
+!!EXx4/x5/x6/x3/2:A?y4/?y5/?y6;
+!!EXx4/x5/x6/x3:R?y95/?y96/?y97/?y98;
+!!CAx4/x5/x6:M2/x2/y4/y5;
+!!EXx4/x5/x6/x2/2:Ay4/y5/y6;
+!!EXx4/x5/x6/x2:Ry95/y96/y97/y98;
+!!CAx4/x5/x6:M2/x3/y1/y2;
+!!EXx4/x5/x6/x3/2:Ay1/y2/y3;
+!!EXx4/x5/x6/x3:Ry85/y86/y87/y88;
+!!el:;
+; [проверка на хозяина и того кто кликает]
+!!OW:C?y1;      [узнаем цвет текущего героя]
+!!HEx1:O?y3;    [узнаем хозяина текущего героя]
+!!FU&y1<>y3:E;  [выход, если условие не соблюдено]
+
+!!HEx1:C0/x2/?y60/?y61; узнать монстров в втором слоте
+!!HEx1:C0/x3/?y62/?y63; узнать монстров в втором слоте
+  !!if&y60=y62:; если монстры одинаковые
+    !!HEx1:C0/x2/?y5/?y6/?y9/2;
+    !!EXx1/x2:R?y81/?y82/?y83/?y84;
+    !!HEx1:C0/x3/?y7/?y8/?y10/2;
+    !!EXx1/x3:R?y91/?y92/?y93/?y94;
+    !!HEx1:C0/x3/y5/dy6/y9/0;             объеденить войско и опыт
+    !!VRy85&y81=1/y84=3:S4;               работа со знаменем
+    !!VRy85&y81=1/y84=2:S3;
+    !!VRy85&y81=1/y84=1:S2;
+    !!VRy85&y81=1/y84=0:S1;
+    !!VRy95&y91=1/y94=3:S4;
+    !!VRy95&y91=1/y94=2:S3;
+    !!VRy95&y91=1/y94=1:S2;
+    !!VRy95&y91=1/y94=0:S1;
+    !!VRy96&y81=1/y91=1:Sy85 +y95 -1;
+    !!VRy96&y81=0/y91=1:Sy85 +y95 -1;
+    !!VRy96&y81=1/y91=0:Sy85 +y95 -1;
+    !!EXx1/x3&y81=1|y91=1:R1/156/y93/y96;  ставим данные о знамене
+    !!EXx1/x3&y81=1/y91=1:R1/156/y93/y96;  ставим данные о знамене
+    !!HEx1:C0/x2/-1/-1/0/2;                удалить данные о стеке
+    !!EXx1/x2:R0/0/0/-1;                   удалить данные о знамени в стеке
+  !!el:;       если монстры не одинаковые
+    !!HEx1:C0/x2/?y5/?y6/?y9/2;
+    !!EXx1/x2:R?y81/?y82/?y83/?y84;
+    !!HEx1:C0/x3/?y7/?y8/?y10/2;
+    !!EXx1/x3:R?y91/?y92/?y93/?y94;
+    !!HEx1:C0/x3/y5/y6/y9/2;
+    !!EXx1/x3:Ry81/y82/y83/y84;
+    !!HEx1:C0/x2/y7/y8/y10/2;
+    !!EXx1/x2:Ry91/y92/y93/y94;
+  !!en:;
+!!en:;
+; ----------- exchange stacks ---------------------------end:  перемещение стеков в маленьком окне города
+
+;----------- change armies ---------------------------      обмен армий
+;change armies
+!?FU23159; Hero #x1 and garrison of town at (x2,x3,x4) exchange their armies
+;  [проверка на хозяина и того кто кликает]
+!!HEx1:O?y3;       [узнаем хозяина текущего героя]
+!!CAx2/x3/x4:O?y1; [узнаем хозяина текущего города]
+!!FU&y1<>y3:E;     [выход, если условие не соблюдено]
+; слот 0
+!!HEx1:C0/0/?y5/?y6/?y9/2;
+!!CAx2/x3/x4:M2/0/?y7/?y8;
+!!EXx2/x3/x4/0/2&y7<>-1:A?y7/?y8/?y10;
+!!EXx1/0&y5<>-1:R?y85/?y86/?y87/?y88;
+!!EXx2/x3/x4/0/2&y7=-1:R0/0/0/0;
+!!EXx2/x3/x4/0/2&y7<>-1:R?y90/?y91/?y92/?y93;
+!!CAx2/x3/x4:M2/0/y5/y6;
+!!EXx2/x3/x4/0/2:Ay5/y6/y9;
+!!HEx1:C0/0/y7/y8/y10/2;
+!!EXx1/0&y7<>-1:Ry90/y91/y92/y93;
+!!EXx2/x3/x4/0/2&y5<>-1:Ry85/y86/y87/y88;
+; слот 1
+!!HEx1:C0/1/?y5/?y6/?y9/2;
+!!CAx2/x3/x4:M2/1/?y7/?y8;
+!!EXx2/x3/x4/1/2&y7<>-1:A?y7/?y8/?y10;
+!!EXx1/1&y5<>-1:R?y85/?y86/?y87/?y88;
+!!EXx2/x3/x4/1/2&y7=-1:R0/0/0/0;
+!!EXx2/x3/x4/1/2&y7<>-1:R?y90/?y91/?y92/?y93;
+!!CAx2/x3/x4:M2/1/y5/y6;
+!!EXx2/x3/x4/1/2:Ay5/y6/y9;
+!!HEx1:C0/1/y7/y8/y10/2;
+!!EXx1/1&y7<>-1:Ry90/y91/y92/y93;
+!!EXx2/x3/x4/1/2&y5<>-1:Ry85/y86/y87/y88;
+; слот 2
+!!HEx1:C0/2/?y5/?y6/?y9/2;
+!!CAx2/x3/x4:M2/2/?y7/?y8;
+!!EXx2/x3/x4/2/2&y7<>-1:A?y7/?y8/?y10;
+!!EXx1/2&y5<>-1:R?y85/?y86/?y87/?y88;
+!!EXx2/x3/x4/2/2&y7=-1:R0/0/0/0;
+!!EXx2/x3/x4/2/2&y7<>-1:R?y90/?y91/?y92/?y93;
+!!CAx2/x3/x4:M2/2/y5/y6;
+!!EXx2/x3/x4/2/2:Ay5/y6/y9;
+!!HEx1:C0/2/y7/y8/y10/2;
+!!EXx1/2&y7<>-1:Ry90/y91/y92/y93;
+!!EXx2/x3/x4/2/2&y5<>-1:Ry85/y86/y87/y88;
+; слот 3
+!!HEx1:C0/3/?y5/?y6/?y9/2;
+!!CAx2/x3/x4:M2/3/?y7/?y8;
+!!EXx2/x3/x4/3/2&y7<>-1:A?y7/?y8/?y10;
+!!EXx1/3&y5<>-1:R?y85/?y86/?y87/?y88;
+!!EXx2/x3/x4/3/2&y7=-1:R0/0/0/0;
+!!EXx2/x3/x4/3/2&y7<>-1:R?y90/?y91/?y92/?y93;
+!!CAx2/x3/x4:M2/3/y5/y6;
+!!EXx2/x3/x4/3/2:Ay5/y6/y9;
+!!HEx1:C0/3/y7/y8/y10/2;
+!!EXx1/3&y7<>-1:Ry90/y91/y92/y93;
+!!EXx2/x3/x4/3/2&y5<>-1:Ry85/y86/y87/y88;
+; слот 4
+!!HEx1:C0/4/?y5/?y6/?y9/2;
+!!CAx2/x3/x4:M2/4/?y7/?y8;
+!!EXx2/x3/x4/4/2&y7<>-1:A?y7/?y8/?y10;
+!!EXx1/4&y5<>-1:R?y85/?y86/?y87/?y88;
+!!EXx2/x3/x4/4/2&y7=-1:R0/0/0/0;
+!!EXx2/x3/x4/4/2&y7<>-1:R?y90/?y91/?y92/?y93;
+!!CAx2/x3/x4:M2/4/y5/y6;
+!!EXx2/x3/x4/4/2:Ay5/y6/y9;
+!!HEx1:C0/4/y7/y8/y10/2;
+!!EXx1/4&y7<>-1:Ry90/y91/y92/y93;
+!!EXx2/x3/x4/4/2&y5<>-1:Ry85/y86/y87/y88;
+; слот 5
+!!HEx1:C0/5/?y5/?y6/?y9/2;
+!!CAx2/x3/x4:M2/5/?y7/?y8;
+!!EXx2/x3/x4/5/2&y7<>-1:A?y7/?y8/?y10;
+!!EXx1/5&y5<>-1:R?y85/?y86/?y87/?y88;
+!!EXx2/x3/x4/5/2&y7=-1:R0/0/0/0;
+!!EXx2/x3/x4/5/2&y7<>-1:R?y90/?y91/?y92/?y93;
+!!CAx2/x3/x4:M2/5/y5/y6;
+!!EXx2/x3/x4/5/2:Ay5/y6/y9;
+!!HEx1:C0/5/y7/y8/y10/2;
+!!EXx1/5&y7<>-1:Ry90/y91/y92/y93;
+!!EXx2/x3/x4/5/2&y5<>-1:Ry85/y86/y87/y88;
+; слот 6
+!!HEx1:C0/6/?y5/?y6/?y9/2;
+!!CAx2/x3/x4:M2/6/?y7/?y8;
+!!EXx2/x3/x4/6/2&y7<>-1:A?y7/?y8/?y10;
+!!EXx1/6&y5<>-1:R?y85/?y86/?y87/?y88;
+!!EXx2/x3/x4/6/2&y7=-1:R0/0/0/0;
+!!EXx2/x3/x4/6/2&y7<>-1:R?y90/?y91/?y92/?y93;
+!!CAx2/x3/x4:M2/6/y5/y6;
+!!EXx2/x3/x4/6/2:Ay5/y6/y9;
+!!HEx1:C0/6/y7/y8/y10/2;
+!!EXx1/6&y7<>-1:Ry90/y91/y92/y93;
+!!EXx2/x3/x4/6/2&y5<>-1:Ry85/y86/y87/y88;
+
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;
+;change armies
+!?FU23160; Heroes #x1 and #x2 exchange their armies
+!!HEx1:O?y1;          [узнаем хозяина текущего героя]
+!!HEx2:O?y3;          [узнаем хозяина текущего героя]
+!!FU&y1<>y3:E;        [выход, если условие не соблюдено]
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;
+; слот 0
+!!HEx1:C0/0/?y5/?y6/?y9/2;
+!!HEx2:C0/0/?y7/?y8/?y10/2;
+!!EXx1/0:R?y10/156/?y11/?y12;
+!!EXx2/0:R?y13/156/?y14/?y15;
+!!HEx2:C0/0/y5/y6/y9/2;
+!!HEx1:C0/0/y7/y8/y10/2;
+!!EXx2/0:Ry10/156/y11/y12;
+!!EXx1/0:Ry13/156/y14/y15;
+; слот 1
+!!HEx1:C0/1/?y5/?y6/?y9/2;
+!!HEx2:C0/1/?y7/?y8/?y10/2;
+!!EXx1/1:R?y10/156/?y11/?y12;
+!!EXx2/1:R?y13/156/?y14/?y15;
+!!HEx2:C0/1/y5/y6/y9/2;
+!!HEx1:C0/1/y7/y8/y10/2;
+!!EXx2/1:Ry10/156/y11/y12;
+!!EXx1/1:Ry13/156/y14/y15;
+; слот 2
+!!HEx1:C0/2/?y5/?y6/?y9/2;
+!!HEx2:C0/2/?y7/?y8/?y10/2;
+!!EXx1/2:R?y10/156/?y11/?y12;
+!!EXx2/2:R?y13/156/?y14/?y15;
+!!HEx2:C0/2/y5/y6/y9/2;
+!!HEx1:C0/2/y7/y8/y10/2;
+!!EXx2/2:Ry10/156/y11/y12;
+!!EXx1/2:Ry13/156/y14/y15;
+; слот 3
+!!HEx1:C0/3/?y5/?y6/?y9/2;
+!!HEx2:C0/3/?y7/?y8/?y10/2;
+!!EXx1/3:R?y10/156/?y11/?y12;
+!!EXx2/3:R?y13/156/?y14/?y15;
+!!HEx2:C0/3/y5/y6/y9/2;
+!!HEx1:C0/3/y7/y8/y10/2;
+!!EXx2/3:Ry10/156/y11/y12;
+!!EXx1/3:Ry13/156/y14/y15;
+; слот 4
+!!HEx1:C0/4/?y5/?y6/?y9/2;
+!!HEx2:C0/4/?y7/?y8/?y10/2;
+!!EXx1/4:R?y10/156/?y11/?y12;
+!!EXx2/4:R?y13/156/?y14/?y15;
+!!HEx2:C0/4/y5/y6/y9/2;
+!!HEx1:C0/4/y7/y8/y10/2;
+!!EXx2/4:Ry10/156/y11/y12;
+!!EXx1/4:Ry13/156/y14/y15;
+; слот 5
+!!HEx1:C0/5/?y5/?y6/?y9/2;
+!!HEx2:C0/5/?y7/?y8/?y10/2;
+!!EXx1/5:R?y10/156/?y11/?y12;
+!!EXx2/5:R?y13/156/?y14/?y15;
+!!HEx2:C0/5/y5/y6/y9/2;
+!!HEx1:C0/5/y7/y8/y10/2;
+!!EXx2/5:Ry10/156/y11/y12;
+!!EXx1/5:Ry13/156/y14/y15;
+; слот 6
+!!HEx1:C0/6/?y5/?y6/?y9/2;
+!!HEx2:C0/6/?y7/?y8/?y10/2;
+!!EXx1/6:R?y10/156/?y11/?y12;
+!!EXx2/6:R?y13/156/?y14/?y15;
+!!HEx2:C0/6/y5/y6/y9/2;
+!!HEx1:C0/6/y7/y8/y10/2;
+!!EXx2/6:Ry10/156/y11/y12;
+!!EXx1/6:Ry13/156/y14/y15;
+----------- change armies ---------------------------
+
+----------- spread army ---------------------------
+; spread army by 1 in empty slots (hero)
+!?FU23161; x1 = hero's slot number (0..6)
+         ; x2 = hero's number
+         ; x3 = mode (0 - split to all free slots, 1 - split once)
+
+;  [проверка на хозяина и того кто кликает]
+!!OW:C?y1;      [узнаем цвет текущего героя]
+!!HEx2:O?y3;    [узнаем хозяина текущего героя]
+!!FU&y1<>y3:E;  [выход, если условие не соблюдено]
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;
+
+!!HEx2:C0/x1/?y3/?y8/?y7/2; y3 = type of monsters, y8 = quantity, ; y7 = creature expirience
+!!VRy4:Sy8; y4 = current quantity
+;slot #0
+!!IF:V5/0;
+!!HEx2:C0/0/?y5/?y6;
+!!IF&x1<>0/y4>1/y6=0:V5/1; CF#5=1 iff monster have to be placed in current slot
+!!HEx2&5:C0/0/y3/1/y7/2; monster was placed
+!!VRy4&5:Sd-1; counter decreased by 1
+;slot #1
+!!IF:V5/0;
+!!HEx2:C0/1/?y5/?y6;
+!!IF&x1<>1/y4>1/y6=0:V5/1;
+!!IF&x3=1/y4<y8:V5/0; reset back for 'split 1 creature' mode
+!!HEx2&5:C0/1/y3/1/y7/2;
+!!VRy4&5:Sd-1;
+;slot #2
+!!IF:V5/0;
+!!HEx2:C0/2/?y5/?y6;
+!!IF&x1<>2/y4>1/y6=0:V5/1;
+!!IF&x3=1/y4<y8:V5/0;
+!!HEx2&5:C0/2/y3/1/y7/2;
+!!VRy4&5:Sd-1;
+;slot #3
+!!IF:V5/0;
+!!HEx2:C0/3/?y5/?y6;
+!!IF&x1<>3/y4>1/y6=0:V5/1;
+!!IF&x3=1/y4<y8:V5/0;
+!!HEx2&5:C0/3/y3/1/y7/2;
+!!VRy4&5:Sd-1;
+;slot #4
+!!IF:V5/0;
+!!HEx2:C0/4/?y5/?y6;
+!!IF&x1<>4/y4>1/y6=0:V5/1;
+!!IF&x3=1/y4<y8:V5/0;
+!!HEx2&5:C0/4/y3/1/y7/2;
+!!VRy4&5:Sd-1;
+;slot #5
+!!IF:V5/0;
+!!HEx2:C0/5/?y5/?y6;
+!!IF&x1<>5/y4>1/y6=0:V5/1;
+!!IF&x3=1/y4<y8:V5/0;
+!!HEx2&5:C0/5/y3/1/y7/2;
+!!VRy4&5:Sd-1;
+;slot #6
+!!IF:V5/0;
+!!HEx2:C0/6/?y5/?y6;
+!!IF&x1<>6/y4>1/y6=0:V5/1;
+!!IF&x3=1/y4<y8:V5/0;
+!!HEx2&5:C0/6/y3/1/y7/2;
+!!VRy4&5:Sd-1;
+;set 'from' slot
+!!HEx2:C0/x1/y3/y4/y7/2; the initial stack quantity is set
+
+
+; spread army by 1 in empty slots (town garrison)
+!?FU23162; x1 = slot number (0..6)
+         ; x2,x3,x4 - town's coordinates
+         ; x5 = mode (0 - split to all free slots, 1 - split once)
+
+; [проверка на хозяина и того кто кликает]
+!!CAx2/x3/x4:O?y1;   [узнаем цвет текущего города]
+!!OW:C?y3;           [узнаем хозяина текущего героя]
+!!FU&y1<>y3:E;       [выход, если условие не соблюдено]
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;
+
+!!EXx2/x3/x4/x1/2:A?y3/?y8/?y7; y3 = type of monsters, y8 = quantity, ; y7 = creature expirience
+!!VRy4:Sy8; y4 = current quantity
+;slot #0
+!!IF:V5/0;
+!!EXx2/x3/x4/0/2:A?y5/?y6/d; what monsters are in current slot?
+!!IF&x1<>0/y4>1/y6=0:V5/1; CF#5=1 iff monster have to be placed in current slot
+!!VRy4&5:Sd-1; counter decreased by 1
+!!CAx2/x3/x4&5:M2/0/y3/1; monster was placed
+!!EXx2/x3/x4/0/2&5:Ay3/1/y7; set its expirience
+;slot #1
+!!IF:V5/0;
+!!EXx2/x3/x4/1/2:A?y5/?y6/d;
+!!IF&x1<>1/y4>1/y6=0:V5/1;
+!!IF&x5=1/y4<y8:V5/0; reset back for 'split 1 creature' mode
+!!VRy4&5:Sd-1;
+!!CAx2/x3/x4&5:M2/1/y3/1;
+!!EXx2/x3/x4/1/2&5:Ay3/1/y7;
+;slot #2
+!!IF:V5/0;
+!!EXx2/x3/x4/2/2:A?y5/?y6/d;
+!!IF&x1<>2/y4>1/y6=0:V5/1;
+!!IF&x5=1/y4<y8:V5/0;
+!!VRy4&5:Sd-1;
+!!CAx2/x3/x4&5:M2/2/y3/1;
+!!EXx2/x3/x4/2/2&5:Ay3/1/y7;
+;slot #3
+!!IF:V5/0;
+!!EXx2/x3/x4/3/2:A?y5/?y6/d;
+!!IF&x1<>3/y4>1/y6=0:V5/1;
+!!IF&x5=1/y4<y8:V5/0;
+!!VRy4&5:Sd-1;
+!!CAx2/x3/x4&5:M2/3/y3/1;
+!!EXx2/x3/x4/3/2&5:Ay3/1/y7;
+;slot #4
+!!IF:V5/0;
+!!EXx2/x3/x4/4/2:A?y5/?y6/d;
+!!IF&x1<>4/y4>1/y6=0:V5/1;
+!!IF&x5=1/y4<y8:V5/0;
+!!VRy4&5:Sd-1;
+!!CAx2/x3/x4&5:M2/4/y3/1;
+!!EXx2/x3/x4/4/2&5:Ay3/1/y7;
+;slot #5
+!!IF:V5/0;
+!!EXx2/x3/x4/5/2:A?y5/?y6/d;
+!!IF&x1<>5/y4>1/y6=0:V5/1;
+!!IF&x5=1/y4<y8:V5/0;
+!!VRy4&5:Sd-1;
+!!CAx2/x3/x4&5:M2/5/y3/1;
+!!EXx2/x3/x4/5/2&5:Ay3/1/y7;
+;slot #6
+!!IF:V5/0;
+!!EXx2/x3/x4/6/2:A?y5/?y6/d;
+!!IF&x1<>6/y4>1/y6=0:V5/1;
+!!IF&x5=1/y4<y8:V5/0;
+!!VRy4&5:Sd-1;
+!!CAx2/x3/x4&5:M2/6/y3/1;
+!!EXx2/x3/x4/6/2&5:Ay3/1/y7;
+;set 'from' slot
+!!CAx2/x3/x4:M2/x1/y3/y4; the initial stack quantity is set
+!!EXx2/x3/x4/x1/2:Ay3/y4/y7;
+----------- spread army ---------------------------
+
+----------- consolidate troops ----------------------
+; consolidate two stacks (town garrison)
+!?FU23150; x1 = slot 'from', x2 = slot 'to' (0..6)
+         ; x3,x4,x5 - town's coordinates
+; [проверка на хозяина и того кто кликает]
+!!CAx3/x4/x5:O?y1;   [узнаем цвет текущего города]
+!!OW:C?y3;           [узнаем хозяина текущего героя]
+!!FU&y1<>y3:E;       [выход, если условие не соблюдено]
+
+!!EXx3/x4/x5/x1/2:A?y1/?y2/?y3; y1 = type of monsters, y2 = quantity, y3 = creature expirience
+!!EXx3/x4/x5/x2/2:A?y5/?y6/?y7; y5 = type of monsters, y6 = quantity, y7 = creature expirience
+!!FU|y2=0/y1<>y5:E; exit if slot is empty or if different troops
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;
+!!FU23009:Py2/y6/y3/y7; calculate average experience
+*!FU35493:Px2/x3/x4/x5; функция работы со знаменем
+!!VRy6:+y2; new quantity
+!!VRy7:Sv6100; new expirience
+!!CAx3/x4/x5:M2/x2/y1/y6; monster was placed
+!!EXx3/x4/x5/x2/2:Ay1/y6/y7; set its expirience
+!!CAx3/x4/x5:M2/x1/-1/0; remove
+!!EXx3/x4/x5/x1/2:A-1/0/0;
+
+; consolidate two stacks (hero)
+!?FU23151; x1 = hero ID, x2 = slot 'from', x3 = slot 'to' (0..6)
+!!HEx1:C0/x2/?y1/?y2/?y3/2;
+!!HEx1:C0/x3/?y5/?y6/?y7/2;
+!!FU|y2=0/y1<>y5:E; exit if slot is empty or if different troops
+!!FU23009:Py2/y6/y3/y7; calculate average experience
+!!VRy6:+y2; new quantity
+!!VRy7:Sv6100; new expirience
+!!HEx1:C0/x3/y1/y6/y7/2; add
+!!HEx1:C0/x2/-1/0/0/2; remove
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;
+; consolidate army (town garrison)
+!?FU23153; x1 = slot number (0..6)
+         ; x2,x3,x4 - town's coordinates
+; [проверка на хозяина и того кто кликает]
+!!CAx2/x3/x4:O?y1;   [узнаем цвет текущего города]
+!!OW:C?y3;           [узнаем хозяина текущего героя]
+!!FU&y1<>y3:E;       [выход, если условие не соблюдено]
+
+!!EXx2/x3/x4/x1/2:A?y5/?y6/?y7; y5 = type of monsters, y6 = quantity, y7 = creature expirience
+!!FU&y6=0:E; exit if slot is empty
+!!FU35493:Px1/x2/x3/x4; функция работы со знаменем
+! !IF:M^slot %X1 quant %Y6^;
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;
+;slot 0
+!!EXx2/x3/x4/0/2:A?y1/?y2/?y3; check current slot
+!!if&x1<>0/y1=y5:; if it's not target slot and monsters have the same type
+!!FU23009:Py2/y6/y3/y7; calculate average experience
+!!VRy6:+y2; new quantity
+!!VRy7:Sv6100; new expirience
+!!CAx2/x3/x4:M2/x1/y1/y6; monster was placed
+!!EXx2/x3/x4/x1/2:Ay1/y6/y7; set its expirience
+!!CAx2/x3/x4:M2/0/-1/0; remove
+!!EXx2/x3/x4/0/2:A-1/0/0;
+!!en:;
+;slot 1
+!!EXx2/x3/x4/1/2:A?y1/?y2/?y3;
+!!if&x1<>1/y1=y5:;
+!!FU23009:Py2/y6/y3/y7;
+!!VRy6:+y2;
+!!VRy7:Sv6100;
+!!CAx2/x3/x4:M2/x1/y1/y6;
+!!EXx2/x3/x4/x1/2:Ay1/y6/y7;
+!!CAx2/x3/x4:M2/1/-1/0;
+!!EXx2/x3/x4/1/2:A-1/0/0;
+!!en:;
+;slot 2
+!!EXx2/x3/x4/2/2:A?y1/?y2/?y3;
+!!if&x1<>2/y1=y5:;
+!!FU23009:Py2/y6/y3/y7;
+!!VRy6:+y2;
+!!VRy7:Sv6100;
+!!CAx2/x3/x4:M2/x1/y1/y6;
+!!EXx2/x3/x4/x1/2:Ay1/y6/y7;
+!!CAx2/x3/x4:M2/2/-1/0;
+!!EXx2/x3/x4/2/2:A-1/0/0;
+!!en:;
+;slot 3
+!!EXx2/x3/x4/3/2:A?y1/?y2/?y3;
+!!if&x1<>3/y1=y5:;
+!!FU23009:Py2/y6/y3/y7;
+!!VRy6:+y2;
+!!VRy7:Sv6100;
+!!CAx2/x3/x4:M2/x1/y1/y6;
+!!EXx2/x3/x4/x1/2:Ay1/y6/y7;
+!!CAx2/x3/x4:M2/3/-1/0;
+!!EXx2/x3/x4/3/2:A-1/0/0;
+!!en:;
+;slot 4
+!!EXx2/x3/x4/4/2:A?y1/?y2/?y3;
+!!if&x1<>4/y1=y5:;
+!!FU23009:Py2/y6/y3/y7;
+!!VRy6:+y2;
+!!VRy7:Sv6100;
+!!CAx2/x3/x4:M2/x1/y1/y6;
+!!EXx2/x3/x4/x1/2:Ay1/y6/y7;
+!!CAx2/x3/x4:M2/4/-1/0;
+!!EXx2/x3/x4/4/2:A-1/0/0;
+!!en:;
+;slot 5
+!!EXx2/x3/x4/5/2:A?y1/?y2/?y3;
+!!if&x1<>5/y1=y5:;
+!!FU23009:Py2/y6/y3/y7;
+!!VRy6:+y2;
+!!VRy7:Sv6100;
+!!CAx2/x3/x4:M2/x1/y1/y6;
+!!EXx2/x3/x4/x1/2:Ay1/y6/y7;
+!!CAx2/x3/x4:M2/5/-1/0;
+!!EXx2/x3/x4/5/2:A-1/0/0;
+!!en:;
+;slot 6
+!!EXx2/x3/x4/6/2:A?y1/?y2/?y3;
+!!if&x1<>6/y1=y5:;
+!!FU23009:Py2/y6/y3/y7;
+!!VRy6:+y2;
+!!VRy7:Sv6100;
+!!CAx2/x3/x4:M2/x1/y1/y6;
+!!EXx2/x3/x4/x1/2:Ay1/y6/y7;
+!!CAx2/x3/x4:M2/6/-1/0;
+!!EXx2/x3/x4/6/2:A-1/0/0;
+!!en:;
+
+
+!?FU23165; Hero #x1 consolidate at stack #x2 all his same troops
+;  [проверка на хозяина и того кто кликает]
+!!OW:C?y1;      [узнаем цвет текущего героя]
+!!HEx1:O?y3;    [узнаем хозяина текущего героя]
+!!FU&y1<>y3:E;  [выход, если условие не соблюдено]
+
+!!HEx1:C0/x2/?y5/?y6/?y7/2;
+!!FU&y6=0:E; exit if slot is empty
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;
+!!EXx1/x2:R?y92/?y93/?y94/?y95;     узнаем расширенно о знамени
+  !!if&y92=1:; y82 хранит настройки арта. у80 хранит кол-во, артов y81 флаг
+     !!VRy83:S1;   флаг
+     !!VRy80:Sy95; количество
+     !!VRy82:Sy94; настройки
+  !!en:;
+
+;slot 0
+!!HEx1:C0/0/?y8/?y9/?y10/2;
+!!EXx1/0:R?y92/?y93/?y94/?y95;
+  !!if&y92=1/x2<>0/y5=y8:;
+     !!VRy81:S1;
+     !!VRy80&y95>=3:+3;
+     !!VRy80&y95=2:+3;
+     !!VRy80&y95=1:+2;
+     !!VRy80&y95=0:+1;
+  !!en:;
+!!HEx1&x2<>0/y5=y8:C0/x2/d/dy9/y10/0; add
+!!HEx1&x2<>0/y5=y8:C0/0/-1/0/0/2; remove
+
+ ;slot 1
+!!HEx1:C0/1/?y8/?y9/?y10/2;
+!!EXx1/1:R?y92/?y93/?y94/?y95;
+  !!if&y92=1/x2<>1/y5=y8:;
+     !!VRy81:S1;
+     !!VRy80&y95>=3:+3;
+     !!VRy80&y95=2:+3;
+     !!VRy80&y95=1:+2;
+     !!VRy80&y95=0:+1;
+  !!en:;
+!!HEx1&x2<>1/y5=y8:C0/x2/d/dy9/y10/0;
+!!HEx1&x2<>1/y5=y8:C0/1/-1/0/0/2;
+;slot 2
+!!HEx1:C0/2/?y8/?y9/?y10/2;
+!!EXx1/2:R?y92/?y93/?y94/?y95;
+  !!if&y92=1/x2<>2/y5=y8:;
+     !!VRy81:S1;
+     !!VRy80&y95>=3:+3;
+     !!VRy80&y95=2:+3;
+     !!VRy80&y95=1:+2;
+     !!VRy80&y95=0:+1;
+  !!en:;
+!!HEx1&x2<>2/y5=y8:C0/x2/d/dy9/y10/0;
+!!HEx1&x2<>2/y5=y8:C0/2/-1/0/0/2;
+;slot 3
+!!HEx1:C0/3/?y8/?y9/?y10/2;
+!!EXx1/3:R?y92/?y93/?y94/?y95;
+  !!if&y92=1/x2<>3/y5=y8:;
+     !!VRy81:S1;
+     !!VRy80&y95>=3:+3;
+     !!VRy80&y95=2:+3;
+     !!VRy80&y95=1:+2;
+     !!VRy80&y95=0:+1;
+  !!en:;
+!!HEx1&x2<>3/y5=y8:C0/x2/d/dy9/y10/0;
+!!HEx1&x2<>3/y5=y8:C0/3/-1/0/0/2;
+;slot 4
+!!HEx1:C0/4/?y8/?y9/?y10/2;
+!!EXx1/4:R?y92/?y93/?y94/?y95;
+  !!if&y92=1/x2<>4/y5=y8:;
+     !!VRy81:S1;
+     !!VRy80&y95>=3:+3;
+     !!VRy80&y95=2:+3;
+     !!VRy80&y95=1:+2;
+     !!VRy80&y95=0:+1;
+  !!en:;
+!!HEx1&x2<>4/y5=y8:C0/x2/d/dy9/y10/0;
+!!HEx1&x2<>4/y5=y8:C0/4/-1/0/0/2;
+;slot 5
+!!HEx1:C0/5/?y8/?y9/?y10/2;
+!!EXx1/5:R?y92/?y93/?y94/?y95;
+  !!if&y92=1/x2<>5/y5=y8:;
+     !!VRy81:S1;
+     !!VRy80&y95>=3:+3;
+     !!VRy80&y95=2:+3;
+     !!VRy80&y95=1:+2;
+     !!VRy80&y95=0:+1;
+  !!en:;
+!!HEx1&x2<>5/y5=y8:C0/x2/d/dy9/y10/0;
+!!HEx1&x2<>5/y5=y8:C0/5/-1/0/0/2;
+;slot 6
+!!HEx1:C0/6/?y8/?y9/?y10/2;
+!!EXx1/6:R?y92/?y93/?y94/?y95;
+  !!if&y92=1/x2<>6/y5=y8:;
+     !!VRy81:S1;
+     !!VRy80&y95>=3:+3;
+     !!VRy80&y95=2:+3;
+     !!VRy80&y95=1:+2;
+     !!VRy80&y95=0:+1;
+  !!en:;
+!!HEx1&x2<>6/y5=y8:C0/x2/d/dy9/y10/0;
+!!HEx1&x2<>6/y5=y8:C0/6/-1/0/0/2;
+
+
+!!VRy80&y81=1/y83<>1:-1;
+!!VRy80&y81=1/y83<>1/y80>3:S3;
+!!EXx1/x2&y81=1:R1/156/y82/y80;     ставим знамя
+----------- consolidate troops ----------------------
+
+
+----------- set current hero ---------------------------
+!?FU23176; x1/x2/x3 - clicked position on map
+!!OW:H-1/6130;  v6130 = number of current player's heroes; v6131,v6132... - their numbers
+!!VRy8:Sv6130+6130; y8 = # of 'v' variable last hero number stored in
+!!VRv1:C-1/-1/-1/1;
+!!DO23177/6131/y8/1:Px1/x2/x3;
+!!FU&v1=-1:E; exit if no hero on this square
+!!HEv1/v2/v3&v4=1:N?y1; ; one hero case
+!!CAv1/v2/v3&v4=-1:H1/?y1; ; two heroes case, get visitor number
+!!OW:A-1/y1; set active hero
+!!UN:R1; redraw screen
+! !CM:R0;
+
+!?FU23177; x1/x2/x3 - clicked position on map, vx16 - tested hero
+!!HEvx16:P?y1/?y2/?y3;
+!!VRv4&x1=y1/x2=y2/x3=y3/v1>-1:S-1; case of two heroes in a town
+!!VRv1&x1=y1/x2=y2/x3=y3/v1=-1:Cy1/y2/y3; save hero coordinates
+----------- set current hero ---------------------------------------------------
+
+----------- divide stack on equal parts ----------------------------------------
+; divide stack on equal parts (hero)
+!?FU23178; x1 = hero's slot number (0..6)
+         ; x2 = hero's number
+;  [проверка на хозяина и того кто кликает]
+!!OW:C?y1;      [узнаем цвет текущего героя]
+!!HEx2:O?y3;    [узнаем хозяина текущего героя]
+!!FU&y1<>y3:E;  [выход, если условие не соблюдено]
+
+
+!!HEx2:C0/x1/?y1/?y2/?y3/2; y1 = type of monsters, y2 = quantity, y3 = creature expirience
+!!FU&y2=0:E;
+!!FU23019:P0/x2/-1/0; calculate number of hero empty slots (y-90)
+!!FU&y-90=0:E; no empty slots
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;
+!!VRy4:Sy-90+1; add clicked slot
+!!VRy5:Sy2:y4; integer part
+!!VRy6:Sy5+1;
+!!VRy7:Sy2%y4; division reminder
+;clicked slot
+!!HEx2&y7=0:C0/x1/y1/y5/y3/2;
+!!HEx2&y7>0:C0/x1/y1/y6/y3/2;
+!!VRy7&y7>0:-1;
+;slot 0
+!!HEx2:C0/0/?y99/?y8/?y99/2;
+!!HEx2&y7=0/y8=0:C0/0/y1/y5/y3/2;
+!!HEx2&y7>0/y8=0:C0/0/y1/y6/y3/2;
+!!VRy7&y7>0/y8=0:-1;
+;slot 1
+!!HEx2:C0/1/?y99/?y8/?y99/2;
+!!HEx2&y7=0/y8=0:C0/1/y1/y5/y3/2;
+!!HEx2&y7>0/y8=0:C0/1/y1/y6/y3/2;
+!!VRy7&y7>0/y8=0:-1;
+;slot 2
+!!HEx2:C0/2/?y99/?y8/?y99/2;
+!!HEx2&y7=0/y8=0:C0/2/y1/y5/y3/2;
+!!HEx2&y7>0/y8=0:C0/2/y1/y6/y3/2;
+!!VRy7&y7>0/y8=0:-1;
+;slot 3
+!!HEx2:C0/3/?y99/?y8/?y99/2;
+!!HEx2&y7=0/y8=0:C0/3/y1/y5/y3/2;
+!!HEx2&y7>0/y8=0:C0/3/y1/y6/y3/2;
+!!VRy7&y7>0/y8=0:-1;
+;slot 4
+!!HEx2:C0/4/?y99/?y8/?y99/2;
+!!HEx2&y7=0/y8=0:C0/4/y1/y5/y3/2;
+!!HEx2&y7>0/y8=0:C0/4/y1/y6/y3/2;
+!!VRy7&y7>0/y8=0:-1;
+;slot 5
+!!HEx2:C0/5/?y99/?y8/?y99/2;
+!!HEx2&y7=0/y8=0:C0/5/y1/y5/y3/2;
+!!HEx2&y7>0/y8=0:C0/5/y1/y6/y3/2;
+!!VRy7&y7>0/y8=0:-1;
+;slot 6
+!!HEx2:C0/6/?y99/?y8/?y99/2;
+!!HEx2&y7=0/y8=0:C0/6/y1/y5/y3/2;
+!!HEx2&y7>0/y8=0:C0/6/y1/y6/y3/2;
+!!VRy7&y7>0/y8=0:-1;
+
+; divide stack on equal parts (town)
+!?FU23179; x1 = town's slot number (0..6)
+         ; x2/x3/x4 - town's coordinates
+
+; [проверка на хозяина и того кто кликает]
+!!CAx2/x3/x4:O?y1;   [узнаем цвет текущего города]
+!!OW:C?y3;           [узнаем хозяина текущего героя]
+!!FU&y1<>y3:E;       [выход, если условие не соблюдено]
+
+!!EXx2/x3/x4/x1/2:A?y1/?y2/?y3; y1 = type of monsters, y2 = quantity, y3 = creature expirience
+!!FU&y2=0:E;
+!!FU23019:P0/x2/x3/x4; calculate number of town empty slots (y-90)
+!!FU&y-90=0:E; no empty slots
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;
+!!VRy4:Sy-90+1; add clicked slot
+!!VRy5:Sy2:y4; integer part
+!!VRy6:Sy5+1;
+!!VRy7:Sy2%y4; division reminder
+;clicked slot
+!!CAx2/x3/x4&y7=0:M2/x1/y1/y5;
+!!EXx2/x3/x4/x1/2&y7=0:Ay1/y5/y3;
+!!CAx2/x3/x4&y7>0:M2/x1/y1/y6;
+!!EXx2/x3/x4/x1/2&y7>0:Ay1/y6/y3;
+!!VRy7&y7>0:-1;
+;slot 0
+!!EXx2/x3/x4/0/2:A?y99/?y8/?y99;
+!!CAx2/x3/x4&y7=0/y8=0:M2/0/y1/y5;
+!!EXx2/x3/x4/0/2&y7=0/y8=0:Ay1/y5/y3;
+!!CAx2/x3/x4&y7>0/y8=0:M2/0/y1/y6;
+!!EXx2/x3/x4/0/2&y7>0/y8=0:Ay1/y6/y3;
+!!VRy7&y7>0/y8=0:-1;
+;slot 1
+!!EXx2/x3/x4/1/2:A?y99/?y8/?y99;
+!!CAx2/x3/x4&y7=0/y8=0:M2/1/y1/y5;
+!!EXx2/x3/x4/1/2&y7=0/y8=0:Ay1/y5/y3;
+!!CAx2/x3/x4&y7>0/y8=0:M2/1/y1/y6;
+!!EXx2/x3/x4/1/2&y7>0/y8=0:Ay1/y6/y3;
+!!VRy7&y7>0/y8=0:-1;
+;slot 2
+!!EXx2/x3/x4/2/2:A?y99/?y8/?y99;
+!!CAx2/x3/x4&y7=0/y8=0:M2/2/y1/y5;
+!!EXx2/x3/x4/2/2&y7=0/y8=0:Ay1/y5/y3;
+!!CAx2/x3/x4&y7>0/y8=0:M2/2/y1/y6;
+!!EXx2/x3/x4/2/2&y7>0/y8=0:Ay1/y6/y3;
+!!VRy7&y7>0/y8=0:-1;
+;slot 3
+!!EXx2/x3/x4/3/2:A?y99/?y8/?y99;
+!!CAx2/x3/x4&y7=0/y8=0:M2/3/y1/y5;
+!!EXx2/x3/x4/3/2&y7=0/y8=0:Ay1/y5/y3;
+!!CAx2/x3/x4&y7>0/y8=0:M2/3/y1/y6;
+!!EXx2/x3/x4/3/2&y7>0/y8=0:Ay1/y6/y3;
+!!VRy7&y7>0/y8=0:-1;
+;slot 4
+!!EXx2/x3/x4/4/2:A?y99/?y8/?y99;
+!!CAx2/x3/x4&y7=0/y8=0:M2/4/y1/y5;
+!!EXx2/x3/x4/4/2&y7=0/y8=0:Ay1/y5/y3;
+!!CAx2/x3/x4&y7>0/y8=0:M2/4/y1/y6;
+!!EXx2/x3/x4/4/2&y7>0/y8=0:Ay1/y6/y3;
+!!VRy7&y7>0/y8=0:-1;
+;slot 5
+!!EXx2/x3/x4/5/2:A?y99/?y8/?y99;
+!!CAx2/x3/x4&y7=0/y8=0:M2/5/y1/y5;
+!!EXx2/x3/x4/5/2&y7=0/y8=0:Ay1/y5/y3;
+!!CAx2/x3/x4&y7>0/y8=0:M2/5/y1/y6;
+!!EXx2/x3/x4/5/2&y7>0/y8=0:Ay1/y6/y3;
+!!VRy7&y7>0/y8=0:-1;
+;slot 6
+!!EXx2/x3/x4/6/2:A?y99/?y8/?y99;
+!!CAx2/x3/x4&y7=0/y8=0:M2/6/y1/y5;
+!!EXx2/x3/x4/6/2&y7=0/y8=0:Ay1/y5/y3;
+!!CAx2/x3/x4&y7>0/y8=0:M2/6/y1/y6;
+!!EXx2/x3/x4/6/2&y7>0/y8=0:Ay1/y6/y3;
+!!VRy7&y7>0/y8=0:-1;
+
+
+; разделение по shift в ещё один слот (town)  by [igrik]
+!?FU23180; x1 = номер слота города (0..6)
+         ; x2/x3/x4 - координаты города
+!!CAx2/x3/x4:O?y1;   [узнаем цвет текущего города]
+!!OW:C?y3;           [узнаем хозяина текущего героя]
+!!FU&y1<>y3:E;       [выход, если условие не соблюдено]
+
+!!EXx2/x3/x4/x1/2:A?y1/?y2/?y3; y1 = тип монстра, y2 = кол-во, y3 = опыт стека
+!!EXx2/x3/x4/x1/2:R?y21/?y22/?y23/?y24; о знамени
+!!FU&y2<2:E;
+!!FU23019:P0/x2/x3/x4; считаем кол-во пустых слотов в городе (y-90)
+!!VRy50:Sy-90;         передаем кол-во пустых слотов в у50
+!!FU&y50=0:E;          выход, если пустых слотов нет
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;
+!!VRy11:Sy2 :2;           устанавливаем кол-во монстров
+!!VRy10:Sy2 -y11;      y10 - кол.в щелкн. стеке, у11 - кол. в передаваемый стек
+!!CAx2/x3/x4:M2/x1/y1/y10;
+!!EXx2/x3/x4/x1/2:Ay1/y10/y3; установка пониженного кол.монстров в щелкнутый стек
+!!VRy25&y21=1/y24<0/y24>3:Sy24 -1; отнимаем 1 знамя
+!!VRy25&y21=1/y24=3:Sy24 -2;       отнимаем 2 знамя
+!!VRy27:S0;
+!!VRy27&y21=1/y24<>0:S1;
+!!VRy26&y21=1/y24<0/y24>2:S0;
+!!VRy26&y21=1/y24=2:S1;
+!!VRy26&y21=1/y24=3:S1;
+!!EXx2/x3/x4/x1/2&y21=1:R1/156/y23/y25; о знамени
+; слот 0
+ !!if&x1<>0:; если не щелкнутый стек
+   !!EXx2/x3/x4/0/2:A?y7/?y8/?y9;  проверяем монстров
+   !!CAx2/x3/x4&y7=255:M2/0/y1/y11;
+   !!EXx2/x3/x4/0/2&y7=255:Ay1/y11/y3; если монстров нет, то установка
+   !!EXx2/x3/x4/0/2&y7=255/y27=1:R1/156/y23/y26;   установка знамени
+   !!FU&y7=255:E; полная остановка функции разделения
+ !!en:;
+; слот 1
+ !!if&x1<>1:; если не щелкнутый стек
+   !!EXx2/x3/x4/1/2:A?y7/?y8/?y9;  проверяем монстров
+   !!CAx2/x3/x4&y7=255:M2/1/y1/y11;
+   !!EXx2/x3/x4/1/2&y7=255:Ay1/y11/y3; если монстров нет, то установка
+   !!EXx2/x3/x4/1/2&y7=255/y27=1:R1/156/y23/y26;   установка знамени
+   !!FU&y7=255:E; полная остановка функции разделения
+ !!en:;
+; слот 2
+ !!if&x1<>2:; если не щелкнутый стек
+   !!EXx2/x3/x4/2/2:A?y7/?y8/?y9;  проверяем монстров
+   !!CAx2/x3/x4&y7=255:M2/2/y1/y11;
+   !!EXx2/x3/x4/2/2&y7=255:Ay1/y11/y3; если монстров нет, то установка
+   !!EXx2/x3/x4/2/2&y7=255/y27=1:R1/156/y23/y26;   установка знамени
+   !!FU&y7=255:E; полная остановка функции разделения
+ !!en:;
+; слот 3
+ !!if&x1<>3:; если не щелкнутый стек
+   !!EXx2/x3/x4/3/2:A?y7/?y8/?y9;  проверяем монстров
+   !!CAx2/x3/x4&y7=255:M2/3/y1/y11;
+   !!EXx2/x3/x4/3/2&y7=255:Ay1/y11/y3; если монстров нет, то установка
+   !!EXx2/x3/x4/3/2&y7=255/y27=1:R1/156/y23/y26;   установка знамени
+   !!FU&y7=255:E; полная остановка функции разделения
+ !!en:;
+; слот 4
+ !!if&x1<>4:; если не щелкнутый стек
+   !!EXx2/x3/x4/4/2:A?y7/?y8/?y9;  проверяем монстров
+   !!CAx2/x3/x4&y7=255:M2/4/y1/y11;
+   !!EXx2/x3/x4/4/2&y7=255:Ay1/y11/y3; если монстров нет, то установка
+   !!EXx2/x3/x4/4/2&y7=255/y27=1:R1/156/y23/y26;   установка знамени
+   !!FU&y7=255:E; полная остановка функции разделения
+ !!en:;
+; слот 5
+ !!if&x1<>5:; если не щелкнутый стек
+   !!EXx2/x3/x4/5/2:A?y7/?y8/?y9;  проверяем монстров
+   !!CAx2/x3/x4&y7=255:M2/5/y1/y11;
+   !!EXx2/x3/x4/5/2&y7=255:Ay1/y11/y3; если монстров нет, то установка
+   !!EXx2/x3/x4/5/2&y7=255/y27=1:R1/156/y23/y26;   установка знамени
+   !!FU&y7=255:E; полная остановка функции разделения
+ !!en:;
+; слот 6
+ !!if&x1<>6:; если не щелкнутый стек
+   !!EXx2/x3/x4/6/2:A?y7/?y8/?y9;  проверяем монстров
+   !!CAx2/x3/x4&y7=255:M2/6/y1/y11;
+   !!EXx2/x3/x4/6/2&y7=255:Ay1/y11/y3; если монстров нет, то установка
+   !!EXx2/x3/x4/6/2&y7=255/y27=1:R1/156/y23/y26;   установка знамени
+   !!FU&y7=255:E; полная остановка функции разделения
+ !!en:;
+; конец кода разделения по shift в ещеё один слот (town)
+
+----------- divide stack on equal parts ---------------------------
+
+; TRIGGERS HANDLING
+
+-----------# Mouse click on Town Screen --------
+!?CM1;
+!!FU23015:P0; check that it's current player clicking (CF#115)
+!!FU&-115:E; exit if other player's turn
+!!CM:I?y-5; index of place clicked on
+!!CM:F?y-6 S?y-7; type and sybtype of click
+!!CA-1:U?y-1; town number
+*!FU23550&y-5=150/y-6=4/y-7=12:Py-1/1; call town menu
+*!FU|-115/y-6<4/y-6>37/y-7<>12:E; exit if not proper click or not push modeexit if not proper click or not push mode
+!!FU|y-5<115/y-5>146/y-6=0/y-7<>12:E;
+!!CA-1:H0/?y-3 H1/?y-4; heroes' numbers
+!!VRy-9:Sy-5-115;
+!!VRy-10:Sy-5-140;
+!!CA-1:P?y-11/?y-12/?y-13; town coordinates
+; проверка для не отключения действия стандартного Shift
+; если есть гарнизонный герой
+!!VRy62&y-5>114/y-5<122/y-3>-1:Sy-5 -115;
+!!HEy-3&y-5>114/y-5<122/y-3>-1:C0/y62/?y60/?y61;
+; если герой визитер
+!!VRy62&y-5>139/y-5<147/y-4>-1:Sy-5 -140;
+!!HEy-4&y-5>139/y-5<147/y-4>-1:C0/y62/?y60/?y61;
+; если город без героев
+!!if&y-5>114/y-5<122/y-3=-1:;
+   !!VRy62:Sy-5 -115;
+   !!EXy-11/y-12/y-13/y62/2:A?y60/?y61/?y63;
+   !!VRy60&y60=255:S-1;
+!!en:;
+!!FU&y60=-1:E; выход если в слоте нет существ
+!!CM:R0; disable standard message
+!!UN:C6919500/4/?y71;          спасибо:  © Master Of Puppets    отключение желтой обводки
+!!SN:E6117680/2/y71 E7415683/1;          © Master Of Puppets    отключение желтой обводки
+;отделение по Shift
+!!VRv6352&y-6=1/y-5>114/y-5<122/y-3>-1:Sy-3;  гарнизонный герой
+!!VRv6350&y-6=1/y-5>114/y-5<122/y-3>-1:Sy-9;
+!!FU35490&y-6=1/y-5>114/y-5<122/y-3>-1:P0/1/2/3/4/5/6;
+!!VRv6352&y-6=1/y-5>139/y-5<147/y-4>-1:Sy-4;  герой визитер
+!!VRv6350&y-6=1/y-5>139/y-5<147/y-4>-1:Sy-10;
+!!FU35490&y-6=1/y-5>139/y-5<147/y-4>-1:P0/1/2/3/4/5/6;
+!!FU23180&y-6=1/y-5>114/y-5<122/y-3=-1:Py-9/y-11/y-12/y-13;  гарнизон в городе без героя
+;splitting troops by 1
+!!FU23161&y-6=5/y-5>114/y-5<122/y-3>-1:Py-9/y-3/0; garrison hero
+!!FU23161&y-6=5/y-5>139/y-5<147/y-4>-1:Py-10/y-4/0; visiting hero
+!!FU23162&y-6=5/y-5>114/y-5<122/y-3=-1:Py-9/y-11/y-12/y-13/0; garrison troops
+;splitting 1 creature
+!!FU23161&y-6=4/y-5>114/y-5<122/y-3>-1:Py-9/y-3/1; garrison hero
+!!FU23161&y-6=4/y-5>139/y-5<147/y-4>-1:Py-10/y-4/1; visiting hero
+!!FU23162&y-6=4/y-5>114/y-5<122/y-3=-1:Py-9/y-11/y-12/y-13/1; garrison troops
+;divide stack on equal parts
+!!FU23178&y-6=33/y-5>114/y-5<122/y-3>-1:Py-9/y-3; garrison hero
+!!FU23178&y-6=33/y-5>139/y-5<147/y-4>-1:Py-10/y-4; visiting hero
+!!FU23179&y-6=33/y-5>114/y-5<122/y-3=-1:Py-9/y-11/y-12/y-13; garrison troops
+;consolidate troops
+!!FU23165&y-6=32/y-5>114/y-5<122/y-3>-1:Py-3/y-9; garrison hero
+!!FU23165&y-6=32/y-5>139/y-5<147/y-4>-1:Py-4/y-10; visiting hero
+!!FU23153&y-6=32/y-5>114/y-5<122/y-3=-1:Py-9/y-11/y-12/y-13; garrison troops
+; передать слот существ
+!!FU23155&y-6=36/y-5>114/y-5<122/y-3>-1/y-4>-1:P1/y-4/y-9/y-3;  дать визитеру от гарнизонного
+!!FU23155&y-6=36/y-5>139/y-5<147/y-3>-1/y-4>-1:P1/y-3/y-10/y-4; дать гарнизонному от визитера
+!!FU23155&y-6=36/y-5>114/y-5<122/y-3=-1/y-4>-1:P2/y-4/y-9/y-11/y-12/y-13;   дать визитеру от гарнизона без героя
+!!FU23155&y-6=36/y-5>139/y-5<147/y-3=-1/y-4>-1:P3/y-4/y-10/y-11/y-12/y-13;  дать гарнизону от визитера без героя
+;change armies
+!!IF:V2/0;
+!!IF|y-5=123/y-5=125:V2/1; CF#2 set iff hero slot been clicked
+!!FU23160&y-6=4/y-3>-1/y-4>-1/2:Py-3/y-4; 2 heroes change armies
+!!FU23159&y-6=4/y-3=-1/y-4>-1/2:Py-4/y-11/y-12/y-13; hero and garrison change armies
+*!UN:R4/0; redraw screen
+!!UN:R4;
+-----------# Mouse click on Town Screen --------
+
+-----------# Mouse click on Heroes Screen --------
+!?CM2;
+!!FU23015:P0; check that it's current player clicking (CF#115)
+!!CM:A?y-1/?y-2; coordinates
+!!CM:H?y-3/?y-4; heroes' numbers
+!!CM:I?y-5; index of place clicked on
+!!CM:F?y-6 S?y-7; type and subtype of click
+!!VRy-9:Sy-5-68;
+!!FU|y-5<68/y-5>74:E;
+!!FU|-115/y-7<>12/y-6<1/y-6>33:E; exit if not a proper click or not push mode or other player's turn
+!!VRy62:Sy-5 -68;
+!!HEy-3:C0/y62/?y60/?y61;
+!!FU&y60=-1:E;
+!!CM:R0; disable standard message
+!!UN:C6911880/4/-1; спасибо: © Berserker: отключение желтой обводки
+!!VRv6352&y-6=1/y-5>67/y-5<75:Sy-3;   разделение по шифт
+!!VRv6350&y-6=1/y-5>67/y-5<75:Sy-9;
+!!FU35490&y-6=1/y-5>67/y-5<75:P0/1/2/3/4/5/6;      старт функции
+
+!!FU23161&y-6=5/y-5>67/y-5<75:Py-9/y-3/0; spreading troops by 1
+!!FU23161&y-6=4/y-5>67/y-5<75:Py-9/y-3/1; split 1 creature
+!!FU23178&y-6=33/y-5>67/y-5<75:Py-9/y-3; divide stack on equal parts
+!!FU23165&y-6=32/y-5>67/y-5<75:Py-3/y-9; consolidate troops
+!!UN:R3/-1; redraw screen
+ -----------# Mouse click on Heroes Screen --------
+
+-----------# Mouse click on Heroes Meeting Screen --------
+!?CM3;
+!!CM:A?y-1/?y-2; coordinates
+!!CM:H?y-3/?y-4; heroes' numbers
+!!CM:I?y-5; index of place clicked on
+!!CM:F?y-6 S?y-7; type and sybtype of click
+!!FU|y-5<13/y-5>26/y-7<>12/y-6=0:E;
+!!VRy-7:Sy-1+y-2;
+!!VRy-8:Sy-1-y-2;
+!!VRy-9:Sy-5-13;
+!!VRy-10:Sy-5-65;
+!!VRy-11:Sy-5-20;
+!!VRy-12:Sy-5-72;
+; проверка для сохранения стандартного действия Shift
+!!if&y-5>12/y-5<20:; для правого героя
+  !!VRy62:Sy-5 -13;
+  !!HEy-3:C0/y62/?y60/?y61;
+!!en:;
+!!if&y-5>19/y-5<27:; для левого героя
+  !!VRy62:Sy-5 -20;
+  !!HEy-4:C0/y62/?y60/?y61;
+!!en:;
+!!FU&y60=-1:E;
+!!CM:R0; disable standard message
+!!UN:C6962576/4/?y71;   спасибо:  © Master Of Puppets    отключение желтой обводки
+!!SN:E5957888/2/y71;              © Master Of Puppets    отключение желтой обводки
+; Shift разделить на двоих
+!!FU23169&y-6=1/y-5>12/y-5<20:Py-3/y-9;     х1 - номер правого героя / х2 - номер клика слота
+!!FU23169&y-6=1/y-5>19/y-5<27:Py-4/y-11;    х1 - номер левого героя  / х2 - номер клика слота
+;spreading troops by 1
+!!FU23161&y-6=5/y-5>12/y-5<20:Py-9/y-3/0; FU would be called iff troop slot been clicked
+!!FU23161&y-6=5/y-5>64/y-5<72:Py-10/y-3/0;
+!!FU23161&y-6=5/y-5>19/y-5<27:Py-11/y-4/0;
+!!FU23161&y-6=5/y-5>71/y-5<79:Py-12/y-4/0;
+;split 1 creature
+!!FU23161&y-6=4/y-5>12/y-5<20:Py-9/y-3/1;
+!!FU23161&y-6=4/y-5>64/y-5<72:Py-10/y-3/1;
+!!FU23161&y-6=4/y-5>19/y-5<27:Py-11/y-4/1;
+!!FU23161&y-6=4/y-5>71/y-5<79:Py-12/y-4/1;
+;divide stack on equal parts
+!!FU23178&y-6=33/y-5>12/y-5<20:Py-9/y-3;
+!!FU23178&y-6=33/y-5>64/y-5<72:Py-10/y-3;
+!!FU23178&y-6=33/y-5>19/y-5<27:Py-11/y-4;
+!!FU23178&y-6=33/y-5>71/y-5<79:Py-12/y-4;
+;consolidate troops
+!!FU23165&y-6=32/y-5>12/y-5<20:Py-3/y-9;
+!!FU23165&y-6=32/y-5>64/y-5<72:Py-3/y-10;
+!!FU23165&y-6=32/y-5>19/y-5<27:Py-4/y-11;
+!!FU23165&y-6=32/y-5>71/y-5<79:Py-4/y-12;
+ -----------# Mouse click on Heroes Meeting Screen --------
+
+
+
+-----------# Adv. Map left-click ---------------------
+; managing hero slots
+!?CM5;
+!!VRy-8:S100;
+!!FU23015:P; check that it's current player clicking (CF#115)
+!!FU&-115:E;
+!!CM:I?y-1 F?y-2 S?y-3 A?y-4/?y-5;
+!!FU&y-3<>12:E;
+!!FU|y-1<2000/y-1>2024:E;
+!!OW:A-1/?y-9 N-1/?y-10; current hero and town
+!!VRy-8:S-1; initial state, no slot
+!!VRy-8&y-5>473/y-5<505/y-4>651/y-4<683:S0; slot 0
+!!VRy-8&y-5>473/y-5<505/y-4>685/y-4<719:S1; slot 1
+!!VRy-8&y-5>473/y-5<505/y-4>721/y-4<753:S2; slot 2
+!!VRy-8&y-5>520/y-5<553/y-4>631/y-4<664:S3; slot 3
+!!VRy-8&y-5>520/y-5<553/y-4>667/y-4<700:S4; slot 4
+!!VRy-8&y-5>520/y-5<553/y-4>702/y-4<737:S5; slot 5
+!!VRy-8&y-5>520/y-5<553/y-4>739/y-4<773:S6; slot 6
+!!VRv6103|y-2<>0/y-8<0:S-1; every unproper click resets stack number
+!!FU23017|y-2<>0/y-8<0:P-1;
+!!UN|y-2<>0/y-8<0:R1;
+!!FU23018&y-1=2001/y-2=4/y-9>-1:Py-9;  быстрая настройка Знамени Полководца
+!!FU&y-8<0:E; not a slot
+!!FU&y-9<0/y-10<0:E; no current hero or town
+!!CA0/y-10&y-10>-1:H0/?y-11; garrison hero number
+!!CA0/y-10&y-10>-1:P?y-12/?y-13/?y-14; town coordinates
+!!FU23019&y-10>-1/y-11>-1:Py-8/y-11/-1/0; stack number correction for click on town with garrison hero
+!!FU23019&y-10>-1/y-11=-1:Py-8/y-12/y-13/y-14; stack number correction for click on town w/o garrison hero
+!!VRy-16:S-1;
+!!VRy-16&y-10>-1:Sv6100;
+; клавиша Shift
+!!VRv6352&y-2=1/y-9>-1:Sy-9;
+!!VRv6350&y-2=1/y-9>-1:Sy-8;
+!!FU35490&y-2=1/y-9>-1:P;   герой
+!!FU23180&y-2=1/y-10>-1/y-11=-1/y-16>-1:Py-16/y-12/y-13/y-14;  гарнизон в городе без героя
+;spreading troops by 1
+!!FU23161&y-2=5/y-9>-1:Py-8/y-9/0; outdoor hero
+!!FU23161&y-2=5/y-10>-1/y-11>-1/y-16>-1:Py-16/y-11/0; garrison hero
+!!FU23162&y-2=5/y-10>-1/y-11=-1/y-16>-1:Py-16/y-12/y-13/y-14/0; garrison troops
+;split 1 creature
+!!FU23161&y-2=4/y-9>-1:Py-8/y-9/1; outdoor hero
+!!FU23161&y-2=4/y-10>-1/y-11>-1/y-16>-1:Py-16/y-11/1; garrison hero
+!!FU23162&y-2=4/y-10>-1/y-11=-1/y-16>-1:Py-16/y-12/y-13/y-14/1; garrison troops
+;divide stack on equal parts
+!!FU23178&y-2=33/y-9>-1:Py-8/y-9; outdoor hero
+!!FU23178&y-2=33/y-10>-1/y-11>-1/y-16>-1:Py-16/y-11; garrison hero
+!!FU23179&y-2=33/y-10>-1/y-11=-1/y-16>-1:Py-16/y-12/y-13/y-14; garrison troops
+;consolidate troops   /y-10>-1/y-11=-1/v6100>-1
+!!FU23165&y-2=32/y-9>-1:Py-9/y-8; outdoor hero
+!!FU23165&y-2=32/y-10>-1/y-11>-1/y-16>-1:Py-11/y-16; garrison hero
+!!FU23153&y-2=32/y-10>-1/y-11=-1/y-16>-1:Py-16/y-12/y-13/y-14; garrison troops
+;change or consolidate two stacks
+!!if&v6103>-1:;
+  !!if&y-9>-1/y-2=0/v6103=y-8:;   герой
+    !!VRy50:S0;
+    !!HEy-9:C0/0/?y60/?y61; узнать монстров в первом слоте
+    !!VRy50&y60=-1:+1;        если в слоте нет монстров то в переменную +1
+    !!HEy-9:C0/1/?y60/?y61; узнать монстров в втором слоте
+    !!VRy50&y60=-1:+1;
+    !!HEy-9:C0/2/?y60/?y61; узнать монстров в третьем слоте
+    !!VRy50&y60=-1:+1;
+    !!HEy-9:C0/3/?y60/?y61; узнать монстров в четвертом слоте
+    !!VRy50&y60=-1:+1;
+    !!HEy-9:C0/4/?y60/?y61; узнать монстров в пятом слоте
+    !!VRy50&y60=-1:+1;
+    !!HEy-9:C0/5/?y60/?y61; узнать монстров в шестом слоте
+    !!VRy50&y60=-1:+1;
+    !!HEy-9:C0/6/?y60/?y61; узнать монстров в седьмом слоте
+    !!VRy50&y60=-1:+1;
+    !!FU35494&y50<6:P1/0;   открытие слотового окна существа у героя с кнопкой удалить
+    !!FU35494&y50=6:P0/0;   открытие слотового окна существа у героя без кнопки удалить
+    !!FU23017:P-1;
+  !!el;
+    !!FU23154&y-9>-1/y-2=0:Py-9/v6103/y-8/0/0/0; change stacks (outside hero)
+    *!FU23154&y-10>-1/y-11>-1/y-16>-1/y-2=0:Py-11/v6103/y-16/0/0/0; change stacks (garrison hero)
+    *!FU23154&y-10>-1/y-11=-1/y-16>-1/y-2=0:P-2/v6103/y-16/y-12/y-13/y-14; change stacks (garrison)
+    *!FU23151&y-9>-1/y-2=1:Py-9/v6103/y-8; consolidate two stacks (outside hero)
+    *!FU23151&y-10>-1/y-11>-1/y-16>-1/y-2=1:Py-11/v6103/y-16; consolidate two stacks (garrison hero)
+    *!FU23150&y-10>-1/y-11=-1/y-16>-1/y-2=1:Pv6103/y-16/y-12/y-13/y-14; consolidate two stacks (garrison)
+    !!FU23017:P-1;
+  !!en:;
+!!el:;
+  !!HEy-9&y-2=0/y-9>-1:C0/y-8/?y15/?y16;
+  !!OW:A-1/?y20;
+    !!if&y20<0;
+      !!CA0/y-10&y-10>-1:H0/?y17;
+      !!CA0/y-10&y-2=0/y-10>-1/y-16>-1/y17=-1:M2/y-16/?y15/?y16;
+      !!HEy-9&y-2=0/y-10>-1/y-16>-1/y17>-1:C0/y-16/?y15/?y16;
+    !!en:;
+  !!VRv6103&y-2=0/y-9>-1/y15>-1:Sy-8; set stack number for the 1st click
+  *!VRv6103&y-2=0/y-10>-1/y15>-1:Sy-16; the same for corrected slot
+  *!VRz1&y-2=0/y15>-1:S^Button.wav^;
+  *!SN&y-2=0/y15>-1:Pz1;
+  !!FU23017&y-2=0/y-9>-1/y15>-1:Py-8;
+!!en:;
+!!UN:R1;
+!#VRv6103:S-1;  не удалять!
+
+-----------# Adv. Map left-click ---------------------
+!?FU23015;  sets CF115 to 1 iff current player is "me"
+!!IF:V115/0;
+!!OW:C?y1;
+!!OW:Gy1/?y2;
+!!IF&y2=1:V115/1;
+
+!?FU23019; used in convenience scripts, fix "town empty slots" bug
+;mode1: x1=clicked slot number, (x2,x3,x4) - town coordinates
+;mode2: x1=clicked slot number, x2 - garrison hero number, x3=-1, x4 - any number
+;v6100 (result) - real slot number
+;also save number of empty slots in y-90
+!!VRv6100:S-1; reset
+!!VRy-90:S0; reset
+!!FU|x1<0/x1>6:E; exit if incorrect input
+!!VRy16:S0; non-empty slots counter
+;slot0
+!!EXx2/x3/x4/0/2&x3>-1:A?y8/?y9/?y99;
+!!HEx2&x3=-1:C0/0/?y8/?y9;
+!!VRy16&y9>0:+1;
+!!VRyy16&y9>0:S0; store number of slot
+;slot1
+!!EXx2/x3/x4/1/2&x3>-1:A?y8/?y9/?y99;
+!!HEx2&x3=-1:C0/1/?y8/?y9;
+!!VRy16&y9>0:+1;
+!!VRyy16&y9>0:S1;
+;slot2
+!!EXx2/x3/x4/2/2&x3>-1:A?y8/?y9/?y99;
+!!HEx2&x3=-1:C0/2/?y8/?y9;
+!!VRy16&y9>0:+1;
+!!VRyy16&y9>0:S2;
+;slot3
+!!EXx2/x3/x4/3/2&x3>-1:A?y8/?y9/?y99;
+!!HEx2&x3=-1:C0/3/?y8/?y9;
+!!VRy16&y9>0:+1;
+!!VRyy16&y9>0:S3;
+;slot4
+!!EXx2/x3/x4/4/2&x3>-1:A?y8/?y9/?y99;
+!!HEx2&x3=-1:C0/4/?y8/?y9;
+!!VRy16&y9>0:+1;
+!!VRyy16&y9>0:S4;
+;slot5
+!!EXx2/x3/x4/5/2&x3>-1:A?y8/?y9/?y99;
+!!HEx2&x3=-1:C0/5/?y8/?y9;
+!!VRy16&y9>0:+1;
+!!VRyy16&y9>0:S5;
+;slot6
+!!EXx2/x3/x4/6/2&x3>-1:A?y8/?y9/?y99;
+!!HEx2&x3=-1:C0/6/?y8/?y9;
+!!VRy16&y9>0:+1;
+!!VRyy16&y9>0:S6;
+;analysis
+!!VRy-90:S7-y16;
+!!VRx1:+1; shift 0..6 -> 1..7
+!!FU&x1>y16:E; exit
+!!VRv6100:Syx1; set real slot number
+
+
+
+; ******************************************************************************
+; Секция [igrik]: разделение отрядов по Shift+
+; ******************************************************************************
+!?FU35490;
+         ; v6352 - номер героя
+         ; v6350 - для проверки номера слота
+!!OW:C?y1; узнаем цвет текущего героя
+!!HEv6352:O?y3; узнаем хозяина текущего героя
+!!FU&y1<>y3:E;
+
+!!HEv6352:C0/v6350/?y1/?y2;  y1 = тип монстра, y2 = кол-во,
+!!EXv6352/v6350:A?y61/?y62/?y3;  y3 = опыт стека
+!!EXv6352/v6350:R?y21/?y22/?y23/?y24; о знамени
+!!FU&y2<2:E;
+!!VRy50:S0;
+!!HEv6352:C0/0/?y60/?y61; узнать монстров в первом слоте
+!!VRy50&y60=-1:+1;        если в слоте нет монстров то в переменную +1
+!!HEv6352:C0/1/?y60/?y61; узнать монстров в втором слоте
+!!VRy50&y60=-1:+1;
+!!HEv6352:C0/2/?y60/?y61; узнать монстров в третьем слоте
+!!VRy50&y60=-1:+1;
+!!HEv6352:C0/3/?y60/?y61; узнать монстров в четвертом слоте
+!!VRy50&y60=-1:+1;
+!!HEv6352:C0/4/?y60/?y61; узнать монстров в пятом слоте
+!!VRy50&y60=-1:+1;
+!!HEv6352:C0/5/?y60/?y61; узнать монстров в шестом слоте
+!!VRy50&y60=-1:+1;
+!!HEv6352:C0/6/?y60/?y61; узнать монстров в седьмом слоте
+!!VRy50&y60=-1:+1;
+!!FU&y50=0:E;             выход, если пустых слотов нет
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;
+!!VRy11:Sy2 :2;           устанавливаем кол-во монстров
+!!VRy10:Sy2 -y11;         y10 - кол.в щелкн. стеке, у11 - кол. в передаваемый стек
+!!HEv6352:C0/v6350/y1/y10;
+!!EXv6352/v6350:A?y61/?y60/y3;     установка пониженного кол.монстров в щелкнутый стек
+!!VRy25&y21=1/y24<0/y24>3:Sy24 -1; отнимаем 1 знамя
+!!VRy25&y21=1/y24=3:Sy24 -2;       отнимаем 2 знамя
+!!VRy27:S0;
+!!VRy27&y21=1/y24<>0:S1;
+!!VRy26&y21=1/y24<0/y24>2:S0;
+!!VRy26&y21=1/y24=2:S1;
+!!VRy26&y21=1/y24=3:S1;
+!!EXv6352/v6350&y21=1:R1/156/y23/y25; о знамени
+; слот 0
+ !!if&v6350<>0:; если не щелкнутый стек
+   !!HEv6352:C0/0/?y7/?y8;  проверяем монстров
+   !!HEv6352&y7=-1:C0/0/y1/y11;
+   !!EXv6352/0&y7=-1:A?y1/?y11/y3; если монстров нет, то установка
+   !!EXv6352/0&y7=-1/y27=1:R1/156/y23/y26;   установка знамени
+   !!FU&y7=-1:E; полная остановка функции разделения
+ !!en:;
+; слот 1
+ !!if&v6350<>1:; если не щелкнутый стек
+   !!HEv6352:C0/1/?y7/?y8;  проверяем монстров
+   !!HEv6352&y7=-1:C0/1/y1/y11;
+   !!EXv6352/1&y7=-1:A?y1/?y11/y3; если монстров нет, то установка
+   !!EXv6352/1&y7=-1/y27=1:R1/156/y23/y26;   установка знамени
+   !!FU&y7=-1:E; полная остановка функции разделения
+ !!en:;
+; слот 2
+ !!if&v6350<>2:; если не щелкнутый стек
+   !!HEv6352:C0/2/?y7/?y8;  проверяем монстров
+   !!HEv6352&y7=-1:C0/2/y1/y11;
+   !!EXv6352/2&y7=-1:A?y1/?y11/y3; если монстров нет, то установка
+   !!EXv6352/2&y7=-1/y27=1:R1/156/y23/y26;   установка знамени
+   !!FU&y7=-1:E; полная остановка функции разделения
+ !!en:;
+; слот 3
+ !!if&v6350<>3:; если не щелкнутый стек
+   !!HEv6352:C0/3/?y7/?y8;  проверяем монстров
+   !!HEv6352&y7=-1:C0/3/y1/y11;
+   !!EXv6352/3&y7=-1:A?y1/?y11/y3; если монстров нет, то установка
+   !!EXv6352/3&y7=-1/y27=1:R1/156/y23/y26;   установка знамени
+   !!FU&y7=-1:E; полная остановка функции разделения
+ !!en:;
+; слот 4
+ !!if&v6350<>4:; если не щелкнутый стек
+   !!HEv6352:C0/4/?y7/?y8;  проверяем монстров
+   !!HEv6352&y7=-1:C0/4/y1/y11;
+   !!EXv6352/4&y7=-1:A?y1/?y11/y3; если монстров нет, то установка
+   !!EXv6352/4&y7=-1/y27=1:R1/156/y23/y26;   установка знамени
+   !!FU&y7=-1:E; полная остановка функции разделения
+ !!en:;
+; слот 5
+ !!if&v6350<>5:; если не щелкнутый стек
+   !!HEv6352:C0/5/?y7/?y8;  проверяем монстров
+   !!HEv6352&y7=-1:C0/5/y1/y11;
+   !!EXv6352/5&y7=-1:Ay1/y11/y3; если монстров нет, то установка
+   !!EXv6352/5&y7=-1/y27=1:R1/156/y23/y26;   установка знамени
+   !!FU&y7=-1:E; полная остановка функции разделения
+ !!en:;
+; слот 6
+ !!if&v6350<>6:; если не щелкнутый стек
+   !!HEv6352:C0/6/?y7/?y8;  проверяем монстров
+   !!HEv6352&y7=-1:C0/6/y1/y11;
+   !!EXv6352/6&y7=-1:A?y1/?y11/y3; если монстров нет, то установка
+   !!EXv6352/6&y7=-1/y27=1:R1/156/y23/y26;   установка знамени
+   !!FU&y7=-1:E; полная остановка функции разделения
+ !!en:;
+; конец кода разделения по shift в один слот (герой)
+;-------------------------------------------------------------------------------
+
+!?FU35493; функция сложения кол-ва знамен при объединении армии через Alt+
+; x2,x3,x4 - координаты города; x1 - номер слота
+!!EXx2/x3/x4/x1/2:A?y10/?y11/?y12;  узнаем монстра в который будет собираться
+*!IF:M^%Y10^;
+!!EXx2/x3/x4/x1/2:R?y1/?y2/?y3/?y4; узнаем у него о знамени
+*!VRy5&y1=0:S1;                     говорит,что знамени нет
+!!VRv6351:S0;
+!!VRy9:S0;
+; слот 0
+!!EXx2/x3/x4/0/2:A?y21/?y22/?y23;          что за монстр
+!!EXx2/x3/x4/0/2&y10=y21:R?y5/?y6/?y7/?y8; считываем данные о знамени
+!!VRy9&y10=y21/y5=1:+1;                    с помощью данной переменной будет ровняться кол-во знамен
+!!VRv6351&y10=y21/y5=1:+y8 +1;             установка кол-ва знамен
+!!EXx2/x3/x4/0/2&y10=y21/y5=1:R0/0/0/0;    удаляем данные о знамени
+; слот 1
+!!EXx2/x3/x4/1/2:A?y21/?y22/?y23;          что за монстр
+!!EXx2/x3/x4/1/2&y10=y21:R?y5/?y6/?y7/?y8; считываем данные о знамени
+!!VRv6351&y10=y21/y5=1:+y8 +1;             установка кол-ва знамен
+!!VRy9&y10=y21/y5=1:+1;
+!!EXx2/x3/x4/1/2&y10=y21/y5=1:R0/0/0/0;    удаляем данные о знамени
+; слот 2
+!!EXx2/x3/x4/2/2:A?y21/?y22/?y23;          что за монстр
+!!EXx2/x3/x4/2/2&y10=y21:R?y5/?y6/?y7/?y8; считываем данные о знамени
+!!VRv6351&y10=y21/y5=1:+y8 +1;             установка кол-ва знамен
+!!VRy9&y10=y21/y5=1:+1;
+!!EXx2/x3/x4/2/2&y10=y21/y5=1:R0/0/0/0;    удаляем данные о знамени
+; слот 3
+!!EXx2/x3/x4/3/2:A?y21/?y22/?y23;          что за монстр
+!!EXx2/x3/x4/3/2&y10=y21:R?y5/?y6/?y7/?y8; считываем данные о знамени
+!!VRv6351&y10=y21/y5=1:+y8 +1;             установка кол-ва знамен
+!!VRy9&y10=y21/y5=1:+1;
+!!EXx2/x3/x4/3/2&y10=y21/y5=1:R0/0/0/0;    удаляем данные о знамени
+; слот 4
+!!EXx2/x3/x4/4/2:A?y21/?y22/?y23;          что за монстр
+!!EXx2/x3/x4/4/2&y10=y21:R?y5/?y6/?y7/?y8; считываем данные о знамени
+!!VRv6351&y10=y21/y5=1:+y8 +1;             установка кол-ва знамен
+!!VRy9&y10=y21/y5=1:+1;
+!!EXx2/x3/x4/4/2&y10=y21/y5=1:R0/0/0/0;    удаляем данные о знамени
+; слот 5
+!!EXx2/x3/x4/5/2:A?y21/?y22/?y23;          что за монстр
+!!EXx2/x3/x4/5/2&y10=y21:R?y5/?y6/?y7/?y8; считываем данные о знамени
+!!VRv6351&y10=y21/y5=1:+y8 +1;             установка кол-ва знамен
+!!VRy9&y10=y21/y5=1:+1;
+!!EXx2/x3/x4/5/2&y10=y21/y5=1:R0/0/0/0;    удаляем данные о знамени
+; слот 6
+!!EXx2/x3/x4/6/2:A?y21/?y22/?y23;          что за монстр
+!!EXx2/x3/x4/6/2&y10=y21:R?y5/?y6/?y7/?y8; считываем данные о знамени
+!!VRv6351&y10=y21/y5=1:+y8 +1;             установка кол-ва знамен
+!!VRy9&y10=y21/y5=1:+1;
+!!EXx2/x3/x4/6/2&y10=y21/y5=1:R0/0/0/0;    удаляем данные о знамени
+; настройка стека в который собираются монстры
+!!VRv6351&y9<>0:-1;
+!!VRv6351&v6351>3:S3;
+!!EXx2/x3/x4/x1/2&y9<>0:R1/156/y3/v6351;        ставим настроенное знамя
+;-------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------
+; открытие окна слотового существа [начало]
+!?CM0;
+!!CM:F?y1 I?y2;
+!!FU|y1<>512/y2<2008/y2>2024:E;
+!!FU35494:P0/1;
+!?FU35494;
+!!OW:C?y1;
+!!OW:Iy1/?y2;
+!!FU&y2=1:E;
+!!UN:V?y80/?y81/?y82/?y83/?y84;
+!!OW&y84=2:Gy1/?y2;
+!!FU&y2=0/y84=2:E;
+!!OW:Ay1/?y10;
+!!if&y10<0:;
+  !!OW:N-1/?y10;
+  !!CA0/y10:H0/?y21;
+  !!CA0/y10:P?y12/?y13/?y14;
+  !!VRy20&y21=-1:S1;
+  !!VRy20&y21>-1:S0;
+  !!VRy10&y21>-1:Sy21;
+  !!VRy22&y21=-1:S1;
+  !!VRy22&y21>-1:S2;
+!!en:;
+!!FU&y10<0:E;
+!!CM:A?y3/?y4;
+!!FU|y3=<635/y3>=770/y4=<470/y4>=550:E;
+!!FU|y4=506/y4=507/y4=508/y4=509/y4=510/y4=511/y4=512/y4=513/y4=514/y4=515/y4=516/y4=517/y4=518/y4=519:E;
+!!FU&y3=<650/y4=<520:E;
+!!FU&y3>=755/y4=<520:E;
+!!CM:R0;
+!!VRy11:S10;
+!!VRy11&y3>650/y3=<685/y4>470/y4<505:S0;
+!!VRy11&y3>685/y3=<720/y4>470/y4<505:S1;
+!!VRy11&y3>720/y3=<755/y4>470/y4<505:S2;
+!!VRy11&y3>630/y3=<665/y4>520/y4<553:S3;
+!!VRy11&y3>665/y3=<700/y4>520/y4<553:S4;
+!!VRy11&y3>700/y3=<735/y4>520/y4<553:S5;
+!!VRy11&y3>735/y3=<775/y4>520/y4<553:S6;
+!!if&y11<>10:;
+ !!FU23019&y22=1:Py11/y12/y13/y14;
+ !!FU23019&y22=2:Py11/y10/-1/0;
+ !!VRy11&y22>0:Sv6100;
+ !!UN:C4199496/2/?y2 C4199503/2/?y3;
+ !!VRy4:Sy2 -210 :2;
+ !!VRy5:S1465 -y3 *100 :351;
+ !!FU35420:Py20/y10/y11/x1/x2/y4/y5;
+!!en:;
+
+!?FU35420;
+; © Master Of Puppets
+!!UN:C6933756/4/?y5;
+!!OW:C?y2;
+!!VRy1:Sy2*360;
+!!VRy5:-y1;
+!!UN:C6919480/4/?y10;
+!!if&x1=0;
+  !!VRy1:Sx2*1170+y5+3041;
+  !!VRy3:Sx3*4+y1;
+  !!UN:Cy3/4/<0;
+  !!FU&1:E;
+  !!VRy3:Sy1-145;
+  !!SN:E5007632/2/y10/y1/x3/y3/0/x6/x7/x4/x5;
+!!en;
+!!if&x1=1;
+  !!VRy1:Sy5+2884;
+  !!UN:Cy1/4/?y2;
+  !!VRy1:Sx2*360+y2+224;
+  !!VRy3:Sx3*4+y1;
+  !!UN:Cy3/4/<0;
+  !!FU&1:E;
+  !!VRy3:Sy1-224;
+  !!SN:E5007632/2/y10/y1/x3/y3/0/x6/x7/x4/x5;
+!!en;
+;  открытие окна слотового существа [конец]
+;-------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------
+;  Быстрая покупка существ [начало]
+!?CM1;
+!!CM:I?y10;
+!!FU|y10<164/y10>170:E;
+!!CM:F?i S?y2;
+!!FU&i<>0/y2<>12:E;
+!!VRy11:Sy10 -164;
+!!FU23016:Py11;
+!!VRy10:Sv6100;
+!!FU&y10<y11:E;
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;
+!!CA-1:T?y12;
+!!if&y12=0:;
+  !!VRy51&y10=0:S340;
+  !!VRy52&y10=0:S130;
+  !!VRy51&y10=1:S415;
+  !!VRy52&y10=1:S160;
+  !!VRy51&y10=2:S140;
+  !!VRy52&y10=2:S110;
+  !!VRy51&y10=3:S260;
+  !!VRy52&y10=3:S140;
+  !!VRy51&y10=4:S645;
+  !!VRy52&y10=4:S220;
+  !!VRy51&y10=5:S260;
+  !!VRy52&y10=5:S255;
+  !!VRy51&y10=6:S450;
+  !!VRy52&y10=6:S45;
+!!en:;
+!!if&y12=1:;
+  !!VRy51&y10=0:S84;
+  !!VRy52&y10=0:S303;
+  !!VRy51&y10=1:S41;
+  !!VRy52&y10=1:S198;
+  !!VRy51&y10=2:S724;
+  !!VRy52&y10=2:S170;
+  !!VRy51&y10=3:S348;
+  !!VRy52&y10=3:S132;
+  !!VRy51&y10=4:S160;
+  !!VRy52&y10=4:S200;
+  !!VRy51&y10=5:S450;
+  !!VRy52&y10=5:S140;
+  !!VRy51&y10=6:S640;
+  !!VRy52&y10=6:S65;
+!!en:;
+!!if&y12=2:;
+  !!VRy51&y10=0:S480;
+  !!VRy52&y10=0:S265;
+  !!VRy51&y10=1:S20;
+  !!VRy52&y10=1:S100;
+  !!VRy51&y10=2:S250;
+  !!VRy52&y10=2:S260;
+  !!VRy51&y10=3:S625;
+  !!VRy52&y10=3:S130;
+  !!VRy51&y10=4:S550;
+  !!VRy52&y10=4:S115;
+  !!VRy51&y10=5:S740;
+  !!VRy52&y10=5:S230;
+  !!VRy51&y10=6:S170;
+  !!VRy52&y10=6:S180;
+!!en:;
+!!if&y12=3:;
+  !!VRy51&y10=0:S660;
+  !!VRy52&y10=0:S280;
+  !!VRy51&y10=1:S260;
+  !!VRy52&y10=1:S290;
+  !!VRy51&y10=2:S60;
+  !!VRy52&y10=2:S340;
+  !!VRy51&y10=3:S450;
+  !!VRy52&y10=3:S270;
+  !!VRy51&y10=4:S480;
+  !!VRy52&y10=4:S310;
+  !!VRy51&y10=5:S350;
+  !!VRy52&y10=5:S350;
+  !!VRy51&y10=6:S510;
+  !!VRy52&y10=6:S165;
+!!en:;
+!!if&y12=4:;
+  !!VRy51&y10=0:S175;
+  !!VRy52&y10=0:S275;
+  !!VRy51&y10=1:S565;
+  !!VRy52&y10=1:S265;
+  !!VRy51&y10=2:S40;
+  !!VRy52&y10=2:S310;
+  !!VRy51&y10=3:S670;
+  !!VRy52&y10=3:S240;
+  !!VRy51&y10=4:S280;
+  !!VRy52&y10=4:S245;
+  !!VRy51&y10=5:S55;
+  !!VRy52&y10=5:S135;
+  !!VRy51&y10=6:S730;
+  !!VRy52&y10=6:S170;
+!!en:;
+!!if&y12=5:;
+  !!VRy51&y10=0:S45;
+  !!VRy52&y10=0:S350;
+  !!VRy51&y10=1:S55;
+  !!VRy52&y10=1:S85;
+  !!VRy51&y10=2:S180;
+  !!VRy52&y10=2:S340;
+  !!VRy51&y10=3:S350;
+  !!VRy52&y10=3:S75;
+  !!VRy51&y10=4:S585;
+  !!VRy52&y10=4:S215;
+  !!VRy51&y10=5:S320;
+  !!VRy52&y10=5:S300;
+  !!VRy51&y10=6:S755;
+  !!VRy52&y10=6:S60;
+  *!VRy51&y10=7:S740;
+  *!VRy52&y10=7:S225;
+!!en:;
+!!if&y12=6:;
+  !!VRy51&y10=0:S435;
+  !!VRy52&y10=0:S265;
+  !!VRy51&y10=1:S330;
+  !!VRy52&y10=1:S270;
+  !!VRy51&y10=2:S610;
+  !!VRy52&y10=2:S275;
+  !!VRy51&y10=3:S250;
+  !!VRy52&y10=3:S240;
+  !!VRy51&y10=4:S210;
+  !!VRy52&y10=4:S125;
+  !!VRy51&y10=5:S740;
+  !!VRy52&y10=5:S210;
+  !!VRy51&y10=6:S700;
+  !!VRy52&y10=6:S80;
+!!en:;
+!!if&y12=7:;
+  !!VRy51&y10=0:S705;
+  !!VRy52&y10=0:S210;
+  !!VRy51&y10=1:S270;
+  !!VRy52&y10=1:S215;
+  !!VRy51&y10=2:S215;
+  !!VRy52&y10=2:S110;
+  !!VRy51&y10=3:S75;
+  !!VRy52&y10=3:S340;
+  !!VRy51&y10=4:S130;
+  !!VRy52&y10=4:S170;
+  !!VRy51&y10=5:S30;
+  !!VRy52&y10=5:S60;
+  !!VRy51&y10=6:S700;
+  !!VRy52&y10=6:S340;
+!!en:;
+!!if&y12=8:;
+  !!VRy51&y10=0:S770;
+  !!VRy52&y10=0:S300;
+  !!VRy51&y10=1:S675;
+  !!VRy52&y10=1:S75;
+  !!VRy51&y10=2:S745;
+  !!VRy52&y10=2:S235;
+  !!VRy51&y10=3:S155;
+  !!VRy52&y10=3:S165;
+  !!VRy51&y10=4:S300;
+  !!VRy52&y10=4:S200;
+  !!VRy51&y10=5:S445;
+  !!VRy52&y10=5:S320;
+  !!VRy51&y10=6:S115;
+  !!VRy52&y10=6:S45;
+!!en:;
+!!SN:L^era.dll^/?y1 Ay1/^PluginExists^/?y2 Ey2/1/^quartz^;
+!!VRy53&v1=0:Sy51;        для стандартных координат строений
+!!VRy53&v1>0:S800 -y51;   для зеркального мода
+!!CM:I39;
+!!CM:Ay53/y52;
+
+!?FU23016;
+!!VRv6100:S-1;
+!!VRy-90:S0;
+!!FU|x1<0/x1>6:E;
+!!VRy16:S0;
+!!CA-1:B3/30;
+!!VRy16&1:+1;
+!!VRyy16&1:S0;
+!!CA-1:B3/31;
+!!VRy16&1:+1;
+!!VRyy16&1:S1;
+!!CA-1:B3/32;
+!!VRy16&1:+1;
+!!VRyy16&1:S2;
+!!CA-1:B3/33;
+!!VRy16&1:+1;
+!!VRyy16&1:S3;
+!!CA-1:B3/34;
+!!VRy16&1:+1;
+!!VRyy16&1:S4;
+!!CA-1:B3/35;
+!!VRy16&1:+1;
+!!VRyy16&1:S5;
+!!CA-1:B3/36;
+!!VRy16&1:+1;
+!!VRyy16&1:S6;
+!!VRy-90:S7-y16;
+!!VRx1:+1;
+!!FU&x1>y16:E;
+!!VRv6100:Syx1;
+;  Быстрая покупка существ [конец]
+;-------------------------------------------------------------------------------
+;  желтая обводка на карте приключений [начало]
+!?CM1;
+!!FU&v6103=-1:E;
+!!FU23017:P-1;
+!?CM2;
+!!FU&v6103=-1:E;
+!!FU23017:P-1;
+!?CM3;
+!!FU&v6103=-1:E;
+!!FU23017:P-1;
+
+!?CM5;
+!!CM:F?y1 I?y2 S?y3;
+!!FU|y1<>0/v6103=-1/y3<>12:E;
+!!if&y2>38/y2<47;
+  !!FU23017:P-1;
+  !!UN:R1;
+!!en:;
+
+!?FU23017;
+!!VRv6103&x1=-1:S-1;
+!!SN&x1=-1:L^Era.dll^/?y1 Ay1/^RedirectFile^/?y2 Ey2/1/^zpic001.pcx^/^^;
+!!SN&x1=0:L^Era.dll^/?y1 Ay1/^RedirectFile^/?y2 Ey2/1/^zpic001.pcx^/^zpic710.pcx^;
+!!SN&x1=1:L^Era.dll^/?y1 Ay1/^RedirectFile^/?y2 Ey2/1/^zpic001.pcx^/^zpic711.pcx^;
+!!SN&x1=2:L^Era.dll^/?y1 Ay1/^RedirectFile^/?y2 Ey2/1/^zpic001.pcx^/^zpic712.pcx^;
+!!SN&x1=3:L^Era.dll^/?y1 Ay1/^RedirectFile^/?y2 Ey2/1/^zpic001.pcx^/^zpic713.pcx^;
+!!SN&x1=4:L^Era.dll^/?y1 Ay1/^RedirectFile^/?y2 Ey2/1/^zpic001.pcx^/^zpic714.pcx^;
+!!SN&x1=5:L^Era.dll^/?y1 Ay1/^RedirectFile^/?y2 Ey2/1/^zpic001.pcx^/^zpic715.pcx^;
+!!SN&x1=6:L^Era.dll^/?y1 Ay1/^RedirectFile^/?y2 Ey2/1/^zpic001.pcx^/^zpic716.pcx^;
+;  желтая обводка на карте приключений [конец]
+;-------------------------------------------------------------------------------
+; быстрая настройка Знамени Полководца на карте приключений [начало]
+!?FU23018; код воговского скрипта
+; x1 - номер героя
+!!UN:P900/?y5;
+!!FU&y5<>1:E;
+!!HEx1:B0/?z4;
+!!DO23020/0/6/1:P2/x1/0;
+!!IF&y-75<>1:Q1/8/156/1/z125068;
+!!FU&y-75<>1:E;
+!!VRz1:Sz125069;
+!!VRz-1:Sz125070;
+!!VRz-2:Sz125071;
+!!VRz-3:Sz125072;
+!!VRz-4:Sz125073;
+!!VRz-5:Sz125074;
+!!VRz-6:Sz125075;
+!!VRz-7:Sz125076;
+!!VRz-8:Sz125077;
+!!VRz-9:Sz125078;
+!!VRz3:Sz125081;
+!!IF:G1/1/2048/1/-1/-2/-3/-4/-5/-6/-7/-8/-9/3;
+!!VRy4:S-1;
+!!VRy4&v1=1:S0;
+!!VRy4&v1=2:S1;
+!!VRy4&v1=4:S2;
+!!VRy4&v1=8:S3;
+!!VRy4&v1=16:S4;
+!!VRy4&v1=32:S5;
+!!VRy4&v1=64:S6;
+!!VRy4&v1=128:S7;
+!!VRy4&v1=256:S8;
+!!FU&v1=2048:E;
+!!DO23020/0/6/1&y4>=0:P1/x1/y4;
+!?FU23020;
+; x1 - тип действия: 1-настройка знамени, 2-проверка наличия знамени
+; x2 - номер героя
+; x3 - опция знамени
+!!if&x1=1:;
+  !!EXx2/x16:R?y1/?y2/?y3/?y4;
+  !!EXx2/x16&y1=1/y2=156:R1/156/x3/y4;
+!!el&x1=2;
+  !!EXx2/x16:R?y1/?y2;
+  !!VRy-75&y1=156:S1;
+!!en:;
+; быстрая настройка Знамени Полководца на карте приключений [конец]
+;-------------------------------------------------------------------------------
+

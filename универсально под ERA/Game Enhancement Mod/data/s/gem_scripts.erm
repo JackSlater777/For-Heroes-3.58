@@ -1,0 +1,320 @@
+ZVSE2
+
+!#UN:P233/?v1 P233/0;                            [отключаем выбор режима типа битвы]
+!#SN:W^gem_Quick_Combat_Check^/v1;
+
+; --------------------------------------------------------------------------------------------------
+; --------------------------------------------------------------------------------------------------
+*                       [Скрипты для битвы - scripts for the battles]
+; --------------------------------------------------------------------------------------------------
+; --------------------------------------------------------------------------------------------------
+!?CM4&v997>-1/-998;
+!!BA:E?y2;
+!!CM:I?y1;
+!!SN:W^Allwait_Button_ID^/?y3;
+!!FU|y1<>y3/y2=1:E;
+!!CM:S?y4;
+!!if&y4=14:;
+  !!CM:R0;
+  !!SN:W^gem_CheckGameLang^/?y5 T^%Y5_gem_battle.AllwaitDescr^/?z-1;
+  !!IF:M0/4^%Z-1^;
+!!en;
+!!CM:S=13; !!FU&-1:E; !!CM:F=0; !!FU&-1:E;
+*!IF:L^%Y1^;
+!!if&y1=y3:;
+      ; проверяем не нажимала ли кнопку активная сторона
+      !!BG:Q?y1; проверяем активную сторону
+      !!SN:W^isWaitSide_%Y1^/?y2;
+      !!FU&y2=1:E;
+      ; проверка на фазу ожидания
+      !!UN:C6919200/4/?y10;
+      !!VRy11:Sy10 +81380;
+      !!UN:Cy11/1/?y12; Проверка на фазу ожидания: 0-НЕТ, 1=ДА
+      !!FU&y12=1:E;     выход, если фаза ожидания
+      ; создаем цикл прохода по стекам
+      !!VRy3:S21*y1;
+      !!VRy4:Sy3 +20;
+      !!DO830023/y3/y4/1:P;
+      !!BG:A8;
+      !!SN:W^isWaitSide_%Y1^/1;
+!!en:;
+!?FU830023;
+!!BMx16:N?y1 F?i;
+!!FU&y1<1:E;
+!!VRi:|33554432;
+!!BMx16:Fi;
+
+!?FU87007&x1=17;                        [нажатие клавиши на КП (HK_W)]
+!!FU208001:P0;                          [проверка на того кто кликает]
+!!FU&-115:E;                            [выход]
+!!OW:C?y4;                              [узнать цвет игрока]
+!!SN:W^Current_Battle_Type%Y4^/?y1;     [для его кнопки-переменной, которую тоже узнать]
+
+  *!SN:W^gem_Quick_Combat_Check^/?y8;
+  *!if&y8=0:;
+    *!VRy2&y1<>4:Sy1*2;
+    *!VRy2&y1=4:S1;    
+  *!el:;
+    !!VRy2&y1<>8:Sy1*2;
+    !!VRy2&y1=8:S1;
+  *!en;  
+  !!SN:W^Current_Battle_Type%Y4^/y2; [узнать, что данный игрок выбрал до этого]
+  !!FU(gem_Button_Switch):P;                  [переключить на обычный] 
+!!FU(gem_Autobattle_Check_And_Sound):P1;    [сообщить]
+!?FU(gem_Autobattle_Check_And_Sound);
+!!SN:W^gem_SHOW_COMBAT_MOUSE_HEX_OPT^/?y1;
+!!UN:C6916112/4/y1;
+!!OW:C?y4;                              [узнать цвет игрока]
+!!SN:W^Current_Battle_Type%Y4^/?y2;     [узнать, что данный игрок выбрал до этого]
+!!SN:W^gem_CheckGameLang^/?y5;
+!!if|y2<2:;                        [если 1]
+  !!UN:C6916044/4/0;                    [отключить авто]
+  !!SN&y2=1/x1=1:T^%Y5_gem_map.battle1^/?z-1; [показать описание ОТКЛ]
+!!el:;
+  !!UN:C6916044/4/1;                    [установить параметр быстрой битвы 0x6987CC]
+  !!SN&y2=2/x1=1:T^%Y5_gem_map.battle2^/?z-1;[показать описание ВКЛ с магией]
+  !!SN&y2=4/x1=1:T^%Y5_gem_map.battle3^/?z-1;[показать описание ВКЛ без магии]
+  !!SN&y2=8/x1=1:T^%Y5_gem_map.battle4^/?z-1; [показать описание ПЕРЕД БОЕМ]  
+!!en;
+!!IF&x1=1:L^%Z-1^;
+
+
+
+!?BA52&1000;                            [before Human battle]
+!!UN:P900/?y1;                          [check troop experience script]
+!!if&y1=0:;                             [if disabled]
+  !!UN:J11/1;                           [enable sod style of window]
+!!el:;                                  [else]
+  !!UN:J11/0;                           [enable wog style of window]
+!!en;
+
+!!SN:W^gem_SHOW_COMBAT_MOUSE_HEX_OPT^/?y1;
+!!UN:C6916112/4/y1;
+** отключение битвы человека против человека / Disable autobattle vs human players (by daemon_n)
+** удаление очков заклинаний на время автобоя, поддерживает переигровку (by daemon_n)
+** Spell Points Delete in the autobattle, supports battle replay
+!?BA52&1000;                                [before Human battle]
+!!OW:C?y4 Iy4/?y1;                          [check current player color]
+!!if&y1=1:;                                 [if ai attacks]
+  !!BA:Od/?y4;                              [set choice of human from right side]
+!!en;
+!!SN:W^Current_Battle_Type%Y4^/?y3;         [to know his choice]
+
+!!UN:C6916044/4/?y1;                        [узнать авто]
+!!if&y1=0/y3>1/y3<8:;
+  !!SN:W^Current_Battle_Type%Y4^/1;         [to know his choice]
+  !!BA:Q0;
+  !!FU:E;                                   [and exit func]
+!!en;
+
+!!SN&y1=y3:W^Current_Battle_Type%Y4^/2;         [to know his choice]
+!!SN:W^Current_Battle_Type%Y4^/?y3;         [to know his choice]
+!!SN:W^gem_Was_Mana_Removed^/0;                 [was not remove the SP]
+!!BA:E?y1;   !!FU&y1=2:E;                   [ PvE in other PC = exit ]
+!!BA:O?y1/?y2;                              [know the players colors]
+!!if&y1>-1/y2>-1:;                          [if not neutrals]
+  !!OW:Iy1/?y1 Iy2/?y2;                     [ai/hum?]
+  !!BA&y1=y2:Q0;                            [both hum = disable auto]
+  !!FU&y1=y2:E;                             [and exit]
+!!en;
+
+  
+
+!!if&y3=8:;                                 [if choising]
+ !!SN:W^Current_Battle_Type_Choice%Y4^/?y7; [what was previous?]
+ !!VRy7&y7=0:S1;
+ !!SN:W^gem_CheckGameLang^/?y2;
+ !!SN:T^%Y2_gem_map.battlelist1^/?z-1;
+ !!SN:T^%Y2_gem_map.battlelist2^/?z-2;
+ !!SN:T^%Y2_gem_map.battlelist3^/?z-3;
+ !!SN:T^%Y2_gem_map.battlelist4^/?z-4;
+ !!IF:G1/1/y7/-1/-2/-3/-4;                  [show message]
+ !!SN:W^Current_Battle_Type_Choice%Y4^/v1;  [store choice]
+ !!SN:W^Current_Battle_Type_Choice%Y4^/?y7; [to know choice]
+!!en;
+!!if|y7=1/y3=1:;                            [if choisen]
+  !!BA:Q0;                                  [set no auto]
+  !!FU:E;                                   [and exit func]
+!!en;                                       
+!!if|y7=2/y3=2:;                            [if choisen]
+  !!BA:Q1;                                  [set auto]
+  !!FU:E;                                   [end]
+!!en;
+!!if|y7=4/y3=4:;
+  !!BA:Q1;                                  [set auto]
+  !!FU(gem_Spellpoints_Removing):P;             [start remove mana func]
+  !!SN:W^gem_Was_Mana_Removed^/1;               [store it]
+  !!FU:E;                                   [end]
+!!en;                                       [final]
+!?FU870520;
+!!SN:W^gem_Was_Mana_Removed^/?y1;           [was mana remove?]
+!!FU&y1=0:E;                            [no? then exit]
+!!FU(gem_Spellpoints_Giving):P;             [give mana]
+!!SN:W^gem_Was_Mana_Removed^/2;
+!?FU870520;
+*!BA:Q?y1; *!FU&y1=1:E;
+!!SN:W^gem_SHOW_COMBAT_MOUSE_HEX_OPT^/?y1;
+!!UN:C6916112/4/y1;
+!?FU870530;
+!!BA:Q?y1; !!FU&y1=1:E;
+*!SN:W^gem_SHOW_COMBAT_MOUSE_HEX_OPT^/?y1;
+!!UN:C6916112/4/?y1;
+!!SN:W^gem_SHOW_COMBAT_MOUSE_HEX_OPT^/y1;
+!?BA53&1000;
+!!UN:P900/?y1;
+!!UN&y1=0:J11/1;
+!!BA:Q?y1 E?y2;                         [Quick? MP?]
+!!SN:W^gem_Was_Mana_Removed^/?y3;           [was mana remove? check for replay]
+!!FU|y1<>1/y2=1/y3<>1:E;                [quit if or no quick or PvP or was replay - no? then exit]
+!!FU(gem_Spellpoints_Giving):P;
+!!SN:W^gem_Was_Mana_Removed^/0;
+!?BA53&1000;                            [после боя]
+!!BA:Q?y1;
+!!if&y1=0:;
+  !!UN:C6916112/4/?y1;
+  !!SN:W^gem_SHOW_COMBAT_MOUSE_HEX_OPT^/y1;
+!!en;
+  !!FU(gem_Button_Switch):P; 
+!!SN:W^Autobattle_Was_Disabled^/?y1;    [отлкючали автобой?]
+!!FU&y1<>1:E; !!UN:C6916044/4/1;        [нет -выход, да - возвращаем]
+!!SN:W^Autobattle_Was_Disabled^/0;      [запоминаем]
+
+!?FU(gem_Spellpoints_Removing);             [taking SP func]
+  !!OW:C?y1 Iy1/?y1;                    [Get current player color and control]
+    !!if&y1=0:;                         [if human hero is attacker]
+      !!FU&904:E;                       [exit if human uses berserker's potion (61wog)]
+      !!HE-10:I?y2 I0/1;                [store SP Availabilityin y1 / take off SP]
+      !!SN:W^gem_Auto_Spellpoints^/y2;      [store SP Availabilityin in global]
+    !!en;                               [human hero is defender]
+    !!if&y1<>0:;
+      !!BA:H1/?y2;
+      !!FU|905/y2=-2:E;                 [exit if human has no hero or uses berserker's potion (61wog)]
+      !!HE-20:I?y2 I0/1;     
+      !!SN:W^gem_Auto_Spellpoints^/y2;  
+    !!en;
+
+!?FU(gem_Spellpoints_Giving);               [restore SP func]
+  !!OW:C?y1 Iy1/?y1;                    [Get current player color and control]
+    !!if&y1=0:;                         [if human hero is attacker]
+      !!FU&904:E;
+      !!SN:W^gem_Auto_Spellpoints^/?y2 ;    [check SP before battle]
+      !!HE-10:Iy2;                      [restore SP]
+    !!en;
+    !!if&y1<>0:;                        [if human defending]
+      !!BA:H1/?y2;
+      !!FU|905/y2=-2:E;                 [exit if human has no hero or uses berserker's potion (61wog)]
+      !!SN:W^gem_Auto_Spellpoints^/?y2;     
+      !!HE-20:Iy2;                
+    !!en;
+
+
+
+    ** отключение замораживания окна вражеских существ без опыта существ (by daemon_n)
+** enable sod style of creatures window in battle without troop experience script
+!?BA52&1000;                            [before Human battle]
+!!UN:P900/?y1;                          [check troop experience script]
+!!if&y1=0:;                             [if disabled]
+  !!UN:J11/1;                           [enable sod style of window]
+!!el:;                                  [else]
+  !!UN:J11/0;                           [enable wog style of window]
+!!en;
+
+!!SN:W^gem_SHOW_COMBAT_MOUSE_HEX_OPT^/?y1;
+!!UN:C6916112/4/y1;
+!?FU(gem_StartGame);
+!!UN:C6916112/4/?y1;
+!!SN:W^gem_SHOW_COMBAT_MOUSE_HEX_OPT^/y1;
+!!OW:C?y4;
+!!SN:W^Current_Battle_Type%Y4^/?y1;
+*!UN:C6916044/4/?y1;                        [узнать авто]
+*!if&y1=y3:;
+  *!SN:W^Current_Battle_Type%Y4^/8;
+  *!SN:W^Current_Battle_Type%Y4^/?y3;
+*!en;
+!!SN&y1=0:W^Current_Battle_Type%Y4^/1;
+*!UN:P233/?y1;
+*!FU&y1=0:E;
+!!FU(gem_Autobattle_Check_And_Sound):P0;
+!?FU(OnEveryDay)&999;
+
+!!FU(gem_Button_Switch):P;
+!!FU(gem_Autobattle_Check_And_Sound):P0;
+
+!?FU(OnAdventureMapLeftMouseClick)&999;
+  !!CM:S?y1;
+  !!if&y1=13:;
+    !!CM:I?y1;     id кнопки клика
+    !!SN:F^GetButtonID^/^manualf^;
+    !!if&y1=v1:;
+    !!OW:C?y4;
+    !!SN:W^Current_Battle_Type%Y4^/1;
+      !!FU(gem_Button_Switch):P;
+      !!FU(gem_Autobattle_Check_And_Sound):P1; !!FU:E;
+    !!en;
+    !!SN:F^GetButtonID^/^automf^;
+    !!if&y1=v1:;
+    !!OW:C?y4;
+    !!SN:W^Current_Battle_Type%Y4^/2;
+      !!FU(gem_Button_Switch):P;
+      !!FU(gem_Autobattle_Check_And_Sound):P1;!!FU:E;
+    !!en;
+    !!SN:F^GetButtonID^/^autowm^;
+    !!if&y1=v1:;
+    !!OW:C?y4;
+    !!SN:W^Current_Battle_Type%Y4^/4;
+      !!FU(gem_Button_Switch):P;
+      !!FU(gem_Autobattle_Check_And_Sound):P1;!!FU:E;
+    !!en;
+    !!SN:F^GetButtonID^/^choiceB^;
+    !!if&y1=v1:;
+    !!OW:C?y4;
+    !!SN:W^Current_Battle_Type%Y4^/8;
+      !!FU(gem_Button_Switch):P;
+      !!FU(gem_Autobattle_Check_And_Sound):P1;!!FU:E;
+   *!en:;
+!!en:;
+!?FU(gem_Button_Switch)&999;
+    !!OW:C?y4;
+    !!SN:W^Current_Battle_Type%Y4^/?y8;
+*!SN:W^indicator_button_ID^/v1;
+*!SN:E6288816/2/[адрес_диалога]/[id_элемента]; *!VRy3:Sv1; [получить структуру элемента по id] item = (_Dlg_*)->GetItem(id)
+*!UN:C6918840/4/?y1;  *!VRy1:+68;  *!UN:Cy1/4/?y2;         [y2 - адрес диалога Краты Приключений]  (_DlgAdvMap_*)
+*!UN:C6918840/4/?y1;  *!VRy1:+68;  *!UN:Cy1/4/?y2;
+!!SN:F^GetButtonID^/^indicator^; !!FU&v1<1:E; !!VRy5:Sv1;
+!!UN:C6918840/4/?y1;  !!VRy1:+68;  !!UN:Cy1/4/?y2; [y2 - адрес диалога Краты Приключений]  (_DlgAdvMap_*)]
+!!SN:E6288816/2/y2/y5; !!FU&v1<1:E; !!VRy3:Sv1; [получить структуру элемента по id] item = (_Dlg_*)->GetItem(id)
+!!VRy8&y8=8:S7;
+!!VRy4:Sy3 +52;       !!UN:Cy4/4/y8;       [изменить кадр дефа]                item->def_frame_index
+!!VRy4:Sy3 +56;       !!UN:Cy4/4/y8;       [для кнопки: изменить кадр нажатия] item->press_def_frame_index
+!!SN:D;
+
+
+
+!?CM0&999;    [- выбор режима битвы - battle type choice]
+!!UN:P233/?y1;
+    !!CM:I?y1;     id кнопки клика
+    !!SN:L^Era.dll^/?y2 Ay2/^GetButtonID^/?y3;
+    !!SN:Ey3/0/^manualf^;
+    !!if&y1=v1:;
+      !!SN:W^gem_CheckGameLang^/?y5 T^%Y5_gem_map.button1hint^/?z-1 T^%Y5_gem_map.buttondelete^/?z-2;
+      !!CM:R0;
+      !!IF:M0/4/^%Z-1^; Q1^%Z-2^;      !FU(gem_Buttons_Disabling)&1:P;
+    !!en;
+    !!SN:Ey3/0/^automf^;
+    !!if&y1=v1:;
+      !!SN:W^gem_CheckGameLang^/?y5 T^%Y5_gem_map.button2hint^/?z-1 T^%Y5_gem_map.buttondelete^/?z-2;
+      !!CM:R0;
+      !!IF:M0/4/^%Z-1^; Q1^%Z-2^;      !FU(gem_Buttons_Disabling)&1:P;
+    !!en;
+    !!SN:Ey3/0/^autowm^;
+    !!if&y1=v1:;
+      !!SN:W^gem_CheckGameLang^/?y5 T^%Y5_gem_map.button3hint^/?z-1 T^%Y5_gem_map.buttondelete^/?z-2;
+      !!CM:R0;
+      !!IF:M0/4/^%Z-1^; Q1^%Z-2^;      !FU(gem_Buttons_Disabling)&1:P;
+    !!en;
+    !!SN:Ey3/0/^choiceB^;
+    !!if&y1=v1:;
+      !!SN:W^gem_CheckGameLang^/?y5 T^%Y5_gem_map.button4hint^/?z-1 T^%Y5_gem_map.buttondelete^/?z-2;
+      !!CM:R0;
+      !!IF:M0/4/^%Z-1^; Q1^%Z-2^;      !FU(gem_Buttons_Disabling)&1:P;
+   !!en:;

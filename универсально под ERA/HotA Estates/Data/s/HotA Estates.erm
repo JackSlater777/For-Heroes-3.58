@@ -1,21 +1,26 @@
 ZVSE
 
-*** Описание HoA Estates
+*** HotA Estates
 
-!?FU(OnAfterErmInstructions); [перед началом новой игры или после загрузки старой]
-*!UN:P215/?y1;  [Check for Scouting I]  - в будущем можно сделать проверку на WOG Estates I и II
-*!UN:P212/?y2;  [Check for Scouting II]
-*!FU(Fun_SetDescriptionFromERT)&y1=0/y2=0:P0/3/1/179620;[Устанавливаем базовое описание навыка]
-!!FU(Fun_SetDescriptionFromERT):P0/13/1/650000;[Устанавливаем базовое описание навыка]
-!!FU(Fun_SetDescriptionFromERT):P0/13/2/650001;[Устанавливаем продвинутое описание навыка]
-!!FU(Fun_SetDescriptionFromERT):P0/13/3/650002;[Устанавливаем экспертное описание навыка]
 
-!?FU(OnAfterLoadGame);        [после загрузки]
-*!UN:P215/?y1;  [Check for Scouting I]  - в будущем можно сделать проверку на WOG Estates I и II
-*!UN:P212/?y2;  [Check for Scouting II]
-*!FU(Fun_SetDescriptionFromERT)&y1=0/y2=0:P0/3/1/179620;[Устанавливаем базовое описание навыка]
-!!FU(Fun_SetDescriptionFromERT):P0/13/1/650000;[Устанавливаем базовое описание навыка]
-!!FU(Fun_SetDescriptionFromERT):P0/13/2/650001;[Устанавливаем продвинутое описание навыка]
-!!FU(Fun_SetDescriptionFromERT):P0/13/3/650002;[Устанавливаем экспертное описание навыка]
+!?FU(OnAfterErmInstructions);                   // Перед началом новой игры или после загрузки старой
+!!FU(Fun_SetDescriptionFromERT):P0/13/1/650000; // Устанавливаем базовое описание навыка
+!!FU(Fun_SetDescriptionFromERT):P0/13/2/650001; // Устанавливаем продвинутое описание навыка
+!!FU(Fun_SetDescriptionFromERT):P0/13/3/650002; // Устанавливаем экспертное описание навыка
+
+*!FU(Fun_SetSecSkillValue):P13/1/250;           // Базовое (1) Имущество (13) +250
+*!FU(Fun_SetSecSkillValue):P13/2/500;           // Продвинутое (2) Имущество (13) +500
+*!FU(Fun_SetSecSkillValue):P13/3/1000;          // Экспертное (3) Имущество (13) +1000
+
+
+!?FU(OnAfterLoadGame);                          // После загрузки
+!!FU(Fun_SetDescriptionFromERT):P0/13/1/650000; // Устанавливаем базовое описание навыка
+!!FU(Fun_SetDescriptionFromERT):P0/13/2/650001; // Устанавливаем продвинутое описание навыка
+!!FU(Fun_SetDescriptionFromERT):P0/13/3/650002; // Устанавливаем экспертное описание навыка
+
+*!FU(Fun_SetSecSkillValue):P13/1/250;           // Базовое (1) Имущество (13) +250
+*!FU(Fun_SetSecSkillValue):P13/2/500;           // Продвинутое (2) Имущество (13) +500
+*!FU(Fun_SetSecSkillValue):P13/3/1000;          // Экспертное (3) Имущество (13) +1000
+
 **end
 

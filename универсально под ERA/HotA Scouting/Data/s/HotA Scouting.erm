@@ -1,39 +1,17 @@
 ZVSE
 
-*** Описание HoA Scouting
+*** HotA Scouting
 
-!?FU(OnAfterErmInstructions); [перед началом новой игры или после загрузки старой]
-!!UN:P215/?y1;  [Check for Scouting I]
-!!UN:P212/?y2;  [Check for Scouting II]
-*!UN:P58/?y3;  [Check for Scouting III]
-!!FU(Fun_SetDescriptionFromERT)&y1=0/y2=0:P0/3/1/179620;[Устанавливаем базовое описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=0/y2=0:P0/3/2/179621;[Устанавливаем продвинутое описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=0/y2=0:P0/3/3/179622;[Устанавливаем экспертное описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=1/y2=0:P0/3/1/179623;[Устанавливаем базовое описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=1/y2=0:P0/3/2/179624;[Устанавливаем продвинутое описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=1/y2=0:P0/3/3/179625;[Устанавливаем экспертное описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=0/y2=1:P0/3/1/179626;[Устанавливаем базовое описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=0/y2=1:P0/3/2/179627;[Устанавливаем продвинутое описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=0/y2=1:P0/3/3/179628;[Устанавливаем экспертное описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=1/y2=1:P0/3/1/179629;[Устанавливаем базовое описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=1/y2=1:P0/3/2/179630;[Устанавливаем продвинутое описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=1/y2=1:P0/3/3/179631;[Устанавливаем экспертное описание навыка]
+!?FU(OnAfterErmInstructions);                   // Перед началом новой игры или после загрузки старой
+!!FU(Fun_SetDescriptionFromERT):P0/3/1/179620;  // Устанавливаем базовое описание навыка
+!!FU(Fun_SetDescriptionFromERT):P0/3/2/179621;  // Устанавливаем продвинутое описание навыка
+!!FU(Fun_SetDescriptionFromERT):P0/3/3/179622;  // Устанавливаем экспертное описание навыка
 
-!?FU(OnAfterLoadGame);        [после загрузки]
-!!UN:P215/?y1;  [Check for Scouting I]
-!!UN:P212/?y2;  [Check for Scouting II]
-*!UN:P58/?y3;  [Check for Scouting III]
-!!FU(Fun_SetDescriptionFromERT)&y1=0/y2=0:P0/3/1/179620;[Устанавливаем базовое описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=0/y2=0:P0/3/2/179621;[Устанавливаем продвинутое описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=0/y2=0:P0/3/3/179622;[Устанавливаем экспертное описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=1/y2=0:P0/3/1/179623;[Устанавливаем базовое описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=1/y2=0:P0/3/2/179624;[Устанавливаем продвинутое описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=1/y2=0:P0/3/3/179625;[Устанавливаем экспертное описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=0/y2=1:P0/3/1/179626;[Устанавливаем базовое описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=0/y2=1:P0/3/2/179627;[Устанавливаем продвинутое описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=0/y2=1:P0/3/3/179628;[Устанавливаем экспертное описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=1/y2=1:P0/3/1/179629;[Устанавливаем базовое описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=1/y2=1:P0/3/2/179630;[Устанавливаем продвинутое описание навыка]
-!!FU(Fun_SetDescriptionFromERT)&y1=1/y2=1:P0/3/3/179631;[Устанавливаем экспертное описание навыка]
+
+!?FU(OnAfterLoadGame);                          // После загрузки
+!!FU(Fun_SetDescriptionFromERT):P0/3/1/179620;  // Устанавливаем базовое описание навыка
+!!FU(Fun_SetDescriptionFromERT):P0/3/2/179621;  // Устанавливаем продвинутое описание навыка
+!!FU(Fun_SetDescriptionFromERT):P0/3/3/179622;  // Устанавливаем экспертное описание навыка
+
 **end
 

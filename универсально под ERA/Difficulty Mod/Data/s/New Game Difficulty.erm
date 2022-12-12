@@ -1,0 +1,2900 @@
+ZVSE
+****************************************************************************************************
+*Author: Daemon_n and Perry R
+*A difficulty mod for ERA 2.9
+*Dialogue Numbers used: 13,44,45
+
+This mod offers the player various options to increase game difficulty for Neutral Stacks on the map
+and for computer player heroes
+
+
+
+****************************************************************************************************
+
+
+            Difficulty Options for AI and Neutrals at map start
+
+
+
+****************************************************************************************************
+
+
+
+****************************************************************************************************
+This Section handels the First Dialogue 13 were you can choose to configure options or start game
+
+
+!?DL&v998=13/v999>=1/v999<=2/v1000=13;  [Get Player choice what to configure when release L-click on images]
+
+!!FU(Configure_Neutrals)&v999=1:P;      [call (Configure_Neutrals) func]
+!!FU(Configure_AI)&v999=2:P;            [call (Configure_AI) func]
+
+
+!?DL&v998=13/v1000=14;                  [Set text hints for boxes and pictures]
+
+!!SN:T^Diff_Mod.LeftHint^/?z41;         [set creatures RMB hint]
+!!SN:T^Diff_Mod.RightHint^/?z42;        [set AI RMB hint]
+!!IF&v999=1:M0/4/z41;                   [place creatures RMB hint]
+!!IF&v999=2:M0/4/z42;                   [place AI RMB hint]
+
+
+!?DL&v998=13/v999=30722/v1000=13;       [Start game and close dialogue when release L-click on  "OK"]
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;
+!!DL:C1;
+
+
+****************************************************************************************************
+
+
+This Section handels the Dialogue 44 were you can Configure_Neutrals (Left Side)
+
+
+
+****************************************************************************************************
+
+!?FU(Configure_Neutrals);               [open the Neutrals difficulty settings]
+  !!DL44:N^diff_Neu.txt^;               [Name of Dialogue text file Parse Dialogue]
+
+  !!SN:T^Diff_Mod.Level_Easy^/?z20 T^Diff_Mod.Level_Medium^/?z21 T^Diff_Mod.Level_Hard^/?z22 T^Diff_Mod.Level_Choose_1^/?z23; [Load Text]
+  !!DL44:A43/3/z20/1 A44/3/z21/1 A45/3/z22/1 A38/3/z23/1; [Set text to text fields]
+
+  !!SN:T^Diff_Mod.Option_1^/?z24 T^Diff_Mod.Option_2^/?z25 T^Diff_Mod.Option_3^/?z26 T^Diff_Mod.Option_4^/?z27; [Load correct text for options 1-16]
+  !!DL44:A26/3/z24/1 A27/3/z25/1 A28/3/z26/1 A29/3/z27/1; [Set text to text fields]
+
+  !!SN:T^Diff_Mod.Option_5^/?z1 T^Diff_Mod.Option_6^/?z2 T^Diff_Mod.Option_7^/?z3 T^Diff_Mod.Option_8^/?z4;
+  !!DL44:A30/3/z1/1 A31/3/z2/1 A32/3/z3/1 A33/3/z4/1;
+
+  !!SN:T^Diff_Mod.Option_9^/?z5 T^Diff_Mod.Option_10^/?z6 T^Diff_Mod.Option_11^/?z7 T^Diff_Mod.Option_12^/?z8;
+  !!DL44:A34/3/z5/1 A35/3/z6/1 A36/3/z7/1 A37/3/z8/1;
+
+  !!SN:T^Diff_Mod.Option_13^/?z9 T^Diff_Mod.Option_14^/?z10 T^Diff_Mod.Option_15^/?z11 T^Diff_Mod.Option_16^/?z12;
+  !!DL44:A38/3/z9/1 A39/3/z10/1 A40/3/z11/1 A41/3/z12/1;
+
+  !!SN:T^Diff_Mod.Level_0^/?z13;
+  !!DL44:A22/3/z13/1 A23/3/z13/1 A24/3/z13/1 A25/3/z13/1;
+  !!FU(Neutrals_checkboxes):P;
+
+  !!SN:T^Diff_Mod.cancel_button_hint^/?z43; [left text]
+  !!DL44:H30721/43;                     [set cancel button hint text]
+  !!SN:T^Diff_Mod.confirm_button_hint_0^/?z44; [left text]
+  !!DL44:H30722/44;                     [set confirm button hint text]
+
+  !!DL44:S1;                            [Show complete Dialogue number 44]
+
+
+!?DL&v998=44/v999>0/v999<6/v1000=13;    [LMB on the creatures/presets icons ]
+  !!VRz16:S^Button.wav^;
+  
+!!if&v999=1:;                           [set text for 1st]
+  !!SN:Pz16;                            [do not play sound again]
+  !!FU(Neutrals_reset):P;               [reset all]
+  !!DL44:A1/4/1/1 A6/4/1/1 A5/4/5/1;
+  !!FU(Set_Options_Presets):P1;         [Pass Easy and return value]
+  !!SN:T^Diff_Mod.Level_1^/?z1 T^Diff_Mod.Level_1^/?z2 T^Diff_Mod.Level_1^/?z3 T^Diff_Mod.Level_1^/?z4;
+  !!DL44:A22/3/z1/1 A23/3/z2/1 A24/3/z3/1 A25/3/z4/1;
+
+  !!VRy10:S0T15;
+  !!SN&y10=0:W^Random_Neutral_Hero^/1;  
+  !!SN&y10=1:W^Battle_Commander^/1; 
+  !!SN&y10=2:W^Tougher_Karmic_Battles_on^/1;
+  !!SN&y10=3:W^Anzahl_Buffs^/1;
+
+  !!VRy10:S0T15;
+  !!SN&y10=0:W^Random_Neutral_Hero^/1;  
+  !!SN&y10=1:W^Battle_Commander^/1; 
+  !!SN&y10=2:W^Tougher_Karmic_Battles_on^/1;
+  !!SN&y10=3:W^Anzahl_Buffs^/1;
+
+  !!SN:W^Battle_Reward_Active^/1;
+  !!FU(Neutrals_checkboxes):P;          [call func for switch on the user's choice]
+!!en:;
+
+!!if&v999=2:;
+  !!SN:Pz16;                            [do not play sound again]
+  !!FU(Neutrals_reset):P;               [reset all]
+  !!DL44:A7/4/1/1 A2/4/3/1 A5/4/6/1;
+  !!FU(Set_Options_Presets):P2;         [Pass Normal and return value]
+  !!SN:T^Diff_Mod.Level_2^/?z1 T^Diff_Mod.Level_2^/?z2 T^Diff_Mod.Level_2^/?z3 T^Diff_Mod.Level_2^/?z4;
+  !!DL44:A22/3/z1/1 A23/3/z2/1 A24/3/z3/1 A25/3/z4/1;
+  
+  !!VRy10:S0T10;
+  !!SN&y10=0:W^Random_Neutral_Hero^/1;  
+  !!SN&y10=1:W^Battle_Commander^/1; 
+  !!SN&y10=2:W^Tougher_Karmic_Battles_on^/1;
+  !!SN&y10=3:W^Anzahl_Buffs^/1;
+  !!SN&y10=4:W^Anzahl_Abilities^/1;
+  !!SN&y10=5:W^Neutral_Stack_Weekly_Upgrade^/1;
+  !!SN&y10=6:W^Neutral_Growth_10000^/1; 
+  !!SN&y10=7:W^Low_Level_Growth^/1;
+  !!SN&y10=8:W^Double_Growth_Rate^/1;
+
+  !!VRy10:S0T10;
+  !!SN&y10=0:W^Random_Neutral_Hero^/1;  
+  !!SN&y10=1:W^Battle_Commander^/1; 
+  !!SN&y10=2:W^Tougher_Karmic_Battles_on^/1;
+  !!SN&y10=3:W^Anzahl_Buffs^/1;
+  !!SN&y10=4:W^Anzahl_Abilities^/1;
+  !!SN&y10=5:W^Neutral_Stack_Weekly_Upgrade^/1;
+  !!SN&y10=6:W^Neutral_Growth_10000^/1;
+  !!SN&y10=7:W^Low_Level_Growth^/1;
+  !!SN&y10=8:W^Double_Growth_Rate^/1;
+
+  !!VRy10:S0T1;
+  !!SN&y10=0:W^Random_Neutral_Hero^/1;
+  !!SN&y10=1:W^Battle_Commander^/1; 
+   
+  !!SN:W^Battle_Reward_Active^/1;
+  !!FU(Neutrals_checkboxes):P;          [call func for switch on the user's choice]
+!!en:;
+
+!!if&v999=3:;
+  !!SN:Pz16;                            [do not play sound again]
+  !!FU(Neutrals_reset):P;               [reset all]
+  !!DL44:A3/4/5/1 A8/4/1/1 A5/4/7/1;    [3rd]
+  !!FU(Set_Options_Presets):P3;         [Pass Hard and return value]
+  !!SN:T^Diff_Mod.Level_3^/?z1 T^Diff_Mod.Level_3^/?z2 T^Diff_Mod.Level_3^/?z3 T^Diff_Mod.Level_3^/?z4;
+  !!DL44:A22/3/z1/1 A23/3/z2/1 A24/3/z3/1 A25/3/z4/1;
+
+  !!VRy10:S2T8;
+  !!SN&y10=2:W^Tougher_Karmic_Battles_on^/1;
+  !!SN&y10=3:W^Anzahl_Buffs^/1;
+  !!SN&y10=4:W^Anzahl_Abilities^/1;
+  !!SN&y10=5:W^Neutral_Stack_Weekly_Upgrade^/1;
+  !!SN&y10=6:W^Neutral_Growth_10000^/1; 
+  !!SN&y10=7:W^Low_Level_Growth^/1;
+  !!SN&y10=8:W^Double_Growth_Rate^/1;
+  !!SN&y10=9:W^Neutral_Stack_Uptier1^/1;
+  !!SN&y10=10:W^Double_Neutral_Stacks^/1;
+
+  !!VRy10:S2T8;
+  !!SN&y10=2:W^Tougher_Karmic_Battles_on^/1;
+  !!SN&y10=3:W^Anzahl_Buffs^/1;
+  !!SN&y10=4:W^Anzahl_Abilities^/1;
+  !!SN&y10=5:W^Neutral_Stack_Weekly_Upgrade^/1;
+  !!SN&y10=6:W^Neutral_Growth_10000^/1; 
+  !!SN&y10=7:W^Low_Level_Growth^/1;
+  !!SN&y10=8:W^Double_Growth_Rate^/1;
+  !!SN&y10=9:W^Anzahl_Buffs^/2;
+  !!SN&y10=10:W^Anzahl_Abilities^/2;
+   
+  !!VRy10:S2T8;
+  !!SN&y10=2:W^Tougher_Karmic_Battles_on^/1;
+  !!SN&y10=3:W^Anzahl_Buffs^/1;
+  !!SN&y10=4:W^Anzahl_Abilities^/1;
+  !!SN&y10=5:W^Neutral_Stack_Weekly_Upgrade^/1;
+  !!SN&y10=6:W^Neutral_Growth_10000^/1; 
+  !!SN&y10=7:W^Low_Level_Growth^/1;
+  !!SN&y10=8:W^Double_Growth_Rate^/1;
+  !!SN&y10=9:W^Neutral_Stack_Uptier1^/1;
+  !!SN&y10=10:W^Double_Neutral_Stacks^/1;
+   
+  !!SN:W^Random_Neutral_Hero^/1;
+  !!SN:W^Battle_Commander^/1;  
+
+  !!SN:W^Battle_Reward_Active^/1;
+  !!FU(Neutrals_checkboxes):P;          [call func for switch on the user's choice]
+!!en:;
+!!FU(Options_value):P;
+
+
+!?DL&v998=44/v999>46/v999<59/v1000=13;  [switch by little arrows for options 1-4]
+
+!!if&v999=47:;                          [If clicked on the left arrow   Additional Troops option]
+   !!SN:W^Additionals_troops^/?y1;      [Get value in y1]
+   !!SN&y1>0:W^Additionals_troops^/d-1; [Reduce value by -1 if bigger zero]
+   !!SN:W^Additionals_troops^/?y1;      [Get new value in y1]
+   !!FU(Set_Stack_Size_Mod):Py1;
+!!en:;
+!!if&v999=48:;                          [Additional Troops option]
+  !!SN:W^Additionals_troops^/?y1;
+  !!SN&y1<5:W^Additionals_troops^/d1;
+  !!SN:W^Additionals_troops^/?y1;
+  !!FU(Set_Stack_Size_Mod):Py1;
+!!en;
+
+!!if&v999=51:;                          [Healt_Grow_Rate]
+  !!SN:W^Neutral_stats^/?y1;
+  !!SN&y1>0:W^Neutral_stats^/d-1;
+  !!SN:W^Neutral_stats^/?y1;
+  !!VRy2&y1=0:S0;                       [Deavtivate]
+  !!VRy2&y1=1:S42;                      [Easy 6 weeks]
+  !!VRy2&y1=2:S28;                      [Normal 4 weeks]
+  !!VRy2&y1=3:S14;                      [Hard 2 weeks]
+  !!VRy2&y1=4:S7;                       [Extreme 1 weeks]
+  !!VRy2&y1=5:S3;                       [Insane 3 days]
+  !!SN:W^Health_Grow_Enable^/y2;        [Healt_Grow_Rate]
+!!en;
+!!if&v999=52:;                          [Healt_Grow_Rate]
+  !!SN:W^Neutral_stats^/?y1;
+  !!SN&y1<5:W^Neutral_stats^/d1;
+  !!SN:W^Neutral_stats^/?y1;
+  !!VRy2&y1=0:S0;                       [Deavtivate]
+  !!VRy2&y1=1:S42;                      [Easy 6 weeks]
+  !!VRy2&y1=2:S28;                      [Normal 4 weeks]
+  !!VRy2&y1=3:S14;                      [Hard 2 weeks]
+  !!VRy2&y1=4:S7;                       [Extreme 1 weeks]
+  !!VRy2&y1=5:S3;                       [Insane 3 days]
+  !!SN:W^Health_Grow_Enable^/y2;        [Healt_Grow_Rate]
+!!en;
+
+!!if&v999=49:;                          [Stack_Exp_Rate]
+  !!SN:W^Neutral_exp^/?y1;
+  !!SN&y1>0:W^Neutral_exp^/d-1;
+  !!SN:W^Neutral_exp^/?y1;
+  !!VRy2&y1=0:S10;                      [Deavtivate]
+  !!VRy2&y1=1:S7;                       [Easy]
+  !!VRy2&y1=2:S5;                       [Normal]
+  !!VRy2&y1=3:S4;                       [Hard]
+  !!VRy2&y1=4:S3;                       [Extreme]
+  !!VRy2&y1=5:S1;                       [Insane]
+  !!SN:W^Stack_Exp_Rate^/y2;            [Stack_Exp_Rate]
+!!en;
+!!if&v999=50:;                          [Stack_Exp_Rate]
+  !!SN:W^Neutral_exp^/?y1;
+  !!SN&y1<5:W^Neutral_exp^/d1;
+  !!SN:W^Neutral_exp^/?y1;
+  !!VRy2&y1=0:S10;                      [Deavtivate]
+  !!VRy2&y1=1:S7;                       [Easy]
+  !!VRy2&y1=2:S5;                       [Normal]
+  !!VRy2&y1=3:S4;                       [Hard]
+  !!VRy2&y1=4:S3;                       [Extreme]
+  !!VRy2&y1=5:S1;                       [Insane]
+  !!SN:W^Stack_Exp_Rate^/y2;            [Stack_Exp_Rate]
+!!en;
+
+!!if&v999=53:;                          [Guarded_Object_Faktor and commander inside CB]
+  !!SN:W^Creature_banks^/?y1;
+  !!SN&y1>0:W^Creature_banks^/d-1;
+  !!SN:W^Creature_banks^/?y1;
+  !!FU(Set_Guarded_Object_Mod):Py1;
+!!en;                               
+!!if&v999=54:;                          [Guarded_Object_Faktor and commander inside CB]
+  !!SN:W^Creature_banks^/?y1;
+  !!SN&y1<5:W^Creature_banks^/d1;
+  !!SN:W^Creature_banks^/?y1; 
+  !!FU(Set_Guarded_Object_Mod):Py1;
+!!en;
+
+!!if&v999=55:;
+  !!SN:W^Anzahl_Buffs^/?y1;
+  !!SN&y1>0:W^Anzahl_Buffs^/d-1;
+  !!FU(Neutrals_checkboxes):P;
+!!en;
+!!if&v999=56:;
+  !!SN:W^Anzahl_Buffs^/?y1; 
+  !!SN&y1<4:W^Anzahl_Buffs^/d1;  
+  !!FU(Neutrals_checkboxes):P; 
+!!en;
+
+!!if&v999=57:;
+  !!SN:W^Anzahl_Abilities^/?y1;
+  !!SN&y1>0:W^Anzahl_Abilities^/d-1;
+  !!FU(Neutrals_checkboxes):P; 
+!!en;
+!!if&v999=58:;
+  !!SN:W^Anzahl_Abilities^/?y1;
+  !!SN&y1<4:W^Anzahl_Abilities^/d1;
+  !!FU(Neutrals_checkboxes):P; 
+!!en;
+
+!!FU(Options_value)|v999=47/v999=48:Pv998/22/y1; [For left or right arrow, Call fkt and pass DL_Nummber, Element_ID, and value]
+!!FU(Options_value)|v999=49/v999=50:Pv998/23/y1;
+!!FU(Options_value)|v999=51/v999=52:Pv998/24/y1;
+!!FU(Options_value)|v999=53/v999=54:Pv998/25/y1;
+
+
+!?DL&v998=44/v999>9/v999<22/v1000=13;   [checkboxes switch between check and cancel]
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;
+;[ini named vars]
+!!SN:W^Random_Neutral_Hero^/?y1;        [Check if options have already been activated]
+!!SN:W^Tougher_Karmic_Battles_on^/?y2;
+!!SN:W^Low_Level_Growth^/?y3; 
+!!SN:W^Double_Growth_Rate^/?y4; 
+!!SN:W^Double_Neutral_Stacks^/?y5;
+!!SN:W^Neutral_Stack_Uptier1^/?y6;
+!!SN:W^Neutral_Stack_Weekly_Upgrade^/?y7; 
+!!SN:W^Neutral_Growth_10000^/?y8;
+!!SN:W^Battle_Commander^/?y9;
+!!SN:W^Battle_Reward_Active^/?y10;
+!!SN:W^Anzahl_Buffs^/?y11; 
+!!SN:W^Anzahl_Abilities^/?y12; 
+
+  !!SN&v999=10/y1=0:W^Random_Neutral_Hero^/1; [swith for 1st]
+  !!SN&v999=10/y1=1:W^Random_Neutral_Hero^/0;
+
+  !!SN&v999=11/y2=0:W^Tougher_Karmic_Battles_on^/1;
+  !!SN&v999=11/y2=1:W^Tougher_Karmic_Battles_on^/0;
+
+  !!SN&v999=12/y3=0:W^Low_Level_Growth^/1;
+  !!SN&v999=12/y3=1:W^Low_Level_Growth^/0;
+
+  !!SN&v999=13/y4=0:W^Double_Growth_Rate^/1;
+  !!SN&v999=13/y4=1:W^Double_Growth_Rate^/0;
+
+  !!SN&v999=14/y5=0:W^Double_Neutral_Stacks^/1;
+  !!SN&v999=14/y5=1:W^Double_Neutral_Stacks^/0;
+
+  !!SN&v999=15/y6=0:W^Neutral_Stack_Uptier1^/1;
+  !!SN&v999=15/y6=1:W^Neutral_Stack_Uptier1^/0;
+
+  !!SN&v999=16/y7=0:W^Neutral_Stack_Weekly_Upgrade^/1;
+  !!SN&v999=16/y7=1:W^Neutral_Stack_Weekly_Upgrade^/0;
+
+  !!SN&v999=17/y8=0:W^Neutral_Growth_10000^/1;
+  !!SN&v999=17/y8=1:W^Neutral_Growth_10000^/0;
+ 
+  !!SN&v999=18/y9=0:W^Battle_Commander^/1;
+  !!SN&v999=18/y9=1:W^Battle_Commander^/0;
+
+  !!SN&v999=19/y10=0:W^Battle_Reward_Active^/1;
+  !!SN&v999=19/y10=1:W^Battle_Reward_Active^/0;
+
+  !!SN&v999=20/y11=0:W^Anzahl_Buffs^/1;
+  !!SN&v999=20/y11>0:W^Anzahl_Buffs^/0;
+
+  !!SN&v999=21/y12=0:W^Anzahl_Abilities^/1;
+  !!SN&v999=21/y12>0:W^Anzahl_Abilities^/0;
+
+!!FU(Neutrals_checkboxes):P;            [call func for switch on the user's choice]
+
+
+!?DL&v998=44/v1000=14;                  [Show right click information for faces and all options]
+
+*faces
+
+!!SN&v999=1:T^Diff_Mod.Neutral_Preset_1^/?s^Text^; [set text for 1st]
+!!IF&v999=1:M0/4/^%S(Text)^;            [show it 1 - 5]
+
+!!SN&v999=2:T^Diff_Mod.Neutral_Preset_2^/?s^Text^; [2nd]
+!!IF&v999=2:M0/4/^%S(Text)^;
+
+!!SN&v999=3:T^Diff_Mod.Neutral_Preset_3^/?s^Text^; [...]
+!!IF&v999=3:M0/4/^%S(Text)^;
+
+*!SN&v999=4:T^Diff_Mod.Bonus4^/?s^Text^;                ...
+*!IF&v999=4:M0/4/z1;
+
+!!SN&v999=5:T^Diff_Mod.Confirm_Neutral_Settings^/?s^Text^; [...]
+!!IF&v999=5:M0/4/^%S(Text)^;
+
+!!SN&v999=30721:T^Diff_Mod.Cancel_Neutral_Settings^/?s^Text^; [...]
+!!IF&v999=30721:M0/4/^%S(Text)^;
+
+
+*switchable options
+!!if|v999=26/v999=22:;
+!!SN:W^Additionals_troops^/?y1;         [Get new value in y1]
+!!SN&y1=0:T^Diff_Mod.Additionals_troops0^/?s^Text^; [set text for 1st]
+!!SN&y1=1:T^Diff_Mod.Additionals_troops1^/?s^Text^; [set text for 1st]
+!!SN&y1=2:T^Diff_Mod.Additionals_troops2^/?s^Text^; [set text for 1st]
+!!SN&y1=3:T^Diff_Mod.Additionals_troops3^/?s^Text^; [set text for 1st]
+!!SN&y1=4:T^Diff_Mod.Additionals_troops4^/?s^Text^; [set text for 1st]
+!!SN&y1=5:T^Diff_Mod.Additionals_troops5^/?s^Text^; [set text for 1st]
+!!IF:M0/4/^%S(Text)^;                   [show it 1 - 5]
+!!en:;
+
+
+!!if|v999=27/v999=23:;
+*!SN:W^Neutral_stats^/?y1; Get new value in y1
+!!SN:T^Diff_Mod.Neutral_exp^/?s^Text^;  [2nd]
+!!IF:M0/4/^%S(Text)^;
+!!en:;
+
+!!if|v999=28/v999=24:;
+!!SN:W^Neutral_stats^/?y1;              [Get new value in y1]
+!!SN&y1=0:T^Diff_Mod.Neutral_stats0^/?s^Text^; [set text for 1st]
+!!SN&y1=1:T^Diff_Mod.Neutral_stats1^/?s^Text^; [set text for 1st]
+!!SN&y1=2:T^Diff_Mod.Neutral_stats2^/?s^Text^; [set text for 1st]
+!!SN&y1=3:T^Diff_Mod.Neutral_stats3^/?s^Text^; [set text for 1st]
+!!SN&y1=4:T^Diff_Mod.Neutral_stats4^/?s^Text^; [set text for 1st]
+!!SN&y1=5:T^Diff_Mod.Neutral_stats5^/?s^Text^; [set text for 1st]
+!!IF:M0/4/^%S(Text)^;
+!!en:;
+
+!!if|v999=29/v999=25:;
+!!SN:W^Creature_banks^/?y1;
+!!SN&y1=0:T^Diff_Mod.Creature_banks0^/?s^Text^; [set text for 1st]
+!!SN&y1=1:T^Diff_Mod.Creature_banks1^/?s^Text^; [set text for 1st]
+!!SN&y1=2:T^Diff_Mod.Creature_banks2^/?s^Text^; [set text for 1st]
+!!SN&y1=3:T^Diff_Mod.Creature_banks3^/?s^Text^; [set text for 1st]
+!!SN&y1=4:T^Diff_Mod.Creature_banks4^/?s^Text^; [set text for 1st]
+!!SN&y1=5:T^Diff_Mod.Creature_banks5^/?s^Text^; [set text for 1st]
+!!IF:M0/4/^%S(Text)^;
+!!en:;
+
+*fixed options
+!!SN&v999=30:T^Diff_Mod.Random_Neutral_Hero^/?s^Text^; [...]
+!!IF&v999=30:M0/4/^%S(Text)^;
+
+!!SN&v999=31:T^Diff_Mod.Tougher_Karmic_Battles_on^/?s^Text^; [...]
+!!IF&v999=31:M0/4/^%S(Text)^;
+
+!!SN&v999=32:T^Diff_Mod.Low_Level_Growth^/?s^Text^; [...]
+!!IF&v999=32:M0/4/^%S(Text)^;
+
+!!SN&v999=33:T^Diff_Mod.Double_Growth_Rate^/?s^Text^; [...]
+!!IF&v999=33:M0/4/^%S(Text)^;
+
+!!SN&v999=34:T^Diff_Mod.Double_Neutral_Stacks^/?s^Text^; [...]
+!!IF&v999=34:M0/4/^%S(Text)^;
+
+!!SN&v999=35:T^Diff_Mod.Neutral_Stack_Uptier1^/?s^Text^; [...]
+!!IF&v999=35:M0/4/^%S(Text)^;
+
+!!SN&v999=36:T^Diff_Mod.Neutral_Stack_Weekly^/?s^Text^; [...]
+!!IF&v999=36:M0/4/^%S(Text)^;
+
+!!SN&v999=37:T^Diff_Mod.Neutral_Growth_10000^/?s^Text^; [...]
+!!IF&v999=37:M0/4/^%S(Text)^;
+
+!!SN&v999=38:T^Diff_Mod.Battle_Commander_Active^/?s^Text^; [...]
+!!IF&v999=38:M0/4/^%S(Text)^;
+
+!!SN&v999=39:T^Diff_Mod.Battle_Reward_Active^/?s^Text^; [...]
+!!IF&v999=39:M0/4/^%S(Text)^;
+
+!!SN&v999=40:T^Diff_Mod.Anzahl_Buffs^/?s^Text^; [...]
+!!IF&v999=40:M0/4/^%S(Text)^;
+
+!!SN&v999=41:T^Diff_Mod.Anzahl_Abilities^/?s^Text^; [...]
+!!IF&v999=41:M0/4/^%S(Text)^;
+
+
+!?DL&v998=44/v1000=13;                  [If any left click in DL44]
+
+!!SN:W^Battle_Reward_Active^/?y2;
+!!FU(Calc_Battle_Reward)&y2=1:P;        [Give Message about Chance when all options were selected]
+
+
+!?DL&v998=44/v999=30721/v1000=13;       [When clicking on the close Button in Neutral Dif Exit and reset all options]
+!!DL:C1;
+!!SN:W^Neutrals_Difficulty_Enabled^/0;
+!!FU(Set_Exit_Options):P;               [Run Exit Settings]
+
+
+!?DL&v998=44/v999=30722/v1000=13;       [Close Dialogue with Confirm Button Save all Settings]
+!!SN:W^Neutrals_Difficulty_Enabled^/1;
+!!DL:C1;
+
+
+!?FU(Neutrals_reset);
+!!DL44:A1/4/0/1 A2/4/2/1 A3/4/4/1 A4/4/6/1 A5/4/0/1 A6/4/0/1 A7/4/0/1 A8/4/0/1 A9/4/0/1; [reset all]
+
+  !!SN:W^Random_Neutral_Hero^/0;
+  !!SN:W^Tougher_Karmic_Battles_on^/0; 
+  !!SN:W^Low_Level_Growth^/0; 
+  !!SN:W^Double_Growth_Rate^/0; 
+  !!SN:W^Double_Neutral_Stacks^/0; 
+  !!SN:W^Neutral_Stack_Uptier1^/0;
+  !!SN:W^Neutral_Stack_Weekly_Upgrade^/0; 
+  !!SN:W^Neutral_Growth_10000^/0;
+  !!SN:W^Battle_Commander^/0;  
+  !!SN:W^Battle_Reward_Active^/0; 
+  !!SN:W^Anzahl_Buffs^/0;  
+  !!SN:W^Anzahl_Abilities^/0;          
+
+
+!?FU(Neutrals_checkboxes);              [Set checkboxes function]
+!!SN:W^Random_Neutral_Hero^/?y1 W^Tougher_Karmic_Battles_on^/?y2 W^Low_Level_Growth^/?y3 W^Double_Growth_Rate^/?y4; 
+!!SN:W^Double_Neutral_Stacks^/?y5 W^Neutral_Stack_Uptier1^/?y6 W^Neutral_Stack_Weekly_Upgrade^/?y7 W^Neutral_Growth_10000^/?y8;
+!!SN:W^Battle_Commander^/?y9 W^Battle_Reward_Active^/?y10 W^Anzahl_Buffs^/?y11 W^Anzahl_Abilities^/?y12;
+!!VRz1:S^%Y11^;
+!!VRz2:S^%Y12^;
+
+!!DL44:A10/4/y1/1 A11/4/y2/1 A12/4/y3/1 A13/4/y4/1 A14/4/y5/1 A15/4/y6/1;
+!!DL44:A16/4/y7/1 A17/4/y8/1 A18/4/y9/1 A19/4/y10/1 A59/3/z1/1 A60/3/z2/1;
+
+!!if&y11>0:;
+  !!DL44:A20/4/1/1;
+!!el:;
+  !!DL44:A20/4/0/1;
+!!en;
+
+!!if&y12>0:;
+  !!DL44:A21/4/1/1;
+!!el:;
+  !!DL44:A21/4/0/1;
+!!en;
+
+
+!?FU(Set_Stack_Size_Mod);
+
+!!SN&x1>=1:W^Stack_Size_Enable^/1;      [Actiavte So it can run more than once]
+!!SN&x1=0:W^Stack_Size_Enable^/0;       [Deavtivate Stack_Size_Modification]
+
+!!if&x1=1:;                             [Easy]
+!!SN:W^Stack_Size_Mod_L1^/20;           [Lvl 1]
+!!SN:W^Stack_Size_Mod_L2^/18;           [Lvl 2]
+!!SN:W^Stack_Size_Mod_L3^/15;           [Lvl 3]
+!!SN:W^Stack_Size_Mod_L4^/12;           [Lvl 4]
+!!SN:W^Stack_Size_Mod_L5^/8;            [Lvl 5]
+!!SN:W^Stack_Size_Mod_L6^/6;            [Lvl 6]
+!!SN:W^Stack_Size_Mod_L7^/5;            [Lvl 7]
+!!SN:W^Stack_Size_Mod_L8^/3;            [Lvl 8]
+!!en:;
+
+!!if&x1=2:;                             [Normal]
+!!SN:W^Stack_Size_Mod_L1^/30;           [Lvl 1]
+!!SN:W^Stack_Size_Mod_L2^/25;           [Lvl 2]
+!!SN:W^Stack_Size_Mod_L3^/20;           [Lvl 3]
+!!SN:W^Stack_Size_Mod_L4^/15;           [Lvl 4]
+!!SN:W^Stack_Size_Mod_L5^/10;           [Lvl 5]
+!!SN:W^Stack_Size_Mod_L6^/8;            [Lvl 6]
+!!SN:W^Stack_Size_Mod_L7^/6;            [Lvl 7]
+!!SN:W^Stack_Size_Mod_L8^/4;            [Lvl 8]
+!!en:;
+
+!!if&x1=3:;                             [Hard]
+!!SN:W^Stack_Size_Mod_L1^/40;           [Lvl 1]
+!!SN:W^Stack_Size_Mod_L2^/35;           [Lvl 2]
+!!SN:W^Stack_Size_Mod_L3^/30;           [Lvl 3]
+!!SN:W^Stack_Size_Mod_L4^/25;           [Lvl 4]
+!!SN:W^Stack_Size_Mod_L5^/20;           [Lvl 5]
+!!SN:W^Stack_Size_Mod_L6^/15;           [Lvl 6]
+!!SN:W^Stack_Size_Mod_L7^/10;           [Lvl 7]
+!!SN:W^Stack_Size_Mod_L8^/8;            [Lvl 8]
+!!en:;
+
+!!if&x1=4:;                             [Extreme]
+!!SN:W^Stack_Size_Mod_L1^/70;           [Lvl 1]
+!!SN:W^Stack_Size_Mod_L2^/55;           [Lvl 2]
+!!SN:W^Stack_Size_Mod_L3^/50;           [Lvl 3]
+!!SN:W^Stack_Size_Mod_L4^/45;           [Lvl 4]
+!!SN:W^Stack_Size_Mod_L5^/40;           [Lvl 5]
+!!SN:W^Stack_Size_Mod_L6^/30;           [Lvl 6]
+!!SN:W^Stack_Size_Mod_L7^/20;           [Lvl 7]
+!!SN:W^Stack_Size_Mod_L8^/12;           [Lvl 8]
+!!en:;
+
+!!if&x1=5:;                             [Insane]
+!!SN:W^Stack_Size_Mod_L1^/120;          [Lvl 1]
+!!SN:W^Stack_Size_Mod_L2^/80;           [Lvl 2]
+!!SN:W^Stack_Size_Mod_L3^/70;           [Lvl 3]
+!!SN:W^Stack_Size_Mod_L4^/60;           [Lvl 4]
+!!SN:W^Stack_Size_Mod_L5^/50;           [Lvl 5]
+!!SN:W^Stack_Size_Mod_L6^/40;           [Lvl 6]
+!!SN:W^Stack_Size_Mod_L7^/30;           [Lvl 7]
+!!SN:W^Stack_Size_Mod_L8^/20;           [Lvl 8]
+!!en:;
+
+
+!?FU(Set_Guarded_Object_Mod);
+
+!!if&x1=0:;                             [Default]
+!!SN:W^Guarded_Object_growth_Rate^/10;  [10%    Original Values  less is more]
+!!SN:W^Guarded_Object_Faktor^/3;        [*1,5 Faktor  Original Values  more is better]
+!!SN:W^Guarded_Object_Commander_Bonus_Att^/2; [Original Values  more is better]
+!!SN:W^Guarded_Object_Commander_Bonus_Dmg^/2; [Original Values  more is better]
+!!SN:W^Guarded_Object_Commander_Bonus_HP^/50; [Original Values  more is better]
+!!en:;
+
+!!if&x1=1:;                             [Normal]
+!!SN:W^Guarded_Object_growth_Rate^/9;   [11%]
+!!SN:W^Guarded_Object_Faktor^/3;        [*1,5 Faktor]
+!!SN:W^Guarded_Object_Commander_Bonus_Att^/3;  
+!!SN:W^Guarded_Object_Commander_Bonus_Dmg^/8;  
+!!SN:W^Guarded_Object_Commander_Bonus_HP^/150; 
+!!en:;
+
+!!if&x1=2:;                             [Hard]
+!!SN:W^Guarded_Object_growth_Rate^/7;   [15%       Growth Rate less is more]
+!!SN:W^Guarded_Object_Faktor^/3;        [*2 Faktor      Faktor more is better]
+!!SN:W^Guarded_Object_Commander_Bonus_Att^/4; [more is better  Att per Week]
+!!SN:W^Guarded_Object_Commander_Bonus_Dmg^/10; [High Dmg per Week]
+!!SN:W^Guarded_Object_Commander_Bonus_HP^/200; [Health per Week]
+!!en:;
+
+!!if&x1=3:;                             [Expert]
+!!SN:W^Guarded_Object_growth_Rate^/5;   [20%        Growth Rate less is more]
+!!SN:W^Guarded_Object_Faktor^/4;        [*2,5 Faktor     Faktor more is better]
+!!SN:W^Guarded_Object_Commander_Bonus_Att^/5; [more is better  Att per Week]
+!!SN:W^Guarded_Object_Commander_Bonus_Dmg^/15; [High Dmg per Week]
+!!SN:W^Guarded_Object_Commander_Bonus_HP^/250; [Health per Week]
+!!en:;
+
+!!if&x1=4:;                             [Extreme]
+!!SN:W^Guarded_Object_growth_Rate^/3;   [100%       Growth Rate less is more]
+!!SN:W^Guarded_Object_Faktor^/4;        [*3 Faktor       Faktor more is better]
+!!SN:W^Guarded_Object_Commander_Bonus_Att^/10; [more is better  Att per Week]
+!!SN:W^Guarded_Object_Commander_Bonus_Dmg^/50; [High Dmg per Week]
+!!SN:W^Guarded_Object_Commander_Bonus_HP^/400; [Health per Week]
+!!en:;
+
+!!if&x1=5:;                             [Impossible]
+!!SN:W^Guarded_Object_growth_Rate^/3;   [100%       Growth Rate less is more]
+!!SN:W^Guarded_Object_Faktor^/5;        [*3 Faktor       Faktor more is better]
+!!SN:W^Guarded_Object_Commander_Bonus_Att^/15; [more is better  Att per Week]
+!!SN:W^Guarded_Object_Commander_Bonus_Dmg^/100; [High Dmg per Week]
+!!SN:W^Guarded_Object_Commander_Bonus_HP^/500; [Health per Week]
+!!en:;
+
+
+!?FU(Set_Options_Presets);
+
+  
+  !!VRy1&x1=1:S1;                       [Easy]
+  !!VRy1&x1=2:S2;                       [Normal]
+  !!VRy1&x1=3:S3;                       [Hard]
+  !!SN:W^Additionals_troops^/y1 W^Neutral_stats^/y1 W^Creature_banks^/y1 W^Neutral_exp^/y1;
+  !!FU(Set_Stack_Size_Mod):Py1;
+
+  !!VRy2&y1=0:S0;                       [Deavtivate]
+  !!VRy2&y1=1:S42;                      [Easy]
+  !!VRy2&y1=2:S28;                      [Normal]
+  !!VRy2&y1=3:S14;                      [Hard]
+  !!VRy2&y1=4:S10;                      [Extreme]
+  !!VRy2&y1=5:S3;                       [Insane]
+  !!SN:W^Health_Grow_Enable^/y2;        [Healt_Grow_Rate]
+
+  !!VRy2&y1=0:S10;                      [Deavtivate]
+  !!VRy2&y1=1:S7;                       [Easy]
+  !!VRy2&y1=2:S5;                       [Normal]
+  !!VRy2&y1=3:S4;                       [Hard]
+  !!VRy2&y1=4:S3;                       [Extreme]
+  !!VRy2&y1=5:S1;                       [Insane]
+  !!SN:W^Stack_Exp_Rate^/y2;            [Stack_Exp_Rate]
+
+  !!FU(Set_Guarded_Object_Mod):Py1;
+
+
+!?FU(Options_value);
+*x1=DL_Number, x2=Item_ID, x3=switch_value
+    !!SN:T^Diff_Mod.Level_%X3^/?z1;     [Read out level in text z1]
+    !!DLx1:Ax2/3/z1/1;                  [Switch Text]
+
+
+
+****************************************************************************************************
+
+This Section handels the Dialogue 45 were you can Configure_AI (Right Side)
+
+
+****************************************************************************************************
+
+!?FU(Configure_AI);                     [open an AI difficulty settings]
+  !!DL45:N^diff_Her.txt^;               [Name of Dialogue text file]
+  !!SN:T^Diff_Mod.Level_Easy^/?z1 T^Diff_Mod.Level_Medium^/?z2 T^Diff_Mod.Level_Hard^/?z3 T^Diff_Mod.Level_Extreme^/?z4 T^Diff_Mod.Level_Insane^/?z5 T^Diff_Mod.Level_Choose_0^/?z6 T^Diff_Mod.quantity_0^/?z7; [Load Text]
+  !!DL45:A41/3/z1/1 A44/3/z2/1 A45/3/z3/1 A46/3/z4/1 A47/3/z5/1 A38/3/z6/1 A11/3/z7/1; [Set text to text fields]
+
+  !!SN:T^Diff_Mod.cancel_button_hint^/?z45; [left text] Test]
+  !!DL45:H30721/45;                     [set cancel button hint text]
+  !!SN:T^Diff_Mod.confirm_button_hint_0^/?z46; [left text]
+  !!DL45:H30722/46;                     [set confirm button hint text]
+  !!DL45:S1;                            [Show complete Dialogue number 45]
+
+
+!?DL&v998=45/v999>0/v999<6/v1000=13;    [LMB on the faces]
+  !!VRz16:S^Button.wav^;
+  !!SN:W^H3_Game_Difficulty^/?y1;
+
+!!if&v999=1/y1<>1:;                     [set text for 1st]
+  !!FU(AI_reset):P;                     [reset all]
+  !!SN:Pz16;                            [do not play sound again]
+  !!VRz1:S^500^; !!VRz2:S^200^; !!VRz3:S^0^; !!VRz4:S^5^; !!VRz5:S^2000^; !!VRz6:S^1^; 
+  !!VRz8:S^2^; !!VRz9:S^2^; !!VRz10:S^1^; !!VRz11:S^1^; !!VRz12:S^0^; !!VRz13:S^0^; !!VRz14:S^0^; 
+  !!DL45:A1/4/1/1 A6/4/1/1 A40/4/1/1 A25/3/z1/1 A26/3/z2/1 A27/3/z3/1 A28/3/z4/1 A29/3/z5/1 A30/3/z6/1; [change faces + show borders + bonuses 1st]
+  !!DL45:A31/3/z8/1 A32/3/z9/1 A33/3/z10/1 A34/3/z11/1 A35/3/z12/1 A36/3/z13/1 A37/3/z14/1; [creatures 1st]
+  !!SN:W^H3_Game_Difficulty^/1;
+
+!!en:;
+
+!!if&v999=2/y1<>2:;
+  !!FU(AI_reset):P;                     [reset all]
+  !!SN:Pz16;                            [do not play sound again]
+  !!VRz1:S^1000^; !!VRz2:S^300^; !!VRz3:S^1^; !!VRz4:S^10^; !!VRz5:S^3000^; !!VRz6:S^2^; 
+  !!VRz8:S^3^; !!VRz9:S^3^; !!VRz10:S^2^; !!VRz11:S^1^; !!VRz12:S^0^; !!VRz13:S^0^; !!VRz14:S^0^;
+  !!DL45:A7/4/1/1 A2/4/3/1 A40/4/2/1 A25/3/z1/1 A26/3/z2/1 A27/3/z3/1 A28/3/z4/1 A29/3/z5/1 A30/3/z6/1; [2nd]
+  !!DL45:A31/3/z8/1 A32/3/z9/1 A33/3/z10/1 A34/3/z11/1 A35/3/z12/1 A36/3/z13/1 A37/3/z14/1;
+  !!SN:W^H3_Game_Difficulty^/2;
+
+!!en:;
+
+!!if&v999=3/y1<>3:;
+  !!FU(AI_reset):P;                     [reset all]
+  !!SN:Pz16;                            [do not play sound again]
+  !!VRz1:S^2500^; !!VRz2:S^400^; !!VRz3:S^1^; !!VRz4:S^15^; !!VRz5:S^4000^; !!VRz6:S^3^; 
+  !!VRz8:S^5^; !!VRz9:S^4^; !!VRz10:S^3^; !!VRz11:S^3^; !!VRz12:S^2^; !!VRz13:S^1^; !!VRz14:S^0^; 
+  !!DL45:A3/4/5/1 A8/4/1/1 A40/4/3/1 A25/3/z1/1 A26/3/z2/1 A27/3/z3/1 A28/3/z4/1 A29/3/z5/1 A30/3/z6/1; [3rd]
+  !!DL45:A31/3/z8/1 A32/3/z9/1 A33/3/z10/1 A34/3/z11/1 A35/3/z12/1 A36/3/z13/1 A37/3/z14/1;
+  !!SN:W^H3_Game_Difficulty^/3; 
+
+!!en:;
+
+!!if&v999=4/y1<>4:;
+  !!FU(AI_reset):P;                     [reset all]
+  !!SN:Pz16;                            [do not play sound again]
+  !!VRz1:S^5000^; !!VRz2:S^500^; !!VRz3:S^2^; !!VRz4:S^20^; !!VRz5:S^5000^; !!VRz6:S^5^; 
+  !!VRz8:S^7^; !!VRz9:S^6^; !!VRz10:S^5^; !!VRz11:S^4^; !!VRz12:S^3^; !!VRz13:S^1^; !!VRz14:S^1^;
+  !!DL45:A9/4/1/1 A4/4/7/1 A40/4/4/1 A25/3/z1/1 A26/3/z2/1 A27/3/z3/1 A28/3/z4/1 A29/3/z5/1 A30/3/z6/1; [4th]
+  !!DL45:A31/3/z8/1 A32/3/z9/1 A33/3/z10/1 A34/3/z11/1 A35/3/z12/1 A36/3/z13/1 A37/3/z14/1;  
+  !!SN:W^H3_Game_Difficulty^/4; 
+
+!!en:;
+
+!!if&v999=5;
+  !!FU(AI_reset):P;                     [reset all]
+  !!SN:Pz16;
+  !!VRz1:S^10000^; !!VRz2:S^700^; !!VRz3:S^2^; !!VRz4:S^25^; !!VRz5:S^7000^; !!VRz6:S^6^; 
+  !!VRz8:S^7^; !!VRz9:S^6^; !!VRz10:S^5^; !!VRz11:S^4^; !!VRz12:S^3^; !!VRz13:S^1^; !!VRz14:S^1^;
+  !!DL45:A31/3/z8/1 A32/3/z9/1 A33/3/z10/1 A34/3/z11/1 A35/3/z12/1 A36/3/z13/1 A37/3/z14/1; [5th only bonuses creatures]
+  !!DL45:A25/3/z1/1 A26/3/z2/1 A27/3/z3/1 A28/3/z4/1 A29/3/z5/1 A30/3/z6/1; [5th only bonuses ]
+  !!SN:T^Diff_Mod.ProOnly^/?z7;
+  !!SN:W^H3_Game_Difficulty^/0;
+
+  !!IF:Q1^%Z7^;                         [5th not available for choice]
+  !!SN&-1:W^Progressive_Difficulty^/0;
+  !!SN&1:W^Progressive_Difficulty^/1;
+  !!SN:W^Progressive_Difficulty^/?y1;
+
+  !!if&y1=1:;
+    !!SN:W^Difficulty_day^/100;         [If option was not selected Set Difficulty_day to default 100]
+    !!SN:T^Diff_Mod.Progressive_Text_1^/?z-7;
+    !!SN:T^Diff_Mod.Progressive_Text_2^/?z-8;
+    !!VRz1:S^^;                         [Initialize z1 to null: z1]
+    !!IF:D15/-7/-8/1/1/1/1/1/1/1/1/1/1/1/1/1;
+    !!IF:E1/15;                         [Display Input Box]
+    !!VRz1:H1;                          [Flag 1 is set to False if no text and True if text]
+    !!VRy6:Vz1;                         [Convert z1 to a value and store in y6]
+    !!IF:V2/1;                          [Initialize Flag 2 to True]
+    !!IF&y6<0:V2/0;                     [Set Flag 2 to False if y6 less than 0]
+    !!IF&y6>999:V2/0;                   [Set Flag 2 to False if y6 greater than 999]
+    !!SN:T^Diff_Mod.Out_Range_2^/?z-9;
+    !!IF|-2/-1:M^%Z-9^;                 [Out of Range Message]
+    !!VRy6|-2/-1:S100;
+    !!SN&2:W^Difficulty_day^/y6;
+ !!en:;
+
+
+!!en:;
+
+
+!?DL&v998=45/v1000=14;                  [RMB on the faces to set text for information]
+!!SN:T^Diff_Mod.Bonus1^/?z1;            [set text for 1st]
+!!SN:T^Diff_Mod.Bonus2^/?z2;            [2nd]
+!!SN:T^Diff_Mod.Bonus3^/?z3;            [...]
+!!SN:T^Diff_Mod.Bonus4^/?z4;            [...]
+!!SN:T^Diff_Mod.Bonus5^/?z5;            [...]
+
+!!IF&v999=1:M0/4/z1;                    [show it 1 - 5]
+!!IF&v999=2:M0/4/z2;
+!!IF&v999=3:M0/4/z3;
+!!IF&v999=4:M0/4/z4;
+!!IF&v999=5:M0/4/z5;
+
+!e?DL45;
+!e!DL45:A41/51/9/1;
+
+!?DL&v998=45/v999=30721/v1000=13;       [Reset Close]
+!!SN:W^H3_Game_Difficulty^/0;           [When clicking exit reset all choices]
+!!DL:C1;
+
+!?DL&v998=45/v999=30722/v1000=13;       [Save Confirm]
+!!SN:W^H3_Game_Difficulty^/?y1;         [When clicking confirm save all choices]
+!!DL:C1;
+!!FU&y1=0:E;
+
+!!SN:T^Diff_Mod.additionals options1^/?z1;
+!!SN:W^AIPayday^/15;                    [If option was not selected Set Payday to default 15]
+
+!!SN:T^Diff_Mod.Payday_Text_1^/?z-7;
+!!SN:T^Diff_Mod.Payday_Text_2^/?z-8;
+!!VRz1:S^^;                             [Initialize z1 to null: z1]
+!!IF:D15/-7/-8/1/1/1/1/1/1/1/1/1/1/1/1/1;
+!!IF:E1/15;                             [Display Input Box]
+!!VRz1:H1;                              [Flag 1 is set to False if no text and True if text]
+!!VRy6:Vz1;                             [Convert z1 to a value and store in y6]
+!!IF:V2/1;                              [Initialize Flag 2 to True]
+!!IF&y6<1:V2/0;                         [Set Flag 2 to False if y6 less than 1]
+!!IF&y6>999:V2/0;                       [Set Flag 2 to False if y6 greater than 999]
+!!SN:T^Diff_Mod.Out_Range_1^/?z-9;
+!!IF|-2/-1:M^%Z-9^;                     [Out of Range Message]
+!!VRy6|-2/-1:S15;
+!!SN&2:W^AIPayday^/y6;
+
+
+!?FU(AI_reset);
+!!DL45:A1/4/0/1 A2/4/2/1 A3/4/4/1 A4/4/6/1 A40/4/0/1 A6/4/0/1 A7/4/0/1 A8/4/0/1 A9/4/0/1; [reset all]
+
+
+
+********************************************************************************
+!?FU(Set_Exit_Options);
+
+!!SN:W^Stack_Size_Enable^/0;            [Stack_Size_Modification]
+!!SN:W^Health_Grow_Enable^/0;           [Healt_Grow_Rate deactivate]
+!!SN:W^Guarded_Object_growth_Rate^/10;  [10%    Original Values  less is more]
+!!SN:W^Guarded_Object_Faktor^/3;        [*1,5 Faktor  Original Values  more is better]
+!!SN:W^Guarded_Object_Commander_Bonus_Att^/2; [Original Values  more is better]
+!!SN:W^Guarded_Object_Commander_Bonus_Dmg^/2; [Original Values]
+!!SN:W^Guarded_Object_Commander_Bonus_HP^/50; [Original Values]
+
+!!VRy3:S7;                              [Just in case set to normal]
+!!UN:J2/?y2;                            [Player chosen difficulty level: y-2]
+!!VRy3&y2=0:S14;                        [Easy interval (14): y-3]
+!!VRy3&y2=1:S7;                         [Normal interval (7): y-3]
+!!VRy3&y2=2:S5;                         [Hard interval (5): y-3]
+!!VRy3&y2=3:S4;                         [Expert interval (4): y-3]
+!!VRy3&y2=4:S3;                         [Impossible interval (3): y-3]
+!!SN:W^Stack_Exp_Rate^/y3;
+
+!!SN:W^Double_Growth_Rate^/0;
+!!SN:W^Low_Level_Growth^/0;
+!!SN:W^Neutral_Growth_10000^/0;
+!!SN:W^Double_Neutral_Stacks^/0;
+
+!!SN:W^Tougher_Karmic_Battles_on^/0;
+!!SN:W^Extra_Enchantments_on^/0;
+!!SN:W^Random_Neutral_Hero^/0;
+!!SN:W^More_Random_Stack_Size^/0;
+
+!!SN:W^Neutral_Stack_Weekly_Upgrade^/0;
+!!SN:W^Battle_Commander^/0;
+!!SN:W^Neutral_Stack_Uptier1^/0;
+!!SN:W^Neutral_Stack_Uptier2^/0;
+
+!!SN:W^Random_Abilities^/0;
+!!SN:W^Anzahl_Buffs^/0;
+!!SN:W^Anzahl_Abilities^/0;
+!!SN:W^Battle_Reward^/0;
+!!SN:W^Battle_Reward_Active^/0;
+
+!!SN:W^Stack_Size_Mod_L1^/0;            [Lvl 1]
+!!SN:W^Stack_Size_Mod_L2^/0;            [Lvl 2]
+!!SN:W^Stack_Size_Mod_L3^/0;            [Lvl 3]
+!!SN:W^Stack_Size_Mod_L4^/0;            [Lvl 4]
+!!SN:W^Stack_Size_Mod_L5^/0;            [Lvl 5]
+!!SN:W^Stack_Size_Mod_L6^/0;            [Lvl 6]
+!!SN:W^Stack_Size_Mod_L7^/0;            [Lvl 7]
+!!SN:W^Stack_Size_Mod_L8^/0;            [Lvl 8]
+
+
+********************************************************************************
+!?FU(Calc_Battle_Reward);
+
+!!SN:W^Battle_Reward^/0;                [Reset Battle Reward]
+!!SN&x2=1:W^Battle_Reward^/d20;         [+20% for Easy Settings Battle Reward]
+!!SN&x2=2:W^Battle_Reward^/d30;         [+30% for Normal Settings Battle Reward]
+!!SN&x2=3:W^Battle_Reward^/d50;         [+50% for Hard Settings Battle Reward]
+
+!!SN:W^Double_Growth_Rate^/?y1;
+!!SN&y1=1:W^Battle_Reward^/d5;
+
+!!SN:W^Low_Level_Growth^/?y1;
+!!SN&y1=1:W^Battle_Reward^/d5;
+
+!!SN:W^Neutral_Growth_10000^/?y1;
+!!SN&y1=1:W^Battle_Reward^/d3;
+
+!!SN:W^Tougher_Karmic_Battles_on^/?y1;
+!!SN&y1=1:W^Battle_Reward^/d3;
+
+!!SN:W^Random_Neutral_Hero^/?y1;
+!!SN&y1=1:W^Battle_Reward^/d4;
+
+!!SN:W^More_Random_Stack_Size^/?y1;
+!!SN&y1=1:W^Battle_Reward^/d2;
+
+!!SN:W^Neutral_Stack_Weekly_Upgrade^/?y1;
+!!SN&y1=1:W^Battle_Reward^/d4;
+
+!!SN:W^Battle_Commander^/?y1;
+!!SN&y1=1:W^Battle_Reward^/d3;
+
+!!SN:W^Neutral_Stack_Uptier1^/?y1;
+!!SN&y1=1:W^Battle_Reward^/d10;
+
+!!SN:W^Double_Neutral_Stacks^/?y1;
+!!SN&y1=1:W^Battle_Reward^/d10;
+
+!!SN:W^Anzahl_Buffs^/?y1;               [Number_of_Buffs]
+!!SN&y1=1:W^Battle_Reward^/d3;
+!!SN&y1=2:W^Battle_Reward^/d7;
+!!SN&y1=3:W^Battle_Reward^/d15;
+!!SN&y1=4:W^Battle_Reward^/d20;
+
+!!SN:W^Anzahl_Abilities^/?y1;           [Number_of_Abilities] Currently Disabled]
+!!SN&y1=1:W^Battle_Reward^/d3;
+!!SN&y1=2:W^Battle_Reward^/d10;
+!!SN&y1=3:W^Battle_Reward^/d15;
+!!SN&y1=4:W^Battle_Reward^/d25;
+
+!!SN:W^Stack_Size_Enable^/?y1;
+!!if&y1=1:;
+!!SN:W^Stack_Size_Mod_L1^/?y1;          [Lvl 1       [Stack_Size_Rate]
+!!SN&y1=20:W^Battle_Reward^/d3;
+!!SN&y1=30:W^Battle_Reward^/d6;
+!!SN&y1=40:W^Battle_Reward^/d15;
+!!SN&y1=70:W^Battle_Reward^/d25;
+!!SN&y1=120:W^Battle_Reward^/d30;
+!!en;  
+
+!!SN:W^Health_Grow_Enable^/?y1;         [Health_Rate]
+!!if&y1>0:;
+!!SN&y1=42:W^Battle_Reward^/d3;
+!!SN&y1=28:W^Battle_Reward^/d8;
+!!SN&y1=14:W^Battle_Reward^/d12;
+!!SN&y1=7:W^Battle_Reward^/d25;
+!!SN&y1=3:W^Battle_Reward^/d40;
+!!en:;
+
+!!SN:W^Stack_Exp_Rate^/?y1;             [Stack_Exp_Rate]
+!!if&y1<>10:;
+*!SN&y1=7:W^Battle_Reward^/d3;
+*!SN&y1=5:W^Battle_Reward^/d5;
+*!SN&y1=4:W^Battle_Reward^/d8;
+*!SN&y1=3:W^Battle_Reward^/d12;
+*!SN&y1=1:W^Battle_Reward^/d15;
+!!en:;
+
+!!SN:W^Guarded_Object_Commander_Bonus_HP^/?y1; [Decide difficutly by checking Commander HP in chambers]
+!!SN&y1=150:W^Battle_Reward^/d3;
+!!SN&y1=200:W^Battle_Reward^/d5;
+!!SN&y1=250:W^Battle_Reward^/d7;
+!!SN&y1=400:W^Battle_Reward^/d13;
+!!SN&y1=500:W^Battle_Reward^/d23;
+
+!!SN:W^Battle_Reward^/?y1;
+!!SN:W^Battle_Reward_Active^/?y2;
+
+!!VRx3:Sy1;                             [Pass Var back in y20]
+!!VRy1&y2=0:S0;
+!!SN:T^Diff_Mod.Reward_Chance^/?z1 Iz1/?z1;
+!!DL44:A80/3/z1/1;                      [Update Text field for Battle Reward chance]
+
+
+********************************************************************************
+!?FU(Game Difficulty Options);
+
+!!FU(Set_Exit_Options):P;               [Run Exit Settings]
+!!SN:W^Option_Timer^/1;
+
+******************************
+
+!!UN:R7/1/0;
+!!UN:R5/1/0;                            [change mouse pointer]
+
+!!DL13:N^diff_set.txt^;                 [this command is necessary to load a dialog template]
+
+!!SN:W^Advanced_Classes_Mod_Active^/?y1;
+!!SN&y1=0:T^Diff_Mod.Welcome_Message_0^/?z1; [When play without ACM]
+!!SN&y1=1:T^Diff_Mod.Welcome_Message_1^/?z1; [When played together with Advanced_Classes_Mod_Active]
+!!SN:T^Diff_Mod.Configure_Neutrals^/?z2;[left text]
+!!SN:T^Diff_Mod.Configure_AI^/?z3;      [right text]
+!!DL13:A3/3/z1/1;                       [Update Text field for Battle Reward chance]
+!!DL13:A4/3/z2/1;                       [Update Text field for Battle Reward chance]
+!!DL13:A5/3/z3/1;                       [Update Text field for Battle Reward chance]
+
+!!SN:T^Diff_Mod.neutral_left_hint^/?z47;[left text]
+!!DL13:H1/47;                           [set left hint text]
+!!SN:T^Diff_Mod.AI_right_hint^/?z48;    [left text]
+!!DL13:H2/48;                           [set right hint text]
+!!SN:T^Diff_Mod.confirm_button_hint^/?z49; [left text]
+!!DL13:H30722/49;                       [Set hint text for conformation button]
+!!DL13:S1;                              [show dialog]
+
+!!VRy10:S$day$;                         [Deactivate the options for this Day]
+!!SN&y10>0:W^Option_Timer^/y10;
+
+!!SN:W^Neutrals_Difficulty_Enabled^/?y1;
+!!SN:W^H3_Game_Difficulty^/?y2;
+!!SN&y1=0/y2=0:T^Diff_Mod.Difficulty_Disabled^/?z4;
+!!IF&y1=0/y2=0:L^%Z4^;
+
+!!SN:W^AIPayday^/?y10;
+
+!!SN:W^H3_Game_Difficulty^/?y1;
+!!SN:W^Neutrals_Difficulty_Enabled^/?y2;
+
+!!SN&y1=1:T^Diff_Mod.AI_Level_Easy^/?z5;
+!!SN&y1=2:T^Diff_Mod.AI_Level_Normal^/?z5;
+!!SN&y1=3:T^Diff_Mod.AI_Level_Hard^/?z5;
+!!SN&y1=4:T^Diff_Mod.AI_Level_Extreme^/?z5;
+!!SN&y1=5:T^Diff_Mod.AI_Level_Insane^/?z5;
+
+!!SN&y1>0:T^Diff_Mod.Difficulty_Enabled^/?s^Text^/^day^/y10/^level^/^%Z5^; [AI active]
+!!IF&y1>0:L^%S(Text)^;                  [Test]
+!!SN&y2=1:T^Diff_Mod.Difficulty_Enabled_1^/?s^Text^; [Neutrals active]
+!!IF&y2=1:L^%S(Text)^;                  [Test]
+
+!!SN:W^Stack_Size_Enable^/?y1;                    
+!!UN&y1>0:P232/1;                       [Activate Neutral Units script]
+
+!!SN:W^Health_Grow_Enable^/?y2;                    
+!!SN:W^Extra_Enchantments_on^/?y4;
+!!SN:W^Anzahl_Abilities^/?y7;
+!!UN|y2>0/y4>0/y7>0:P57/1;              [Activate Neutral Units script]
+
+!!SN:W^Guarded_Object_Commander_Bonus_HP^/?y3;  
+!!UN&y3>50:P235/1;                      [Activate Creature Banks script]
+
+!!SN:W^Tougher_Karmic_Battles_on^/?y5;
+!!UN&y5>0:P38/1;                        [Activate Karmic Battle script]
+!!UN:P38/?v491;                         [** v491=1 if Karmic Battles is enabled]
+
+!!SN:W^Random_Neutral_Hero^/?y6;
+!!if&y6>0:;
+!!UN:P72/1;                             [Activate Neutral Hero script]
+!!UN:P72/?v846;                         [check if option is enabled]
+!#TM41:S1/999/1/255;                    [init timer 41]
+!!IF&v846=1:V781/0;                     [init flag 781]
+!!IF&v846=1:V786/0;                     [786 set false for the first battle]
+!!en:;
+
+!!SN:W^Stack_Exp_Rate^/?y8;
+!!UN&y8>0:P231/1;                       [Check if Neutral Stack Experience is enabled: v1]
+
+
+********************************************************************************
+When clicking on System Icon at Adventure Map run options again
+
+!?CM&1000;
+!!CM:F?v3 I?v4 S?v5;                    [where we click and click subtype]
+!!if&v3=512/v4=10:;                     [if right click on System Icon  are clicked]
+
+!!SN:W^Option_Timer^/?y10;
+!!IF&y10>=$day$:M^Try again tomorrow :P^;
+!!FU&y10>=$day$:E;                      [Deactivate the options for 1 Week]
+
+!!SN:T^Diff_Mod.Redo_Options^/?z1;      [Show Dialogue if Player activated the 10 skills option]
+!!IF:Q1^%Z1^;
+!!FU&-1:E;                              [Exit if denied]
+
+!!VRy10:S$day$;
+!!SN:W^Option_Timer^/y10;
+
+!!FU(Game Difficulty Options):P;
+
+!!SN:W^Stack_Size_Enable^/?y1;          [Run function again to place additional Monsters on Map]
+!!if&y1=1:;
+!!UN:U54/-1/?y2;                        [Number of monsters on the map: y2]
+!!VRv1:S-1;                             [Initialize v1 to -1 to work with new faster UN:U syntax]
+!!DO5402/1/y2/1&y2>0:P;                 [Cycle through all monsters]
+!!SN:W^Stack_Size_Enable^/0;            [Deactivate the Option]
+!!en:;
+
+!!SN:W^Neutral_Stack_Uptier1^/?y1;
+!!if&y1=1:;
+!!UN:U54/-1/?y2;                        [Number of monsters on the map: y2]
+!!VRv1:S-1;
+!!DO(Diff_Funtion_87)/1/y2/1:P1/2;      [Cycle through all monsters]
+!!SN:W^Neutral_Stack_Uptier1^/0;        [Deactivate the Option]
+!!en:;
+
+
+!!SN:W^Double_Neutral_Stacks^/?y1;
+!!if&y1=1:;
+!!UN:U54/-1/?y2;                        [Number of monsters on the map: y2]
+!!VRv1:S-1;
+!!DO(Diff_Funtion_86)/1/y2/1:P;         [Cycle through all monsters]
+!!SN:W^Double_Neutral_Stacks^/0;        [Deactivate the Option]
+!!en:;
+
+
+**Initialize all to Zero at Map Start**
+!#SN:W^Double_Growth_Rate^/0;
+!#SN:W^Low_Level_Growth^/0;
+!#SN:W^Neutral_Growth_10000^/0;
+!#SN:W^Double_Neutral_Stacks^/0;
+!#SN:W^Health_Grow_Enable^/0;
+!#SN:W^Stack_Size_Enable^/0;
+
+!#SN:W^Guarded_Object_growth_Rate^/10;  [10%    Original Values  less is more]
+!#SN:W^Guarded_Object_Faktor^/3;        [*1,5 Faktor  Original Values  more is better]
+!#SN:W^Guarded_Object_Commander_Bonus_Att^/2; [Original Values  more is better]
+!#SN:W^Guarded_Object_Commander_Bonus_Dmg^/2; [Original Values]
+!#SN:W^Guarded_Object_Commander_Bonus_HP^/50; [Original Values]
+
+!#SN:W^Tougher_Karmic_Battles_on^/0;
+!#SN:W^Extra_Enchantments_on^/0;
+!#SN:W^Random_Neutral_Hero^/0;
+!#SN:W^More_Random_Stack_Size^/0;
+
+!#SN:W^Neutral_Stack_Weekly_Upgrade^/0;
+!#SN:W^Battle_Commander^/0;
+!#SN:W^Neutral_Stack_Uptier1^/0;
+!#SN:W^Neutral_Stack_Uptier2^/0;
+
+!#SN:W^Anzahl_Buffs^/0;
+!#SN:W^Random_Abilities^/0;
+!#SN:W^Anzahl_Abilities^/0;
+!#SN:W^Battle_Reward^/0;
+!#SN:W^Battle_Reward_Active^/0;
+!#SN:W^H3_Game_Difficulty^/0;
+!#SN:W^Exit_Pressed^/0;
+!#SN:W^Progressive_Difficulty^/0;
+!#SN:W^Difficulty_day^/0;
+
+!#SN:W^Stack_Size_Mod_L1^/0;            [Lvl 1]
+!#SN:W^Stack_Size_Mod_L2^/0;            [Lvl 2]
+!#SN:W^Stack_Size_Mod_L3^/0;            [Lvl 3]
+!#SN:W^Stack_Size_Mod_L4^/0;            [Lvl 4]
+!#SN:W^Stack_Size_Mod_L5^/0;            [Lvl 5]
+!#SN:W^Stack_Size_Mod_L6^/0;            [Lvl 6]
+!#SN:W^Stack_Size_Mod_L7^/0;            [Lvl 7]
+!#SN:W^Stack_Size_Mod_L8^/0;            [Lvl 8]
+
+!#SN:W^Advanced_Classes_Mod_Active^/?y1;
+*#IF&y1=1:M^Dont use Advanced Classes Mod together with this Difficulty Mod. Everything is included in AC mod already. Please disable one mod and restart game.^;
+!#FU(Game Difficulty Options):P;        [Run at Map Start]
+
+
+
+********************************************************************************
+
+
+               Stack Growth and Manipulation Section
+
+
+
+********************************************************************************
+!?TM2&$once$=1/$day$=1;                 [At first day of Map]
+
+!!SN:W^Neutral_Stack_Uptier1^/?y1;
+!!FU&y1=0:E;                            [Exit if no option selected]
+
+!!UN:U54/-1/?y2;
+!!VRv1:S-1;
+
+!!VRy5&y1=1:S1;
+!!VRy6&y1=1:S2;
+
+!!DO(Diff_Funtion_87)/1/y2/1:Py5/y6;
+
+!!SN:W^Neutral_Stack_Uptier1^/0;
+
+
+********************************************************************************
+!?TM2&$once$=1/$day$>=1/$weekday$=$monday$; [Every Monday]
+
+!!SN:W^Double_Growth_Rate^/?y50;
+!!SN:W^Low_Level_Growth^/?y51;
+!!SN:W^Neutral_Growth_10000^/?y52;
+*!SN:W^Neutral_Growth_50000^/?y53;
+!!SN:W^Neutral_Stack_Weekly_Upgrade^/?y54;
+!!SN:W^Double_Neutral_Stacks^/?y55;
+
+!!FU&y50=0/y51=0/y52=0/y54=0/y55=0:E;   [Exit if no option selected]
+
+!!UN:U54/-1/?y2;
+!!VRv1:S-1;
+!!SN:W^Map_Monster_Count^/y2;
+
+!!DO(Diff_Funtion_86)/1/y2/1:P;
+!!SN:W^Map_Monster_Upgrade_Count^/0;    [Reset Count to zero]
+!!SN:W^Double_Neutral_Stacks^/0;
+
+********************************************************************************
+!?FU(Diff_Funtion_86);
+
+!!VRv1&x16=1:S-1;
+!!UN:U54/-1/-1/1;
+!!MOv1/v2/v3:O?y1;
+!!FU&y1=1:E;                            [Exit Set/Check/Get the grow checkbox.]
+
+!!SN:W^Neutral_Stack_Weekly_Upgrade^/?y60;
+!!if&y60=1/$day$>1:;
+!!SN:W^Map_Monster_Count^/?y10;
+!!SN:W^Map_Monster_Upgrade_Count^/?y12;
+!!VRy11:Sy10:20 +1;                     [5%]
+!!OBv1/v2/v3:U?y2;
+!!VRy20:S0R5;
+!!if&y2>=0/y2<=118/y12<y11/y20=1:;
+!!MOv1/v2/v3:G?y3;                      [Check Monster Numbers]
+!!MA:Uy2/?y4;                           [Check if upgradable]
+!!MA:Ly2/?y5;                           [Check Level 0-6]
+!!if&y4=-1:;
+!!VRy2:+1;
+!!MA:Ly2/?y6;
+!!if&y5=y6:;
+!!UN:Ov1/v2/v3/1;
+!!UN:Iv1/v2/v3/54/y2/54/y2/-1/0;
+!!VRy3&y3>4000:S4000;
+!!MOv1/v2/v3:Gy3;
+!!SN:W^Map_Monster_Upgrade_Count^/d+1;  [No More Upgrades than 6% per week of monsters on map]
+!!en:;
+!!en:;
+!!en:;
+!!en:;
+
+!!SN:W^Neutral_Growth_10000^/?y50;
+*!SN:W^Neutral_Growth_50000^/?y51;
+!!if&y50=1:;
+!!MOv1/v2/v3:G?y3;                      [Check Monster Numbers]
+!!VRy5:S$day$;
+!!SN&y3=4000:W^Growth_X%V1_Y%V2_Z%V3^/?y4;
+!!SN&y3=4000/y4=0:W^Growth_X%V1_Y%V2_Z%V3^/y5;
+*!IF&y4=0/y3=4000:L^Now at %V1 %V2 %V3 and the day is %Y5^;
+!!en:;
+
+!!SN:W^Double_Growth_Rate^/?y52;
+!!if&y52=1/$day$>1:;
+!!MOv1/v2/v3:G?y3;                      [Check Monster Numbers]
+!!VRy6:Sy3 *5 :100 +y3;                 [+5% extra Growth]
+!!VRy6&y6>4000:S4000;
+!!MOv1/v2/v3:Gy6;
+!!en:;
+
+!!SN:W^Low_Level_Growth^/?y53;
+!!if&y53=1/$day$>1:;
+!!OBv1/v2/v3:U?y1;
+!!MA:Ly1/?y2;                           [Check Level of Monsters]
+!!MOv1/v2/v3:G?y3;                      [Check Monster Numbers again]
+
+!!VRy5&y2=0:S10;                        [Extra 10% Growth for Level 1]
+!!VRy5&y2=1:S5;                         [Extra 5% Growth for Level 2]
+!!VRy5&y2=2:S4;                         [Extra 4% Growth for Level 3]
+!!VRy5&y2=3:S3;                         [Extra 3% Growth for Level 4]
+!!VRy5&y2=4:S2;                         [Extra 2% Growth for Level 5]
+!!VRy5&y2=5:S1;                         [Extra 1% Growth for Level 6]
+!!VRy5&y2=6:S1;                         [Extra 1% Growth for Level 7]
+
+!!VRy6:Sy3 *y5 :100 +y3;
+!!VRy6&y6>4000:S4000;
+!!MOv1/v2/v3:Gy6;
+!!en:;
+
+!!SN:W^Double_Neutral_Stacks^/?y54;
+!!if&y54=1:;
+!!MOv1/v2/v3:G?y3;                      [Check Monster Numbers again]
+!!VRy6:Sy3*2;                           [Well fuck it, just double it again]
+!!VRy6&y6>4000:S4000;
+!!MOv1/v2/v3:Gy6;
+!!en:;
+
+********************************************************************************
+!?FU(OnBeforeBattleUniversal)&1000;
+
+!!SN:W^Neutral_Growth_10000^/?y50;
+!!FU&y50=0:E;
+
+!!BA:P?y1/?y2/?y3;
+!!SN:W^Growth_X%Y1_Y%Y2_Z%Y3^/?y4;
+
+!!FU&y4=0:E;                            [Exit if stack has not grown to 4000]
+
+!!MOy1/y2/y3:G?y50;
+!!FU&y50<3900:E;                        [Exit if stack has not regrown to 4000]
+
+!!BA:H0/?y50;                           [Attacking Hero Number]
+!!SN:W^Growth_Happened^/y50;
+
+!!VRy5:S$day$;
+
+!!VRy6:Sy5 -y4 :7 -1;                   [Weeks passed]
+!!FU&$day$<=7:E;                        [Exit in first Week]
+!!FU&y6=-1:E;                           [Exit if its the same week as it hit 4000. Growth first starts next week]
+
+!!DO(Diff_Funtion_88)/0/y6/1:P4000;
+!!SN:W^Stack_Growth_Number^/?y10;       [Holds Number of Total Troops]
+
+!!VRy30:S0;
+!!BA:M1/0/?y1/?y21; !!VRy30&y1>=0:+1;      
+!!BA:M1/1/?y2/?y22; !!VRy30&y2>=0:+1;
+!!BA:M1/2/?y3/?y23; !!VRy30&y3>=0:+1;
+!!BA:M1/3/?y4/?y24; !!VRy30&y4>=0:+1;
+!!BA:M1/4/?y5/?y25; !!VRy30&y5>=0:+1;
+!!BA:M1/5/?y6/?y26; !!VRy30&y6>=0:+1;
+!!BA:M1/6/?y7/?y27; !!VRy30&y7>=0:+1;
+
+*Limit Can be Set Here* 
+!!MA:Ly1/?y28;                          [Get Level of First Monster to decide the growth Limit]
+!!VRy10&y28=0/y10>20000:S20000;         [Level 1 Monster can grow up to 20000]
+!!VRy10&y28=1/y10>18000:S18000;
+!!VRy10&y28=2/y10>16000:S16000;
+!!VRy10&y28=3/y10>14000:S14000;
+!!VRy10&y28=4/y10>12000:S12000;
+!!VRy10&y28=5/y10>1000:S10000;
+!!VRy10&y28=6/y10>8000:S8000;           [Level 7 Monster can grow up to 8000]
+
+!!VRy10:-4000;                          [Number of Additional Troops]
+
+!!VRy10::y30;                           [Divide addiotional troops through number of stacks]
+*!IF:M^Number of Additional Troops per Stack %Y10 and %Y30^;
+
+!!if&y30=1:;
+!!VRy21:+y10; !!BA:M1/0/y1/y21;         [Deploy additional troops to defending stacks]
+!!en:;
+
+!!if&y30=2:;
+!!VRy21:+y10; !!BA:M1/0/y1/y21;
+!!VRy22:+y10; !!BA:M1/1/y2/y22;
+!!en:;
+
+!!if&y30=3:;
+!!VRy21:+y10; !!BA:M1/0/y1/y21;
+!!VRy22:+y10; !!BA:M1/1/y2/y22;
+!!VRy23:+y10; !!BA:M1/2/y3/y23;
+!!en:;
+
+!!if&y30=4:;
+!!VRy21:+y10; !!BA:M1/0/y1/y21;
+!!VRy22:+y10; !!BA:M1/1/y2/y22;
+!!VRy23:+y10; !!BA:M1/2/y3/y23;
+!!VRy24:+y10; !!BA:M1/3/y4/y24;
+!!en:;
+
+!!if&y30=5:;
+!!VRy21:+y10; !!BA:M1/0/y1/y21;
+!!VRy22:+y10; !!BA:M1/1/y2/y22;
+!!VRy23:+y10; !!BA:M1/2/y3/y23;
+!!VRy24:+y10; !!BA:M1/3/y4/y24;
+!!VRy25:+y10; !!BA:M1/4/y5/y25;
+!!en:;
+
+!!if&y30=6:;
+!!VRy21:+y10; !!BA:M1/0/y1/y21;
+!!VRy22:+y10; !!BA:M1/1/y2/y22;
+!!VRy23:+y10; !!BA:M1/2/y3/y23;
+!!VRy24:+y10; !!BA:M1/3/y4/y24;
+!!VRy25:+y10; !!BA:M1/4/y5/y25;
+!!VRy26:+y10; !!BA:M1/5/y6/y26;
+!!en:;
+
+!!if&y30=7:;
+!!VRy21:+y10; !!BA:M1/0/y1/y21;
+!!VRy22:+y10; !!BA:M1/1/y2/y22;
+!!VRy23:+y10; !!BA:M1/2/y3/y23;
+!!VRy24:+y10; !!BA:M1/3/y4/y24;
+!!VRy25:+y10; !!BA:M1/4/y5/y25;
+!!VRy26:+y10; !!BA:M1/5/y6/y26;
+!!VRy27:+y10; !!BA:M1/6/y7/y27;
+!!en:;
+
+
+!#SN:W^Growth_Happened^/-1;
+
+!$OB54&1000;                            [After Monster Visit]
+*This part is to prevent that a stack which had grown above 4000 and the hero retreated will not fall back to low numbers. So when retreating the stack is set back to 4000 after the visit
+!!SN:W^Growth_Happened^/?y10;
+!!SN:W^Growth_Happened^/-1;
+!!FU&y10=-1:E;
+
+!!HEy10:O?y20;
+!!FU&y20>=0:E;                          [Exit if Hero still has an owner]
+
+!!SN:W^Neutral_Growth_10000^/?y50;
+!!FU&y50=0:E;
+
+!!SN:W^Growth_X%V998_Y%V999_Z%V1000^/?y4;
+!!FU&y4=0:E;                            [Exit if stack had not grown to 4000 before]
+!!MOv998/v999/v1000:G4000;
+
+*!IF:M^It happened Oo^;
+
+
+********************************************************************************
+!?FU(Diff_Funtion_88);
+!!VRx1: *110:100;
+!!SN:W^Stack_Growth_Number^/x1;
+
+********************************************************************************
+!?FU(Diff_Funtion_87);                  [For Uptier +1]
+
+!!VRv1&x16=1:S-1;
+!!UN:U54/-1/-1/1;
+!!MOv1/v2/v3:O?y1;
+!!FU&y1=1:E;                            [Exit Set/Check/Get the grow checkbox.]
+
+!!OBv1/v2/v3:U?y2;
+!!if&y2>=0/y2<120:;
+!!MOv1/v2/v3:G?y3;                      [Check Monster Numbers]
+!!MA:Uy2/?y4;                           [Check if upgradable]
+!!MA:Ly2/?y5;                           [Check Level 0-6]
+
+!!SN:W^Typhon_Third_Upgrade_Mod_Active^/?y99;
+!!FU&y99=1/y2=118:E; !!FU&y99=1/y2=119:E; !!FU&y99=1/y2=112:E;  																
+!!if&x1=1:;
+!!VRy2&y2=100:S103;                     [Fix for Lizardman]
+!!VRy2&y2=101:S103;                     [Fix for Lizardman]
+!!VRy2&y2=118:S110;                     [Fix for Pixi/Sprite]
+!!VRy2&y2=119:S125;                     [Fix for Pixi/Sprite]
+!!VRy2&y2=112:S113;                     [Fix for Air Element]
+!!VRy2&y2=115:S112;                     [Fix for Water Element]
+!!en:;
+
+!!if&x1=3:;
+!!VRy2&y2=101:S102; !!VRy2&y2=100:S101; [Fix for Lizardman]
+!!VRy2&y2=98:S100;  !!VRy2&y2=99:S101;  [Fix for Gnolls]
+!!VRy2&y2=118:S108; !!VRy2&y2=119:S123; [Fix for Fix for Pixi/Sprite]
+!!VRy2&y2=112:S111;                     [Fix for Air Element]
+!!en:;
+
+!!VRy2&y4=-2:+x1;                       [If not upgradable +1 Next Tier]
+!!VRy2&y4=-1:+x2;                       [If upgradable +2 for Next Tier]
+
+!!MA:Ly2/?y6;
+!!if&y5<y6/y5<5:;
+!!UN:Ov1/v2/v3;
+!!UN:Iv1/v2/v3/54/y2;
+!!MOv1/v2/v3:Gy3;
+!!en:;
+
+!!if&y5=y6:;
+!!VRy2:+1;                              [If not upgradable +1 Next Tier]
+!!MA:Ly2/?y6;
+!!if&y5<y6/y5<5:;
+!!UN:Ov1/v2/v3;
+!!UN:Iv1/v2/v3/54/y2;
+!!MOv1/v2/v3:Gy3;
+!!en:;
+!!en:;
+!!en:;
+********************************************************************************
+
+
+                Random Creature Abilities and Buff Section
+
+
+********************************************************************************
+!?BF&1000;
+
+!!SN:W^Anzahl_Buffs^/?y1;
+!!FU&y1=0:E;
+
+!!BA:O?y3/?y4;
+!!FU&y4<>-1:E;
+
+[:loop300]; loop is label name inside current trigger
+!!VRy2:S0R17;
+!!VRy3&y2=0:S27; !!VRy3&y2=1:S28; !!VRy3&y2=2:S29; !!VRy3&y2=3:S30; !!VRy3&y2=4:S31; !!VRy3&y2=5:S32; !!VRy3&y2=6:S33; !!VRy3&y2=7:S36; !!VRy3&y2=8:S41;
+!!VRy3&y2=9:S43; !!VRy3&y2=10:S44; !!VRy3&y2=11:S46; !!VRy3&y2=12:S48; !!VRy3&y2=13:S49; !!VRy3&y2=14:S51; !!VRy3&y2=15:S53; !!VRy3&y2=16:S55; !!VRy3&y2=17:S58;
+!!DO(Diff_Funtion_89)/21/41/1:Py3/50/1;
+!!VRy1:-1;                              [increase counter]
+!!SN&y1>0:G[loop300];                   [jump to loop label if not echoed y1 times]
+
+!?FU(Diff_Funtion_89);
+x1=Spell Number, x2=Duration, x3=Level
+
+!!BMx16:F?i F?j;                        [Read Monster Flag]
+!!VRi:&4;                               [Check for Shooter]
+!!VRj:&262144;                          [Check for Undead]
+
+!!VRx1&x1=43/i>0:S44;                   [If Shooter and Spell is Bloodlust, change to Precision]
+!!VRx1&x1=44/i=0:S43;                   [If Melee and Spell is Precision, change to Bloodlust]
+!!VRx1&x1=41/j>0:S46;                   [If Undead and Spell is Bless, change to Stoneskin]
+!!VRx1&x1=42/j>0:S28;                   [If Undead and Spell is Curse, change to Air Shield]
+!!VRx1&x1=48/j>0:S51;                   [If Undead and Spell is Prayer, change to Fortune]
+!!VRx1&x1=49/j>0:S27;                   [If Undead and Spell is Mirth, change to Shield]
+
+!!BMx16:Mx1/x2/x3;                      [Apply Bonus Spell]
+
+
+
+********************************************************************************
+!?FU(OnBeforeBattleUniversal)&1000;     [Switched to BA from BF because of EA bug overriding HP]
+
+!!SN:W^Anzahl_Abilities^/?y1;
+!!FU&y1=0:E;                            [Exit if Option was not Selected]
+
+!!BA:O?y3/?y4;
+!!FU&y4<>-1:E;
+
+[:loop400]; loop is label name inside current trigger
+!!VRy10:S1R17;
+!!DO(Diff_Funtion_90)/21/41/1:Py10;     [Run Loop through all creatures on Battlefield]
+!!VRy1:-1;                              [increase counter]
+!!SN&y1>0:G[loop400];                   [jump to loop label if not echoed y1 times]
+
+
+**Extra Abilities Table
+!?FU(Diff_Funtion_90);                  [Function for giving extra abilities]
+
+!!BMx16:N?y1;                          
+!!FU&y1=0:E;
+
+!!BMx16:T?y1;
+
+!!if&y1<=144:;                          [Execlude War Machines and Commanders and some other OP stuff]
+
+!!VRy2:Sx16;                            [use stack ID (read below*), I set y2 to current stack number]
+!!VRy2:+1*-1;                           [now I add +1 then change to negative  value, we have now number of stack for EA thx Sal]
+
+!!EAy2:F0/?y3;                          [Check for next available bonus line: y3]
+
+!!if&x1=1:;                             [Double Strike]
+!!EAy2&y3>=0:By3/1/102/68/1/1/1/1/1/1/1/1/1/1/1; [Battle Monster]
+!!en:;
+
+!!if&x1=2:;                             [Shield Block]
+!!EAy2&y3>=0:By3/1/76/29/30/30/30/30/30/30/30/30/30/30/30; [Battle Monster]
+!!en:;
+
+!!if&x1=3:;                             [Air Shield Block]
+!!EAy2&y3>=0:By3/1/76/29/30/30/30/30/30/30/30/30/30/30/30; [Battle Monster]
+!!en:;
+
+!!if&x1=4:;                             [Magic Mirror Cast]
+!!EAy2&y3>=0:By3/1/106/16/50/50/50/50/50/50/50/50/50/50/50; [Battle Monster]
+!!en:;
+
+!!if&x1=5:;                             [Counterspell cast Dispel]
+!!EAy2&y3>=0:By3/1/99/78/100/100/100/100/100/100/100/100/100/100/100; [Battle Monster]
+!!en:;
+
+
+!!if&x1=6:;                             [Mirth Fly]
+!!EAy2&y3>=0:By3/1/102/70/1/1/1/1/1/1/1/1/1/1/1; [Battle Monster]
+!!en:;
+
+
+!!if&x1=7:;                             [Luck Champion Distance Bonus]
+!!EAy2&y3>=0:By3/1/102/99/1/1/1/1/1/1/1/1/1/1/1; [Battle Monster]
+!!en:;
+
+
+!!if&x1=8:;                             [Counterstrike No Retaliation]
+!!EAy2&y3>=0:By3/1/102/82/1/1/1/1/1/1/1/1/1/1/1; [Battle Monster]
+!!en:;
+
+
+!!if&x1=9:;                             [Slayer Death Blow]
+!!EAy2&y3>=0:By3/1/101/61/100/100/100/100/100/100/100/100/100/100/100; [Battle Monster]
+!!en:;
+
+
+!!if&x1=10:;                            [Fire Shield]
+!!EAy2&y3>=0:By3/1/108/114/25/25/25/25/25/25/25/25/25/25/25; [Battle Monster]
+!!en:;
+
+
+!!if&x1=11:;                            [Frenzy Strike and Return]
+!!EAy2&y3>=0:By3/1/102/98/1/1/1/1/1/1/1/1/1/1/1; [Battle Monster]
+!!en:;
+
+
+!!if&x1=12:;                            [Protection Elements]
+!!EAy2&y3>=0:By3/1/75/15/75/75/75/75/75/75/75/75/75/75/75; [Battle Monster]
+!!en:;
+
+
+!!if&x1=13:;                            [Precision Shoot when Adjacent]
+!!EAy2&y3>=0:By3/1/102/115/1/1/1/1/1/1/1/1/1/1/1; [Battle Monster]
+!!en:;
+
+
+!!if&x1=14:;                            [Breath Attack]
+!!EAy2&y3>=0:By3/1/102/66/1/1/1/1/1/1/1/1/1/1/1; [Battle Monster]
+!!en:;
+
+
+!!if&x1=15:;                            [Attack All Around]
+!!EAy2&y3>=0:By3/1/102/65/1/1/1/1/1/1/1/1/1/1/1; [Battle Monster]
+!!en:;
+
+
+!!if&x1=16:;                            [No Melee Penalty]
+!!EAy2&y3>=0:By3/1/102/69/1/1/1/1/1/1/1/1/1/1/1; [Battle Monster]
+!!en:;
+
+
+!!if&x1=17:;                            [Rebirth]
+!!EAy2&y3>=0:By3/1/102/114/1/1/1/1/1/1/1/1/1/1/1; [Battle Monster]
+!!en:;
+
+!!if&x1=18:;                            [Cast Spell Before Attack Magic Arrow]
+!!EAy2&y3>=0:By3/1/106/15/50/50/50/50/50/50/50/50/50/50/50; [Battle Monster]
+!!en:;
+
+!!if&x1=19:;                            [Cast Spell After Attack Magic Arrow]
+!!EAy2&y3>=0:By3/1/107/15/50/50/50/50/50/50/50/50/50/50/50; [Battle Monster]
+!!en:;
+
+!!if&x1=20:;                            [Cast Spell After Attack Fireball]
+!!EAy2&y3>=0:By3/1/107/21/25/25/25/25/25/25/25/25/25/25/25; [Battle Monster]
+!!en:;
+
+!!en:;
+****************************** END *********************************************
+
+
+
+
+
+********************************************************************************
+
+
+               Battle Commander and Battle Rewards Section
+
+
+********************************************************************************
+
+!?BF&1000;                              [Create Battle Commander]
+
+!!SN:W^Battle_Commander^/?y1;           [Only Run if Option was selected]
+!!FU&y1=0:E;
+
+!!SN:W^Battle_Commander_On^/?y1;
+!!FU&y1=0:E;
+
+!!HE-10:E?y4/?y5/1 F?y22/?y21/?y74/?y75;[Get Level of attacking Hero Attack and Defense]
+
+!!VRy1:S183R8;
+
+!!BU:Sy1/1/98/1/-1/0;                   [Summon random Commander]
+
+!!DO(Diff_Funtion_91)/0/20/1:P;         [Get Fight Value of attacking army]
+!!SN:W^Att_HP_Army_Value^/?y20;
+
+!!DO(Diff_Funtion_92)/21/41/1:Py20/y5/y22/y21; [Set Battle Commander Stats]
+!!SN:W^Att_HP_Army_Value^/0;            [Reset Fight Value]
+
+
+!?BF;  
+AI player gets Stronger Commander in battle depending on game difficutly
+
+!!SN:W^H3_Game_Difficulty^/?y1;
+!!FU&y1=0:E;                            [Exit if Mod was disabled in options]
+
+!!BA:H0/?y1 H1/?y2;                      
+!!FU&y2<0:E;                            [Exit if no enemy Hero]
+
+!!BA:O?y1/?y2;                          [Get Owner]
+!!OW:Iy2/?y2;                           [Get if AI or Human]
+
+!!SN:W^H3_Game_Difficulty^/?y5;
+
+!!VRy10&y5=1:S200;    !!VRy11&y5=1:S15;    
+!!VRy10&y5=2:S250;    !!VRy11&y5=2:S20;
+!!VRy10&y5=3:S300;    !!VRy11&y5=3:S25;
+!!VRy10&y5=4:S400;    !!VRy11&y5=4:S30;
+!!VRy10&y5=5:S500;    !!VRy11&y5=5:S40;
+
+!!if&y2=1:;
+ !!rei/21/31:;
+  !!BMi:T?y3;                           [Get Creature Type and Position]
+    !!if&y3>=183/y3<=191:;              [If Commander found]
+    !!BMi:Ady11;                        [Set Attack]
+    !!BMi:Ddy11;                        [Set Defense]
+    !!BMi:H?y5; !!VRy5:*y10:100; !!BMi:Hy5 E0; [Set Health and set casts to zero]
+    !!BMi:U1/?y5 U2/?y6; !!VRy5:*y10:100; !!VRy6:*y10:100; !!BMi:U1/y5 U2/y6; [Set Min+Max Damage]
+    !!en:;
+ !!en:;    
+!!en:;
+
+!!BA:O?y1/?y2;                          [Get Owner]
+!!OW:Iy1/?y2;                           [Get if AI or Human]
+
+!!if&y2=1:;
+ !!rei/0/10:;
+  !!BMi:T?y3;                           [Get Creature Type and Position]
+    !!if&y3>=174/y3<=182:;              [If Commander found]
+    !!BMi:Ady11;                        [Set Attack]
+    !!BMi:Ddy11;                        [Set Defense]
+    !!BMi:H?y5; !!VRy5:*y10:100; !!BMi:Hy5 E0; [Set Health and set casts to zero]
+    !!BMi:U1/?y5 U2/?y6; !!VRy5:*y10:100; !!VRy6:*y10:100; !!BMi:U1/y5 U2/y6; [Set Min+Max Damage]
+    !!en:;
+  !!en:;
+!!en:;
+
+
+********************************************************************************
+!?FU(Diff_Funtion_92);
+
+!!BMx16:N?y1;
+!!BMx16:T?y2;
+!!BMx16:P?y3;
+
+!!if&y1=1/y2>182/y2<192/y3<>8:;         [If commander found] [Skip Poistion 8 in Creature Banks]
+
+!!VRy5:S$day$;
+!!VRy6:S$weeks$;
+!!VRy7:Sx2*150;                         [Hero level mal 150]
+!!VRy8:S$weeks$*100;                    [Week mal 100]
+!!VRy9:Sx2*5;                           [Hero level mal 5 for Damage]
+
+**Calculate the Strength of Battle Commander**
+!!VRy10:Sx3*2+y6;                       [Attack=Attack from Hero *2 + Gameweeks]
+!!VRy11:Sx4*2+y6;                       [Defense=Defense from Hero *2 + Gameweeks]
+!!VRy12:Sx2:10 +2R1;                    [Speed=Herolvl/10 +2-4]
+!!VRy13:Sx1:8 +y7 +y8 +50 :2;           [Health=Fight Value/10 +Herlolvl*150 +Week*100 durch 2]
+!!VRy14:Sx1:250 +y9 +5R25;              [Min Damage HP_Value +Hero Level*10]
+!!VRy15:Sx1:150 +y9 +31R50;             [Max Damage]
+
+!!BMx16:Hy13 Ay10 Dy11 Sy12 U1/y14 U2/y15 U3/0 E0; [Give Stats and Set casts and shots to zero]
+
+!!VRy40:S30R3;                          [Add 1 Advanced Elemental Protection]
+!!BMx16:My40/5/2;
+
+!!VRy40&x2>=25:S30R3;                   [Add one more Advanced Elemental Protection after level 25]
+!!BMx16&x2>=25:My40/3/2;
+
+!!VRy40&x2>=35:S30R3;                   [Add one more Expert Elemental Protection after level 35]
+!!BMx16&x2>=35:My40/7/3;
+
+!!VRy10:S0R2;
+!!BMx16&x2>=25/y10>=1:M28/10/2;         [Add Air Shield   66% Chance]
+!!BMx16&x2>=30/y10<=1:M27/10/2;         [Add Shield       66% Chance]
+!!BMx16&x2>=45/y10=0:M48/5/2;           [Add Prayer       66% Chance]
+!!en:;
+
+
+********************************************************************************
+!?FU(Diff_Funtion_91);
+
+!!BMx16:N?y1;
+!!BMx16:H?y2;
+!!VRy3:Sy1*y2;
+!!SN:W^Att_HP_Army_Value^/dy3;
+
+********************************************************************************
+!?FU(OnBeforeBattleUniversal)&1000;
+
+!!SN:W^Battle_Commander^/?y1;           [Only Run if Option was selected]
+!!FU&y1=0:E;
+
+!!BA:H0/?y1;
+!!BA:H1/?y2;
+!!BA:O?y3/?y4;
+!!FU&y4<>-1:E;                          [So it only runs for Random Battle Heroes and Chambers]
+
+!!HEy1:Ed/?y5/1;                        [Get Level of attacking Hero]
+
+!!FU&y5<10:E;                           [Exit if Hero is not lvl 10]
+
+!!VRy6:S0T99;                           [16% Chance for Hero Level 10-15]
+!!VRy6&y5>15:S0T85;                     [19% Chance for Hero Level 16-25]
+!!VRy6&y5>25:S0T80;                     [20%Ch ance for Hero Level 26-35]
+!!VRy6&y5>35:S0T75;                     [22% Chance for Hero Level 36-45]
+!!VRy6&y5>45:S0T70;                     [23% Chance for Hero Level 46-100]
+
+*!VRy6:S1; TEST
+
+!!FU&y6>16:E;                           [Fight the Battle Commander or Not]
+
+!!SN:T^Diff_Mod.Be_carefull^/?z2;
+!!IF:M^%Z2^;
+
+!!SN:W^Battle_Commander_On^/1;          [So it only runs for Random Battle Heroes and Chambers]
+
+********************************************************************************
+!?FU(OnAfterBattleUniversal)&1000;      [Battle Commander Rewards]
+
+!!SN:W^Battle_Commander^/?y1;           [Only Run if Option was selected]
+!!FU&y1=0:E;
+
+!!SN:W^Battle_Commander_On^/?y1;        [And the fight was vs a Battle Commander]
+!!FU&y1=0:E;
+
+!!BA:O?y3/?y4;                          [Check Owner]
+!!HE-10:B0/?z-10;                       [get hero name]
+!!HE-10:E?y6/?y7/1;                     [get level of this hero]
+
+!!VRy50:S0R4;
+
+!!if&y3<>-1:;                           [Give Reward if Attacking Hero hasn't lost the battle]
+!!if&y50=0|y50=1:;                      [Double Chance]
+
+**Resources Reward
+!!VRy8:Sy7;                             [Set Level to y8]
+!!VRy8::5 +1;
+!!VRy10:S0R6;
+!!VRy11&y10<6:S1R3 +y8;
+!!VRy11&y10=6:Sy8*750+1000R1500;
+!!OW:Ry3/y10/dy11;                      [Give Player Resources]
+
+!!SN:T^Diff_Mod.A glorius victory^/?z2 Iz2/?z2;
+
+!!OW&y3<>-1:Iy3/?y4;                    [get AI (1) or human (0)]
+!!VRy5&y3<>-1/y4=0:S1;                  [human if has owner and that owner is human]
+!!IF&y5=1:Q2/y10/y11/1/z2;              [If Bonus Show Picture]
+!!en:;
+
+**Primary Skill Reward
+!!if&y50=2:;
+!!VRy5:S31R3;
+
+!!SN:T^Diff_Mod.A glorius victory^/?z2 Iz2/?z2;
+!!IF:Q1/y5/1/1/z2;
+
+!!HE-10&y5=31:Fd1/d/d/d;                [give appropriate bonus]
+!!HE-10&y5=32:Fd/d1/d/d;                [give appropriate bonus]
+!!HE-10&y5=33:Fd/d/d1/d;                [give appropriate bonus]
+!!HE-10&y5=34:Fd/d/d/d1;                [give appropriate bonus]
+!!en:;
+
+**Experience Reward
+!!if|y50=3/y50=4:;                      [Double Chance]
+!!VRy6&y6>=15000000:S15000000;          [Fix for Var overflow]
+!!VRy5:Sy6;
+!!VRy5:*120:100 -y6;
+!!VRy5::100 *15 +3000;
+
+!!SN:T^Diff_Mod.A glorius victory2^/?z2 Iz2/?z2;
+!!IF:Q1/17/y5/1/z2;
+
+!!HE-10:Edy5;                           [Give Experience]
+!!en:;
+
+!!UN:R2;                                [Redraw]
+!!en:;
+
+!!SN:W^Battle_Commander_On^/0;          [Reset Flag]
+!!SN:W^Att_HP_Army_Value^/0;            [Reset Fight Value]
+
+
+********************************************************************************
+!?FU(OnAfterBattleUniversal)&1000;      [Battle Reward Option Rewards]
+
+!!SN:W^Battle_Reward_Active^/?y1;       [Only Run if Option was selected]
+!!FU&y1=0:E;
+
+!!SN:W^Battle_Reward^/?y15;             [Get Chance]
+!!VRy11:S0R100;
+!!FU&y11>y15:E;                         [Exit if Roll not Successfull]
+
+!!BA:O?y3/?y4;                          [Check Owner Attack and Defender]
+!!HE-10:B0/?z-10;                       [get hero name]
+!!HE-10:E?y6/?y7/1;                     [get level of this hero]
+
+!!VRy50:S0R6;
+
+!!if&y3<>-1:;                           [Give Reward if Attacking Hero hasn't lost the battle]
+!!if&y50=0|y50=1|y50=2:;                [0 und 1 is Ressource Reward]
+
+**Resources Reward
+!!VRy8:Sy7;                             [Set Level to y8]
+!!VRy8::8 +1;
+!!VRy8&y15>=100:+3;
+!!VRy8&y15>=120:+2;
+!!VRy10:S0R6;
+!!VRy11&y10<6:S0R2 +y8;
+!!VRy11&y10=6:Sy8*500+100R1000;
+!!OW:Ry3/y10/dy11;                      [Give Player Resources]
+
+!!SN:T^Diff_Mod.Battle Reward1^/?z2 Iz2/?z2;
+
+!!OW&y3<>-1:Iy3/?y4;                    [get AI (1) or human (0)]
+!!VRy5&y3<>-1/y4=0:S1;                  [human if has owner and that owner is human]
+!!IF&y5=1:Q2/y10/y11/1/z2;              [If Bonus Show Picture]
+!!en:;
+
+**Primary Skill Reward
+!!if&y50=3:;
+!!VRy5:S31R3;
+
+!!SN:T^Diff_Mod.Battle Reward2^/?z2 Iz2/?z2;
+!!IF:Q1/y5/1/1/z2;
+
+!!HE-10&y5=31:Fd1/d/d/d;                [give appropriate bonus]
+!!HE-10&y5=32:Fd/d1/d/d;                [give appropriate bonus]
+!!HE-10&y5=33:Fd/d/d1/d;                [give appropriate bonus]
+!!HE-10&y5=34:Fd/d/d/d1;                [give appropriate bonus]
+!!en:;
+
+
+**Experience Reward
+!!if|y50=4/y50=5/y50=6:;
+
+!!VRy5:Sy7*3*100;
+!!VRy5&y7>=30:*2;                       [If level bigger 30 Double Xp Bonus]
+!!VRy5&y7>=40:*2;                       [If level bigger 30 Double Xp Bonus again]
+!!VRy5&y7>=50:*4;                       [If level bigger 30 Double Xp Bonus]
+!!VRy5&y15>=100:*125:100;
+!!VRy5&y15>=120:*120:100;
+!!VRy5&y5>=15000000:S15000000;          [Fix for Var overflow]
+
+!!SN:T^Diff_Mod.Battle Reward3^/?z2 Iz2/?z2;
+!!IF:Q1/17/y5/1/z2;
+
+!!HE-10:Edy5;                           [Give Experience]
+!!en:;
+
+!!UN:R2;                                [Redraw]
+!!en:;
+
+********************************************************************************
+
+
+                    Start of AI Improvements Section
+
+
+
+********************************************************************************
+Increases one of the Primary Skills of any AI Hero when level up by:
+
+Easy/Normal-     100% chance of 0 Random Point
+Normal/Hard-     100% chance of 1 Random Point
+Hard/Expert-     100% chance of 2 Random Points
+Extreme-         100% chance of 2 Random Points
+Insane-          100% chance of 2 Random Points
+
+!?HL-1&-1000;
+
+!!HE-1:N?y20;
+!!SN:W^H3_Game_Difficulty^/?y1; !!FU&y1=0:E; [Get game difficulty, Exit if Easy]
+!!SN:W^AIPayday^/?y2; !!FU&y2>$day$:E;  [Exit if AI Payday is not yet reached]
+
+!!VRy5&y1=1:S0;                         [Easy]
+!!VRy5&y1=2:S1;                         [Normal]
+!!VRy5&y1=3:S1;                         [Hard]
+!!VRy5&y1=4:S2;                         [Extreme]
+!!VRy5&y1=5:S2;                         [Insane]
+
+!!HEy20:O?y2; !!FU&y2<0:E; !!FU&y5=0:E; [Exit if no hero owner or Easy selected]
+
+*!IF:M^Hero is %Y20 and Game Difficulty is %Y1 and bonus stat points are %Y5^;
+
+[:loop1]
+!!VRy2:S0R3;
+!!HEy20&y2=0:Fd1/d0/d0/d0;
+!!HEy20&y2=1:Fd0/d1/d0/d0;
+!!HEy20&y2=2:Fd0/d0/d1/d0;
+!!HEy20&y2=3:Fd0/d0/d0/d1;
+!!VRy5:-1;                              [increase counter]
+!!SN&y5>1:G[loop1];                     [Loop]
+********************************************************************************
+
+********************************************************************************
+Give AI Player Ressources daily depending on selected difficulty
+!#TM81:S1/999/1/255;                    [Trigger every day for everyone]
+
+!?TM81;
+
+!!SN:W^H3_Game_Difficulty^/?y10; !!FU&y10=0:E; [Get game difficulty Exit if zero]
+!!SN:W^AIPayday^/?y1; !!FU&y1>$day$:E;  [Exit if AI Payday is not yet reached]
+
+!!VRy1:Sc0;                             [get day]
+!!OW:C?y1;                              [Check player]
+!!OW:Iy1/?y2;                           [AI/Human        1 : AI        0 : Human]
+!!OW:Iy1/y2/?y3;                        [Check if killed 1=killed 0=alive]
+!!FU|y2=0/y3=1:E;                       [Exit if Human or player Killed]
+
+!!VRy7&y10=1:S2000;  !!VRy8&y10=1:S1;   [Easy]
+!!VRy7&y10=2:S3000;  !!VRy8&y10=2:S2;   [Normal]
+!!VRy7&y10=3:S4000;  !!VRy8&y10=3:S3;   [Hard]
+!!VRy7&y10=4:S5000;  !!VRy8&y10=4:S5;   [Extreme]
+!!VRy7&y10=5:S7000;  !!VRy8&y10=5:S6;   [Insane]
+
+!!DO(Give_AI_Money)/0/6/1:Py1/y7/y8;    [Run if AI and still alive]
+
+!?FU(Give_AI_Money);
+*x1=Owner, x2=Gold, x3=Resources
+!!OW&x16<6:Rx1/x16/dx3;                 [Resources]
+!!OW&x16=6:Rx1/x16/dx2;                 [Gold]
+********************************************************************************
+
+********************************************************************************
+Gives AI creatures,spellpoints, movement and experience daily
+!?TM2&$once$=1/$AI$=0/$day$>=1;         [Once a day, starting at day 1]
+
+!!SN:W^AIPayday^/?y1; !!FU&y1>$day$:E;  [Exit if AI Payday is not yet reached]
+!!SN&$day$=y1/$day$>1:T^Diff_Mod.Payday_Message^/?z-2;
+!!IF&$day$=y1/$day$>1:L^%Z-2{~}^;
+
+!!SN:W^Progressive_Difficulty^/?y2;
+!!SN:W^Difficulty_day^/?y1;
+
+!!FU(Progressive_Difficulty)&$day$=y1/y2=1:P; [Run prog increase if option is selected and day equals payday]
+
+!!SN:W^H3_Game_Difficulty^/?y1;
+!!DO(AI_Increase_Loop)/0/155/1&y1>0:P;  [loop through heroes]
+
+
+!?FU(AI_Increase_Loop);
+
+!!HEx16:O?y1;                           [Checke Hero Owner]
+!!FU&y1=-1:E;                           [Exit if none]
+!!OW:Iy1/?y2;                           [AI 1 / Human 0]
+!!OW:Iy1/y2/?y3;                        [Check if player killed 1=killed 0=alive]
+!!FU|y2=0/y3=1:E;                       [Exit if Human or player Killed  Test]
+
+!!VRy10:Sc0;                            [get day]
+!!VRy10:%2;                             [Modulo 2]
+!!SN:W^H3_Game_Difficulty^/?y5;   !!VRy10&y5=5:S0; [If Insane Difficulty Set creature Reward to daily]
+
+!!FU(Give_AI_Creatures)&y10=0:Px16/y1;  [Run if AI and still alive und gerader Tag]
+!!FU(Give_AI_Experience):Px16/y1;       [Run if AI and still alive]
+!!FU(Give_AI_Spell_Points):Px16/y1;     [Run if AI and still alive]
+!!FU(Give_AI_Movement):Px16/y1;         [Run if AI and still alive]
+!!FU(Give_AI_Spell_Book):Px16/y1;       [Run if AI and still alive]
+
+
+!?FU(Give_AI_Creatures);
+x1=hero, x2=owner
+!!SN:W^H3_Game_Difficulty^/?y1;
+!!FU&y1=0:E;
+
+!!VRy11&y1=1:S2; !!VRy12&y1=1:S2; !!VRy13&y1=1:S1; !!VRy14&y1=1:S1; !!VRy15&y1=1:S0; !!VRy16&y1=1:S0; !!VRy17&y1=1:S0; [Easy]
+!!VRy11&y1=2:S3; !!VRy12&y1=2:S3; !!VRy13&y1=2:S2; !!VRy14&y1=2:S2; !!VRy15&y1=2:S1; !!VRy16&y1=2:S0; !!VRy17&y1=2:S0; [Medium]
+!!VRy11&y1=3:S5; !!VRy12&y1=3:S4; !!VRy13&y1=3:S3; !!VRy14&y1=3:S3; !!VRy15&y1=3:S2; !!VRy16&y1=3:S1; !!VRy17&y1=3:S0; [Hard]
+!!VRy11&y1=4:S7; !!VRy12&y1=4:S6; !!VRy13&y1=4:S5; !!VRy14&y1=4:S4; !!VRy15&y1=4:S3; !!VRy16&y1=4:S1; !!VRy17&y1=4:S1; [Extreme]
+!!VRy11&y1=5:S7; !!VRy12&y1=5:S6; !!VRy13&y1=5:S5; !!VRy14&y1=5:S4; !!VRy15&y1=5:S3; !!VRy16&y1=5:S1; !!VRy17&y1=5:S1; [Insane]
+
+!!SN:W^AI_Bonus_Creature_lvl_1^/y11;    [Level 1]
+!!SN:W^AI_Bonus_Creature_lvl_2^/y12;    [Level 2]
+!!SN:W^AI_Bonus_Creature_lvl_3^/y13;    [Level 3]
+!!SN:W^AI_Bonus_Creature_lvl_4^/y14;    [Level 4]
+!!SN:W^AI_Bonus_Creature_lvl_5^/y15;    [Level 5]
+!!SN:W^AI_Bonus_Creature_lvl_6^/y16;    [Level 6]
+!!SN:W^AI_Bonus_Creature_lvl_7^/y17;    [Level 7]
+
+!!rei/0/6:;
+!!HEx1:C0/i/?y21/?y22;                  [Check creatures to Hero Army]
+!!if&y21>=0/y22>0:;
+!!MA:Ly21/?y30;                         [Get level of Monster]
+!!VRy3&y30=0:Sy11;                      [Level 1]
+!!VRy3&y30=1:Sy12;                      [Level 2]
+!!VRy3&y30=2:Sy13;                      [Level 3]
+!!VRy3&y30=3:Sy14;                      [Level 4]
+!!VRy3&y30=4:Sy15;                      [Level 5]
+!!VRy3&y30=5:Sy16;                      [Level 6]
+!!VRy3&y30=6:Sy17;                      [Level 7]
+!!HEx1&y21>=0/y22>0/y3>0:C0/i/y21/dy3;  [Add creatures to Hero Army]
+!!en:;
+!!en:;
+
+
+!?FU(Give_AI_Experience);
+!!SN:W^H3_Game_Difficulty^/?y1;
+!!VRy2&y1=1:S500; !!VRy2&y1=2:S1000; !!VRy2&y1=3:S2500; !!VRy2&y1=4:S5000; !!VRy2&y1=5:S10000;
+!!HEx1:Edy2;                            [Gives Experience daily]
+
+
+!?FU(Give_AI_Spell_Points);
+!!SN:W^H3_Game_Difficulty^/?y1;
+!!VRy2&y1=1:S5; !!VRy2&y1=2:S10; !!VRy2&y1=3:S15; !!VRy2&y1=4:S20; !!VRy2&y1=5:S25;
+!!HEx1:Idy2/1;                          [Gives Mana daily]
+!!HEx1:I?y3/1;
+!!HEx1&y3>999:I999/1;
+
+
+!?FU(Give_AI_Movement);
+!!SN:W^H3_Game_Difficulty^/?y1;
+!!VRy2&y1=1:S200;                       [Normal]
+!!VRy2&y1=2:S300;                       [Hard]
+!!VRy2&y1=3:S400;                       [Expert]
+!!VRy2&y1=4:S500;                       [Extreme]
+!!VRy2&y1=5:S700;                       [Insane]
+!!HEx1:Wdy2/1;                          [Add little Bonus Movement dependant on Level]
+
+
+!?FU(Give_AI_Spell_Book);
+!!HEx1:A2/0/?y12/?y13;                  [Check for Spell Book]
+!!HEx1&y13=0:A4/0;                      [Give Spell Book if none]
+!!HEx1:M54/1;                           [Give Slow]
+!!HEx1:M37/1;                           [Give Cure]
+!!HEx1:M42/1;                           [Give Curse]
+!!HEx1:M53/1;                           [Give Haste]
+
+
+********************************************************************************
+!?FU(Progressive_Difficulty);
+
+!!SN:W^H3_Game_Difficulty^/?y1;
+!!VRy1:+1;                              [Increase game Difficult by one level]
+!!VRy1&y1>=5:S5;                        [If it was already on Insane dont increase further]
+!!SN:W^H3_Game_Difficulty^/y1;
+
+!!SN&y1=1:T^Diff_Mod.AI_Level_Easy^/?z-1;
+!!SN&y1=2:T^Diff_Mod.AI_Level_Normal^/?z-1;
+!!SN&y1=3:T^Diff_Mod.AI_Level_Hard^/?z-1;
+!!SN&y1=4:T^Diff_Mod.AI_Level_Extreme^/?z-1;
+!!SN&y1=5:T^Diff_Mod.AI_Level_Insane^/?z-1;
+
+!!SN:T^Diff_Mod.game_difficulty_increase^/?z2 Iz2/?z2;
+!!IF:M^%Z2^;
+
+
+
+*********************************The END****************************************
+
+
+Author PerryR 2019 for ERA II
+Idea by Daemon
+
+This script checks the artifacts of AI heroes every day and equips better ones if available in a backpack.
+You can conduct the priority order for equipping by reading the code. The lower an artifact is the higher the priority.
+If possible it will always equip the best artifact.
+
+
+
+********************************************************************************
+*Daily Tigger, runs only once per game day for all AI Heroes*
+!?TM2&$once$=1/$AI$=0;
+
+!!IF:V761/1;                            [Fix for ACM sets, temporarly disables the Equip/Unequip proces]
+!!DO(AI_Hero_Artifacts)/0/155/1:P;      [loop through heroes]
+!!IF:V761/0;
+
+!?FU(AI_Hero_Artifacts);
+*x16=Hero Numbers
+
+!!HEx16:O?y1;                           [Checke Hero Owner]
+!!FU&y1=-1:E;                           [Exit if none]
+!!OW:Iy1/?y2;                           [Check if AI (1)]
+!!FU&y2=0:E;                            [Exit if human]
+
+
+
+********************************************************************************
+Right Hand Slot
+(11)
+
+7 Centaur Axe
+8 Blackshard of the Dead Knight
+9 Greater Gnoll's Flail
+10 Ogre's Club of Havoc
+11 Sword of Hellfire
+12 Titan's Gladius
+35 Sword of Judgement
+38 Red Dragon Flame Tongue
+128 Armageddon's Blade
+146 Axe of Smashing (Not considered)
+148 Sword of Sharpness (Not considered)
+
+!!HEx16:A2/8/?y10/?y11;                 [8 Blackshard of the Dead Knight]
+!!if&y10=1/y11=0:;                      [If in Backpack but not equipped]
+!!DO(AI_Right_Hand)/7/7/1:Px16;
+!!DO(AI_Right_Hand)/9/12/1:Px16;
+!!DO(AI_Right_Hand)/35/35/1:Px16;       [35 Sword of Judgement]
+!!DO(AI_Right_Hand)/38/38/1:Px16;       [38 Red Dragon Flame Tongue]
+!!DO(AI_Right_Hand)/128/128/1:Px16;     [128 Armageddon's Blade]
+!!DO(AI_Right_Hand)/146/146/1:Px16;     [146 Axe of Smashing]
+!!DO(AI_Right_Hand)/148/148/1:Px16;     [148 Sword of Sharpness]
+!!HEx16:A-8; !!HEx16:A4/8;              [First remove Blackshard of the Dead Knight from Hero and than equip it]
+!!en:;
+
+!!HEx16:A2/38/?y10/?y11;                [38 Red Dragon Flame Tongue]
+!!if&y10=1/y11=0:;                      [If in Backpack but not equipped]
+!!DO(AI_Right_Hand)/7/12/1:Px16;
+!!DO(AI_Right_Hand)/35/35/1:Px16;       [35 Sword of Judgement]
+!!DO(AI_Right_Hand)/128/128/1:Px16;     [128 Armageddon's Blade]
+!!DO(AI_Right_Hand)/146/146/1:Px16;     [146 Axe of Smashing]
+!!DO(AI_Right_Hand)/148/148/1:Px16;     [148 Sword of Sharpness]
+!!HEx16:A-38; !!HEx16:A4/38;
+!!en:;
+
+!!HEx16:A2/9/?y10/?y11;                 [9 Greater Gnoll's Flail]
+!!if&y10=1/y11=0:;                      [If in Backpack but not equipped]
+!!DO(AI_Right_Hand)/7/8/1:Px16;
+!!DO(AI_Right_Hand)/10/12/1:Px16;
+!!DO(AI_Right_Hand)/35/35/1:Px16;       [35 Sword of Judgement]
+!!DO(AI_Right_Hand)/38/38/1:Px16;       [38 Red Dragon Flame Tongue]
+!!DO(AI_Right_Hand)/128/128/1:Px16;     [128 Armageddon's Blade]
+!!DO(AI_Right_Hand)/146/146/1:Px16;     [146 Axe of Smashing]
+!!DO(AI_Right_Hand)/148/148/1:Px16;     [148 Sword of Sharpness]
+!!HEx16:A-9; !!HEx16:A4/9;
+!!en:;
+
+!!HEx16:A2/10/?y10/?y11;                [10 Ogre's Club of Havoc]
+!!if&y10=1/y11=0:;                      [If in Backpack but not equipped]
+!!DO(AI_Right_Hand)/7/9/1:Px16;
+!!DO(AI_Right_Hand)/11/12/1:Px16;
+!!DO(AI_Right_Hand)/35/35/1:Px16;       [35 Sword of Judgement]
+!!DO(AI_Right_Hand)/38/38/1:Px16;       [38 Red Dragon Flame Tongue]
+!!DO(AI_Right_Hand)/128/128/1:Px16;     [128 Armageddon's Blade]
+!!DO(AI_Right_Hand)/146/146/1:Px16;     [146 Axe of Smashing]
+!!DO(AI_Right_Hand)/148/148/1:Px16;     [148 Sword of Sharpness]
+!!HEx16:A-10; !!HEx16:A4/10;
+!!en:;
+
+!!HEx16:A2/11/?y10/?y11;                [11 Sword of Hellfire]
+!!if&y10=1/y11=0:;                      [If in Backpack but not equipped]
+!!DO(AI_Right_Hand)/7/10/1:Px16;
+!!DO(AI_Right_Hand)/12/12/1:Px16;
+!!DO(AI_Right_Hand)/35/35/1:Px16;       [35 Sword of Judgement]
+!!DO(AI_Right_Hand)/38/38/1:Px16;       [38 Red Dragon Flame Tongue]
+!!DO(AI_Right_Hand)/128/128/1:Px16;     [128 Armageddon's Blade]
+!!DO(AI_Right_Hand)/146/146/1:Px16;     [146 Axe of Smashing]
+!!DO(AI_Right_Hand)/148/148/1:Px16;     [148 Sword of Sharpness]
+!!HEx16:A-11; !!HEx16:A4/11;
+!!en:;
+
+!!HEx16:A2/128/?y10/?y11;               [128 Armageddon's Blade]
+!!if&y10=1/y11=0:;                      [If in Backpack but not equipped]
+!!DO(AI_Right_Hand)/7/12/1:Px16;        [Run function and pass hero number]
+!!DO(AI_Right_Hand)/35/35/1:Px16;       [35 Sword of Judgement]
+!!DO(AI_Right_Hand)/38/38/1:Px16;       [38 Red Dragon Flame Tongue]
+!!DO(AI_Right_Hand)/146/146/1:Px16;     [146 Axe of Smashing]
+!!DO(AI_Right_Hand)/148/148/1:Px16;     [148 Sword of Sharpness]
+!!HEx16:A-128; !!HEx16:A4/128;
+!!en:;
+
+!!HEx16:A2/35/?y10/?y11;                [35 Sword of Judgement]
+!!if&y10=1/y11=0:;                      [If in Backpack but not equipped]
+!!DO(AI_Right_Hand)/7/12/1:Px16;        [Run function and pass hero number]
+!!DO(AI_Right_Hand)/38/38/1:Px16;       [38 Red Dragon Flame Tongue]
+!!DO(AI_Right_Hand)/128/128/1:Px16;     [128 Armageddon's Blade]
+!!DO(AI_Right_Hand)/146/146/1:Px16;     [146 Axe of Smashing]
+!!DO(AI_Right_Hand)/148/148/1:Px16;     [148 Sword of Sharpness]
+!!HEx16:A-35; !!HEx16:A4/35;            [First remove Sword of Judgement from Hero and than equip it]
+!!en:;
+
+!!HEx16:A2/12/?y10/?y11;                [12 Titan's Gladius]
+!!if&y10=1/y11=0:;                      [If in Backpack but not equipped]
+!!DO(AI_Right_Hand)/7/11/1:Px16;        [Run function and pass hero number]
+!!DO(AI_Right_Hand)/35/35/1:Px16;       [35 Sword of Judgement]
+!!DO(AI_Right_Hand)/38/38/1:Px16;       [38 Red Dragon Flame Tongue]
+!!DO(AI_Right_Hand)/128/128/1:Px16;     [128 Armageddon's Blade]
+!!DO(AI_Right_Hand)/146/146/1:Px16;     [146 Axe of Smashing]
+!!DO(AI_Right_Hand)/148/148/1:Px16;     [148 Sword of Sharpness]
+!!HEx16:A-12; !!HEx16:A4/12;            [First remove Titan's Gladius from Hero and than equip it]
+!!en:;
+
+
+
+
+
+********************************************************************************
+Left Hand Slot
+(10)
+
+13 Shield of the Dwarven Lords
+14 Shield of the Yawning Dead
+15 Buckler of the Gnoll King
+16 Targ of the Rampaging Ogre
+17 Shield of the Damned
+18 Sentinel's Shield
+34 Lion's Shield of Courage
+39 Dragon Scale Shield
+154 Hardened Shield (Not considered)
+157 Crimson Shield of Retribution (Not considered)
+
+!!HEx16:A2/14/?y10/?y11;                [14 Shield of the Yawning Dead]
+!!if&y10=1/y11=0:;
+!!DO(AI_Left_Hand)/13/13/1:Px16;
+!!DO(AI_Left_Hand)/15/18/1:Px16;
+!!DO(AI_Left_Hand)/34/34/1:Px16;        [34 Lion's Shield of Courage]
+!!DO(AI_Left_Hand)/39/39/1:Px16;        [39 Dragon Scale Shield]
+!!DO(AI_Left_Hand)/154/154/1:Px16;      [154 Hardened Shield]
+!!DO(AI_Left_Hand)/157/157/1:Px16;      [157 Crimson Shield of Retribution]
+!!HEx16:A-14; !!HEx16:A4/14;
+!!en:;
+
+!!HEx16:A2/15/?y10/?y11;                [15 Buckler of the Gnoll King]
+!!if&y10=1/y11=0:;
+!!DO(AI_Left_Hand)/13/14/1:Px16;
+!!DO(AI_Left_Hand)/16/18/1:Px16;
+!!DO(AI_Left_Hand)/34/34/1:Px16;        [34 Lion's Shield of Courage]
+!!DO(AI_Left_Hand)/39/39/1:Px16;        [39 Dragon Scale Shield]
+!!DO(AI_Left_Hand)/154/154/1:Px16;      [154 Hardened Shield]
+!!DO(AI_Left_Hand)/157/157/1:Px16;      [157 Crimson Shield of Retribution]
+!!HEx16:A-15; !!HEx16:A4/15;
+!!en:;
+
+!!HEx16:A2/16/?y10/?y11;                [16 Targ of the Rampaging Ogre]
+!!if&y10=1/y11=0:;
+!!DO(AI_Left_Hand)/13/15/1:Px16;
+!!DO(AI_Left_Hand)/17/18/1:Px16;
+!!DO(AI_Left_Hand)/34/34/1:Px16;        [34 Lion's Shield of Courage]
+!!DO(AI_Left_Hand)/39/39/1:Px16;        [39 Dragon Scale Shield]
+!!DO(AI_Left_Hand)/154/154/1:Px16;      [154 Hardened Shield]
+!!DO(AI_Left_Hand)/157/157/1:Px16;      [157 Crimson Shield of Retribution]
+!!HEx16:A-16; !!HEx16:A4/16;
+!!en:;
+
+!!HEx16:A2/17/?y10/?y11;                [17 Shield of the Damned]
+!!if&y10=1/y11=0:;
+!!DO(AI_Left_Hand)/13/16/1:Px16;
+!!DO(AI_Left_Hand)/18/18/1:Px16;
+!!DO(AI_Left_Hand)/34/34/1:Px16;        [34 Lion's Shield of Courage]
+!!DO(AI_Left_Hand)/39/39/1:Px16;        [39 Dragon Scale Shield]
+!!DO(AI_Left_Hand)/154/154/1:Px16;      [154 Hardened Shield]
+!!DO(AI_Left_Hand)/157/157/1:Px16;      [157 Crimson Shield of Retribution]
+!!HEx16:A-17; !!HEx16:A4/17;
+!!en:;
+
+!!HEx16:A2/39/?y10/?y11;                [39 Dragon Scale Shield]
+!!if&y10=1/y11=0:;
+!!DO(AI_Left_Hand)/13/18/1:Px16;
+!!DO(AI_Left_Hand)/34/34/1:Px16;        [34 Lion's Shield of Courage]
+!!DO(AI_Left_Hand)/154/154/1:Px16;      [154 Hardened Shield]
+!!DO(AI_Left_Hand)/157/157/1:Px16;      [157 Crimson Shield of Retribution]
+!!HEx16:A-39; !!HEx16:A4/39;
+!!en:;
+
+!!HEx16:A2/34/?y10/?y11;                [34 Lion's Shield of Courage]
+!!if&y10=1/y11=0:;
+!!DO(AI_Left_Hand)/13/18/1:Px16;
+!!DO(AI_Left_Hand)/39/39/1:Px16;        [39 Dragon Scale Shield]
+!!DO(AI_Left_Hand)/154/154/1:Px16;      [154 Hardened Shield]
+!!DO(AI_Left_Hand)/157/157/1:Px16;      [157 Crimson Shield of Retribution]
+!!HEx16:A-34; !!HEx16:A4/34;
+!!en:;
+
+!!HEx16:A2/18/?y10/?y11;                [18 Sentinel's Shield]
+!!if&y10=1/y11=0:;
+!!DO(AI_Left_Hand)/13/17/1:Px16;
+!!DO(AI_Left_Hand)/34/34/1:Px16;        [34 Lion's Shield of Courage]
+!!DO(AI_Left_Hand)/39/39/1:Px16;        [39 Dragon Scale Shield]
+!!DO(AI_Left_Hand)/154/154/1:Px16;      [154 Hardened Shield]
+!!DO(AI_Left_Hand)/157/157/1:Px16;      [157 Crimson Shield of Retribution]
+!!HEx16:A-18; !!HEx16:A4/18;
+!!en:;
+
+
+
+********************************************************************************
+Head Slot:
+(11)
+
+19 Helm of the Alabaster Unicorn
+20 Skull Helmet
+21 Helm of Chaos
+22 Crown of the Supreme Magi
+23 Hellstorm Helmet
+24 Thunder Helmet
+36 Helm of Heavenly Enlightenment
+44 Crown of Dragontooth
+123 Sea Captain's Hat
+124 Spellbinder's Hat
+149 Helm of Immortality
+
+!!HEx16:A2/20/?y10/?y11;                [20 Skull Helmet]
+!!if&y10=1/y11=0:;
+!!DO(AI_Head)/19/19/1:Px16;             [Artifact 19-24]
+!!DO(AI_Head)/21/24/1:Px16;             [36 Helm of Heavenly Enlightenment]
+!!DO(AI_Head)/123/124/1:Px16;           [124 Spellbinder's Hat and 123 Sea Captain's Hat]
+!!DO(AI_Head)/149/149/1:Px16;           [149 Helm of Immortality]
+!!HEx16:A-20; !!HEx16:A4/20;
+!!en:;
+
+!!HEx16:A2/21/?y10/?y11;                [21 Helm of Chaos]
+!!if&y10=1/y11=0:;
+!!DO(AI_Head)/20/20/1:Px16;             [Artifact 19-24]
+!!DO(AI_Head)/22/24/1:Px16;             [36 Helm of Heavenly Enlightenment]
+!!DO(AI_Head)/123/124/1:Px16;           [124 Spellbinder's Hat and 123 Sea Captain's Hat]
+!!DO(AI_Head)/149/149/1:Px16;           [149 Helm of Immortality]
+!!HEx16:A-21; !!HEx16:A4/21;
+!!en:;
+
+!!HEx16:A2/22/?y10/?y11;                [22 Crown of the Supreme Magi]
+!!if&y10=1/y11=0:;
+!!DO(AI_Head)/19/21/1:Px16;
+!!DO(AI_Head)/23/24/1:Px16;
+!!DO(AI_Head)/36/36/1:Px16;             [36 Helm of Heavenly Enlightenment]
+!!DO(AI_Head)/123/124/1:Px16;           [124 Spellbinder's Hat and 123 Sea Captain's Hat]
+!!DO(AI_Head)/149/149/1:Px16;           [149 Helm of Immortality]
+!!HEx16:A-22; !!HEx16:A4/22;
+!!en:;
+
+!!HEx16:A2/23/?y10/?y11;                [23 Hellstorm Helmet]
+!!if&y10=1/y11=0:;
+!!DO(AI_Head)/19/22/1:Px16;             [Artifact 19-24]
+!!DO(AI_Head)/24/24/1:Px16;
+!!DO(AI_Head)/36/36/1:Px16;             [36 Helm of Heavenly Enlightenment]
+!!DO(AI_Head)/123/124/1:Px16;           [124 Spellbinder's Hat and 123 Sea Captain's Hat]
+!!DO(AI_Head)/149/149/1:Px16;           [149 Helm of Immortality]
+!!HEx16:A-23; !!HEx16:A4/23;
+!!en:;
+
+!!HEx16:A2/44/?y10/?y11;                [44 Crown of Dragontooth]
+!!if&y10=1/y11=0:;
+!!DO(AI_Head)/19/24/1:Px16;             [Artifact 19-24]
+!!DO(AI_Head)/36/36/1:Px16;             [36 Helm of Heavenly Enlightenment]
+!!DO(AI_Head)/123/124/1:Px16;           [124 Spellbinder's Hat and 123 Sea Captain's Hat]
+!!DO(AI_Head)/149/149/1:Px16;           [149 Helm of Immortality]
+!!HEx16:A-44; !!HEx16:A4/44;
+!!en:;
+
+!!HEx16:A2/24/?y10/?y11;                [24 Thunder Helmet]
+!!HEx16:A2/0/?y12/?y13;                 [Spell Book]
+!!if&y10=1/y11=0/y13=1:;                [If in backpack and Hero has Spellbook]
+!!DO(AI_Head)/19/23/1:Px16;
+!!DO(AI_Head)/36/36/1:Px16;             [36 Helm of Heavenly Enlightenment]
+!!DO(AI_Head)/44/44/1:Px16;             [44 Crown of Dragontooth]
+!!DO(AI_Head)/123/124/1:Px16;           [124 Spellbinder's Hat and 123 Sea Captain's Hat]
+!!DO(AI_Head)/149/149/1:Px16;           [149 Helm of Immortality]
+!!HEx16:A-24; !!HEx16:A4/24;
+!!en:;
+
+!!HEx16:A2/124/?y10/?y11;               [124 Spellbinder's Hat]
+!!HEx16:A2/0/?y12/?y13;                 [Spell Book]
+!!if&y10=1/y11=0/y13=1:;                [If in backpack and Hero has Spellbook]
+!!DO(AI_Head)/19/24/1:Px16;
+!!DO(AI_Head)/36/36/1:Px16;             [36 Helm of Heavenly Enlightenment]
+!!DO(AI_Head)/44/44/1:Px16;             [44 Crown of Dragontooth]
+!!DO(AI_Head)/149/149/1:Px16;           [149 Helm of Immortality]
+!!HEx16:A-124; !!HEx16:A4/124;
+!!en:;
+
+!!HEx16:A2/36/?y10/?y11;                [36 Helm of Heavenly Enlightenment]
+!!if&y10=1/y11=0:;
+!!DO(AI_Head)/19/24/1:Px16;             [Artifact 19-24]
+!!DO(AI_Head)/44/44/1:Px16;             [44 Crown of Dragontooth]
+!!DO(AI_Head)/123/124/1:Px16;           [124 Spellbinder's Hat and 123 Sea Captain's Hat]
+!!DO(AI_Head)/149/149/1:Px16;           [149 Helm of Immortality]
+!!HEx16:A-36; !!HEx16:A4/36;
+!!en:;
+
+
+
+********************************************************************************
+Torso Slot:
+(9)
+
+25 Breastplate of Petrified Wood
+26 Rib Cage
+27 Scales of the Greater Basilisk
+28 Tunic of the Cyclops King
+29 Breastplate of Brimstone
+31 Armor of Wonder
+40 Dragon Scale Armor
+30 Titan's Cuirass
+147 Mithril Mail (Not considered)
+132 Armor of the Damned (Not considered)
+
+!!HEx16:A2/26/?y10/?y11;                [26 Rib Cage]
+!!HEx16:A2/0/?y12/?y13;                 [Spell Book]
+!!if&y10=1/y11=0/y13=1:;                [If in backpack and Hero has Spellbook]
+!!DO(AI_Torso)/25/25/1:Px16;
+!!DO(AI_Torso)/27/31/1:Px16;
+!!DO(AI_Torso)/40/40/1:Px16;
+!!DO(AI_Torso)/147/147/1:Px16;
+!!HEx16:A-26; !!HEx16:A4/26;
+!!en:;
+
+!!HEx16:A2/27/?y10/?y11;                [27 Scales of the Greater Basilisk]
+!!HEx16:A2/0/?y12/?y13;                 [Spell Book]
+!!if&y10=1/y11=0/y13=1:;                [If in backpack and Hero has Spellbook]
+!!DO(AI_Torso)/25/26/1:Px16;
+!!DO(AI_Torso)/28/31/1:Px16;
+!!DO(AI_Torso)/40/40/1:Px16;
+!!DO(AI_Torso)/147/147/1:Px16;
+!!HEx16:A-27; !!HEx16:A4/27;
+!!en:;
+
+!!HEx16:A2/28/?y10/?y11;                [28 Tunic of the Cyclops King]
+!!HEx16:A2/0/?y12/?y13;                 [Spell Book]
+!!if&y10=1/y11=0/y13=1:;                [If in backpack and Hero has Spellbook]
+!!DO(AI_Torso)/25/27/1:Px16;            [Artifact 25-28]
+!!DO(AI_Torso)/29/31/1:Px16;            [Artifact 30-31]
+!!DO(AI_Torso)/40/40/1:Px16;
+!!DO(AI_Torso)/147/147/1:Px16;
+!!HEx16:A-28; !!HEx16:A4/28;
+!!en:;
+
+!!HEx16:A2/31/?y10/?y11;                [31 Armor of Wonder]
+!!if&y10=1/y11=0:;
+!!DO(AI_Torso)/25/30/1:Px16;            [Artifact 25-28]
+!!DO(AI_Torso)/40/40/1:Px16;
+!!DO(AI_Torso)/147/147/1:Px16;
+!!HEx16:A-31; !!HEx16:A4/31;
+!!en:;
+
+!!HEx16:A2/29/?y10/?y11;                [29 Breastplate of Brimstone]
+!!HEx16:A2/0/?y12/?y13;                 [Spell Book]
+!!if&y10=1/y11=0/y13=1:;                [If in backpack and Hero has Spellbook]
+!!DO(AI_Torso)/25/28/1:Px16;            [Artifact 25-28]
+!!DO(AI_Torso)/30/31/1:Px16;            [Artifact 30-31]
+!!DO(AI_Torso)/40/40/1:Px16;
+!!DO(AI_Torso)/147/147/1:Px16;
+!!HEx16:A-29; !!HEx16:A4/29;
+!!en:;
+
+!!HEx16:A2/40/?y10/?y11;                [40 Dragon Scale Armor]
+!!if&y10=1/y11=0:;
+!!DO(AI_Torso)/25/31/1:Px16;            [Artifact 25-31]
+!!DO(AI_Torso)/147/147/1:Px16;
+!!HEx16:A-40; !!HEx16:A4/40;
+!!en:;
+
+
+!!HEx16:A2/30/?y10/?y11;                [30 Titan's Cuirass]
+!!HEx16:A2/0/?y12/?y13;                 [Spell Book]
+!!if&y10=1/y11=0/y13=1:;                [If in backpack and Hero has Spellbook]
+!!DO(AI_Torso)/25/29/1:Px16;
+!!DO(AI_Torso)/31/31/1:Px16;
+!!DO(AI_Torso)/40/40/1:Px16;
+!!DO(AI_Torso)/147/147/1:Px16;
+!!HEx16:A-30; !!HEx16:A4/30;
+!!en:;
+
+
+
+********************************************************************************
+Shoulder Slot:
+(9)
+
+42 Dragon Wing Tabard
+55 Vampire's Cowl
+58 Surcoat of Counterpoise
+68 Ambassador's Sash
+72 Angel Wings
+78 Cape of Conjuring
+83 Recanter's Cloak
+99 Cape of Velocity
+109 Everflowing Crystal Cloak
+
+130 Cloak of the Undead King (not considered)
+
+!!HEx16:A2/42/?y10/?y11;                [42 Dragon Wing Tabard]
+!!if&y10=1/y11=0:;
+!!FU(AI_Cloak):Px16/72;                 [72 Angel Wings]
+!!FU(AI_Cloak):Px16/78;                 [78 Cape of Conjuring]
+!!FU(AI_Cloak):Px16/55;                 [55 Vampire's Cowl]
+!!FU(AI_Cloak):Px16/58;                 [58 Surcoat of Counterpoise]
+!!FU(AI_Cloak):Px16/109;                [109 Everflowing Crystal Cloak]
+!!FU(AI_Cloak):Px16/83;                 [83 Recanter's Cloak]
+!!FU(AI_Cloak):Px16/68;                 [68 Ambassador's Sash]
+!!FU(AI_Cloak):Px16/99;                 [99 Cape of Velocity]
+!!HEx16:A-42; !!HEx16:A4/42;
+!!en:;
+
+!!HEx16:A2/99/?y10/?y11;                [99 Cape of Velocity]
+!!if&y10=1/y11=0:;
+!!FU(AI_Cloak):Px16/72;                 [72 Angel Wings]
+!!FU(AI_Cloak):Px16/42;                 [42 Dragon Wing Tabard]
+!!FU(AI_Cloak):Px16/78;                 [78 Cape of Conjuring]
+!!FU(AI_Cloak):Px16/55;                 [55 Vampire's Cowl]
+!!FU(AI_Cloak):Px16/58;                 [58 Surcoat of Counterpoise]
+!!FU(AI_Cloak):Px16/109;                [109 Everflowing Crystal Cloak]
+!!FU(AI_Cloak):Px16/83;                 [83 Recanter's Cloak]
+!!FU(AI_Cloak):Px16/68;                 [68 Ambassador's Sash]
+!!HEx16:A-99; !!HEx16:A4/99;
+!!en:;
+
+!!HEx16:A2/72/?y10/?y11;                [72 Angel Wings]
+!!if&y10=1/y11=0:;
+!!FU(AI_Cloak):Px16/99;                 [99 Cape of Velocity]
+!!FU(AI_Cloak):Px16/42;                 [42 Dragon Wing Tabard]
+!!FU(AI_Cloak):Px16/78;                 [78 Cape of Conjuring]
+!!FU(AI_Cloak):Px16/55;                 [55 Vampire's Cowl]
+!!FU(AI_Cloak):Px16/58;                 [58 Surcoat of Counterpoise]
+!!FU(AI_Cloak):Px16/109;                [109 Everflowing Crystal Cloak]
+!!FU(AI_Cloak):Px16/83;                 [83 Recanter's Cloak]
+!!FU(AI_Cloak):Px16/68;                 [68 Ambassador's Sash]
+!!HEx16:A-72; !!HEx16:A4/72;
+!!en:;
+
+
+********************************************************************************
+Boots Slot:
+(7)
+
+32 Sandals of the Saint
+41 Dragonbone Greaves
+56 Dead Man's Boots
+59 Boots of Polarity
+90 Boots of Levitation
+98 Boots of Speed
+151 Boots of Haste
+
+
+!!HEx16:A2/32/?y10/?y11;                [32 Sandals of the Saint]
+!!if&y10=1/y11=0:;
+!!FU(AI_Boots):Px16/56;                 [56 Dead Man's Boots]
+!!FU(AI_Boots):Px16/59;                 [59 Boots of Polarity]
+!!FU(AI_Boots):Px16/90;                 [90 Boots of Levitation]
+!!FU(AI_Boots):Px16/98;                 [98 Boots of Speed]
+!!FU(AI_Boots):Px16/41;                 [41 Dragonbone Greaves]
+!!FU(AI_Boots):Px16/151;                [151 Boots of Haste]
+!!HEx16:A-32; !!HEx16:A4/32;
+!!en:;
+
+
+!!HEx16:A2/98/?y10/?y11;                [98 Boots of Speed]
+!!if&y10=1/y11=0:;
+!!FU(AI_Boots):Px16/56;                 [56 Dead Man's Boots]
+!!FU(AI_Boots):Px16/59;                 [59 Boots of Polarity]
+!!FU(AI_Boots):Px16/90;                 [90 Boots of Levitation]
+!!FU(AI_Boots):Px16/32;                 [32 Sandals of the Saint]
+!!FU(AI_Boots):Px16/41;                 [41 Dragonbone Greaves]
+!!FU(AI_Boots):Px16/151;                [151 Boots of Haste]
+!!HEx16:A-98; !!HEx16:A4/98;
+!!en:;
+
+
+********************************************************************************
+Neck Slot:
+(18)
+
+33 Celestial Necklace of Bliss
+43 Necklace of Dragonteeth
+54 Amulet of the Undertaker
+66 Statesman's Medal
+71 Necklace of Ocean Guidance
+76 Collar of Conjuring
+97 Necklace of Swiftness
+100 Pendant of Dispassion
+101 Pendant of Second Sight
+102 Pendant of Holiness
+103 Pendant of Life
+104 Pendant of Death
+105 Pendant of Free Will
+106 Pendant of Negativity
+107 Pendant of Total Recall
+108 Pendant of Courage
+150 Pendant of Sorcery
+
+!!HEx16:A2/43/?y10/?y11;                [43 Necklace of Dragonteeth]
+!!HEx16:A2/0/?y12/?y13;                 [Spell Book]
+!!if&y10=1/y11=0/y13=1:;                [If in backpack and Hero has Spellbook]
+!!FU(AI_Neck):Px16/33;                  [33 Celestial Necklace of Bliss]
+!!FU(AI_Neck):Px16/54;                  [54 Amulet of the Undertaker]
+!!FU(AI_Neck):Px16/66;                  [66 Statesman's Medal]
+!!FU(AI_Neck):Px16/71;                  [71 Necklace of Ocean Guidance]
+!!FU(AI_Neck):Px16/76;                  [76 Collar of Conjuring]
+!!FU(AI_Neck):Px16/97;                  [97 Necklace of Swiftness]
+!!FU(AI_Neck):Px16/100;                 [100 Pendant of Dispassion]
+!!FU(AI_Neck):Px16/101;                 [101 Pendant of Second Sight]
+!!FU(AI_Neck):Px16/102;                 [102 Pendant of Holiness]
+!!FU(AI_Neck):Px16/103;                 [103 Pendant of Life]
+!!FU(AI_Neck):Px16/104;                 [104 Pendant of Death]
+!!FU(AI_Neck):Px16/105;                 [105 Pendant of Free Will]
+!!FU(AI_Neck):Px16/106;                 [106 Pendant of Negativity]
+!!FU(AI_Neck):Px16/107;                 [107 Pendant of Total Recall]
+!!FU(AI_Neck):Px16/108;                 [108 Pendant of Courage]
+!!FU(AI_Neck):Px16/150;                 [150 Pendant of Sorcery]
+!!HEx16:A-43; !!HEx16:A4/43;
+!!en:;
+
+!!HEx16:A2/97/?y10/?y11;                [97 Necklace of Swiftness]
+!!if&y10=1/y11=0:;
+!!FU(AI_Neck):Px16/33;                  [33 Celestial Necklace of Bliss]
+!!FU(AI_Neck):Px16/54;                  [54 Amulet of the Undertaker]
+!!FU(AI_Neck):Px16/43;                  [43 Necklace of Dragonteeth]
+!!FU(AI_Neck):Px16/66;                  [66 Statesman's Medal]
+!!FU(AI_Neck):Px16/71;                  [71 Necklace of Ocean Guidance]
+!!FU(AI_Neck):Px16/76;                  [76 Collar of Conjuring]
+!!FU(AI_Neck):Px16/100;                 [100 Pendant of Dispassion]
+!!FU(AI_Neck):Px16/101;                 [101 Pendant of Second Sight]
+!!FU(AI_Neck):Px16/102;                 [102 Pendant of Holiness]
+!!FU(AI_Neck):Px16/103;                 [103 Pendant of Life]
+!!FU(AI_Neck):Px16/104;                 [104 Pendant of Death]
+!!FU(AI_Neck):Px16/105;                 [105 Pendant of Free Will]
+!!FU(AI_Neck):Px16/106;                 [106 Pendant of Negativity]
+!!FU(AI_Neck):Px16/107;                 [107 Pendant of Total Recall]
+!!FU(AI_Neck):Px16/108;                 [108 Pendant of Courage]
+!!FU(AI_Neck):Px16/150;                 [150 Pendant of Sorcery]
+!!HEx16:A-97; !!HEx16:A4/97;
+!!en:;
+
+!!HEx16:A2/33/?y10/?y11;                [33 Celestial Necklace of Bliss]
+!!if&y10=1/y11=0:;
+!!FU(AI_Neck):Px16/54;                  [54 Amulet of the Undertaker]
+!!FU(AI_Neck):Px16/43;                  [43 Necklace of Dragonteeth]
+!!FU(AI_Neck):Px16/66;                  [66 Statesman's Medal]
+!!FU(AI_Neck):Px16/71;                  [71 Necklace of Ocean Guidance]
+!!FU(AI_Neck):Px16/76;                  [76 Collar of Conjuring]
+!!FU(AI_Neck):Px16/97;                  [97 Necklace of Swiftness]
+!!FU(AI_Neck):Px16/100;                 [100 Pendant of Dispassion]
+!!FU(AI_Neck):Px16/101;                 [101 Pendant of Second Sight]
+!!FU(AI_Neck):Px16/102;                 [102 Pendant of Holiness]
+!!FU(AI_Neck):Px16/103;                 [103 Pendant of Life]
+!!FU(AI_Neck):Px16/104;                 [104 Pendant of Death]
+!!FU(AI_Neck):Px16/105;                 [105 Pendant of Free Will]
+!!FU(AI_Neck):Px16/106;                 [106 Pendant of Negativity]
+!!FU(AI_Neck):Px16/107;                 [107 Pendant of Total Recall]
+!!FU(AI_Neck):Px16/108;                 [108 Pendant of Courage]
+!!FU(AI_Neck):Px16/150;                 [150 Pendant of Sorcery]
+!!HEx16:A-33; !!HEx16:A4/33;
+!!en:;
+
+!!HEx16:A2/108/?y10/?y11;               [108 Pendant of Courage]
+!!if&y10=1/y11=0:;
+!!FU(AI_Neck):Px16/33;                  [33 Celestial Necklace of Bliss]
+!!FU(AI_Neck):Px16/54;                  [54 Amulet of the Undertaker]
+!!FU(AI_Neck):Px16/43;                  [43 Necklace of Dragonteeth]
+!!FU(AI_Neck):Px16/66;                  [66 Statesman's Medal]
+!!FU(AI_Neck):Px16/71;                  [71 Necklace of Ocean Guidance]
+!!FU(AI_Neck):Px16/76;                  [76 Collar of Conjuring]
+!!FU(AI_Neck):Px16/97;                  [97 Necklace of Swiftness]
+!!FU(AI_Neck):Px16/100;                 [100 Pendant of Dispassion]
+!!FU(AI_Neck):Px16/101;                 [101 Pendant of Second Sight]
+!!FU(AI_Neck):Px16/102;                 [102 Pendant of Holiness]
+!!FU(AI_Neck):Px16/103;                 [103 Pendant of Life]
+!!FU(AI_Neck):Px16/104;                 [104 Pendant of Death]
+!!FU(AI_Neck):Px16/105;                 [105 Pendant of Free Will]
+!!FU(AI_Neck):Px16/106;                 [106 Pendant of Negativity]
+!!FU(AI_Neck):Px16/107;                 [107 Pendant of Total Recall]
+!!FU(AI_Neck):Px16/150;                 [150 Pendant of Sorcery]
+!!HEx16:A-108; !!HEx16:A4/108;
+!!en:;
+
+
+********************************************************************************
+Ring Slots:
+(6 right ring  7 left ring) 
+*Useless Rings will just be put in Backpack
+
+!!HEx16:A2/67/?y10/?y11;                [67 Diplomat's Ring]
+!!HEx16&y10=1/y11=1:A-67 A67;           [;]
+!!HEx16:A2/110/?y10/?y11;               [110 Ring of Infinite Gems]
+!!HEx16&y10=1/y11=1:A-110 A110;         [;]
+!!HEx16:A2/113/?y10/?y11;               [113  Eversmoking Ring of Sulfur]
+!!HEx16&y10=1/y11=1:A-113 A113;         [;]
+
+
+********************************************************************************
+Misc Slots:
+Slot 1-5 
+*Useless Misc-Artifacts will just be put in Backpack to make room for better artifacts
+
+!!HEx16:A2/63/?y10/?y11;                [63  Bird of Perception]
+!!HEx16&y10=1/y11=1:A-63 A63; 
+!!HEx16:A2/64/?y10/?y11;                [64  Stoic Watchman]
+!!HEx16&y10=1/y11=1:A-64 A64;
+!!HEx16:A2/65/?y10/?y11;                [65  Emblem of Cognizance]
+!!HEx16&y10=1/y11=1:A-65 A65;
+!!HEx16:A2/52/?y10/?y11;                [52  Speculum]
+!!HEx16&y10=1/y11=1:A-52 A52;
+!!HEx16:A2/53/?y10/?y11;                [53  Spyglass]
+!!HEx16&y10=1/y11=1:A-53 A53;
+!!HEx16:A2/84/?y10/?y11;                [84 Spirit of Oppression]
+!!HEx16&y10=1/y11=1:A-84 A84;
+!!HEx16:A2/85/?y10/?y11;                [85  Hourglass of the Evil Hour]
+!!HEx16&y10=1/y11=1:A-85 A85; 
+!!HEx16:A2/111/?y10/?y11;               [111 Everpouring Vial of Mercury]
+!!HEx16&y10=1/y11=1:A-111 A111;
+!!HEx16:A2/112/?y10/?y11;               [112 Inexhaustible Cart of Ore]
+!!HEx16&y10=1/y11=1:A-112 A112;         
+!!HEx16:A2/114/?y10/?y11;               [114 Inexhaustible Cart of Lumber]
+!!HEx16&y10=1/y11=1:A-114 A114;
+!!HEx16:A2/115/?y10/?y11;               [115 Endless Sack of Gold]
+!!HEx16&y10=1/y11=1:A-115 A115;
+!!HEx16:A2/116/?y10/?y11;               [116 Endless Bag of Gold]
+!!HEx16&y10=1/y11=1:A-116 A116;
+!!HEx16:A2/117/?y10/?y11;               [117 Endless Purse of Gold]
+!!HEx16&y10=1/y11=1:A-117 A117; 
+
+
+********************************************************************************
+*Functions Section*
+x1=Hero Number, x2 or x16=Artifacts Numbers,
+
+!?FU(AI_Right_Hand);
+!!HEx1:A2/x16/?y10/?y11;                [Check for artifacts]
+!!VRx16:*-1;                            [Make negative, because -x16 doesnt work]
+!!HEx1&y10>=1/y11=1:Ax16;               [Remove all artifacts of that type if equipped]
+!!VRx16:*-1;                            [Make positive again]
+!!HEx1&y10>=1/y11=1:Ax16;               [Place all artifacts of that type back in the backpack]
+
+!?FU(AI_Left_Hand);
+!!HEx1:A2/x16/?y10/?y11;
+!!VRx16:*-1;
+!!HEx1&y10>=1/y11=1:Ax16;
+!!VRx16:*-1;
+!!HEx1&y10>=1/y11=1:Ax16;
+
+!?FU(AI_Head);
+!!HEx1:A2/x16/?y10/?y11;
+!!VRx16:*-1;
+!!HEx1&y10>=1/y11=1:Ax16;
+!!VRx16:*-1;
+!!HEx1&y10>=1/y11=1:Ax16;
+
+!?FU(AI_Torso);
+!!HEx1:A2/x16/?y10/?y11;
+!!VRx16:*-1;
+!!HEx1&y10>=1/y11=1:Ax16;
+!!VRx16:*-1;
+!!HEx1&y10>=1/y11=1:Ax16;
+
+!?FU(AI_Cloak);
+!!HEx1:A2/x2/?y10/?y11;
+!!VRx2:*-1;
+!!HEx1&y10>=1/y11=1:Ax2;
+!!VRx2:*-1;
+!!HEx1&y10>=1/y11=1:Ax2;
+
+!?FU(AI_Boots);
+!!HEx1:A2/x2/?y10/?y11;
+!!VRx2:*-1;
+!!HEx1&y10>=1/y11=1:Ax2;
+!!VRx2:*-1;
+!!HEx1&y10>=1/y11=1:Ax2;
+
+!?FU(AI_Neck);
+!!HEx1:A2/x2/?y10/?y11;
+!!VRx2:*-1;
+!!HEx1&y10>=1/y11=1:Ax2;
+!!VRx2:*-1;
+!!HEx1&y10>=1/y11=1:Ax2;
+****************************************************************************************************
+
+
+
+                                       TEST SECTION
+
+
+
+
+****************************************************************************************************
+
+TEST  Disabled
+
+!?HM-1;
+!!SN:W^Random_Abilities^/0;             [Test  Activate]
+!!SN:W^Anzahl_Abilities^/0;             [Test  4 Random Abilities]
+
+
+!?BG1;
+*Reset HP by appliying EA to stacks at battle end
+
+!!FU:E;
+
+!!SN:W^Anzahl_Abilities^/?y1;
+!!FU&y1=0:E;                            [Exit if Option was not Selected]
+
+!!BU:C?y1;
+!!FU&y1<>1:E;                           [When Battle Ends]
+
+!!DO(Fix_EA_Shit)/21/41/1:P;            [Run Loop through all creatures on Battlefield]
+
+
+
+**Fix function
+!?FU(Fix_EA_Shit);              
+
+!!VRy2:Sx16;                           
+!!VRy2:+1*-1;                     
+!!EAy2:B13/1/102/68/1/1/1/1/1/1/1/1/1/1/1; [Battle Monster]
+
+
+
+Hero equippes all Artifacts that he finds in fights
+
+!?FU(OnAfterBattleUniversal)&1000;      [After any fight]
+
+!!BA:H0/?y1;                            [Get attacking Hero Number]
+!!SN:W^after_any_fight_click^/y1;
+
+
+!?CM5;
+
+!!FU:E;                                 [Exit]
+
+!!CM:S?v3; !!FU&v3<>12:E;
+
+!!SN:W^after_any_fight_click^/?y1;
+!!SN:W^after_any_fight_click^/-1;
+!!FU&y1=-1:E;
+!!DO(Artifact_Equipment)/1/170/1&y1>=0/y1<=155:Py1;
+
+!!HEy1:A2/36/?y10/?y11;                 [Helm of Heavenly Enlightment]
+!!IF:M^y10 is%Y10 and y11 is%Y11^;
+
+
+
+!?FU(Artifact_Equipment);
+x1=Hero Number, x16=Artifacts Numbers
+
+!!HEx1:A2/x16/?y10/?y11;
+!!FU&y11=1:E;                           [Exit if already equipped]
+!!HEx1&y10=1/y11=0:A4/x16;              [Equip all gained artifacts if possible, otherwiese put to backpack]
+!!HEx1:A2/x16/?y12/?y13;                [Check again]
+!!HEx1&y10=1/y12=2:A3/x16/1/0;          [Remove if artifact was added]
+
+
+!?HM-1;                                 [Test]
+
+!!SS11:E3/1500;
+
+!?FU(OnGameEnter);                      [At gamestart]
+;** Berserker radius at 0\1\2\3 fire magic rank. 0 - Set to 1 Hex, 1 set to 3 Hex
+;** If you set the value to more than 2 there will be graphical bugs and will only work if you select the target explicitely
+!!UN:C6562420/1/0;                      [None]
+!!UN:C6562424/1/0;                      [Basic]
+!!UN:C6562428/1/0;                      [Advanced 0 - Set to 1 Hex]
+!!UN:C6562432/1/1;                      [Expert 1 - Set to 3 Hex]
+
+*give damage flag to fire wall and land mines
+!!SS13:F?y1;
+!!VRy1:|512;
+!!SS13:Fy1;
+!!SS11:F?y1;
+!!VRy1:|512;
+!!SS11:Fy1;
