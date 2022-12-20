@@ -1,0 +1,161 @@
+ZVSE2
+
+**  Map Options Script Version 2.4 created by Timothy E. Pulver
+**  Requires WoG version 3.58f or later using ERM version 2.7 or later.
+**  WoGify Name: script25.erm
+
+**  Updated: October 30, 2004
+
+** Custom primary skill control for Choose Commander Class enabled by Hermann the Weird
+
+** This script sets up various map options according to what's been
+** chosen in the WoGify Options by the player.
+
+** Current Map Options are:
+**  1. Remove all Forts
+**  2. Remove Forts only for Human Players (option 1 must also be selected)
+**  3. Remove all Cartographers (replaces them with Covers of Darkness)
+**  4. Spell Banning (Movement Spells)
+**  5. Artifact Banning (Selected)
+**  6. Town Renaming
+**  7. Check current hero's available Movement Points
+**  8. Universal Creature Upgrades (added in 1.3)
+**  9. Buy All Creatures button (added in 1.2)
+** 10. Extended Creature Upgrades (added in 1.3)
+** 11. Hero Renaming (added in 1.3)
+** 12. Display Hidden Secondary Skills (added in 1.3)
+** 13. Display hero's available Spell Points (added in 1.4)
+** 14. Rewriteable signs, plus display sign text when right-clicked if already visited (added in 1.4)
+** 15. Message Disabling (added in 1.5)
+** 16. Choose Commander Class (added in 1.6)
+** 17. Enable Extension Heroes (added in 1.7)
+** 18. Disable Autosave option (added in 1.8)
+** 19. Select Neutral Town Types (added in 1.9)
+** 20. Build Twice a Day in Towns (added in 2.0)
+** 21. Quick Combat option for every battle (added in 2.1)
+** 22. Warlord's Banner: Quick Select (added in 2.1)
+** 23. Hero and Town List Reordering (added in 2.2)
+** 24. Check for Banned/Disabled Spells (added in 2.4)
+
+** More map options may be added later.
+
+
+********************************************************************************
+   Choose Commander Class
+********************************************************************************
+
+Temporary Variables used: v2-v5 z2, z22-z31
+Functions used: FU18
+
+!?CO2;                        // Triggers when a Commander is hired
+*!UN:P186/?y-1; [Check if script is enabled: y-1]
+*!FU&y-1<>1:E; [Exit if script isn't enabled]
+!!HE-1:N?y-1; [Hero number: y-1]
+!!FU18:Py-1/0; [Choose Commander class]
+
+!?FU18;                       // Choose Commander class
+;x1=Hero number, x2=1 if AI
+!!HEx1:B0/?z1; [Hero's name: z1]
+
+!!VRz2:Sz125041;
+!!VRz22:Sz125042;
+!!VRz23:Sz125043;
+!!VRz24:Sz125044;
+!!VRz25:Sz125045;
+!!VRz26:Sz125046;
+!!VRz27:Sz125047;
+!!VRz28:Sz125048;
+!!VRz29:Sz125049;
+!!VRz30:Sz125050;
+!!VRz31:Sz125051;
+
+ [Dialogue box to choose Commander]
+ [1=radio buttons, 2=v variable to store selection, 0=initial button state]
+ [2=z variable for header, 22-31=z variables for choices]
+ [0/0=unused]
+!!VRv2:S0;
+!!IF&1000/x2=0:G1/2/1/2/22/23/24/25/26/27/28/29/30/31/0;
+
+ [Determine selection number: v3]
+!!VRv3|-1000/x2=1:S0 R8; [AI chooses randomly]
+!!VRv3&v2=1:S-1;
+!!VRv3&v2=2:S0;
+!!VRv3&v2=4:S1;
+!!VRv3&v2=8:S2;
+!!VRv3&v2=16:S3;
+!!VRv3&v2=32:S4;
+!!VRv3&v2=64:S5;
+!!VRv3&v2=128:S6;
+!!VRv3&v2=256:S7;
+!!VRv3&v2=512:S8;
+
+ [If Commander class not chosen, remove hero's]
+ [Commander display message and refund 1000 gold]
+!!CO-1&v3<0:E0; [Remove Commander]
+!!IF&1000/v3<0:M1/z125052;
+!!OW&v3<0:R-1/6/d1000; [Refund gold]
+
+!!FU&v3<0:E; [End function if Commander not chosen]
+
+!!HEx1:B2/?v4; [Hero's class: v4]
+
+!!COx1:Hv4; [Set class of Commander's owning hero]
+!!COx1:Tv3; [Set new Commander type]
+
+** edited by Hermann the Weird **
+!!UN:P51/?y1;     [check if enhanced commanders is enabled]
+!!COx1&y1=1:P1;     [set custom primary skill control if EnComm is enabled]
+
+
+
+********************************************************************************
+   Hero List Reordering
+********************************************************************************
+
+Functions used: FU41-FU42
+ERM Numbers: 244
+Variables used: (Local Only) y-1..y-4, y1..y3
+Flags used: (999)
+
+--------------------------------------------------------------------------------
+
+ [Left-click on Adventure Map is trigger (for current local player only)]
+!?CM5&999;
+*!UN:P244/?y-4; [Check if script is enabled: y-4]
+*!FU&y-4<>1:E; [Exit if script isn't enabled]
+
+!!CM:F?y-1 I?y-2; [Type of click (1=shift): y-1, Location clicked: y-2]
+!!CM:S?y-3; [Subtype of click (12 if left click, 13 if left click-release): y-3]
+!!FU&y-1<>1:E; [Exit if not a shift-click]
+
+!!FU41&y-2>=39/y-2<=43:P; [Call Function 41 if a Hero slot is shift-clicked]
+!!FU42&y-2>=32/y-2<=36:P; [Call Function 42 if a Town slot is shift-clicked]
+
+ [Move Hero shift-clicked to first slot]
+!?FU41;
+!!VRy1:Sy-2 -39; [Hero slot that's shift-clicked (0..4): y1]
+!!OW:O-1/y1/?y2; [Hero that's shift-clicked in Hero list: y2]
+!!OW:A-1/?y3; [Active hero: y3]
+!!CM&y2=y3/y-3<>13:R0; [Cancel normal click operation if active hero shift-clicked]
+!!FU|y2<0/y-3<>13:E; [Exit if no hero in hero slot or if not shift-click release]
+!!OW:O-1/1/y1/0; [Move hero to top of list]
+!!OW:A-1/y2; [Set active hero to hero shift-clicked: y2]
+!!CM:R0; [Cancel normal click operation for shift click-release]
+!!UN:R1; [Redraw screen]
+
+ [Move town shift-clicked to first slot]
+!?FU42;
+!!VRy1:Sy-2 -32; [Town slot that's shift-clicked (0..4): y1]
+!!OW:N-1/y1/?y2; [Real Town number of Town shift-clicked in Town list: y2]
+!!OW:N-1/?y3; [Active town number: y3]
+!!CM&y2=y3/y2>=0/y-3<>13:R0; [Disabled standard click response if active town clicked]
+!!FU|y2<0/y-3<>13:E; [Exit if no town in town slot or if not shift-click release]
+!!OW:N-1/1/y1/0; [Move town to top of list]
+!!UN:R1; [Redraw screen]
+
+--------------------------------------------------------------------------------
+
+ [End of Hero List Reordering]
+
+** End of Script **
+
