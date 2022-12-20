@@ -1,8 +1,9 @@
 ZVSE
 ****************************************************************************************************
 *Author: Daemon_n and Perry R
-*A difficulty mod for ERA 2.9
-*Dialogue Numbers used: 13,44,45
+*honorable mention: Berserker 
+*A difficulty mod for ERA 3
+*Dialogue Numbers used: 13,44,45,47
 
 This mod offers the player various options to increase game difficulty for Neutral Stacks on the map
 and for computer player heroes
@@ -71,8 +72,15 @@ This Section handels the Dialogue 44 were you can Configure_Neutrals (Left Side)
   !!SN:T^Diff_Mod.Option_13^/?z9 T^Diff_Mod.Option_14^/?z10 T^Diff_Mod.Option_15^/?z11 T^Diff_Mod.Option_16^/?z12;
   !!DL44:A38/3/z9/1 A39/3/z10/1 A40/3/z11/1 A41/3/z12/1;
 
-  !!SN:T^Diff_Mod.Level_0^/?z13;
-  !!DL44:A22/3/z13/1 A23/3/z13/1 A24/3/z13/1 A25/3/z13/1;
+  !!SN:T^Diff_Mod.Option_70^/?z15;      [Mixed Neutrals Text field]
+  !!DL44:A70/3/z15/1;
+
+  *!SN:T^Diff_Mod.Level_0^/?z13;
+  !!SN:W^Additionals_troops^/?y1; !!SN:T^Diff_Mod.Level_%Y1^/?z22;
+  !!SN:W^Neutral_stats^/?y1; !!SN:T^Diff_Mod.Level_%Y1^/?z23;
+  !!SN:W^Neutral_exp^/?y1; !!SN:T^Diff_Mod.Level_%Y1^/?z24;
+  !!SN:W^Creature_banks^/?y1; !!SN:T^Diff_Mod.Level_%Y1^/?z25;
+  !!DL44:A22/3/z22/1 A23/3/z23/1 A24/3/z24/1 A25/3/z25/1;
   !!FU(Neutrals_checkboxes):P;
 
   !!SN:T^Diff_Mod.cancel_button_hint^/?z43; [left text]
@@ -80,8 +88,18 @@ This Section handels the Dialogue 44 were you can Configure_Neutrals (Left Side)
   !!SN:T^Diff_Mod.confirm_button_hint_0^/?z44; [left text]
   !!DL44:H30722/44;                     [set confirm button hint text]
 
-  !!DL44:S1;                            [Show complete Dialogue number 44]
+  !!SN:T^Diff_Mod.Level_Easy^/?z50; !!DL44:H1/50; [Hint Text for Easy button]
+  !!SN:T^Diff_Mod.Level_Medium^/?z51; !!DL44:H2/51; [Hint Text for Medium button]
+  !!SN:T^Diff_Mod.Level_Hard^/?z52; !!DL44:H3/52; [Hint Text for Hard button]
 
+  !!SN:W^Battle_Reward_Active^/?y1;
+  !!VRz1&y1=0:S^^;
+  !!if&y1=1:;
+  !!FU(Calc_Battle_Reward):P;        [Give Message about Chance when all options were selected]  *
+  !!DL44:H5/z1;                         [Show Battle Reward chance when hovering over Monster Icon]
+  !!en:;
+
+  !!DL44:S1;                            [Show complete Dialogue number 44]
 
 !?DL&v998=44/v999>0/v999<6/v1000=13;    [LMB on the creatures/presets icons ]
   !!VRz16:S^Button.wav^;
@@ -214,7 +232,7 @@ This Section handels the Dialogue 44 were you can Configure_Neutrals (Left Side)
 !!en;
 
 !!if&v999=51:;                          [Healt_Grow_Rate]
-  !!SN:W^Neutral_stats^/?y1;
+  !!SN:W^Neutral_stats^/?y1; 
   !!SN&y1>0:W^Neutral_stats^/d-1;
   !!SN:W^Neutral_stats^/?y1;
   !!VRy2&y1=0:S0;                       [Deavtivate]
@@ -226,7 +244,7 @@ This Section handels the Dialogue 44 were you can Configure_Neutrals (Left Side)
   !!SN:W^Health_Grow_Enable^/y2;        [Healt_Grow_Rate]
 !!en;
 !!if&v999=52:;                          [Healt_Grow_Rate]
-  !!SN:W^Neutral_stats^/?y1;
+  !!SN:W^Neutral_stats^/?y1; 
   !!SN&y1<5:W^Neutral_stats^/d1;
   !!SN:W^Neutral_stats^/?y1;
   !!VRy2&y1=0:S0;                       [Deavtivate]
@@ -242,7 +260,7 @@ This Section handels the Dialogue 44 were you can Configure_Neutrals (Left Side)
   !!SN:W^Neutral_exp^/?y1;
   !!SN&y1>0:W^Neutral_exp^/d-1;
   !!SN:W^Neutral_exp^/?y1;
-  !!VRy2&y1=0:S10;                      [Deavtivate]
+  !!VRy2&y1=0:S0;                       [Deavtivate]
   !!VRy2&y1=1:S7;                       [Easy]
   !!VRy2&y1=2:S5;                       [Normal]
   !!VRy2&y1=3:S4;                       [Hard]
@@ -251,10 +269,10 @@ This Section handels the Dialogue 44 were you can Configure_Neutrals (Left Side)
   !!SN:W^Stack_Exp_Rate^/y2;            [Stack_Exp_Rate]
 !!en;
 !!if&v999=50:;                          [Stack_Exp_Rate]
-  !!SN:W^Neutral_exp^/?y1;
+  !!SN:W^Neutral_exp^/?y1; 
   !!SN&y1<5:W^Neutral_exp^/d1;
   !!SN:W^Neutral_exp^/?y1;
-  !!VRy2&y1=0:S10;                      [Deavtivate]
+  !!VRy2&y1=0:S0;                       [Deavtivate]
   !!VRy2&y1=1:S7;                       [Easy]
   !!VRy2&y1=2:S5;                       [Normal]
   !!VRy2&y1=3:S4;                       [Hard]
@@ -307,7 +325,7 @@ This Section handels the Dialogue 44 were you can Configure_Neutrals (Left Side)
 !?DL&v998=44/v999>9/v999<22/v1000=13;   [checkboxes switch between check and cancel]
 !!VRz1:S^Button.wav^;
 !!SN:Pz1;
-;[ini named vars]
+
 !!SN:W^Random_Neutral_Hero^/?y1;        [Check if options have already been activated]
 !!SN:W^Tougher_Karmic_Battles_on^/?y2;
 !!SN:W^Low_Level_Growth^/?y3; 
@@ -349,7 +367,7 @@ This Section handels the Dialogue 44 were you can Configure_Neutrals (Left Side)
   !!SN&v999=18/y9=1:W^Battle_Commander^/0;
 
   !!SN&v999=19/y10=0:W^Battle_Reward_Active^/1;
-  !!SN&v999=19/y10=1:W^Battle_Reward_Active^/0;
+  !!SN&v999=19/y10=1:W^Battle_Reward_Active^/0;  
 
   !!SN&v999=20/y11=0:W^Anzahl_Buffs^/1;
   !!SN&v999=20/y11>0:W^Anzahl_Buffs^/0;
@@ -358,6 +376,27 @@ This Section handels the Dialogue 44 were you can Configure_Neutrals (Left Side)
   !!SN&v999=21/y12>0:W^Anzahl_Abilities^/0;
 
 !!FU(Neutrals_checkboxes):P;            [call func for switch on the user's choice]
+
+
+!?DL&v998=44/v999>70/v999<72/v1000=13;  [checkboxes switch between check and cancel for Mixed Neutrals]
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;
+
+!!SN:W^mix_enabled^/?y12;
+!!SN:W^mix_on^/?y20; 
+
+!!if&y20=0:;
+  !!SN:T^Diff_Mod.Mixed_Neutrals_Missing^/?s^Text^; [set text]
+  !!IF:M0/4/^%S(Text)^;                 [Show text that settings cannot be configured if mod is not activated]
+  !!FU(Configure_Mixed_Neutrals)&y12=0/v999=71:P; [open the Neutrals difficulty settings]
+  !!FU:E;                               [Exit switching options]
+!!en:;
+
+!!SN&v999=71/y12=0:W^mix_enabled^/1;
+!!SN&v999=71/y12=1:W^mix_enabled^/0;
+
+!!FU(Neutrals_checkboxes):P;            [call func for switch on the user's choice]
+!!FU(Configure_Mixed_Neutrals)&y12=0/v999=71:P; [open the Neutrals difficulty settings]
 
 
 !?DL&v998=44/v1000=14;                  [Show right click information for faces and all options]
@@ -376,8 +415,8 @@ This Section handels the Dialogue 44 were you can Configure_Neutrals (Left Side)
 *!SN&v999=4:T^Diff_Mod.Bonus4^/?s^Text^;                ...
 *!IF&v999=4:M0/4/z1;
 
-!!SN&v999=5:T^Diff_Mod.Confirm_Neutral_Settings^/?s^Text^; [...]
-!!IF&v999=5:M0/4/^%S(Text)^;
+!!SN&v999=30722:T^Diff_Mod.Confirm_Neutral_Settings^/?s^Text^; [...]
+!!IF&v999=30722:M0/4/^%S(Text)^;
 
 !!SN&v999=30721:T^Diff_Mod.Cancel_Neutral_Settings^/?s^Text^; [...]
 !!IF&v999=30721:M0/4/^%S(Text)^;
@@ -461,6 +500,9 @@ This Section handels the Dialogue 44 were you can Configure_Neutrals (Left Side)
 !!SN&v999=41:T^Diff_Mod.Anzahl_Abilities^/?s^Text^; [...]
 !!IF&v999=41:M0/4/^%S(Text)^;
 
+!!SN&v999=70:T^Diff_Mod.Mixed_Neutrals_Text^/?s^Text^; [...]
+!!IF&v999=70:M0/4/^%S(Text)^;
+
 
 !?DL&v998=44/v1000=13;                  [If any left click in DL44]
 
@@ -471,12 +513,21 @@ This Section handels the Dialogue 44 were you can Configure_Neutrals (Left Side)
 !?DL&v998=44/v999=30721/v1000=13;       [When clicking on the close Button in Neutral Dif Exit and reset all options]
 !!DL:C1;
 !!SN:W^Neutrals_Difficulty_Enabled^/0;
-!!FU(Set_Exit_Options):P;               [Run Exit Settings]
+!!FU(difm_SetDefaultOptions):P;         [Run Exit Settings]
 
 
 !?DL&v998=44/v999=30722/v1000=13;       [Close Dialogue with Confirm Button Save all Settings]
 !!SN:W^Neutrals_Difficulty_Enabled^/1;
 !!DL:C1;
+
+
+!?DL&v998=44/v999=70/v1000=13;       
+!!SN:W^mix_enabled^/?y1;
+
+!!if&y1=1:;
+!!DL:C1;
+!!FU(Configure_Mixed_Neutrals):P;       [open the Neutrals difficulty settings]
+!!en:;
 
 
 !?FU(Neutrals_reset);
@@ -500,6 +551,8 @@ This Section handels the Dialogue 44 were you can Configure_Neutrals (Left Side)
 !!SN:W^Random_Neutral_Hero^/?y1 W^Tougher_Karmic_Battles_on^/?y2 W^Low_Level_Growth^/?y3 W^Double_Growth_Rate^/?y4; 
 !!SN:W^Double_Neutral_Stacks^/?y5 W^Neutral_Stack_Uptier1^/?y6 W^Neutral_Stack_Weekly_Upgrade^/?y7 W^Neutral_Growth_10000^/?y8;
 !!SN:W^Battle_Commander^/?y9 W^Battle_Reward_Active^/?y10 W^Anzahl_Buffs^/?y11 W^Anzahl_Abilities^/?y12;
+!!SN:W^mix_enabled^/?y13;               [Check for Mixed Neutral Mod]
+!!DL44:A71/4/y13/1;                     [Set Checkbox]
 !!VRz1:S^%Y11^;
 !!VRz2:S^%Y12^;
 
@@ -648,7 +701,7 @@ This Section handels the Dialogue 44 were you can Configure_Neutrals (Left Side)
   !!VRy2&y1=5:S3;                       [Insane]
   !!SN:W^Health_Grow_Enable^/y2;        [Healt_Grow_Rate]
 
-  !!VRy2&y1=0:S10;                      [Deavtivate]
+  !!VRy2&y1=0:S0;                       [Deavtivate]
   !!VRy2&y1=1:S7;                       [Easy]
   !!VRy2&y1=2:S5;                       [Normal]
   !!VRy2&y1=3:S4;                       [Hard]
@@ -678,10 +731,46 @@ This Section handels the Dialogue 45 were you can Configure_AI (Right Side)
   !!SN:T^Diff_Mod.Level_Easy^/?z1 T^Diff_Mod.Level_Medium^/?z2 T^Diff_Mod.Level_Hard^/?z3 T^Diff_Mod.Level_Extreme^/?z4 T^Diff_Mod.Level_Insane^/?z5 T^Diff_Mod.Level_Choose_0^/?z6 T^Diff_Mod.quantity_0^/?z7; [Load Text]
   !!DL45:A41/3/z1/1 A44/3/z2/1 A45/3/z3/1 A46/3/z4/1 A47/3/z5/1 A38/3/z6/1 A11/3/z7/1; [Set text to text fields]
 
-  !!SN:T^Diff_Mod.cancel_button_hint^/?z45; [left text] Test]
+  !!SN:T^Diff_Mod.cancel_button_hint^/?z45; [left text]
   !!DL45:H30721/45;                     [set cancel button hint text]
   !!SN:T^Diff_Mod.confirm_button_hint_0^/?z46; [left text]
   !!DL45:H30722/46;                     [set confirm button hint text]
+
+  !!SN:T^Diff_Mod.AI_Recover_Losses_0^/?z60; [left text]
+  !!SN:T^Diff_Mod.AI_Compensation_0^/?z61; [left text]
+  !!SN:T^Diff_Mod.AI_Useful_Spells_0^/?z62; [left text]
+  !!SN:T^Diff_Mod.AI_has_no_DD_0^/?z63; [left text]
+  !!SN:T^Diff_Mod.Progressive_Text_3_0^/?z64; [left text]
+  !!SN:T^Diff_Mod.AI_Artifacts_Eq_0^/?z65; [left text]
+  !!DL45:A60/3/z60/1 A61/3/z61/1 A62/3/z62/1 A63/3/z63/1 A64/3/z64/1 A65/3/z65/1;
+
+  !!SN:W^AI_Recover_Losses^/?y1;        [Check option]
+  !!SN:W^AI_Compensation^/?y2;  
+  !!SN:W^AI_Useful_Spells^/?y3; 
+  !!SN:W^AI_has_no_DD^/?y4; 
+  !!SN:W^Progressive_Difficulty^/?y5;
+  !!SN:W^AI_Artifacts_Eq^/?y6;
+  !!DL45:A50/4/y1/1;                    [Set option cadre]
+  !!DL45:A51/4/y2/1;                   
+  !!DL45:A52/4/y3/1; 
+  !!DL45:A53/4/y4/1;                   
+  !!DL45:A54/4/y5/1;  
+  !!DL45:A55/4/y6/1;    
+
+  !!SN:T^Diff_Mod.AI_Level_Easy^/?z50; !!DL45:H1/50; [Hint Text for Easy button]
+  !!SN:T^Diff_Mod.AI_Level_Normal^/?z51; !!DL45:H2/51; [Hint Text for Medium button]
+  !!SN:T^Diff_Mod.AI_Level_Hard^/?z52; !!DL45:H3/52; [Hint Text for Hard button]
+  !!SN:T^Diff_Mod.AI_Level_Extreme^/?z53; !!DL45:H4/53; [Hint Text for Extreme button]
+  !!SN:T^Diff_Mod.AI_Level_Insane^/?z54; !!DL45:H5/54; [Hint Text for Insane button]
+
+  !!SN:T^Diff_Mod.Exp_Bonus^/?z55; !!DL45:H11/55; [Hint Text for Easy button]
+  !!SN:T^Diff_Mod.Movement_Bonus^/?z56; !!DL45:H12/56; [Hint Text for Medium button]
+  !!SN:T^Diff_Mod.Prim_Bonus^/?z57; !!DL45:H13/57; [Hint Text for Hard button]
+  !!SN:T^Diff_Mod.Points_Bonus^/?z58; !!DL45:H14/58; [Hint Text for Extreme button]
+  !!SN:T^Diff_Mod.Gold_Bonus^/?z59; !!DL45:H15/59; [Hint Text for Insane button]
+  !!SN:T^Diff_Mod.Res_Bonus^/?z70; !!DL45:H16/70; [Hint Text for Hard button]
+  !!SN:T^Diff_Mod.Crea_Bonus^/?z71; !!DL45:H17/71 H18/71 H19/71 H20/71 H21/71 H22/71 H23/71; [Hint Text for Creature button]
+
   !!DL45:S1;                            [Show complete Dialogue number 45]
 
 
@@ -692,12 +781,11 @@ This Section handels the Dialogue 45 were you can Configure_AI (Right Side)
 !!if&v999=1/y1<>1:;                     [set text for 1st]
   !!FU(AI_reset):P;                     [reset all]
   !!SN:Pz16;                            [do not play sound again]
-  !!VRz1:S^500^; !!VRz2:S^200^; !!VRz3:S^0^; !!VRz4:S^5^; !!VRz5:S^2000^; !!VRz6:S^1^; 
+  !!VRz1:S^500^; !!VRz2:S^200^; !!SN:T^Diff_Mod.Zero_or_One^/?z3; !!VRz4:S^5^; !!VRz5:S^2000^; !!VRz6:S^1^; 
   !!VRz8:S^2^; !!VRz9:S^2^; !!VRz10:S^1^; !!VRz11:S^1^; !!VRz12:S^0^; !!VRz13:S^0^; !!VRz14:S^0^; 
   !!DL45:A1/4/1/1 A6/4/1/1 A40/4/1/1 A25/3/z1/1 A26/3/z2/1 A27/3/z3/1 A28/3/z4/1 A29/3/z5/1 A30/3/z6/1; [change faces + show borders + bonuses 1st]
   !!DL45:A31/3/z8/1 A32/3/z9/1 A33/3/z10/1 A34/3/z11/1 A35/3/z12/1 A36/3/z13/1 A37/3/z14/1; [creatures 1st]
   !!SN:W^H3_Game_Difficulty^/1;
-
 !!en:;
 
 !!if&v999=2/y1<>2:;
@@ -708,18 +796,16 @@ This Section handels the Dialogue 45 were you can Configure_AI (Right Side)
   !!DL45:A7/4/1/1 A2/4/3/1 A40/4/2/1 A25/3/z1/1 A26/3/z2/1 A27/3/z3/1 A28/3/z4/1 A29/3/z5/1 A30/3/z6/1; [2nd]
   !!DL45:A31/3/z8/1 A32/3/z9/1 A33/3/z10/1 A34/3/z11/1 A35/3/z12/1 A36/3/z13/1 A37/3/z14/1;
   !!SN:W^H3_Game_Difficulty^/2;
-
 !!en:;
 
 !!if&v999=3/y1<>3:;
   !!FU(AI_reset):P;                     [reset all]
   !!SN:Pz16;                            [do not play sound again]
-  !!VRz1:S^2500^; !!VRz2:S^400^; !!VRz3:S^1^; !!VRz4:S^15^; !!VRz5:S^4000^; !!VRz6:S^3^; 
+  !!VRz1:S^2500^; !!VRz2:S^400^; !!SN:T^Diff_Mod.One_or_Two^/?z3; !!VRz4:S^15^; !!VRz5:S^4000^; !!VRz6:S^3^; 
   !!VRz8:S^5^; !!VRz9:S^4^; !!VRz10:S^3^; !!VRz11:S^3^; !!VRz12:S^2^; !!VRz13:S^1^; !!VRz14:S^0^; 
   !!DL45:A3/4/5/1 A8/4/1/1 A40/4/3/1 A25/3/z1/1 A26/3/z2/1 A27/3/z3/1 A28/3/z4/1 A29/3/z5/1 A30/3/z6/1; [3rd]
   !!DL45:A31/3/z8/1 A32/3/z9/1 A33/3/z10/1 A34/3/z11/1 A35/3/z12/1 A36/3/z13/1 A37/3/z14/1;
-  !!SN:W^H3_Game_Difficulty^/3; 
-
+  !!SN:W^H3_Game_Difficulty^/3;
 !!en:;
 
 !!if&v999=4/y1<>4:;
@@ -730,47 +816,23 @@ This Section handels the Dialogue 45 were you can Configure_AI (Right Side)
   !!DL45:A9/4/1/1 A4/4/7/1 A40/4/4/1 A25/3/z1/1 A26/3/z2/1 A27/3/z3/1 A28/3/z4/1 A29/3/z5/1 A30/3/z6/1; [4th]
   !!DL45:A31/3/z8/1 A32/3/z9/1 A33/3/z10/1 A34/3/z11/1 A35/3/z12/1 A36/3/z13/1 A37/3/z14/1;  
   !!SN:W^H3_Game_Difficulty^/4; 
-
 !!en:;
 
-!!if&v999=5;
+!!if&v999=5/y1<>5;
   !!FU(AI_reset):P;                     [reset all]
   !!SN:Pz16;
-  !!VRz1:S^10000^; !!VRz2:S^700^; !!VRz3:S^2^; !!VRz4:S^25^; !!VRz5:S^7000^; !!VRz6:S^6^; 
+  !!VRz1:S^10000^; !!VRz2:S^700^; !!SN:T^Diff_Mod.Two_or_Three^/?z3; !!VRz4:S^25^; !!VRz5:S^7000^; !!VRz6:S^6^; 
   !!VRz8:S^7^; !!VRz9:S^6^; !!VRz10:S^5^; !!VRz11:S^4^; !!VRz12:S^3^; !!VRz13:S^1^; !!VRz14:S^1^;
   !!DL45:A31/3/z8/1 A32/3/z9/1 A33/3/z10/1 A34/3/z11/1 A35/3/z12/1 A36/3/z13/1 A37/3/z14/1; [5th only bonuses creatures]
-  !!DL45:A25/3/z1/1 A26/3/z2/1 A27/3/z3/1 A28/3/z4/1 A29/3/z5/1 A30/3/z6/1; [5th only bonuses ]
-  !!SN:T^Diff_Mod.ProOnly^/?z7;
-  !!SN:W^H3_Game_Difficulty^/0;
-
-  !!IF:Q1^%Z7^;                         [5th not available for choice]
-  !!SN&-1:W^Progressive_Difficulty^/0;
-  !!SN&1:W^Progressive_Difficulty^/1;
-  !!SN:W^Progressive_Difficulty^/?y1;
-
-  !!if&y1=1:;
-    !!SN:W^Difficulty_day^/100;         [If option was not selected Set Difficulty_day to default 100]
-    !!SN:T^Diff_Mod.Progressive_Text_1^/?z-7;
-    !!SN:T^Diff_Mod.Progressive_Text_2^/?z-8;
-    !!VRz1:S^^;                         [Initialize z1 to null: z1]
-    !!IF:D15/-7/-8/1/1/1/1/1/1/1/1/1/1/1/1/1;
-    !!IF:E1/15;                         [Display Input Box]
-    !!VRz1:H1;                          [Flag 1 is set to False if no text and True if text]
-    !!VRy6:Vz1;                         [Convert z1 to a value and store in y6]
-    !!IF:V2/1;                          [Initialize Flag 2 to True]
-    !!IF&y6<0:V2/0;                     [Set Flag 2 to False if y6 less than 0]
-    !!IF&y6>999:V2/0;                   [Set Flag 2 to False if y6 greater than 999]
-    !!SN:T^Diff_Mod.Out_Range_2^/?z-9;
-    !!IF|-2/-1:M^%Z-9^;                 [Out of Range Message]
-    !!VRy6|-2/-1:S100;
-    !!SN&2:W^Difficulty_day^/y6;
- !!en:;
-
-
+  !!DL45:A25/3/z1/1 A26/3/z2/1 A27/3/z3/1 A28/3/z4/1 A29/3/z5/1 A30/3/z6/1 A10/4/1/1 A40/4/4/1; [5th only bonuses ]
+  !!SN:W^H3_Game_Difficulty^/5;
+  !!SN:W^Progressive_Difficulty^/0;
+  !!DL45:A54/4/0/1;                     [Progressive Difficulty disabled because already selected Insane]
 !!en:;
 
 
 !?DL&v998=45/v1000=14;                  [RMB on the faces to set text for information]
+
 !!SN:T^Diff_Mod.Bonus1^/?z1;            [set text for 1st]
 !!SN:T^Diff_Mod.Bonus2^/?z2;            [2nd]
 !!SN:T^Diff_Mod.Bonus3^/?z3;            [...]
@@ -782,13 +844,69 @@ This Section handels the Dialogue 45 were you can Configure_AI (Right Side)
 !!IF&v999=3:M0/4/z3;
 !!IF&v999=4:M0/4/z4;
 !!IF&v999=5:M0/4/z5;
+ 
 
-!e?DL45;
-!e!DL45:A41/51/9/1;
+!?DL&v998=45/v999>=50/v999<=55/v1000=13;[LMB on the options to switch it]
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;                               [Play Sound]
+
+!!SN:W^AI_Recover_Losses^/?y1;          [Check if options have already been activated]
+!!SN:W^AI_Compensation^/?y2;        
+!!SN:W^AI_Useful_Spells^/?y3; 
+!!SN:W^AI_has_no_DD^/?y4; 
+!!SN:W^Progressive_Difficulty^/?y5;
+!!SN:W^AI_Artifacts_Eq^/?y6;
+
+!!SN&v999=50/y1=0:W^AI_Recover_Losses^/1;[activate first]
+!!SN&v999=50/y1=1:W^AI_Recover_Losses^/0;[deactivate first]
+!!SN&v999=51/y2=0:W^AI_Compensation^/1;
+!!SN&v999=51/y2=1:W^AI_Compensation^/0;
+!!SN&v999=52/y3=0:W^AI_Useful_Spells^/1;
+!!SN&v999=52/y3=1:W^AI_Useful_Spells^/0;
+!!SN&v999=53/y4=0:W^AI_has_no_DD^/1;
+!!SN&v999=53/y4=1:W^AI_has_no_DD^/0;
+!!SN&v999=54/y5=0:W^Progressive_Difficulty^/1;
+!!SN&v999=54/y5=1:W^Progressive_Difficulty^/0;
+!!SN&v999=55/y6=0:W^AI_Artifacts_Eq^/1;
+!!SN&v999=55/y6=1:W^AI_Artifacts_Eq^/0;
+
+!!SN:W^AI_Recover_Losses^/?y1;          [Check if options have already been activated]
+!!SN:W^AI_Compensation^/?y2;        
+!!SN:W^AI_Useful_Spells^/?y3; 
+!!SN:W^AI_has_no_DD^/?y4; 
+!!SN:W^Progressive_Difficulty^/?y5;
+!!SN:W^AI_Artifacts_Eq^/?y6;
+
+[switch def cardre to 0 or 1]
+!!DL45:A50/4/y1/1;                      [AI Recover Losses]
+!!DL45:A51/4/y2/1;                      [AI Compensation]
+!!DL45:A52/4/y3/1;                      [AI Useful Spells]
+!!DL45:A53/4/y4/1;                      [AI has no DD]
+!!DL45:A54/4/y5/1;                      [Progressive Difficulty]
+!!DL45:A55/4/y6/1;                      [AI Artifacts Eq]
+
+
+!?DL&v998=45/v999>=60/v999<=65/v1000=14;[right click on the three pictures to show text for upgrade and description]
+
+!!SN|v999=60:T^Diff_Mod.AI_Recover_Losses^/?s^Text^; [set text for 1st]
+!!SN|v999=61:T^Diff_Mod.AI_Compensation^/?s^Text^;
+!!SN|v999=62:T^Diff_Mod.AI_Useful_Spells^/?s^Text^; 
+!!SN|v999=63:T^Diff_Mod.AI_has_no_DD^/?s^Text^;
+!!SN|v999=64:T^Diff_Mod.Progressive_Text_3^/?s^Text^;
+!!SN|v999=65:T^Diff_Mod.AI_Artifacts_Eq^/?s^Text^;  
+!!IF:M0/4/^%S(Text)^;
+
 
 !?DL&v998=45/v999=30721/v1000=13;       [Reset Close]
-!!SN:W^H3_Game_Difficulty^/0;           [When clicking exit reset all choices]
+!!SN:W^H3_Game_Difficulty^/0;           [When clicking exit reset all choices or set to default]
+!!SN:W^AI_Recover_Losses^/1;          
+!!SN:W^AI_Compensation^/1;        
+!!SN:W^AI_Useful_Spells^/0; 
+!!SN:W^AI_has_no_DD^/0; 
+!!SN:W^Progressive_Difficulty^/0;
+!!SN:W^AI_Artifacts_Eq^/1;
 !!DL:C1;
+
 
 !?DL&v998=45/v999=30722/v1000=13;       [Save Confirm]
 !!SN:W^H3_Game_Difficulty^/?y1;         [When clicking confirm save all choices]
@@ -813,15 +931,32 @@ This Section handels the Dialogue 45 were you can Configure_AI (Right Side)
 !!VRy6|-2/-1:S15;
 !!SN&2:W^AIPayday^/y6;
 
+!!SN:W^Progressive_Difficulty^/?y1;
+!!if&y1=1:;
+  !!SN:W^Difficulty_day^/100;           [If option was not selected Set Difficulty_day to default 100]
+  !!SN:T^Diff_Mod.Progressive_Text_1^/?z-7;
+  !!SN:T^Diff_Mod.Progressive_Text_2^/?z-8;
+  !!VRz1:S^^;                           [Initialize z1 to null: z1]
+  !!IF:D15/-7/-8/1/1/1/1/1/1/1/1/1/1/1/1/1;
+  !!IF:E1/15;                           [Display Input Box]
+  !!VRz1:H1;                            [Flag 1 is set to False if no text and True if text]
+  !!VRy6:Vz1;                           [Convert z1 to a value and store in y6]
+  !!IF:V2/1;                            [Initialize Flag 2 to True]
+  !!IF&y6<0:V2/0;                       [Set Flag 2 to False if y6 less than 0]
+  !!IF&y6>999:V2/0;                     [Set Flag 2 to False if y6 greater than 999]
+  !!SN:T^Diff_Mod.Out_Range_2^/?z-9;
+  !!IF|-2/-1:M^%Z-9^;                   [Out of Range Message]
+  !!VRy6|-2/-1:S100;
+  !!SN&2:W^Difficulty_day^/y6;
+!!en:;
+
 
 !?FU(AI_reset);
-!!DL45:A1/4/0/1 A2/4/2/1 A3/4/4/1 A4/4/6/1 A40/4/0/1 A6/4/0/1 A7/4/0/1 A8/4/0/1 A9/4/0/1; [reset all]
-
+!!DL45:A1/4/0/1 A2/4/2/1 A3/4/4/1 A4/4/6/1 A40/4/0/1 A6/4/0/1 A7/4/0/1 A8/4/0/1 A9/4/0/1 A10/4/0/1; [reset all faces and remove visual selection]
 
 
 ********************************************************************************
-!?FU(Set_Exit_Options);
-
+!?FU(difm_SetDefaultOptions);
 !!SN:W^Stack_Size_Enable^/0;            [Stack_Size_Modification]
 !!SN:W^Health_Grow_Enable^/0;           [Healt_Grow_Rate deactivate]
 !!SN:W^Guarded_Object_growth_Rate^/10;  [10%    Original Values  less is more]
@@ -830,14 +965,19 @@ This Section handels the Dialogue 45 were you can Configure_AI (Right Side)
 !!SN:W^Guarded_Object_Commander_Bonus_Dmg^/2; [Original Values]
 !!SN:W^Guarded_Object_Commander_Bonus_HP^/50; [Original Values]
 
-!!VRy3:S7;                              [Just in case set to normal]
-!!UN:J2/?y2;                            [Player chosen difficulty level: y-2]
-!!VRy3&y2=0:S14;                        [Easy interval (14): y-3]
-!!VRy3&y2=1:S7;                         [Normal interval (7): y-3]
-!!VRy3&y2=2:S5;                         [Hard interval (5): y-3]
-!!VRy3&y2=3:S4;                         [Expert interval (4): y-3]
-!!VRy3&y2=4:S3;                         [Impossible interval (3): y-3]
-!!SN:W^Stack_Exp_Rate^/y3;
+!!SN:W^Stack_Exp_Rate^/0;
+
+!!UN:P231/?y1;                          [Check Stack Exp option]
+!!if&y1=1:;
+  !!VRy3:S7;                            [Just in case set to normal]
+  !!UN:J2/?y2;                          [Player chosen difficulty level: y-2]
+  !!VRy3&y2=0:S14;                      [Easy interval (14): y-3]
+  !!VRy3&y2=1:S7;                       [Normal interval (7): y-3]
+  !!VRy3&y2=2:S5;                       [Hard interval (5): y-3]
+  !!VRy3&y2=3:S4;                       [Expert interval (4): y-3]
+  !!VRy3&y2=4:S3;                       [Impossible interval (3): y-3]
+  !!SN:W^Stack_Exp_Rate^/y3;
+!!en:;
 
 !!SN:W^Double_Growth_Rate^/0;
 !!SN:W^Low_Level_Growth^/0;
@@ -869,6 +1009,8 @@ This Section handels the Dialogue 45 were you can Configure_AI (Right Side)
 !!SN:W^Stack_Size_Mod_L7^/0;            [Lvl 7]
 !!SN:W^Stack_Size_Mod_L8^/0;            [Lvl 8]
 
+!?FU(difm_LoadInitialOptions);
+!!FU(difm_SetDefaultOptions):P;
 
 ********************************************************************************
 !?FU(Calc_Battle_Reward);
@@ -940,7 +1082,7 @@ This Section handels the Dialogue 45 were you can Configure_AI (Right Side)
 !!en:;
 
 !!SN:W^Stack_Exp_Rate^/?y1;             [Stack_Exp_Rate]
-!!if&y1<>10:;
+!!if&y1>0:;
 *!SN&y1=7:W^Battle_Reward^/d3;
 *!SN&y1=5:W^Battle_Reward^/d5;
 *!SN&y1=4:W^Battle_Reward^/d8;
@@ -964,10 +1106,514 @@ This Section handels the Dialogue 45 were you can Configure_AI (Right Side)
 !!DL44:A80/3/z1/1;                      [Update Text field for Battle Reward chance]
 
 
-********************************************************************************
-!?FU(Game Difficulty Options);
+****************************************************************************************************
 
-!!FU(Set_Exit_Options):P;               [Run Exit Settings]
+
+This Section handels the Dialogue 47 were you can Configure Mixed Neutrals
+
+
+
+****************************************************************************************************
+!?FU(Configure_Mixed_Neutrals);         [open the Neutrals difficulty settings and set all names of options]
+
+  !!DL47:N^Mix_Neu.txt^;                [Name of Dialogue text file Parse Dialogue]
+
+  !!SN:T^Diff_Mod.Level_Easy^/?z20 T^Diff_Mod.Level_Medium^/?z21 T^Diff_Mod.Level_Hard^/?z22 T^Diff_Mod.Level_Choose_1^/?z23; [Load Text]
+  !!DL47:A43/3/z20/1 A47/3/z21/1 A45/3/z22/1 A38/3/z23/1; [Set text to text fields]
+
+  !!SN:T^Diff_Mod.Option_20^/?z24 T^Diff_Mod.Option_21^/?z25 T^Diff_Mod.Option_22^/?z26 T^Diff_Mod.Option_23^/?z27; [Load correct text for options 1-16]
+  !!DL47:A26/3/z24/1 A27/3/z25/1 A28/3/z26/1 A29/3/z27/1; [Set text to text fields]
+
+  !!SN:T^Diff_Mod.Option_24^/?z1 T^Diff_Mod.Option_25^/?z2 T^Diff_Mod.Option_26^/?z3 T^Diff_Mod.Option_27^/?z4;
+  !!DL47:A30/3/z1/1 A31/3/z2/1 A32/3/z3/1 A33/3/z4/1;
+
+  !!SN:T^Diff_Mod.Option_28^/?z5 T^Diff_Mod.Option_29^/?z6 T^Diff_Mod.Option_30^/?z7 T^Diff_Mod.Option_31^/?z8;
+  !!DL47:A34/3/z5/1 A35/3/z6/1 A36/3/z7/1 A37/3/z8/1;
+
+  !!SN:T^Diff_Mod.Option_32^/?z9 T^Diff_Mod.Option_33^/?z10 T^Diff_Mod.Option_34^/?z11;
+  !!DL47:A41/3/z9/1 A70/3/z10/1 A71/3/z11/1;
+
+  !!SN:W^mix_minNumNeutralStacks^/?y13; !!VRz13:S^%Y13^; [Get value in z13]
+  !!SN:W^mix_maxNumNeutralStacks^/?y14; !!VRz14:S^%Y14^;
+  !!SN:W^mix_neutralStackScale^/?y15; !!VRz15:S^%Y15%^;
+  !!SN:W^mix_neutralStackScaleForHuman^/?y16; !!VRz16:S^%Y16%^;
+  !!SN:W^mix_minRelativeMonLevel^/?y17; !!VRz17:S^%Y17^;
+  !!SN:W^mix_maxRelativeMonLevel^/?y18; !!VRz18:S^+%Y18^;
+
+  !!DL47:A22/3/z13/1 A23/3/z14/1 A24/3/z15/1 A25/3/z16/1 A72/3/z17/1 A73/3/z18/1; [Preset options]
+  !!FU(Mixed_Neutrals_checkboxes):P1;
+
+  !!SN:T^Diff_Mod.cancel_button_hint^/?z43; [left text]
+  !!DL47:H30721/43;                     [set cancel button hint text]
+  !!SN:T^Diff_Mod.confirm_button_hint_0^/?z44; [left text]
+  !!DL47:H30722/44;                     [set confirm button hint text]
+
+  !!SN:T^Diff_Mod.Slot_Hint^/?z50; !!DL47:H80/50 H81/50 H82/50 H83/50 H84/50 H85/50 H86/50; [Hint Text for Slot 1-7]
+
+  !!SN:W^mix_neutralStackScale_int^/1;
+  !!SN:W^mix_neutralStackScaleForHuman_int^/1;
+  !!if&y15>=10/y16>=10:;                [Convert input from scaling from 1 to 100, 2 to 120....]
+    !!VRy20:Sy15:10;
+    !!SN:W^mix_neutralStackScale_int^/y20;
+    !!VRy21:Sy16:10;
+    !!SN:W^mix_neutralStackScaleForHuman_int^/y21;
+    !!SN&y20<=0:W^mix_neutralStackScale_int^/1;
+    !!SN&y21<=0:W^mix_neutralStackScaleForHuman_int^/1;    
+  !!en:;
+
+  !!DL47:S1;                            [Show complete Dialogue number 47]
+
+
+!?DL&v998=47/v999>46/v999<59/v1000=13;  [switch by little arrows for options 1-4]
+
+!!if&v999=47:;                          [If clicked on the left arrow]
+   !!SN:W^mix_minNumNeutralStacks^/?y1; !!VRy2:Sy1; [Store value in y2]
+   !!SN&y1>1:W^mix_minNumNeutralStacks^/d-1; [Reduce value by -1 if bigger zero]
+   !!SN:W^mix_minNumNeutralStacks^/?y1; !!VRy3:Sy1; [Store value in y3]
+   !!FU(Mixed_Neutrals_checkboxes)&y2<>y3:P1; [Change pictures only if value has changed]
+   !!VRz47:S^%Y1^; !!DL47:A22/3/z47/1;  [Update text fields with new value]
+!!en:;
+!!if&v999=48:;                          
+  !!SN:W^mix_minNumNeutralStacks^/?y1; !!VRy2:Sy1; [If clicked on the right arrow]
+  !!SN:W^mix_maxNumNeutralStacks^/?y4;        
+  !!SN&y1<7:W^mix_minNumNeutralStacks^/d1;
+  !!if&y4=y1:;                          [if min and max have same value]
+    !!SN&y1<7:W^mix_maxNumNeutralStacks^/d1;
+    !!SN:W^mix_maxNumNeutralStacks^/?y1;    
+    !!VRz49:S^%Y1^; !!DL47:A23/3/z49/1; [Update max mixing textfield so one click increases both values simultaniously]
+  !!en:;  
+  !!SN:W^mix_minNumNeutralStacks^/?y1; !!VRy3:Sy1;
+  !!FU(Mixed_Neutrals_checkboxes)&y2<>y3:P1;
+  !!VRz47:S^%Y1^; !!DL47:A22/3/z47/1;       
+!!en;
+
+!!if&v999=51:;                          [neutralStackScale]
+  !!SN:W^mix_neutralStackScale_int^/?y1;  
+  !!SN&y1>1:W^mix_neutralStackScale_int^/d-1;
+  !!SN:W^mix_neutralStackScale_int^/?y1;  
+  !!FU(Mix_Neu_Neutrals_Scale):Py1/1;
+!!en;
+!!if&v999=52:;                          [neutralStackScale]
+  !!SN:W^mix_neutralStackScale_int^/?y1;    
+  !!SN&y1<46:W^mix_neutralStackScale_int^/d1;
+  !!SN:W^mix_neutralStackScale_int^/?y1;
+  !!FU(Mix_Neu_Neutrals_Scale):Py1/1;  
+!!en;
+
+!!if&v999=49:;                          [maxNumNeutralStacks]
+  !!SN:W^mix_maxNumNeutralStacks^/?y1; !!VRy2:Sy1;
+  !!SN:W^mix_minNumNeutralStacks^/?y4;    
+  !!SN&y1>1:W^mix_maxNumNeutralStacks^/d-1;
+  !!if&y4=y1:;       
+    !!SN&y1>1:W^mix_minNumNeutralStacks^/d-1;
+    !!SN:W^mix_minNumNeutralStacks^/?y1;    
+    !!VRz47:S^%Y1^; !!DL47:A22/3/z47/1; 
+  !!en:;   
+  !!SN:W^mix_maxNumNeutralStacks^/?y1; !!VRy3:Sy1;
+  !!FU(Mixed_Neutrals_checkboxes)&y2<>y3:P1;
+  !!VRz49:S^%Y1^; !!DL47:A23/3/z49/1;  
+!!en;
+!!if&v999=50:;                          [maxNumNeutralStacks]
+  !!SN:W^mix_maxNumNeutralStacks^/?y1; !!VRy2:Sy1;    
+  !!SN&y1<7:W^mix_maxNumNeutralStacks^/d1;
+  !!SN:W^mix_maxNumNeutralStacks^/?y1; !!VRy3:Sy1;
+  !!FU(Mixed_Neutrals_checkboxes)&y2<>y3:P1;
+  !!VRz49:S^%Y1^; !!DL47:A23/3/z49/1;  
+!!en;
+
+!!if&v999=53:;                          [neutralStackScaleForHuman]
+  !!SN:W^mix_neutralStackScaleForHuman_int^/?y1;
+  !!SN&y1>1:W^mix_neutralStackScaleForHuman_int^/d-1;
+  !!SN:W^mix_neutralStackScaleForHuman_int^/?y1;
+  !!FU(Mix_Neu_Neutrals_Scale):Py1/2;
+!!en;                               
+!!if&v999=54:;                          [neutralStackScaleForHuman]
+  !!SN:W^mix_neutralStackScaleForHuman_int^/?y1; 
+  !!SN&y1<46:W^mix_neutralStackScaleForHuman_int^/d1;
+  !!SN:W^mix_neutralStackScaleForHuman_int^/?y1; 
+  !!FU(Mix_Neu_Neutrals_Scale):Py1/2;
+!!en;
+
+!!if&v999=55:;                          [AggressionModifier]
+  !!SN:W^mix_neutralsAggressionModifier^/?y1;
+  !!SN&y1>-10:W^mix_neutralsAggressionModifier^/d-1;
+  !!FU(Mixed_Neutrals_checkboxes):P;
+!!en;
+!!if&v999=56:;                          [AggressionModifier]
+  !!SN:W^mix_neutralsAggressionModifier^/?y1; 
+  !!SN&y1<10:W^mix_neutralsAggressionModifier^/d1;  
+  !!FU(Mixed_Neutrals_checkboxes):P; 
+!!en;
+
+!!if&v999=57:;                          [StackSpread]
+  !!SN:W^mix_neutralStackSpread^/?y1;
+  !!SN&y1>0:W^mix_neutralStackSpread^/d-1;
+  !!FU(Mixed_Neutrals_checkboxes):P; 
+!!en;
+!!if&v999=58:;                          [StackSpread]
+  !!SN:W^mix_neutralStackSpread^/?y1;
+  !!SN&y1<5:W^mix_neutralStackSpread^/d1;
+  !!FU(Mixed_Neutrals_checkboxes):P; 
+!!en;
+
+
+!?DL&v998=47/v999>73/v999<78/v1000=13;  [switch by little arrows for options 1-4]
+
+!!if&v999=74:;                          [If clicked on the left arrow ]
+   !!SN:W^mix_minRelativeMonLevel^/?y1; [Get value in y1]
+   !!SN&y1>-6:W^mix_minRelativeMonLevel^/d-1; [Reduce value by -1 if bigger zero]
+   !!SN:W^mix_minRelativeMonLevel^/?y1; [Get new value in y1]
+   !!VRz72:S^%Y1^; !!DL47:A72/3/z72/1; 
+!!en:;
+!!if&v999=75:;                          
+  !!SN:W^mix_minRelativeMonLevel^/?y1;       
+  !!SN&y1<0:W^mix_minRelativeMonLevel^/d1;
+  !!SN:W^mix_minRelativeMonLevel^/?y1;
+  !!VRz72:S^%Y1^; !!DL47:A72/3/z72/1;       
+!!en;
+
+!!if&v999=76:;                          
+  !!SN:W^mix_maxRelativeMonLevel^/?y1;  
+  !!SN&y1>0:W^mix_maxRelativeMonLevel^/d-1;
+  !!SN:W^mix_maxRelativeMonLevel^/?y1;
+  !!VRz73:S^+%Y1^; !!DL47:A73/3/z73/1; 
+!!en;
+!!if&v999=77:;                          
+  !!SN:W^mix_maxRelativeMonLevel^/?y1;    
+  !!SN&y1<6:W^mix_maxRelativeMonLevel^/d1;
+  !!SN:W^mix_maxRelativeMonLevel^/?y1;
+  !!VRz73:S^+%Y1^; !!DL47:A73/3/z73/1;   
+!!en;
+
+
+!?FU(Mix_Neu_Neutrals_Scale);
+!!if&x2=1:;
+  !!SN:W^mix_neutralStackScale^/?y1;
+  !!VRy1:S0;
+  !!VRy1:+x1*10;
+  !!SN:W^mix_neutralStackScale^/y1;
+  !!VRz70:S^%Y1%^;  
+  !!DL47:A24/3/z70/1; 
+!!en:;
+
+!!if&x2=2:;
+  !!SN:W^mix_neutralStackScaleForHuman^/?y1;
+  !!VRy1:S0;
+  !!VRy1:+x1*10;
+  !!SN:W^mix_neutralStackScaleForHuman^/y1;
+  !!VRz71:S^%Y1%^;
+  !!DL47:A25/3/z71/1;  
+!!en:;
+
+
+!?DL&v998=47/v999>9/v999<37/v1000=13;   [checkboxes switch between check and cancel]
+
+!!FU|v999=13/v999=17/v999=22/v999=23/v999=24/v999=25/v999=26/v999=27/v999=28/v999=29:E; [Prevent action by wrong click]
+!!VRz1:S^Button.wav^;
+!!SN:Pz1;
+
+[Check if options have already been activated]
+!!SN:W^mix_generateMonstersByFactions^/?y1;
+!!SN:W^mix_allowAlliedFactions^/?y2;
+!!SN:W^mix_moveNeutralsToFactions^/?y3; 
+!!SN:W^mix_neutralsNeverEscape^/?y4; 
+!!SN:W^TUM_registerRegularMonsters^/?y5;
+!!SN:W^mixconf_displayExactStackQuantities^/?y6;
+!!SN:W^mixconf_showRegularViewDialog^/?y7;  
+!!SN:W^mix_neutralsAggressionModifier^/?y11;
+!!SN:W^mix_neutralStackSpread^/?y12;
+!!SN:W^Typhon_Third_Upgrade_Mod_Active^/?y13; [Check for Third Upgrade Mod]
+
+  !!if|v999=10/v999=30:;
+  !!SN&y1=0:W^mix_generateMonstersByFactions^/1; [swith for 1st]
+  !!SN&y1=1:W^mix_generateMonstersByFactions^/0;
+  !!en:;
+
+  !!if|v999=11/v999=31:;
+  !!SN&y2=0:W^mix_allowAlliedFactions^/1;
+  !!SN&y2=1:W^mix_allowAlliedFactions^/0;
+  !!en:;
+
+  !!if|v999=12/v999=32:;
+  !!SN&y3=0:W^mix_moveNeutralsToFactions^/1;
+  !!SN&y3=1:W^mix_moveNeutralsToFactions^/0;
+  !!en:;
+
+  !!if|v999=14/v999=33:;
+  !!SN&y4=0:W^mix_neutralsNeverEscape^/1;
+  !!SN&y4=1:W^mix_neutralsNeverEscape^/0;
+  !!en:;
+
+  !!if|v999=15/v999=34:;
+  !!SN&y5=0/y13=1:W^TUM_registerRegularMonsters^/1; [Cannot be switched on if TUM is not enabled]
+  !!SN&y5=1/y13=1:W^TUM_registerRegularMonsters^/0;
+  !!en:;
+
+  !!if|v999=16/v999=35:;
+  !!SN&y7=0:W^mixconf_showRegularViewDialog^/1;
+  !!SN&y7=1:W^mixconf_showRegularViewDialog^/0;
+  !!en:;
+ 
+  !!if|v999=18/v999=36:;
+  !!SN&y6=0:W^mixconf_displayExactStackQuantities^/1;
+  !!SN&y6=1:W^mixconf_displayExactStackQuantities^/0;
+  !!en:; 
+  
+  !!SN&v999=19/y11=0:W^mix_neutralsAggressionModifier^/1;
+  !!SN&v999=19/y11>0:W^mix_neutralsAggressionModifier^/0;
+  
+  !!SN&v999=21/y12=0:W^mix_neutralStackSpread^/1;
+  !!SN&v999=21/y12>0:W^mix_neutralStackSpread^/0;  
+
+!!VRy99|v999=10:S1;                     [Only switch faces when clicking on the first two options]
+!!FU(Mixed_Neutrals_checkboxes):Py99;   [call func for switch on the user's choice]
+
+
+!?DL&v998=47/v1000=14;                  [Show right click information all options]
+
+!!SN|v999=80/v999=81/v999=82/v999=83/v999=84/v999=85/v999=86:T^Diff_Mod.Slot_Example^/?s^Text^; [set text for 1st]
+!!IF|v999=80/v999=81/v999=82/v999=83/v999=84/v999=85/v999=86:M0/4/^%S(Text)^; [show it 80 - 86]
+
+!!SN&v999=30721:T^Diff_Mod.Cancel_Mixed_Settings^/?s^Text^; [...]
+!!IF&v999=30721:M0/4/^%S(Text)^;
+
+!!SN&v999=30722:T^Diff_Mod.Confirm_Mixed_Settings^/?s^Text^; [...]
+!!IF&v999=30722:M0/4/^%S(Text)^;
+
+!!if|v999=26/v999=22:;
+!!SN:T^Diff_Mod.Option_20_Info^/?s^Text^;[2nd]
+!!IF:M0/4/^%S(Text)^;
+!!en:;
+
+!!if|v999=27/v999=23:;
+!!SN:T^Diff_Mod.Option_21_Info^/?s^Text^;[2nd]
+!!IF:M0/4/^%S(Text)^;
+!!en:;
+
+!!if|v999=28/v999=24:;
+!!SN:T^Diff_Mod.Option_22_Info^/?s^Text^;[set text for 1st]
+!!IF:M0/4/^%S(Text)^;
+!!en:;
+
+!!if|v999=29/v999=25:;
+!!SN:T^Diff_Mod.Option_23_Info^/?s^Text^;[set text for 1st]
+!!IF:M0/4/^%S(Text)^;
+!!en:;
+
+*fixed options
+!!SN&v999=30:T^Diff_Mod.Option_24_Info^/?s^Text^; [...]
+!!IF&v999=30:M0/4/^%S(Text)^;
+
+!!SN&v999=31:T^Diff_Mod.Option_25_Info^/?s^Text^; [...]
+!!IF&v999=31:M0/4/^%S(Text)^;
+
+!!SN&v999=32:T^Diff_Mod.Option_26_Info^/?s^Text^; [...]
+!!IF&v999=32:M0/4/^%S(Text)^;
+
+!!SN&v999=33:T^Diff_Mod.Option_27_Info^/?s^Text^; [...]
+!!IF&v999=33:M0/4/^%S(Text)^;
+
+!!SN&v999=34:T^Diff_Mod.Option_28_Info^/?s^Text^; [...]
+!!IF&v999=34:M0/4/^%S(Text)^;
+
+!!SN&v999=35:T^Diff_Mod.Option_29_Info^/?s^Text^; [...]
+!!IF&v999=35:M0/4/^%S(Text)^;
+
+!!SN&v999=36:T^Diff_Mod.Option_30_Info^/?s^Text^; [...]
+!!IF&v999=36:M0/4/^%S(Text)^;
+
+!!SN&v999=37:T^Diff_Mod.Option_31_Info^/?s^Text^; [...]
+!!IF&v999=37:M0/4/^%S(Text)^;
+
+!!SN&v999=41:T^Diff_Mod.Option_32_Info^/?s^Text^; [...]
+!!IF&v999=41:M0/4/^%S(Text)^;
+
+!!if|v999=70/v999=72;
+!!SN:T^Diff_Mod.Option_33_Info^/?s^Text^; [...]
+!!IF:M0/4/^%S(Text)^;
+!!en:;
+
+!!if|v999=71/v999=73;
+!!SN:T^Diff_Mod.Option_34_Info^/?s^Text^; [...]
+!!IF:M0/4/^%S(Text)^;
+!!en:;
+
+
+!?DL&v998=47/v999=30721/v1000=13;       [When clicking on the close Button in Neutral Dif Exit and reset all options]
+!!DL:C1;
+!!FU(mix_LoadGlobalConfig):P;           [Load Default settings from json again]
+
+
+!?DL&v998=47/v999=30722/v1000=13;       [Close Dialogue with Confirm Button Save all Settings]
+!!DL:C1;
+       
+
+!?FU(Mixed_Neutrals_checkboxes);        [Set checkboxes function]
+!!SN:W^mix_generateMonstersByFactions^/?y1 W^mix_allowAlliedFactions^/?y2 W^mix_moveNeutralsToFactions^/?y3; 
+!!SN:W^mix_neutralsNeverEscape^/?y4 W^TUM_registerRegularMonsters^/?y5 W^mixconf_displayExactStackQuantities^/?y6;
+!!SN:W^mixconf_showRegularViewDialog^/?y7 W^mix_neutralsAggressionModifier^/?y11 W^mix_neutralStackSpread^/?y12;
+!!VRy7:-1*-1;                           [Invert Custom Monster Hud field]
+!!VRz1:S^%Y11^;
+!!VRz2:S^%Y12^;
+
+!!DL47:A10/4/y1/1 A11/4/y2/1 A12/4/y3/1;
+!!DL47:A14/4/y4/1 A15/4/y5/1 A18/4/y6/1;
+!!DL47:A16/4/y7/1 A59/3/z1/1 A60/3/z2/1;
+
+!!DL47:A19/4/1/1;
+!!DL47&y11=0:A19/4/0/1;
+
+!!if&y12>0:;
+  !!DL47:A21/4/1/1;
+!!el:;
+  !!DL47:A21/4/0/1;
+!!en;
+
+!!FU&x1=0:E;                            [Exit if creature pictures should not change]
+
+!!SN:W^mix_minNumNeutralStacks^/?y20;
+!!SN:W^mix_maxNumNeutralStacks^/?y21;
+!!SN:W^mix_generateMonstersByFactions^/?y22;
+!!SN:W^Typhon_Third_Upgrade_Mod_Active^/?y30; [Check for Third Upgrade Mod]
+
+!!VRy23:S0T7;
+!!VRy24:Sy23*14+1;
+!!VRy25:S0T2;
+
+!!if&y20=1/y21=1:;                      [If no mixing]
+  !!VRy1:S2T121;                        [Generate random creature picture]
+  !!VRy1&y30=1/y25=2:S199T71;           [Generate random creature picture with TUM enabled]
+  !!FU(Mixed_Neutrals_Picture_Slots):Py1/y1/y1/y1/y1/y1/y1;
+!!en:;
+
+!!if&y21=2:;                            [If max 2 different creatures]
+  !!VRy1&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy2&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy1&y22=0/y30=1/y25=2:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy2&y22=0/y30=1/y25=2:S199T71;     [Generate random creature picture with TUM enabled]
+
+  !!VRy1&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy2&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!FU(Mixed_Neutrals_Picture_Slots):Py1/y2/y1/y2/y1/y2/y1;
+!!en:;
+
+!!if&y21=3:;                            [If max 3 different creatures]
+  !!VRy1&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy2&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy3&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy1&y22=0/y30=1/y25=0:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy2&y22=0/y30=1/y25=1:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy3&y22=0/y30=1/y25=4:S199T71;     [Generate random creature picture with TUM enabled]
+
+  !!VRy1&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy2&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy3&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!FU(Mixed_Neutrals_Picture_Slots):Py1/y1/y3/y3/y3/y2/y2;
+!!en:;
+
+!!if&y21=4:;                            [If max 4 different creatures]
+  !!VRy1&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy2&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy3&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy4&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy1&y22=0/y30=1/y25=0:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy2&y22=0/y30=1/y25=1:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy3&y22=0/y30=1/y25=4:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy4&y22=0/y30=1/y25=2:S199T71;     [Generate random creature picture with TUM enabled]
+
+  !!VRy1&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy2&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy3&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy4&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!FU(Mixed_Neutrals_Picture_Slots):Py1/y2/y3/y4/y1/y2/y3;
+!!en:;
+
+!!if&y21=5:;                            [If max 5 different creatures]
+  !!VRy1&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy2&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy3&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy4&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy5&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy1&y22=0/y30=1/y25=4:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy2&y22=0/y30=1/y25=0:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy3&y22=0/y30=1/y25=1:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy4&y22=0/y30=1/y25=4:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy5&y22=0/y30=1/y25=2:S199T71;     [Generate random creature picture with TUM enabled]
+
+  !!VRy1&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy2&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy3&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy4&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy5&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!FU(Mixed_Neutrals_Picture_Slots):Py1/y2/y3/y4/y5/y2/y1;
+!!en:;
+
+!!if&y21=6:;                            [If max 6 different creatures]
+  !!VRy1&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy2&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy3&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy4&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy5&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy6&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy1&y22=0/y30=1/y25=0:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy2&y22=0/y30=1/y25=4:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy3&y22=0/y30=1/y25=1:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy4&y22=0/y30=1/y25=1:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy5&y22=0/y30=1/y25=2:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy6&y22=0/y30=1/y25=4:S199T71;     [Generate random creature picture with TUM enabled]
+
+  !!VRy1&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy2&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy3&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy4&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy5&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy6&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!FU(Mixed_Neutrals_Picture_Slots):Py1/y2/y3/y4/y5/y6/y1; 
+!!en:;
+
+!!if&y21=7:;                            [If max 7 different creatures]
+  !!VRy1&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy2&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy3&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy4&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy5&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy6&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy7&y22=0:S2T121;                  [Generate random creature picture]
+  !!VRy1&y22=0/y30=1/y25=4:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy2&y22=0/y30=1/y25=0:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy3&y22=0/y30=1/y25=1:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy4&y22=0/y30=1/y25=0:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy5&y22=0/y30=1/y25=1:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy6&y22=0/y30=1/y25=2:S199T71;     [Generate random creature picture with TUM enabled]
+  !!VRy7&y22=0/y30=1/y25=4:S199T71;     [Generate random creature picture with TUM enabled]
+
+  !!VRy1&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy2&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy3&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy4&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy5&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy6&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!VRy7&y22=1:S1T13+y24;               [Generate random creature picture]
+  !!FU(Mixed_Neutrals_Picture_Slots):Py1/y2/y3/y4/y5/y6/y7; 
+!!en:;
+
+!?FU(Mixed_Neutrals_Picture_Slots);
+
+  !!DL47:A80/4/x1/1;                    [First Slot Picture]
+  !!DL47:A81/4/x2/1;
+  !!DL47:A82/4/x3/1;
+  !!DL47:A83/4/x4/1;
+  !!DL47:A84/4/x5/1;
+  !!DL47:A85/4/x6/1;
+  !!DL47:A86/4/x7/1;
+
+****************************************************************************************************
+
+
+****************************************************************************************************
+!?FU(Game Difficulty Options);
+!!FU(difm_LoadInitialOptions):P;        [Load Initial Settings]
+!!FU(difm_LoadOptionsFromIni):P;        [Try to load options from ini]
 !!SN:W^Option_Timer^/1;
 
 ******************************
@@ -994,7 +1640,7 @@ This Section handels the Dialogue 45 were you can Configure_AI (Right Side)
 !!DL13:H30722/49;                       [Set hint text for conformation button]
 !!DL13:S1;                              [show dialog]
 
-!!VRy10:S$day$;                         [Deactivate the options for this Day]
+!!VRy10:Sc;                             [Deactivate the options for this Day]
 !!SN&y10>0:W^Option_Timer^/y10;
 
 !!SN:W^Neutrals_Difficulty_Enabled^/?y1;
@@ -1014,9 +1660,9 @@ This Section handels the Dialogue 45 were you can Configure_AI (Right Side)
 !!SN&y1=5:T^Diff_Mod.AI_Level_Insane^/?z5;
 
 !!SN&y1>0:T^Diff_Mod.Difficulty_Enabled^/?s^Text^/^day^/y10/^level^/^%Z5^; [AI active]
-!!IF&y1>0:L^%S(Text)^;                  [Test]
+!!IF&y1>0:L^%S(Text)^;                  
 !!SN&y2=1:T^Diff_Mod.Difficulty_Enabled_1^/?s^Text^; [Neutrals active]
-!!IF&y2=1:L^%S(Text)^;                  [Test]
+!!IF&y2=1:L^%S(Text)^;                 
 
 !!SN:W^Stack_Size_Enable^/?y1;                    
 !!UN&y1>0:P232/1;                       [Activate Neutral Units script]
@@ -1035,16 +1681,36 @@ This Section handels the Dialogue 45 were you can Configure_AI (Right Side)
 
 !!SN:W^Random_Neutral_Hero^/?y6;
 !!if&y6>0:;
-!!UN:P72/1;                             [Activate Neutral Hero script]
-!!UN:P72/?v846;                         [check if option is enabled]
-!#TM41:S1/999/1/255;                    [init timer 41]
-!!IF&v846=1:V781/0;                     [init flag 781]
-!!IF&v846=1:V786/0;                     [786 set false for the first battle]
+  !!UN:P72/1;                           [Activate Neutral Hero script]
+  !!UN:P72/?v846;                       [check if option is enabled]
+  !#TM41:S1/999/1/255;                  [init timer 41]
+  !!IF&v846=1:V781/0;                   [init flag 781]
+  !!IF&v846=1:V786/0;                   [786 set false for the first battle]
+  !!VRh:S0;                             [see whether there is an unused color, fix by Archer30 for 8 players, thanks :)]
+  !!OW:I0/?f/?g;
+  !!VRh&g=1:S1;
+  !!OW:I1/?f/?g;
+  !!VRh&g=1:S1;
+  !!OW:I2/?f/?g;
+  !!VRh&g=1:S1;
+  !!OW:I3/?f/?g;
+  !!VRh&g=1:S1;
+  !!OW:I4/?f/?g;
+  !!VRh&g=1:S1;
+  !!OW:I5/?f/?g;
+  !!VRh&g=1:S1;
+  !!OW:I6/?f/?g;
+  !!VRh&g=1:S1;
+  !!OW:I7/?f/?g;
+  !!VRh&g=1:S1;
+  !!VRv846&h=0:S0;
 !!en:;
 
 !!SN:W^Stack_Exp_Rate^/?y8;
-!!UN&y8>0:P231/1;                       [Check if Neutral Stack Experience is enabled: v1]
+*!UN:P231/?y1;                          [Check Stack Exp option]
+!!UN&y8>0:P231/1;                       [Enable Neutral Stack Experience Option if player made a Stack Exp selection]
 
+!!FU(difm_SaveOptionsToIni):P;
 
 ********************************************************************************
 When clicking on System Icon at Adventure Map run options again
@@ -1053,15 +1719,17 @@ When clicking on System Icon at Adventure Map run options again
 !!CM:F?v3 I?v4 S?v5;                    [where we click and click subtype]
 !!if&v3=512/v4=10:;                     [if right click on System Icon  are clicked]
 
+!!VRy11:Sc;                             [Set y11 to current day]
 !!SN:W^Option_Timer^/?y10;
-!!IF&y10>=$day$:M^Try again tomorrow :P^;
-!!FU&y10>=$day$:E;                      [Deactivate the options for 1 Week]
+!!SN&y10>=y11:T^Diff_Mod.Try_Tomorrow^/?s^Text^;
+!!IF&y10>=y11:M^%S(Text)^;  
+!!FU&y10>=y11:E;                        [Deactivate the options for 1 Week]
 
 !!SN:T^Diff_Mod.Redo_Options^/?z1;      [Show Dialogue if Player activated the 10 skills option]
 !!IF:Q1^%Z1^;
 !!FU&-1:E;                              [Exit if denied]
 
-!!VRy10:S$day$;
+!!VRy10:Sc;
 !!SN:W^Option_Timer^/y10;
 
 !!FU(Game Difficulty Options):P;
@@ -1091,55 +1759,7 @@ When clicking on System Icon at Adventure Map run options again
 !!SN:W^Double_Neutral_Stacks^/0;        [Deactivate the Option]
 !!en:;
 
-
-**Initialize all to Zero at Map Start**
-!#SN:W^Double_Growth_Rate^/0;
-!#SN:W^Low_Level_Growth^/0;
-!#SN:W^Neutral_Growth_10000^/0;
-!#SN:W^Double_Neutral_Stacks^/0;
-!#SN:W^Health_Grow_Enable^/0;
-!#SN:W^Stack_Size_Enable^/0;
-
-!#SN:W^Guarded_Object_growth_Rate^/10;  [10%    Original Values  less is more]
-!#SN:W^Guarded_Object_Faktor^/3;        [*1,5 Faktor  Original Values  more is better]
-!#SN:W^Guarded_Object_Commander_Bonus_Att^/2; [Original Values  more is better]
-!#SN:W^Guarded_Object_Commander_Bonus_Dmg^/2; [Original Values]
-!#SN:W^Guarded_Object_Commander_Bonus_HP^/50; [Original Values]
-
-!#SN:W^Tougher_Karmic_Battles_on^/0;
-!#SN:W^Extra_Enchantments_on^/0;
-!#SN:W^Random_Neutral_Hero^/0;
-!#SN:W^More_Random_Stack_Size^/0;
-
-!#SN:W^Neutral_Stack_Weekly_Upgrade^/0;
-!#SN:W^Battle_Commander^/0;
-!#SN:W^Neutral_Stack_Uptier1^/0;
-!#SN:W^Neutral_Stack_Uptier2^/0;
-
-!#SN:W^Anzahl_Buffs^/0;
-!#SN:W^Random_Abilities^/0;
-!#SN:W^Anzahl_Abilities^/0;
-!#SN:W^Battle_Reward^/0;
-!#SN:W^Battle_Reward_Active^/0;
-!#SN:W^H3_Game_Difficulty^/0;
-!#SN:W^Exit_Pressed^/0;
-!#SN:W^Progressive_Difficulty^/0;
-!#SN:W^Difficulty_day^/0;
-
-!#SN:W^Stack_Size_Mod_L1^/0;            [Lvl 1]
-!#SN:W^Stack_Size_Mod_L2^/0;            [Lvl 2]
-!#SN:W^Stack_Size_Mod_L3^/0;            [Lvl 3]
-!#SN:W^Stack_Size_Mod_L4^/0;            [Lvl 4]
-!#SN:W^Stack_Size_Mod_L5^/0;            [Lvl 5]
-!#SN:W^Stack_Size_Mod_L6^/0;            [Lvl 6]
-!#SN:W^Stack_Size_Mod_L7^/0;            [Lvl 7]
-!#SN:W^Stack_Size_Mod_L8^/0;            [Lvl 8]
-
-!#SN:W^Advanced_Classes_Mod_Active^/?y1;
-*#IF&y1=1:M^Dont use Advanced Classes Mod together with this Difficulty Mod. Everything is included in AC mod already. Please disable one mod and restart game.^;
-!#FU(Game Difficulty Options):P;        [Run at Map Start]
-
-
+!!FU(difm_SaveOptionsToIni):P;         
 
 ********************************************************************************
 
@@ -1149,8 +1769,7 @@ When clicking on System Icon at Adventure Map run options again
 
 
 ********************************************************************************
-!?TM2&$once$=1/$day$=1;                 [At first day of Map]
-
+!?FU(OnEveryDay)&i^timerOnce^=1/i^timerDay^=1; [At first day of Map]
 !!SN:W^Neutral_Stack_Uptier1^/?y1;
 !!FU&y1=0:E;                            [Exit if no option selected]
 
@@ -1166,70 +1785,84 @@ When clicking on System Icon at Adventure Map run options again
 
 
 ********************************************************************************
-!?TM2&$once$=1/$day$>=1/$weekday$=$monday$; [Every Monday]
 
+!?FU(OnEveryDay)&i^timerOnce^=1/i^timerDay^>=1/i^timerWeekDay^=1; [Every Monday and Once]
 !!SN:W^Double_Growth_Rate^/?y50;
 !!SN:W^Low_Level_Growth^/?y51;
-!!SN:W^Neutral_Growth_10000^/?y52;
-*!SN:W^Neutral_Growth_50000^/?y53;
+!!SN:W^Neutral_Growth_10000^/?y52;  
 !!SN:W^Neutral_Stack_Weekly_Upgrade^/?y54;
 !!SN:W^Double_Neutral_Stacks^/?y55;
 
-!!FU&y50=0/y51=0/y52=0/y54=0/y55=0:E;   [Exit if no option selected]
+!!FU&y50=0/y51=0/y52=0/y54=0/y55=0:E; [Exit if no option selected]
 
 !!UN:U54/-1/?y2;
 !!VRv1:S-1;
 !!SN:W^Map_Monster_Count^/y2;
 
 !!DO(Diff_Funtion_86)/1/y2/1:P;
-!!SN:W^Map_Monster_Upgrade_Count^/0;    [Reset Count to zero]
-!!SN:W^Double_Neutral_Stacks^/0;
+!!SN:W^Map_Monster_Upgrade_Count^/0;  [Reset Count to zero]
+!!SN:W^Double_Neutral_Stacks^/0;      [Disable so it does not run every monday]
+
 
 ********************************************************************************
 !?FU(Diff_Funtion_86);
 
 !!VRv1&x16=1:S-1;
 !!UN:U54/-1/-1/1;
-!!MOv1/v2/v3:O?y1;
-!!FU&y1=1:E;                            [Exit Set/Check/Get the grow checkbox.]
+!!MOv1/v2/v3:O?y1 R?y40/1;             
+!!FU|y1=1/y40=0:E;                      [Exit if forbidden to Grow or if Set to always join]
 
+!!SN:W^Typhon_Third_Upgrade_Mod_Active^/?y99; [Check for TUM]
+!!VRy80:Sc;                             [Set to current day]
 !!SN:W^Neutral_Stack_Weekly_Upgrade^/?y60;
-!!if&y60=1/$day$>1:;
+!!if&y60=1/y80>1:;
 !!SN:W^Map_Monster_Count^/?y10;
 !!SN:W^Map_Monster_Upgrade_Count^/?y12;
 !!VRy11:Sy10:20 +1;                     [5%]
-!!OBv1/v2/v3:U?y2;
+!!OBv1/v2/v3:U?y2;                      [Monster Type]
 !!VRy20:S0R5;
-!!if&y2>=0/y2<=118/y12<y11/y20=1:;
-!!MOv1/v2/v3:G?y3;                      [Check Monster Numbers]
-!!MA:Uy2/?y4;                           [Check if upgradable]
-!!MA:Ly2/?y5;                           [Check Level 0-6]
-!!if&y4=-1:;
-!!VRy2:+1;
-!!MA:Ly2/?y6;
-!!if&y5=y6:;
-!!UN:Ov1/v2/v3/1;
-!!UN:Iv1/v2/v3/54/y2/54/y2/-1/0;
-!!VRy3&y3>4000:S4000;
-!!MOv1/v2/v3:Gy3;
-!!SN:W^Map_Monster_Upgrade_Count^/d+1;  [No More Upgrades than 6% per week of monsters on map]
-!!en:;
-!!en:;
+  !!if&y2>=0/y2<=118/y12<y11/y20=1:;
+  !!MOv1/v2/v3:G?y3;                    [Check Monster Numbers]
+  !!MA:Uy2/?y4;                         [Check if upgradable -2 means no]
+  !!MA:Ly2/?y5;                         [Check Level 0-6]
+    !!if&y4=-1/y99=0:;                  [For default upgrade (-1) without TUM]
+      !!VRy2:+1;
+      !!MA:Ly2/?y6;
+        !!if&y5=y6:;
+          !!UN:Ov1/v2/v3/1/0;
+          !!UN:Iv1/v2/v3/54/y2/54/y2/-1/0;
+          !!VRy3&y3>4000:S4000;
+          !!MOv1/v2/v3:Gy3;
+          !!SN:W^Map_Monster_Upgrade_Count^/d+1; [No More Upgrades than 6% per week of monsters on map]
+       !!en:;
+  !!en:;
+    !!if&y99=1:;
+    !!if|y4=-1/y4>0:;                   [For default upgrade (-1) TUM]
+      !!VRy2&y4=-1:+1;
+      !!VRy2&y4>0:Sy4;
+      !!MA:Ly2/?y6;
+        !!if&y5=y6:;
+          !!UN:Ov1/v2/v3/1/0;
+          !!UN:Iv1/v2/v3/54/y2/54/y2/-1/0;
+          !!VRy3&y3>4000:S4000;
+          !!MOv1/v2/v3:Gy3;
+          !!SN:W^Map_Monster_Upgrade_Count^/d+1; [No More Upgrades than 6% per week of monsters on map]
+       !!en:;
+  !!en:; 
+  !!en:;
 !!en:;
 !!en:;
 
 !!SN:W^Neutral_Growth_10000^/?y50;
-*!SN:W^Neutral_Growth_50000^/?y51;
 !!if&y50=1:;
 !!MOv1/v2/v3:G?y3;                      [Check Monster Numbers]
-!!VRy5:S$day$;
+!!VRy5:Sc;
 !!SN&y3=4000:W^Growth_X%V1_Y%V2_Z%V3^/?y4;
 !!SN&y3=4000/y4=0:W^Growth_X%V1_Y%V2_Z%V3^/y5;
-*!IF&y4=0/y3=4000:L^Now at %V1 %V2 %V3 and the day is %Y5^;
 !!en:;
 
 !!SN:W^Double_Growth_Rate^/?y52;
-!!if&y52=1/$day$>1:;
+!!if&y52=1/y80>1:;                      [If y52 bigger current day]
 !!MOv1/v2/v3:G?y3;                      [Check Monster Numbers]
 !!VRy6:Sy3 *5 :100 +y3;                 [+5% extra Growth]
 !!VRy6&y6>4000:S4000;
@@ -1237,7 +1870,7 @@ When clicking on System Icon at Adventure Map run options again
 !!en:;
 
 !!SN:W^Low_Level_Growth^/?y53;
-!!if&y53=1/$day$>1:;
+!!if&y53=1/y80>1:;
 !!OBv1/v2/v3:U?y1;
 !!MA:Ly1/?y2;                           [Check Level of Monsters]
 !!MOv1/v2/v3:G?y3;                      [Check Monster Numbers again]
@@ -1280,10 +1913,10 @@ When clicking on System Icon at Adventure Map run options again
 !!BA:H0/?y50;                           [Attacking Hero Number]
 !!SN:W^Growth_Happened^/y50;
 
-!!VRy5:S$day$;
+!!VRy5:Sc;
 
 !!VRy6:Sy5 -y4 :7 -1;                   [Weeks passed]
-!!FU&$day$<=7:E;                        [Exit in first Week]
+!!FU&y5<=7:E;                           [Exit in first Week]
 !!FU&y6=-1:E;                           [Exit if its the same week as it hit 4000. Growth first starts next week]
 
 !!DO(Diff_Funtion_88)/0/y6/1:P4000;
@@ -1381,8 +2014,6 @@ When clicking on System Icon at Adventure Map run options again
 !!FU&y4=0:E;                            [Exit if stack had not grown to 4000 before]
 !!MOv998/v999/v1000:G4000;
 
-*!IF:M^It happened Oo^;
-
 
 ********************************************************************************
 !?FU(Diff_Funtion_88);
@@ -1394,8 +2025,8 @@ When clicking on System Icon at Adventure Map run options again
 
 !!VRv1&x16=1:S-1;
 !!UN:U54/-1/-1/1;
-!!MOv1/v2/v3:O?y1;
-!!FU&y1=1:E;                            [Exit Set/Check/Get the grow checkbox.]
+!!MOv1/v2/v3:O?y1 R?y40/1;
+!!FU|y1=1/y40=0:E;                      [Exit Set/Check/Get the grow checkbox.]
 
 !!OBv1/v2/v3:U?y2;
 !!if&y2>=0/y2<120:;
@@ -1426,8 +2057,8 @@ When clicking on System Icon at Adventure Map run options again
 
 !!MA:Ly2/?y6;
 !!if&y5<y6/y5<5:;
-!!UN:Ov1/v2/v3;
-!!UN:Iv1/v2/v3/54/y2;
+!!UN:Ov1/v2/v3/1/0;
+!!UN:Iv1/v2/v3/54/y2/54/y2/-1/0;
 !!MOv1/v2/v3:Gy3;
 !!en:;
 
@@ -1435,8 +2066,8 @@ When clicking on System Icon at Adventure Map run options again
 !!VRy2:+1;                              [If not upgradable +1 Next Tier]
 !!MA:Ly2/?y6;
 !!if&y5<y6/y5<5:;
-!!UN:Ov1/v2/v3;
-!!UN:Iv1/v2/v3/54/y2;
+!!UN:Ov1/v2/v3/1/0;
+!!UN:Iv1/v2/v3/54/y2/54/y2/-1/0;
 !!MOv1/v2/v3:Gy3;
 !!en:;
 !!en:;
@@ -1479,7 +2110,6 @@ x1=Spell Number, x2=Duration, x3=Level
 !!VRx1&x1=49/j>0:S27;                   [If Undead and Spell is Mirth, change to Shield]
 
 !!BMx16:Mx1/x2/x3;                      [Apply Bonus Spell]
-
 
 
 ********************************************************************************
@@ -1655,20 +2285,27 @@ AI player gets Stronger Commander in battle depending on game difficutly
 
 !!SN:W^H3_Game_Difficulty^/?y5;
 
-!!VRy10&y5=1:S200;    !!VRy11&y5=1:S15;    
-!!VRy10&y5=2:S250;    !!VRy11&y5=2:S20;
-!!VRy10&y5=3:S300;    !!VRy11&y5=3:S25;
-!!VRy10&y5=4:S400;    !!VRy11&y5=4:S30;
-!!VRy10&y5=5:S500;    !!VRy11&y5=5:S40;
+[Health Points in y10] [Damage in y12] [Attack in y11] [Defence y13]
+!!VRy10&y5=1:S200; !!VRy12&y5=1:S150;   !!VRy11&y5=1:S10; !!VRy13&y5=1:S8; 
+!!VRy10&y5=2:S250; !!VRy12&y5=2:S175;   !!VRy11&y5=2:S15; !!VRy13&y5=2:S9;
+!!VRy10&y5=3:S300; !!VRy12&y5=3:S200;   !!VRy11&y5=3:S20; !!VRy13&y5=3:S10;
+!!VRy10&y5=4:S350; !!VRy12&y5=4:S225;   !!VRy11&y5=4:S25; !!VRy13&y5=4:S14;
+!!VRy10&y5=5:S400; !!VRy12&y5=5:S250;   !!VRy11&y5=5:S30; !!VRy13&y5=5:S18;
+
+!!VRy21:Sc;                             [Set Current Day]
+!!SN:W^AIPayday^/?y20;                  [Get day of Payday]
+!!if&y21<y20:;                          [If current gameday is smaller as payday apply only 50% of Bonus to commander]
+  !!VRy10::2; !!VRy11::2; !!VRy12::2; !!VRy13::2;
+!!en:;
 
 !!if&y2=1:;
- !!rei/21/31:;
+ !!re i/21/31:;
   !!BMi:T?y3;                           [Get Creature Type and Position]
     !!if&y3>=183/y3<=191:;              [If Commander found]
-    !!BMi:Ady11;                        [Set Attack]
+    !!BMi:Ady13;                        [Set Attack]
     !!BMi:Ddy11;                        [Set Defense]
     !!BMi:H?y5; !!VRy5:*y10:100; !!BMi:Hy5 E0; [Set Health and set casts to zero]
-    !!BMi:U1/?y5 U2/?y6; !!VRy5:*y10:100; !!VRy6:*y10:100; !!BMi:U1/y5 U2/y6; [Set Min+Max Damage]
+    !!BMi:U1/?y5 U2/?y6; !!VRy5:*y12:100; !!VRy6:*y12:100; !!BMi:U1/y5 U2/y6; [Set Min+Max Damage]
     !!en:;
  !!en:;    
 !!en:;
@@ -1677,13 +2314,13 @@ AI player gets Stronger Commander in battle depending on game difficutly
 !!OW:Iy1/?y2;                           [Get if AI or Human]
 
 !!if&y2=1:;
- !!rei/0/10:;
+ !!re i/0/10:;
   !!BMi:T?y3;                           [Get Creature Type and Position]
     !!if&y3>=174/y3<=182:;              [If Commander found]
-    !!BMi:Ady11;                        [Set Attack]
+    !!BMi:Ady13;                        [Set Attack]
     !!BMi:Ddy11;                        [Set Defense]
     !!BMi:H?y5; !!VRy5:*y10:100; !!BMi:Hy5 E0; [Set Health and set casts to zero]
-    !!BMi:U1/?y5 U2/?y6; !!VRy5:*y10:100; !!VRy6:*y10:100; !!BMi:U1/y5 U2/y6; [Set Min+Max Damage]
+    !!BMi:U1/?y5 U2/?y6; !!VRy5:*y12:100; !!VRy6:*y12:100; !!BMi:U1/y5 U2/y6; [Set Min+Max Damage]
     !!en:;
   !!en:;
 !!en:;
@@ -1698,10 +2335,10 @@ AI player gets Stronger Commander in battle depending on game difficutly
 
 !!if&y1=1/y2>182/y2<192/y3<>8:;         [If commander found] [Skip Poistion 8 in Creature Banks]
 
-!!VRy5:S$day$;
-!!VRy6:S$weeks$;
+!!VRy5:Sc;                              [Set to days]
+!!VRy6:Sc+6:7;                          [Set weeks]
 !!VRy7:Sx2*150;                         [Hero level mal 150]
-!!VRy8:S$weeks$*100;                    [Week mal 100]
+!!VRy8:Sc+6:7*100;                      [Week mal 100]
 !!VRy9:Sx2*5;                           [Hero level mal 5 for Damage]
 
 **Calculate the Strength of Battle Commander**
@@ -1754,10 +2391,10 @@ AI player gets Stronger Commander in battle depending on game difficutly
 !!FU&y5<10:E;                           [Exit if Hero is not lvl 10]
 
 !!VRy6:S0T99;                           [16% Chance for Hero Level 10-15]
-!!VRy6&y5>15:S0T85;                     [19% Chance for Hero Level 16-25]
-!!VRy6&y5>25:S0T80;                     [20%Ch ance for Hero Level 26-35]
-!!VRy6&y5>35:S0T75;                     [22% Chance for Hero Level 36-45]
-!!VRy6&y5>45:S0T70;                     [23% Chance for Hero Level 46-100]
+!!VRy6&y5>15:S0T87;                     [17% Chance for Hero Level 16-25]
+!!VRy6&y5>25:S0T83;                     [18% Chance for Hero Level 26-35]
+!!VRy6&y5>35:S0T80;                     [19% Chance for Hero Level 36-45]
+!!VRy6&y5>45:S0T75;                     [20% Chance for Hero Level 46-100]
 
 *!VRy6:S1; TEST
 
@@ -1914,23 +2551,25 @@ AI player gets Stronger Commander in battle depending on game difficutly
 ********************************************************************************
 Increases one of the Primary Skills of any AI Hero when level up by:
 
-Easy/Normal-     100% chance of 0 Random Point
+Easy/Normal-      50% chance of 1 Random Point
 Normal/Hard-     100% chance of 1 Random Point
-Hard/Expert-     100% chance of 2 Random Points
+Hard/Expert-     100% chance of 1 or 2 Random Points
 Extreme-         100% chance of 2 Random Points
-Insane-          100% chance of 2 Random Points
+Insane-          100% chance of 2 or 3 Random Points
 
 !?HL-1&-1000;
 
 !!HE-1:N?y20;
 !!SN:W^H3_Game_Difficulty^/?y1; !!FU&y1=0:E; [Get game difficulty, Exit if Easy]
-!!SN:W^AIPayday^/?y2; !!FU&y2>$day$:E;  [Exit if AI Payday is not yet reached]
+!!VRy5:Sc;
+!!SN:W^AIPayday^/?y2; !!FU&y2>y5:E;     [Exit if AI Payday is not yet reached]
 
-!!VRy5&y1=1:S0;                         [Easy]
+!!VRy99:S0R1;                           [Make a 50/50 coinflip]
+!!VRy5&y1=1:S0; !!VRy5&y1=1/y99=1:S1;   [Easy]
 !!VRy5&y1=2:S1;                         [Normal]
-!!VRy5&y1=3:S1;                         [Hard]
+!!VRy5&y1=3:S1; !!VRy5&y1=3/y99=1:S2;   [Hard]
 !!VRy5&y1=4:S2;                         [Extreme]
-!!VRy5&y1=5:S2;                         [Insane]
+!!VRy5&y1=5:S2; !!VRy5&y1=5/y99=1:S3;   [Insane]
 
 !!HEy20:O?y2; !!FU&y2<0:E; !!FU&y5=0:E; [Exit if no hero owner or Easy selected]
 
@@ -1948,12 +2587,11 @@ Insane-          100% chance of 2 Random Points
 
 ********************************************************************************
 Give AI Player Ressources daily depending on selected difficulty
-!#TM81:S1/999/1/255;                    [Trigger every day for everyone]
-
-!?TM81;
+!?FU(OnEveryDay);  [Trigger every day for everyone]
 
 !!SN:W^H3_Game_Difficulty^/?y10; !!FU&y10=0:E; [Get game difficulty Exit if zero]
-!!SN:W^AIPayday^/?y1; !!FU&y1>$day$:E;  [Exit if AI Payday is not yet reached]
+!!VRy5:Sc;
+!!SN:W^AIPayday^/?y1; !!FU&y1>y5:E;     [Exit if AI Payday is not yet reached]
 
 !!VRy1:Sc0;                             [get day]
 !!OW:C?y1;                              [Check player]
@@ -1977,19 +2615,20 @@ Give AI Player Ressources daily depending on selected difficulty
 
 ********************************************************************************
 Gives AI creatures,spellpoints, movement and experience daily
-!?TM2&$once$=1/$AI$=0/$day$>=1;         [Once a day, starting at day 1]
 
-!!SN:W^AIPayday^/?y1; !!FU&y1>$day$:E;  [Exit if AI Payday is not yet reached]
-!!SN&$day$=y1/$day$>1:T^Diff_Mod.Payday_Message^/?z-2;
-!!IF&$day$=y1/$day$>1:L^%Z-2{~}^;
+!?FU(OnEveryDay)&i^timerOnce^=1/i^timerDay^>=1/i^timerIsAi^=0; [Every day, Once and only Human]
+
+!!SN:W^AIPayday^/?y1; !!FU&y1>x1:E;   [Exit if AI Payday is not yet reached]
+!!SN&i^timerDay^=y1/i^timerDay^>1:T^Diff_Mod.Payday_Message^/?z-2;
+!!IF&i^timerDay^=y1/i^timerDay^>1:L^%Z-2{~}^;
 
 !!SN:W^Progressive_Difficulty^/?y2;
 !!SN:W^Difficulty_day^/?y1;
 
-!!FU(Progressive_Difficulty)&$day$=y1/y2=1:P; [Run prog increase if option is selected and day equals payday]
+!!FU(Progressive_Difficulty)&i^timerDay^=y1/y2=1:P; [Run prog increase if option is selected and day equals payday]
 
 !!SN:W^H3_Game_Difficulty^/?y1;
-!!DO(AI_Increase_Loop)/0/155/1&y1>0:P;  [loop through heroes]
+!!DO(AI_Increase_Loop)/0/155/1&y1>0:P;[loop through heroes]
 
 
 !?FU(AI_Increase_Loop);
@@ -1998,9 +2637,9 @@ Gives AI creatures,spellpoints, movement and experience daily
 !!FU&y1=-1:E;                           [Exit if none]
 !!OW:Iy1/?y2;                           [AI 1 / Human 0]
 !!OW:Iy1/y2/?y3;                        [Check if player killed 1=killed 0=alive]
-!!FU|y2=0/y3=1:E;                       [Exit if Human or player Killed  Test]
+!!FU|y2=0/y3=1:E;                       [Exit if Human or player Killed]
 
-!!VRy10:Sc0;                            [get day]
+!!VRy10:Sc;                             [get day]
 !!VRy10:%2;                             [Modulo 2]
 !!SN:W^H3_Game_Difficulty^/?y5;   !!VRy10&y5=5:S0; [If Insane Difficulty Set creature Reward to daily]
 
@@ -2030,7 +2669,7 @@ x1=hero, x2=owner
 !!SN:W^AI_Bonus_Creature_lvl_6^/y16;    [Level 6]
 !!SN:W^AI_Bonus_Creature_lvl_7^/y17;    [Level 7]
 
-!!rei/0/6:;
+!!re i/0/6:;
 !!HEx1:C0/i/?y21/?y22;                  [Check creatures to Hero Army]
 !!if&y21>=0/y22>0:;
 !!MA:Ly21/?y30;                         [Get level of Monster]
@@ -2097,6 +2736,115 @@ x1=hero, x2=owner
 !!IF:M^%Z2^;
 
 
+********************************************************************************
+Increase starting troop of AI player to handle possible bigger stacks at map start
+Increase the available troops to buy in castles of AI
+!?FU(OnEveryDay)&i^timerOnce^=1/i^timerDay^=1;  [At first day of Map]
+!!SN:W^AI_Compensation^/?y1; !!FU&y1=0:E; [Exit if option is disabled]
+!!re y1/0/155:;
+  !!HEy1:O?y2;                        [Checke Hero Owner]
+  !!OW:Iy2/?y3;                       [Check if AI (1)]
+  !!if&y2>=0/y3=1:;                   [If AI and has a Owner]
+    !!re i/0/6:;
+    !!HEy1:C0/i/?y21/?y22;            [Check creatures to Hero Army]
+    !!if&y21>=0/y22>0:;
+      !!MA:Ly21/?y30;                 [Get level of Monster]
+      !!SN:W^Additionals_troops^/?y9; [Get new value in y1]
+      *!SN:W^Double_Neutral_Stacks^/?y20;
+      !!VRy10&y9=0:S20;               [None]
+      !!VRy10&y9=1:S25;               [Easy]
+      !!VRy10&y9=2:S30;               [Normal]
+      !!VRy10&y9=3:S40;               [Hard]
+      !!VRy10&y9=4:S50;               [Extreme]
+      !!VRy10&y9=5:S60;               [Insane]
+      *!VRy10&y20=1:+30;                [Add additional 30 troops of double stack size was enabled]
+      !!HEy1&y21>=0/y22>0/y22<100/y30<3:C0/i/y21/dy10; [Add creatures to Hero Army]
+    !!en:;
+  !!en:;
+  !!en:;
+!!en:;
+
+!!VRy30&y9=0:S10; !!VRy31&y9=0:S10; !!VRy32&y9=0:S5;
+!!VRy30&y9=1:S20; !!VRy31&y9=1:S15; !!VRy32&y9=1:S6;
+!!VRy30&y9=2:S30; !!VRy31&y9=2:S20; !!VRy32&y9=2:S7;
+!!VRy30&y9=3:S40; !!VRy31&y9=3:S25; !!VRy32&y9=3:S8;
+!!VRy30&y9=4:S50; !!VRy31&y9=4:S30; !!VRy32&y9=4:S9;
+!!VRy30&y9=5:S60; !!VRy31&y9=5:S35; !!VRy32&y9=5:S10;
+
+!!UN:U98/-1/?y2;                      [Get the Number of total Towns on the map in y2]
+!!VRv1:S-1;                           [Search Index]
+!!re i/1/y2:;
+  !!UN:U98/-1/-1/1;                   [Get Coordinates of Town]
+  !!CAv1/v2/v3:O?y3;                  [Check Town owner]
+  !!OW&y3>=0:Iy3/?y4;                 [Check if AI (1)]
+  !!if&y3>=0/y4=1:;                   [If town has a owner and is from AI 1]
+    !!CAv1/v2/v3:B3/37;               [Check for Level 1 building]
+    !!CAv1/v2/v3&1:M1/0/d0/dy30;    
+    !!CAv1/v2/v3&-1:B3/30;            [dwelling 1]
+    !!CAv1/v2/v3&1:M1/0/dy30/d0;    
+
+    !!CAv1/v2/v3:B3/38;               [Check for Level 2 building]
+    !!CAv1/v2/v3&1:M1/1/d0/dy31;
+    !!CAv1/v2/v3&-1:B3/31;            [dwelling 2]
+    !!CAv1/v2/v3&1:M1/1/dy31/d0;
+
+    !!CAv1/v2/v3:B3/39;               [Check for Level 3 building]
+    !!CAv1/v2/v3&1:M1/2/d0/dy32;
+    !!CAv1/v2/v3&-1:B3/32;            [dwelling 3]
+    !!CAv1/v2/v3&1:M1/2/dy32/d0;
+  !!en:;
+!!en:; 
+
+
+********************************************************************************
+Cycles through all heroes every day once and unlearns DD from every AI hero and learns Fly instead
+!?FU(OnEveryDay)&i^timerOnce^=1/i^timerDay^>=1;  [Every day once]
+!!SN:W^AI_has_no_DD^/?y1; !!FU&y1=0:E;[Exit if option is disabled]
+!!re y1/0/155:;
+  !!HEy1:O?y2;                        [Checke Hero Owner]
+  !!OW:Iy2/?y3;                       [Check if AI (1)]
+  !!if&y2>=0/y3=1:;                   [If AI and has a Owner]
+    !!HEy1:M8/?y10;                   [Check for DD]
+    !!HEy1&y10=1:M8/0 M6/1;           [Unlearn Dimension Door and learn Fly instead]
+  !!en:;
+!!en:;
+
+
+********************************************************************************
+AI gets 50% of combat loses recovered 
+
+!?FU(OnBeforeBattleUniversal)&-1000;
+
+!!SN:W^AI_Recover_Losses^/?y1; !!FU&y1=0:E; [Exit if option is disabled]
+!!BA:H0/?y1;                            [Attacker Hero Number]
+!!FU&y1<0:E;                            [Exit if no Hero]
+
+!!HEy1:O?y2;                            [get owner of this hero]
+!!OW:Iy2/?y3;                           [Check if AI (1)]
+!!FU|y2=-1/y3=0:E;                      [Exit if no owner of is from Human]
+
+!!SN:W^AI_Hero_Attacker_Owner^/y2;      [Check Owner Before Fight]
+
+!!re i/0/6:;                            [cycle hero troops]
+!!HEy1:C0/i/?y2/?y3; !!SN:W^ACM_AI_Slot_Type_%Vi^/y2; !!SN:W^ACM_AI_Slot_Number_%Vi^/y3; [save slots]
+!!en:;
+
+
+!?FU(OnAfterBattleUniversal)&-1000;
+
+!!SN:W^AI_Recover_Losses^/?y1; !!FU&y1=0:E; [Exit if option is disabled]
+!!BA:H0/?y1;                            [Attacker Hero Number]
+!!FU&y1<0:E;                            [Exit if no Hero]
+!!HEy1:O?y2;                            [get owner of this hero]
+!!SN:W^AI_Hero_Attacker_Owner^/?y3;     [Check Owner Before Fight]
+!!FU&y2<>y3:E;                          [Prevent to give Bonus if retreat]
+!!FU&y2=-1:E;                           [Exit if no owner]
+
+!!re i/0/6:;                            [cycle hero troops]
+  !!HEy1:C0/i/?y2/?y3; !!SN:W^ACM_AI_Slot_Type_%Vi^/?y20; !!SN:W^ACM_AI_Slot_Number_%Vi^/?y30; [compare with old value]
+  !!VRy5:Sy30-y3:2+1;                   [Recovers 50% of losses rounded up]
+  !!HEy1&y2=y20/y3<y30/y2<>1/y5>0:C0/i/?y2/dy5; [add troops to AI again]
+!!en:;
 
 *********************************The END****************************************
 
@@ -2112,11 +2860,14 @@ If possible it will always equip the best artifact.
 
 ********************************************************************************
 *Daily Tigger, runs only once per game day for all AI Heroes*
-!?TM2&$once$=1/$AI$=0;
+!?FU(OnEveryDay)&i^timerOnce^=1;        [Every day once]
 
+!!SN:W^AI_Artifacts_Eq^/?y1;            [Check for option]
+!!FU&y1=0:E;                            [Exit if not active]
 !!IF:V761/1;                            [Fix for ACM sets, temporarly disables the Equip/Unequip proces]
 !!DO(AI_Hero_Artifacts)/0/155/1:P;      [loop through heroes]
 !!IF:V761/0;
+
 
 !?FU(AI_Hero_Artifacts);
 *x16=Hero Numbers
@@ -2125,7 +2876,6 @@ If possible it will always equip the best artifact.
 !!FU&y1=-1:E;                           [Exit if none]
 !!OW:Iy1/?y2;                           [Check if AI (1)]
 !!FU&y2=0:E;                            [Exit if human]
-
 
 
 ********************************************************************************
@@ -2234,9 +2984,6 @@ Right Hand Slot
 !!en:;
 
 
-
-
-
 ********************************************************************************
 Left Hand Slot
 (10)
@@ -2325,7 +3072,6 @@ Left Hand Slot
 !!en:;
 
 
-
 ********************************************************************************
 Head Slot:
 (11)
@@ -2340,7 +3086,7 @@ Head Slot:
 44 Crown of Dragontooth
 123 Sea Captain's Hat
 124 Spellbinder's Hat
-149 Helm of Immortality
+149 Helm of Immortality (not considered)
 
 !!HEx16:A2/20/?y10/?y11;                [20 Skull Helmet]
 !!if&y10=1/y11=0:;
@@ -2418,7 +3164,6 @@ Head Slot:
 !!DO(AI_Head)/149/149/1:Px16;           [149 Helm of Immortality]
 !!HEx16:A-36; !!HEx16:A4/36;
 !!en:;
-
 
 
 ********************************************************************************
@@ -2501,7 +3246,6 @@ Torso Slot:
 !!DO(AI_Torso)/147/147/1:Px16;
 !!HEx16:A-30; !!HEx16:A4/30;
 !!en:;
-
 
 
 ********************************************************************************
@@ -2813,88 +3557,205 @@ x1=Hero Number, x2 or x16=Artifacts Numbers,
 
 
 ****************************************************************************************************
-
 TEST  Disabled
 
 !?HM-1;
-!!SN:W^Random_Abilities^/0;             [Test  Activate]
+!!SN:W^Random_Abilities^/0;             [Test  Activate to disable due to ERA bug EA stack is not cleared after combat]
 !!SN:W^Anzahl_Abilities^/0;             [Test  4 Random Abilities]
 
 
-!?BG1;
+*?BG1;
 *Reset HP by appliying EA to stacks at battle end
 
-!!FU:E;
+*!FU:E;
+*!SN:W^Anzahl_Abilities^/?y1;
+*!FU&y1=0:E;                            [Exit if Option was not Selected]
 
-!!SN:W^Anzahl_Abilities^/?y1;
-!!FU&y1=0:E;                            [Exit if Option was not Selected]
-
-!!BU:C?y1;
-!!FU&y1<>1:E;                           [When Battle Ends]
-
-!!DO(Fix_EA_Shit)/21/41/1:P;            [Run Loop through all creatures on Battlefield]
-
-
+*!BU:C?y1;
+*!FU&y1<>1:E;                           [When Battle Ends]
+*!DO(Fix_EA_Shit)/21/41/1:P;            [Run Loop through all creatures on Battlefield]
 
 **Fix function
-!?FU(Fix_EA_Shit);              
+*?FU(Fix_EA_Shit);              
 
-!!VRy2:Sx16;                           
-!!VRy2:+1*-1;                     
-!!EAy2:B13/1/102/68/1/1/1/1/1/1/1/1/1/1/1; [Battle Monster]
-
-
-
-Hero equippes all Artifacts that he finds in fights
-
-!?FU(OnAfterBattleUniversal)&1000;      [After any fight]
-
-!!BA:H0/?y1;                            [Get attacking Hero Number]
-!!SN:W^after_any_fight_click^/y1;
-
-
-!?CM5;
-
-!!FU:E;                                 [Exit]
-
-!!CM:S?v3; !!FU&v3<>12:E;
-
-!!SN:W^after_any_fight_click^/?y1;
-!!SN:W^after_any_fight_click^/-1;
-!!FU&y1=-1:E;
-!!DO(Artifact_Equipment)/1/170/1&y1>=0/y1<=155:Py1;
-
-!!HEy1:A2/36/?y10/?y11;                 [Helm of Heavenly Enlightment]
-!!IF:M^y10 is%Y10 and y11 is%Y11^;
+*!VRy2:Sx16;                           
+*!VRy2:+1*-1;                     
+*!EAy2:B13/1/102/68/1/1/1/1/1/1/1/1/1/1/1; [Battle Monster]
 
 
 
-!?FU(Artifact_Equipment);
-x1=Hero Number, x16=Artifacts Numbers
+****************************************************************************************************
+!?FU(Set_Stack_Size_Mod);
 
-!!HEx1:A2/x16/?y10/?y11;
-!!FU&y11=1:E;                           [Exit if already equipped]
-!!HEx1&y10=1/y11=0:A4/x16;              [Equip all gained artifacts if possible, otherwiese put to backpack]
-!!HEx1:A2/x16/?y12/?y13;                [Check again]
-!!HEx1&y10=1/y12=2:A3/x16/1/0;          [Remove if artifact was added]
+!!SN&x1>=1:W^Stack_Size_Enable^/1;      [Actiavte So it can run more than once]
+!!SN&x1=0:W^Stack_Size_Enable^/0;       [Deavtivate Stack_Size_Modification]
+
+!!if&x1=1:;                             [Easy]
+!!SN:W^Stack_Size_Mod_L1^/20;           [Lvl 1]
+!!SN:W^Stack_Size_Mod_L2^/18;           [Lvl 2]
+!!SN:W^Stack_Size_Mod_L3^/15;           [Lvl 3]
+!!SN:W^Stack_Size_Mod_L4^/12;           [Lvl 4]
+!!SN:W^Stack_Size_Mod_L5^/8;            [Lvl 5]
+!!SN:W^Stack_Size_Mod_L6^/6;            [Lvl 6]
+!!SN:W^Stack_Size_Mod_L7^/5;            [Lvl 7]
+!!SN:W^Stack_Size_Mod_L8^/3;            [Lvl 8]
+!!en:;
+
+!!if&x1=2:;                             [Normal]
+!!SN:W^Stack_Size_Mod_L1^/30;           [Lvl 1]
+!!SN:W^Stack_Size_Mod_L2^/25;           [Lvl 2]
+!!SN:W^Stack_Size_Mod_L3^/20;           [Lvl 3]
+!!SN:W^Stack_Size_Mod_L4^/15;           [Lvl 4]
+!!SN:W^Stack_Size_Mod_L5^/10;           [Lvl 5]
+!!SN:W^Stack_Size_Mod_L6^/8;            [Lvl 6]
+!!SN:W^Stack_Size_Mod_L7^/6;            [Lvl 7]
+!!SN:W^Stack_Size_Mod_L8^/4;            [Lvl 8]
+!!en:;
+
+!!if&x1=3:;                             [Hard]
+!!SN:W^Stack_Size_Mod_L1^/40;           [Lvl 1]
+!!SN:W^Stack_Size_Mod_L2^/35;           [Lvl 2]
+!!SN:W^Stack_Size_Mod_L3^/30;           [Lvl 3]
+!!SN:W^Stack_Size_Mod_L4^/25;           [Lvl 4]
+!!SN:W^Stack_Size_Mod_L5^/20;           [Lvl 5]
+!!SN:W^Stack_Size_Mod_L6^/15;           [Lvl 6]
+!!SN:W^Stack_Size_Mod_L7^/10;           [Lvl 7]
+!!SN:W^Stack_Size_Mod_L8^/8;            [Lvl 8]
+!!en:;
+
+!!if&x1=4:;                             [Extreme]
+!!SN:W^Stack_Size_Mod_L1^/70;           [Lvl 1]
+!!SN:W^Stack_Size_Mod_L2^/55;           [Lvl 2]
+!!SN:W^Stack_Size_Mod_L3^/50;           [Lvl 3]
+!!SN:W^Stack_Size_Mod_L4^/45;           [Lvl 4]
+!!SN:W^Stack_Size_Mod_L5^/40;           [Lvl 5]
+!!SN:W^Stack_Size_Mod_L6^/30;           [Lvl 6]
+!!SN:W^Stack_Size_Mod_L7^/20;           [Lvl 7]
+!!SN:W^Stack_Size_Mod_L8^/12;           [Lvl 8]
+!!en:;
+
+!!if&x1=5:;                             [Insane]
+!!SN:W^Stack_Size_Mod_L1^/120;          [Lvl 1]
+!!SN:W^Stack_Size_Mod_L2^/80;           [Lvl 2]
+!!SN:W^Stack_Size_Mod_L3^/70;           [Lvl 3]
+!!SN:W^Stack_Size_Mod_L4^/60;           [Lvl 4]
+!!SN:W^Stack_Size_Mod_L5^/50;           [Lvl 5]
+!!SN:W^Stack_Size_Mod_L6^/40;           [Lvl 6]
+!!SN:W^Stack_Size_Mod_L7^/30;           [Lvl 7]
+!!SN:W^Stack_Size_Mod_L8^/20;           [Lvl 8]
+!!en:;
 
 
-!?HM-1;                                 [Test]
+!?FU(Set_Guarded_Object_Mod);
 
-!!SS11:E3/1500;
+!!if&x1=0:;                             [Default]
+!!SN:W^Guarded_Object_growth_Rate^/10;  [10%    Original Values  less is more]
+!!SN:W^Guarded_Object_Faktor^/3;        [*1,5 Faktor  Original Values  more is better]
+!!SN:W^Guarded_Object_Commander_Bonus_Att^/2; [Original Values  more is better]
+!!SN:W^Guarded_Object_Commander_Bonus_Dmg^/2; [Original Values  more is better]
+!!SN:W^Guarded_Object_Commander_Bonus_HP^/50; [Original Values  more is better]
+!!en:;
 
-!?FU(OnGameEnter);                      [At gamestart]
-;** Berserker radius at 0\1\2\3 fire magic rank. 0 - Set to 1 Hex, 1 set to 3 Hex
-;** If you set the value to more than 2 there will be graphical bugs and will only work if you select the target explicitely
-!!UN:C6562420/1/0;                      [None]
-!!UN:C6562424/1/0;                      [Basic]
-!!UN:C6562428/1/0;                      [Advanced 0 - Set to 1 Hex]
-!!UN:C6562432/1/1;                      [Expert 1 - Set to 3 Hex]
+!!if&x1=1:;                             [Normal]
+!!SN:W^Guarded_Object_growth_Rate^/9;   [11%]
+!!SN:W^Guarded_Object_Faktor^/3;        [*1,5 Faktor]
+!!SN:W^Guarded_Object_Commander_Bonus_Att^/3;  
+!!SN:W^Guarded_Object_Commander_Bonus_Dmg^/8;  
+!!SN:W^Guarded_Object_Commander_Bonus_HP^/150; 
+!!en:;
 
-*give damage flag to fire wall and land mines
-!!SS13:F?y1;
-!!VRy1:|512;
-!!SS13:Fy1;
-!!SS11:F?y1;
-!!VRy1:|512;
-!!SS11:Fy1;
+!!if&x1=2:;                             [Hard]
+!!SN:W^Guarded_Object_growth_Rate^/7;   [15%       Growth Rate less is more]
+!!SN:W^Guarded_Object_Faktor^/3;        [*2 Faktor      Faktor more is better]
+!!SN:W^Guarded_Object_Commander_Bonus_Att^/4; [more is better  Att per Week]
+!!SN:W^Guarded_Object_Commander_Bonus_Dmg^/10; [High Dmg per Week]
+!!SN:W^Guarded_Object_Commander_Bonus_HP^/200; [Health per Week]
+!!en:;
+
+!!if&x1=3:;                             [Expert]
+!!SN:W^Guarded_Object_growth_Rate^/5;   [20%        Growth Rate less is more]
+!!SN:W^Guarded_Object_Faktor^/4;        [*2,5 Faktor     Faktor more is better]
+!!SN:W^Guarded_Object_Commander_Bonus_Att^/5; [more is better  Att per Week]
+!!SN:W^Guarded_Object_Commander_Bonus_Dmg^/15; [High Dmg per Week]
+!!SN:W^Guarded_Object_Commander_Bonus_HP^/250; [Health per Week]
+!!en:;
+
+!!if&x1=4:;                             [Extreme]
+!!SN:W^Guarded_Object_growth_Rate^/3;   [100%       Growth Rate less is more]
+!!SN:W^Guarded_Object_Faktor^/4;        [*3 Faktor       Faktor more is better]
+!!SN:W^Guarded_Object_Commander_Bonus_Att^/10; [more is better  Att per Week]
+!!SN:W^Guarded_Object_Commander_Bonus_Dmg^/50; [High Dmg per Week]
+!!SN:W^Guarded_Object_Commander_Bonus_HP^/400; [Health per Week]
+!!en:;
+
+!!if&x1=5:;                             [Impossible]
+!!SN:W^Guarded_Object_growth_Rate^/3;   [100% Growth Rate less is more]
+!!SN:W^Guarded_Object_Faktor^/5;        [*3 Faktor Faktor more is better]
+!!SN:W^Guarded_Object_Commander_Bonus_Att^/15; [more is better  Att per Week]
+!!SN:W^Guarded_Object_Commander_Bonus_Dmg^/100; [High Dmg per Week]
+!!SN:W^Guarded_Object_Commander_Bonus_HP^/500; [Health per Week]
+!!en:;
+
+
+
+
+****************************************************************************************************
+**Initialize all to Zero at Map Start**
+
+!#SN:W^Double_Growth_Rate^/0;
+!#SN:W^Low_Level_Growth^/0;
+!#SN:W^Neutral_Growth_10000^/0;
+!#SN:W^Double_Neutral_Stacks^/0;
+!#SN:W^Health_Grow_Enable^/0;
+!#SN:W^Stack_Size_Enable^/0;
+
+!#SN:W^Guarded_Object_growth_Rate^/10;  [10%    Original Values  less is more]
+!#SN:W^Guarded_Object_Faktor^/3;        [*1,5 Faktor  Original Values  more is better]
+!#SN:W^Guarded_Object_Commander_Bonus_Att^/2; [Original Values  more is better]
+!#SN:W^Guarded_Object_Commander_Bonus_Dmg^/2; [Original Values]
+!#SN:W^Guarded_Object_Commander_Bonus_HP^/50; [Original Values]
+
+!#SN:W^Stack_Exp_Rate^/0;
+
+!#SN:W^Tougher_Karmic_Battles_on^/0;
+!#SN:W^Extra_Enchantments_on^/0;
+!#SN:W^Random_Neutral_Hero^/0;
+!#SN:W^More_Random_Stack_Size^/0;
+
+!#SN:W^Neutral_Stack_Weekly_Upgrade^/0;
+!#SN:W^Battle_Commander^/0;
+!#SN:W^Neutral_Stack_Uptier1^/0;
+!#SN:W^Neutral_Stack_Uptier2^/0;
+
+!#SN:W^Anzahl_Buffs^/0;
+!#SN:W^Random_Abilities^/0;
+!#SN:W^Anzahl_Abilities^/0;
+!#SN:W^Battle_Reward^/0;
+!#SN:W^Battle_Reward_Active^/0;
+!#SN:W^H3_Game_Difficulty^/0;
+!#SN:W^Exit_Pressed^/0;                 
+!#SN:W^Progressive_Difficulty^/0;
+!#SN:W^Difficulty_day^/0;
+
+!#SN:W^Stack_Size_Mod_L1^/0;            [Lvl 1]
+!#SN:W^Stack_Size_Mod_L2^/0;            [Lvl 2]
+!#SN:W^Stack_Size_Mod_L3^/0;            [Lvl 3]
+!#SN:W^Stack_Size_Mod_L4^/0;            [Lvl 4]
+!#SN:W^Stack_Size_Mod_L5^/0;            [Lvl 5]
+!#SN:W^Stack_Size_Mod_L6^/0;            [Lvl 6]
+!#SN:W^Stack_Size_Mod_L7^/0;            [Lvl 7]
+!#SN:W^Stack_Size_Mod_L8^/0;            [Lvl 8]
+
+!#SN:W^AI_Recover_Losses^/1;            [Check if options have already been activated]
+!#SN:W^AI_Compensation^/1;        
+!#SN:W^AI_Useful_Spells^/0; 
+!#SN:W^AI_has_no_DD^/0;
+!#SN:W^AI_Artifacts_Eq^/1;              [Artifact mod is switched on by default]
+
+!#SN:F^PluginExists^/^amethyst2_4^;     [Check for 10 SSkill Plugin]
+!#SN&v1=1:W^Typhon_Third_Upgrade_Mod_Active^/1; [Check for Third Upgrade Mod]
+!#SN&v1=1:W^TUM_registerRegularMonsters^/1; [Enable new Third Upgrade Mod Creatures option when mod is active]
+
+!?PI;
+!!FU(Game Difficulty Options):P;        [Run at Map Start]
+

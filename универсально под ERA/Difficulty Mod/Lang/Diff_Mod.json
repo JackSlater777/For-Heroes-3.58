@@ -21,18 +21,19 @@
 
   			"cancel_button_hint":		   		"Reset and Exit",			
 			
-			"RightHint":						"Settings for AI-difficulty
+			"RightHint":						"{Settings for AI-difficulty}
 			
 												Here you can set options to increase the strength of the computer player by granting various bonuses. All options can also be accessed and set during the game by right-clicking the system icon on the adventure map.", 
 			
-			"LeftHint":							"Settings for Neutrals-difficulty
+			"LeftHint":							"{Settings for Neutrals-difficulty}
 			
 												Here you can set options to increase the strength of neutral units on the map. All options can also be accessed and set during the game by right-clicking the system icon on the adventure map.",
 
 
 			"Bonus1":							"{Easy - Bonus reward for any computer player}:
 						
-													
+												Gives AI hero 50% chance of +1 random primary skill point when level up.												
+												
 												Gives AI player ressources daily 2000 Gold and 1 of every ressources.
 												
 												Gives AI 5 spell points, 200 movement and 500 experience daily.
@@ -57,7 +58,7 @@
 			"Bonus3":							"{Hard - Bonus reward for any computer player}:
 			
 			
-												Gives AI hero +1 random Primary Skills point when level up.
+												Gives AI hero +1 or +2 random Primary Skills point when level up.
 			
 												Gives AI player ressources daily 4000 Gold and 3 of every ressources.
 												
@@ -83,7 +84,7 @@
 			"Bonus5":							"{Insane - Bonus reward for any computer player}:
 			
 			
-												Gives AI hero +2 random primary skill points when level up.
+												Gives AI hero +2 or +3 random primary skill points when level up.
 			
 												Gives AI player ressources daily 7000 Gold and 6 of every ressources.
 												
@@ -115,7 +116,9 @@
 			"ProOnly":							"{Insane Difficulty}
 			
 												This difficulty level is not available from the start because you will need time to develop your hero to stand a chance. If you want you can use Progressive Difficulty option to unlock the Insane level during the game, just enter any gameday at which the AI-Difficult level should increase.											
-												To you want to use the the Progressive Difficulty option now?",
+												Do you want to use the the Progressive Difficulty option now?
+												
+												(Dont forget to also choose your starting difficulty)",
 												
 												
 			"Additionals_troops0":				"{Starting Stack Size Option}
@@ -355,7 +358,7 @@
 			"Option_14":						"Battle Reward",
 			"Option_15":						"Buffs",
 			"Option_16":						"Abilities",
-			"Option_17":						"2000",
+
 			"16":								"1",
 			"Level_0":							"None",
 			"Level_1":							"Easy",
@@ -425,7 +428,177 @@
 
 			"AI_Level_Insane":					"Insane AI",
 
-			"Payday_Message":					"{~Cyan}It's Payday!{~}"
+			"Payday_Message":					"{~Cyan}It's Payday!{~}",
+			
+			"AI_Recover_Losses_0":				"AI Recover Losses",	
+
+			"AI_Compensation_0":				"AI Compensation",
+
+			"AI_Useful_Spells_0":				"AI Useful Spells",
+
+			"AI_has_no_DD_0":					"AI no Dimension D.",
+			
+			"AI_Artifacts_Eq_0":				"AI Artifacts Equip.",			
+
+			"Progressive_Text_3_0":				"Progressive Difficulty",			
+			
+			
+			"AI_Recover_Losses":				"{AI Recover Losses}
+			
+												The computer player recovers {50%} of any lost units in combat vs neutral stacks. If a unit is killed completely it will not be recovered.",	
+
+			"AI_Compensation":					"{AI Compensation}
+			
+												To give the AI a better start each owned hero gets additional units at day one and additional units to recruit in towns. The amount of additional units depends on the option {Neutral Stack Size} and {Double Stack Size}.
+												The hero only gets level 1-3 units and not if he already has above 100 units in one slot. This option helps to solve the problem that the computer was sometimes unable to defeat the big stacks that could be generated at map start. The amount of additional units is roughly the same as the Stack Size option adds units to neutral stacks.",
+
+			"AI_Useful_Spells":					"{AI Useful Spells}
+			
+												When the Payday is reached each AI hero will get a spell book and the following spells for free: {Haste}, {Slow}, {Cure} and {Curse}",
+
+			"AI_has_no_DD":						"{AI no Dimension Door}
+			
+												To avoid lag on big maps the Dimension Door spells for all computer players will be replaced to fly. This should reduce loading time for AI between rounds.",
+												
+			"AI_Artifacts_Eq":					"{AI Artifact Equipment}
+			
+												AI always tries to equip the best artifact for every slot. Usually, the AI would not consider better artifacts when the slot is already occupied, no matter what is equipped. The artifacts are selected from a priority list. For example, if the AI finds the Helm of Heavenly Enlightenment in a Utopia and currently has the Skull Helmet equipped, it will put it in his backpack and equip the Helm of Heavenly Enlightenment instead.",										
+
+			"Progressive_Text_3":				"{Progressive Difficulty}
+			
+												The Progressive Difficulty option lets you set a game day at which the AI difficulty will increase to the next level. For example you can start on Easy-AI level with a Payday set to day 10 and you also set the Progressive Difficulty option to day 30. Now after 30 gamedays the AI level will be raised to Normal-AI. 
+												This option will provide you with the possibility to increase the challenge in later stages of the game. The Insane-AI level cannot be increased further."
+
+			"Exp_Bonus":						"Experience Bonus",
+
+			"Movement_Bonus":					"Movement Points Bonus",
+
+			"Prim_Bonus":						"Primary Skill Points Bonus",
+
+			"Points_Bonus":						"Spell Points Bonus",
+
+			"Gold_Bonus":						"Gold Bonus",
+
+			"Res_Bonus":						"Resources Bonus",
+
+			"Crea_Bonus":						"Creature Bonus",
+			
+
+			"Option_70":						"{~Red}Mixed Neutrals Config{~}",
+			
+			"Mixed_Neutrals_Missing":			"Attention!
+
+												Setting the Mixed Neutrals options requires the Mixed Neutrals Mod to be active in Mod Manger. Please download and activate the mod first, it is not included in the Difficulty-Mod",			
+			
+			"Mixed_Neutrals_Text":				"{Mixed Neutrals Options}
+			
+												Regular neutrals on the adventure map are transformed into mixed neutrals. You can customize various settings like the degree of mixing, the appearance on the adventure map, the number of neutrals and more. The stacksize of mixed neutrals is calculated based on the fighting value of the monsters.
+												Default values are stored in the {mixed neutrals.json} in the mod folder and can be changed by the player.",
+			
+			"DL_Header":						"Mixing Neutrals Configuration",
+			
+			"Slot_Hint":						"Mixed creatures preview",
+
+			"Slot_Example":						"{Mixed Creatures Preview}
+			
+												Preview of the possible mixing of neutral stacks. The preview is not necessarily correct and does not consider every option. The generation of monsters is random, so just because you can see 7 different monster types in the preview does not mean that the stack always has to be mixed like that.",			
+			
+			"Option_20":						"Minimal mixing:",
+			"Option_20_Info":					"{Minimal Mixing}
+			
+												This option sets the minimum number of different monsters in a stack on the adventure map, where 1 means all monsters are the same and 7 means that there must be at least 7 different types of monsters in the stack.",			
+				
+			"Option_21":						"Maximal mixing:",
+			"Option_21_Info":					"{Maximal Mixing}
+			
+												This option sets the maximum number of different monsters in a stack on the adventure map, where 1 means all monsters are the same and 4 means that there are a maximum of 4 different types of monsters in the stack.",			
+			
+			"Option_22":						"General stack size:",
+			"Option_22_Info":					"{General Stack Size}
+			
+												The general stack size modifier increases the number of monsters you have to fight. A value of 150% means that at map start a stack of 100 neutral monsters is increased to 150 monsters. This applies to the computer player and the human player aswell.",			
+						
+			"Option_23":						"Stack size for humans:",
+			"Option_23_Info":					"{Stack Size for Humans}			
+						
+												The human stack size modifier increases the number of monsters you have to fight but only for the human player and not for the computer player. A value of 150% means that at map start a stack of 100 neutral monsters is increased to 150 monsters. This value is multiplicative with the General Stack Size value, so if you set both values to 200% the human player will face an 400% increased stack.
+												
+												Note: When used together with the {View exact  quantity} option the hint text about the monster size does not take into account the increased stack size for humans. Make right-click for the correct information.",
+			
+			"Option_24":						"Only same faction",
+			"Option_24_Info":					"{Only Same Faction Mixing}
+			
+												When using this option only monsters of the same faction are generated. For example, when attacking a stack of Royal Griffins they will only be mixed with units from Castle and no other faction.",			
+			
+			"Option_25":						"Include allied factions",
+			"Option_25_Info":					"{Allied Factions Mixing}
+			
+												When using this option only monsters of the same faction and all their allied factions are generated. This will expand the range of monsters that are mixed together. A list of all allied factions can be found in the readme file. For example, Castle has 33% chance to have Rampart ally and Inferno has 25% chance of Necropolis ally and 25% chance of Dungeon ally. Values can be edited by the player.",
+			
+			"Option_26":						"No neutral monsters",
+			"Option_26_Info":					"{No Neutral Monsters}
+			
+												When using this option all Wog neutral monsters will be assigned to a faction or town and so can be generated in the mixing.",	
+			
+			"Option_27":						"Neutrals never escape",			
+			"Option_27_Info":					"{Neutrals Never Escape}
+			
+												With this option neutral monster stacks on the adventure map will never escape before the battle and are always willing to fight.",			
+			
+			"Option_28":						"Include new monsters",
+			"Option_28_Info":					"{Include Third Upgrade Mod Monsters}
+			
+												This option will also include newly added monsters, like from the Third Upgrade Mod, in the pool of possible monsters that are generated. If the Third Upgrade Mod is not enabled, this option cannot be activated.",			
+			
+			"Option_29":						"Preview mixed stacks",
+			"Option_29_Info":					"{New Monster Preview Window}
+			
+												Enables a new window for right-clicking monsters on the adventure map, which replaces the standard one. The new window contains more information about the monsters and will give you a preview about all mixed monsters.",			
+			
+			"Option_30":						"View exact quantity",
+			"Option_30_Info":					"{View Exact Quantity}
+			
+												When viewing monsters with right-click in the adventure map it will tell you the exact number of creatures instead of only Several, Lots, Horde and so on.",			
+			
+			"Option_31":						"Aggression",
+			"Option_31_Info":					"{Aggression modifier}
+			
+												Set the value to add to each neutrals group aggression on adventure map. -10 means Compliant, +10 means Savage.",
+			
+			"Option_32":						"Stack spread",			
+			"Option_32_Info":					"{Stack Spread}
+			
+												Choose between six different values:
+												(default value is 4)
+												
+												NO_SPREAD = 0;
+												SPREAD_TOP_DOWN = 1;
+												SPREAD_NEAR_CENTER = 2;
+												SPREAD_AWAY_FROM_CENTER = 3;
+												SPREAD_SPACE_BETWEEN = 4;
+												SPREAD_RANDOM = 5;",
+												
+			"Option_33":						"Lower level dif:",
+			"Option_33_Info":					"{Minimum Low Level Difference}
+			
+												Sets the minimum relative level difference (-6...0) for generated monsters, as compared to base monster level. For example, if you set the value to -1, a stack of Griffins (level 3) will never be mixed together with level 1 units. If you set the value to -6-low  and 6-high theoretically the full range of monsters is allowed for generation.",			
+			
+			"Option_34":						"Higher level dif:",
+			"Option_34_Info":					"{Maximum High Level Difference}
+			
+												Sets the maximum relative level difference (6...0) for generated monsters, as compared to base monster level. For example, if you set the value to +2, a stack of Griffins (level 3) will never be mixed together with Champions (level 6) or Angels (level 7). If you set the value to -6-low  and 6-high theoretically the full range of monsters is allowed for generation.",			
+						
+			"Confirm_Mixed_Settings":			"Confirm settings and close dialogue.",
+
+			"Cancel_Mixed_Settings":			"Exit and reset all Mixed Neutral settings to default value from the json files and close dialogue.",			
+		
+			"Try_Tomorrow":						"Try again tomorrow :P",
+			
+			"Zero_or_One":						"0 or 1",
+
+			"One_or_Two":						"1 or 2",
+
+			"Two_or_Three":						"2 or 3"		
 
 				},	
   

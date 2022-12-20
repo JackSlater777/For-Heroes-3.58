@@ -1,13 +1,7 @@
 ZVSE
 
 **Modified by Perry R 2019**
-*Use ERA 2.7*
-ERMS_ScriptName=Script57
-ERMS_ScriptAuthor=BAD The Archangel; BAD means Alexandru Ducu Balahura not evil.
-ERMS_ScriptVersion=1.1
-ERMS_ScriptDate=14.4(April).2011
-ERMS_ScriptERMVersion=2.80
-ERMS_ScriptLanguage=English (United States) or English (native)
+*Use ERA 3* NEW
 
 ** Neutral Units v2.3 by Alexandru Balahura (Neutral Units, Neutral Stack Size, All Monsters are always Savage)
 ** and Timothy Pulver (Neutral Stack Experience, Neutral Town and Creature Bank Growth)
@@ -244,7 +238,6 @@ Recommendations for Neutral Units Bonuses:
  [Battlefield Setup Trigger]
 !?BF&v100>=1/1000;
 !!UN:P231/?v1; [Check if Neutral Stack Experience is enabled: v1]
-
  [Add experience ranks to neutral stacks but not AI battles or Death Chambers]
 !!FU5400&v1=1/v100<>3/999:P;
 
@@ -252,7 +245,7 @@ Recommendations for Neutral Units Bonuses:
 
 !!UN:P57/?v2; [Check if Neutral Units script is enabled in WoGify Options: v2]
 !!SN:W^Health_Grow_Enable^/?y50;                [Health Grow _Rate]
-!!DO1000/21/41/1&v2=1/y50=1:P;      [Add Att, Def, HP, Bless, and Precision to stacks]  Only Run when selected and not for AI
+!!DO1000/21/41/1&v2=1/y50>0:P;      [Add Att, Def, HP, Bless, and Precision to stacks]  Only Run when selected and not for AI
 
 !?FU870520;
 !!UN:P57/?v2;     [Check if Neutral Units script is enabled in WoGify Options: v2]
@@ -279,11 +272,13 @@ Recommendations for Neutral Units Bonuses:
 !!VRy-1:-1; [Subtract 1 from current day: y-1]
 !!UN:J2/?y-2; [Player chosen difficulty level: y-2]
 !!SN:W^Stack_Exp_Rate^/?y10;
+!!VRy10&y10=0:Sy-2;
 !!VRy-3&y-2=0:Sy10; [Easy interval (14): y-3]
 !!VRy-3&y-2=1:Sy10; [Normal interval (7): y-3]
 !!VRy-3&y-2=2:Sy10; [Hard interval (5): y-3]
 !!VRy-3&y-2=3:Sy10; [Expert interval (4): y-3]
 !!VRy-3&y-2=4:Sy10; [Impossible interval (3): y-3]
+!!VRy-3&y-3=0:S1; fix
 !!VRy-4:Sy-1 :y-3;  [Base rank for this date and difficulty: y-4]
 !!VRy-4&y-4=0:S1;   [fix]
 !!BA:H0/?y-5; [Attacking hero number: y-5]
@@ -312,7 +307,6 @@ Recommendations for Neutral Units Bonuses:
 !!FU&y50=0:E;
 !!VRy1:Sc0;        [current day: y1] ; Sunday is the bonuses day
 !!VRy1::y50;       [divide by 4 and add one: y1] Modified
-*!VRy1:S10;         TEST
 !!BMx16:N?y20;     [Creature Number y20]
 !!if&y20>0:;
 !!BMx16:Ady1 Ddy1; [+1.75 attack per week(month+7), +1.75 defense per week(month+7)]
@@ -326,16 +320,14 @@ Recommendations for Neutral Units Bonuses:
 
 ** Monster Growth **
 [Post-Instruction trigger]
-!?PI;
+!?FU(OnEveryDay)&i^timerOnce^=1/i^timerDay^=1; [On First Day of the Map]
 
-!!UN:P232/?y-1; [Check if script is enabled: y-1]
-
-!!SN:W^Stack_Size_Enable^/?y55;                [Stack_Exp_Rate No Modification]
+!!UN:P232/?y-1;                         [Check if script is enabled: y-1]
+!!SN:W^Stack_Size_Enable^/?y55;         [Stack_Exp_Rate No Modification]
 !!FU&y55=0:E;
-
-!!UN&y-1=1:U54/-1/?y2; [Number of monsters on the map: y2]
-!!VRv1:S-1; [Initialize v1 to -1 to work with new faster UN:U syntax]
-!!DO5402/1/y2/1&y-1=1/y2>0:P; [Cycle through all monsters]
+!!UN&y-1=1:U54/-1/?y2;                  [Number of monsters on the map: y2]
+!!VRv1:S-1;                             [Initialize v1 to -1 to work with new faster UN:U syntax]
+!!DO5402/1/y2/1&y-1=1/y2>0:P;           [Cycle through all monsters]
 
 
 !?FU5402;
@@ -343,10 +335,8 @@ Recommendations for Neutral Units Bonuses:
 !!VRv1&x16=1:S-1;
 !!UN:U54/-1/-1/1; [Store coordinates for next monster in v1/v2/v3]
 !!OBv1/v2/v3:U?y1; [Subtype: y1]
-!!MOv1/v2/v3:O?y3 R?y4/1; // check if monsters is forbidden to grow (if #=1 then the amount of monsters won't grow)
-**                      // get agression
-*!FU|y3=1/y4=0:E; // exit if they mustn't grow (option in map editor) or are friendly (always join)
-!!FU&y3=1:E; // exit if they mustn't grow (option in map editor)
+!!MOv1/v2/v3:O?y3 R?y4/1; // check if monsters is forbidden to grow (if #=1 then the amount of monsters won't grow) get agression
+!!FU|y3=1/y4=0:E; // exit if they mustn't grow (option in map editor) or are friendly (always join)
 
 ** All Monsters are Savage,only monsters left by hero on the map will join **
 !!MOv1/v2/v3&y1>=0:R10/1; [Set all monster stacks to Savage]
@@ -450,7 +440,7 @@ Recommendations for Neutral Units Bonuses:
 ** Neutral Town and Creature Bank Growth **
 
  [Daily Timer, only activates once (for first colour)]
-!?TM2&$once$=1/$day$>1;
+!?FU(OnEveryDay)&i^timerOnce^=1/i^timerDay^>1; [Trigger each monday]
 !!UN:P235/?y-12; [Check if script is enabled: y-12]
 !!FU&y-12<>1:E; [Exit if not enabled]
 !!UN:U98/-1/?y-1; [Number of Towns on map: y-1]
@@ -462,7 +452,7 @@ Recommendations for Neutral Units Bonuses:
 !!VRy-12:Sy-11 :4 *4; [Determine 1st of every month: y-12]
 !!VRy-13&y-12=y-11:S1; [Set y-13 to 1 on the 1st of every new month: y-13]
 !!VRv1:S-1; [Initialize v1 to -1 to work with new faster UN:U syntax]
-!!DO5403/1/y-1/1&y-1>0/$weekday$=$monday$:P; [Loop through all Towns weekly]
+!!DO5403/1/y-1/1&y-1>0/i^timerWeekDay^=1:P; [Loop through all Towns weekly]
 !!UN:U16/-1/?y-4; [Number of Creature Banks on map: y-4]
 !!VRv1:S-1; [Initialize v1 to -1 to work with new faster UN:U syntax]
 !!DO5405/1/y-4/1&y-4>0:P16/y-4; [Loop through all Creature Banks]
@@ -485,10 +475,10 @@ Recommendations for Neutral Units Bonuses:
 !!DO5412/1/y-9/1&y-8>0:P53/7; [Loop through all abandoned mines]
 !!UN:U26/-1/?y-10; [Number of local events on map: y-10]
 !!VRv1:S-1; [Initialize v1 to -1 to work with new faster UN:U syntax]
-!!DO5412/1/y-10/1&y-8>0/$weekday$=$monday$:P26/-1; [Loop through all local events]
+!!DO5412/1/y-10/1&y-8>0/i^timerWeekDay^=1:P26/-1; [Loop through all local events]
 !!UN:U6/-1/?y-10; [Number of pandora's boxes on map: y-10]
 !!VRv1:S-1; [Initialize v1 to -1 to work with new faster UN:U syntax]
-!!DO5412/1/y-10/1&y-8>0/$weekday$=$monday$:P6/-1; [Loop through all pandora's boxes]
+!!DO5412/1/y-10/1&y-8>0/i^timerWeekDay^=1:P6/-1; [Loop through all pandora's boxes]  
 
 
  [Loop through all towns]
@@ -539,11 +529,11 @@ Recommendations for Neutral Units Bonuses:
 !?FU5405;
 !!UN:Ux1/-1/-1/1; [Creature Bank coordinates in v1/v2/v3]
 !!CBv1/v2/v3:T?y1; [Check if Creature Bank already Taken: y1=1 if Taken]
-!!DO5406/0/6/1&y1=0/$weekday$=$monday$:P-1; [Loop through guard slots and resources in creature bank each week]
+!!DO5406/0/6/1&y1=0/i^timerWeekDay^=1:P-1; [Loop through guard slots and resources in creature bank each week]
 
-!!CBv1/v2/v3&y1=0/$weekday$=$monday$:M?y30/?y31; [Number of Bonus Creatures, Type=y30, Number=y31]
-!!VRy31&y1=0/$weekday$=$monday$/y30>=0/y31>0/y31<127/y-10=1:+1; [Every 3rd week, add 1 bonus creature: y31 (maximum 127)]
-!!CBv1/v2/v3&y1=0/$weekday$=$monday$/y30>=0/y31>0/y31<128/y-10=1:My30/y31; [Set new number of bonus creatures: y31]
+!!CBv1/v2/v3&y1=0/i^timerWeekDay^=1:M?y30/?y31; [Number of Bonus Creatures, Type=y30, Number=y31]
+!!VRy31&y1=0/i^timerWeekDay^=1/y30>=0/y31>0/y31<127/y-10=1:+1; [Every 3rd week, add 1 bonus creature: y31 (maximum 127)]
+!!CBv1/v2/v3&y1=0/i^timerWeekDay^=1/y30>=0/y31>0/y31<128/y-10=1:My30/y31; [Set new number of bonus creatures: y31]
 
 !!POv1/v2/v3&y1=1:S?y18; [Read PO:S number for Creature Bank square: y18]
 !!POv1/v2/v3&y1=1/y18=0:S28; [Set PO:S number for Creature Bank square to 28: y18]

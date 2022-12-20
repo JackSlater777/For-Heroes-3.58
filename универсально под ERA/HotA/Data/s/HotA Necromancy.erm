@@ -1,0 +1,27 @@
+ZVSE2
+
+*** HotA Necromancy
+
+*?FU(OnAfterErmInstructions);                   // Перед началом новой игры или после загрузки старой
+*!FU(Fun_SetDescriptionFromERT):P0/12/1/179612; // Устанавливаем базовое описание навыка
+*!FU(Fun_SetDescriptionFromERT):P0/12/2/179613; // Устанавливаем продвинутое описание навыка
+*!FU(Fun_SetDescriptionFromERT):P0/12/3/179614; // Устанавливаем экспертное описание навыка
+
+*!FU(Fun_SetDescriptionFromERT):P3/54/1/179616; // Устанавливаем описание Амулета
+*!FU(Fun_SetDescriptionFromERT):P3/55/1/179617; // Устанавливаем описание Мантии
+*!FU(Fun_SetDescriptionFromERT):P3/56/1/179618; // Устанавливаем описание Сапог
+*!FU(Fun_SetDescriptionFromERT):P3/130/1/179619;// Устанавливаем описание Сборника-Плаща
+
+
+*?FU(OnAfterLoadGame);                          // После загрузки
+*!FU(Fun_SetDescriptionFromERT):P0/12/1/179612; // Устанавливаем базовое описание навыка
+*!FU(Fun_SetDescriptionFromERT):P0/12/2/179613; // Устанавливаем продвинутое описание навыка
+*!FU(Fun_SetDescriptionFromERT):P0/12/3/179614; // Устанавливаем экспертное описание навыка
+
+*!FU(Fun_SetDescriptionFromERT):P3/54/1/179616; // Устанавливаем описание Амулета
+*!FU(Fun_SetDescriptionFromERT):P3/55/1/179617; // Устанавливаем описание Мантии
+*!FU(Fun_SetDescriptionFromERT):P3/56/1/179618; // Устанавливаем описание Сапог
+*!FU(Fun_SetDescriptionFromERT):P3/130/1/179619;// Устанавливаем описание Сборника-Плаща
+
+**end
+

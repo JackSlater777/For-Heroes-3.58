@@ -1,7 +1,7 @@
 {
 	"caption": {
-		"en_US": "Difficulty Mod [v.1.0]",
-		"ru_RU": "Difficulty Mod [v.1.0]"
+		"en_US": "Difficulty Mod [v.1.03]",
+		"ru_RU": "Difficulty Mod [v.1.03]"
 	},
 	"description": {
 		"full": {
@@ -19,8 +19,8 @@
 		"file": "05.ico",
 		"index": 0
 	},
-	"mod_version": "1",
-	"priority": 0,
+	"mod_version": "1.031",
+	"priority": 2,
 	"compatibility": {
 		"class": "default",
 		"entries": {}

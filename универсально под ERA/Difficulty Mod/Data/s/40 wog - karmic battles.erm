@@ -1,7 +1,5 @@
 ZVSE
-ERMS_ScriptDate=29.7(July).2004
-_WARNING_#1=IMPORTANT! This file is not in a plain text format. NEVER use any editor except ERM_S for making any kind of changes!
-ERMS_PoweredBy=ERM Scripter v. 2004.6.29.918
+
 ** UPDATED: July 29, 2004
 ** Karmic Battles Script version 1.2 by Dieter Averbeck  for WoG 3.58
 ** (Version 1.2 updated by Bonizag and Timothy Pulver)
@@ -84,6 +82,7 @@ ERMS_PoweredBy=ERM Scripter v. 2004.6.29.918
 !?BA1;
 !!SN:W^Disable_Battle_Replay^/1;
 
+
 ** before battle
 !?BA0&1000/490/v491=1;
 !!VRv490:S0 R9;  ** set random parameter for battle script (0-9): v490
@@ -95,6 +94,9 @@ ERMS_PoweredBy=ERM Scripter v. 2004.6.29.918
 !?FU870520&1000/v491=1;
 !!SN:W^Disable_Battle_Replay^/?y1;
 !!FU&y1=1:E;
+
+!!BA:O?y2/?y3;
+!!FU&y3>-1:E;        Exit if Enemy Hero at Neutrals and its not from Random Hero
 *!VRv490:S0 T9;  ** set random parameter for battle script (0-9): v490
 !!IF:W-1;
 !!BA:H0/?v492;      ** store hero's number: v492
@@ -102,11 +104,9 @@ ERMS_PoweredBy=ERM Scripter v. 2004.6.29.918
 *!VRw49&v490<>0:+1; ** count w49 up, if battlescript called
 !!IF:V490/1;        ** NEW
 
-
 ** battle modify - v490=1: summon 6 random creatures
-!?BR&490/v491=1/v997<1;
+!?FU(OnBattleRound)&490/v491=1/v997=0;
 !!BU:T?v1; ** Check for Tactics Phase: v1=0 if No
-!!FU&v1=0/v997<0:E; ** Exit trigger if no Tactics Phase and v997 is less than 0
 !!IF:Wv492; ** all the function calls below will use w49
 **  x1=multiplier x2=startPos x3=increase
 !!DO491/1/6/1&v490>=1/v490<=3:P1/5/34;     ** summon 6 random stacks
@@ -114,7 +114,7 @@ ERMS_PoweredBy=ERM Scripter v. 2004.6.29.918
 !!DO491/1/1/1&v490>=6/v490<=7:P4/91/0;     ** summon 1 random stack
 !!FU493&v490>=8:P;                         ** summon 2 calculated stacks
 !!IF:V490/0;  ** set Flag 490 to False so this only happens once per combat
-!!SN:D; Redraw
+
 ** summon random stacks
 
 !?FU491;
@@ -234,10 +234,11 @@ ERMS_PoweredBy=ERM Scripter v. 2004.6.29.918
 !!VRy1&w49>=140/y1=0:S150 R8; **Random Level 8
 !!VRy1&w49>=140/y1=1:S132 R4; **Random Powerful Neutral Dragon
 !!VRy1&w49>=140/y1=136:S196;  **Dracolich
-
-!!DO492/1/200/1:P73; ** find a position with no obstacles: v1
+!!MA:Xy1/?y4;  ** Check monster Flags: y4
+!!VRy4:&1;     ** Check for 2-hex creature: y4>0 if Yes
+!!DO492/1/200/1:P73/y4; ** find a position with no obstacles: v1
 !!BU:Sy1/w49/v1/1/-1/0;
-!!DO492/1/200/1:P107; ** find a position with no obstacles: v1
+!!DO492/1/200/1:P107/y4; ** find a position with no obstacles: v1
 !!BU:Sy1/w49/v1/1/-1/0;
 
 
@@ -249,3 +250,4 @@ ERMS_PoweredBy=ERM Scripter v. 2004.6.29.918
 !!BA:H0/?v492;
 !!HEv492:Edw49;
 !!VRw49::1000;
+
