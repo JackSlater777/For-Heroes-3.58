@@ -1,0 +1,349 @@
+ZVSE2
+; Author:   Archer30
+; Engine:   ERM 2.0+
+; Requires: ERA 3.9+, Era Erm Framework, Third Upgrade Mod
+
+; (Tiny little bit of) Archer's hacks for TUM
+
+
+*************************************
+**** WoG Scripts Compatibilities ****
+*************************************
+// The following lines must be executed later than WoG Scripts
+!?FU(OnAfterErmInstructions);
+// Battle Extender
+!!UN:P41/?(battExtender:y);
+
+!!if&(battExtender);
+  !!MA:C(MON_HOLY_CHAMPION)/(RES_ORE)/2;
+  !!MA:C(MON_LEGENDARY_UNICORN)/(RES_GEMS)/1;
+  !!MA:C(MON_NAGA_EMPRESS)/(RES_MERCURY)/1;
+  !!MA:C(MON_EFREETI_RAJAH)/(RES_SULFUR)/1;
+  !!MA:C(MON_DEATH_NIGHT)/(RES_CRYSTAL)/1;
+  !!MA:C(MON_CHIMERA)/(RES_ORE)/1;
+  !!MA:C(MON_CYCLOPS_EMPEROR)/(RES_GEMS)/1;
+  !!MA:C(MON_ACID_WYVERN)/(RES_MERCURY)/1;
+  !!MA:C(MON_VOID_ELEMENTAL)/(RES_SULFUR)/1;
+!!en;
+
+// Berserker Chaotic Flies
+!!UN:P(WOG_OPT_STACK_EXPERIENCE)/?(stackExp:y) P46/?(berserkerFlies:y);
+
+!!if&(stackExp)/(berserkerFlies);
+  !!VR(availSlot:y):S(NULL);
+  !!EA(MON_CHAOTIC_DRAGON_FLY):F0/?(availSlot:y);
+  !!EA(MON_CHAOTIC_DRAGON_FLY)&(availSlot)>-1:B(availSlot)/1/102/98/1/1/1/1/1/1/1/1/1/1/1;
+  !!EA(MON_CHAOTIC_DRAGON_FLY):F0/?(availSlot);
+  !!EA(MON_CHAOTIC_DRAGON_FLY)&(availSlot)>-1:B(availSlot)/1/99/59/20/25/30/35/40/45/50/55/60/65/70;
+!!en;
+
+// Emerald Tower
+!?FU(WOG_44_CheckIfMonDrainsLife);
+!#VA(mon:x) (result:x);
+
+!!VR(result)&(mon)=(MON_SHADOW_DRAGON):S(TRUE);
+
+*************************************
+**** Era Scripts Compatibilities ****
+*************************************
+// The following lines must be executed later than WoG Scripts
+!?FU(OnAfterErmInstructions);
+// Demonic Rage
+!!UN:P750/?(demonicRage:y);
+
+!!if&(demonicRage);
+  !!SN:H^monname^/(MON_SHARP_HORNED_DEMON)/2/?(desc:z);
+  !!SN:H^monname^/(MON_SHARP_HORNED_DEMON)/2/^%(desc)%T(es.750.desc)^;
+
+  !!MA:F(MON_SHARP_HORNED_DEMON)/?(fv:y);
+  !!VR(fv):*110 :100;
+  !!MA:F(MON_SHARP_HORNED_DEMON)/(fv);
+!!en;
+
+// Devils Sacrificing
+!!UN:P759/?(devilsSacrifice:y);
+
+!!if&(devilsSacrifice);
+  !!MA:B(MON_ANTICHRIST)/d3;
+  !!SN:H^monname^/(MON_ANTICHRIST)/2/?(desc);
+  !!SN:H^monname^/(MON_ANTICHRIST)/2/^%(desc)%T(es.759.desc)^;
+!!en;
+
+// Berserker Dwarves Reinforcement
+!!UN:P761/?(dwarvesReinforcement:y);
+
+!!if&(dwarvesReinforcement);
+  !!SN:H^monname^/(MON_BERSERKER_DWARF)/2/?(desc:z);
+  !!SN:H^monname^/(MON_BERSERKER_DWARF)/2/^%(desc)%T(es.761.desc)^;
+
+  !!MA:F(MON_BERSERKER_DWARF)/?(fv:y);
+  !!VR(fv):*105 :100;
+  !!MA:F(MON_BERSERKER_DWARF)/(fv);
+!!en;
+
+// Blocking Spectres
+!!UN:P(WOG_OPT_STACK_EXPERIENCE)/?(stackExp:y) P822/?(specterBlock:y);
+
+!!if&(stackExp)/(specterBlock);
+  !!EA(MON_SPECTER):F0/?(availSlot:y);
+  !!EA(MON_SPECTER)&(availSlot)>-1:B(availSlot)/1/76/99/0/5/10/15/20/25/30/35/40/45/50/50;
+
+  !!MA:P(MON_SPECTER)/?(hp:y);
+  !!VR(newHp:y):S(hp) :6 *5;
+  !!MA:P(MON_SPECTER)/(newHp);
+!!en;
+
+// Conflux Balancing
+!!UN:P781/?(confluxBalancing:y);
+
+!!if&(confluxBalancing);
+  !!MA:G(MON_PIXIE)/?(growth:y);
+  !!MA:G(MON_FAERIE)/(growth);
+
+  !!MA:G(MON_AIR_ELEMENTAL)/?(growth);
+  !!MA:G(MON_HURRICANE_ELEMENTAL)/(growth);
+
+  !!MA:G(MON_WATER_ELEMENTAL)/?(growth);
+  !!MA:G(MON_LIFE_ELEMENTAL)/(growth);
+
+  !!MA:G(MON_FIRE_ELEMENTAL)/?(growth);
+  !!MA:G(MON_PLASMA_ELEMENTAL)/(growth);
+
+  !!MA:G(MON_EARTH_ELEMENTAL)/?(growth);
+  !!MA:G(MON_MINERAL_ELEMENTAL)/(growth);
+
+  !!FU(ES_781_ConvertMonToElem):P(MON_DIVINE_PHOENIX);
+!!en;
+
+// Inferno Balancing
+!!UN:P825/?(infernoBalancing:y);
+!!MA&(infernoBalancing):F(MON_WINGED_MAGOG)/d|(MON_FLAG_ATTACKS_TWICE);
+
+// Demonic Rage
+!?FU(ES_750_CheckIfMonIsEligible);
+!#VA(mon:x) (result:x);
+
+!!VR(result)&(mon)=(MON_SHARP_HORNED_DEMON):S(TRUE);
+
+// Devils Sacrificing
+!?FU(ES_759_CheckIfMonIsEligible);
+!#VA(mon:x) (result:x);
+
+!!VR(result)&(mon)=(MON_ANTICHRIST):S(TRUE);
+
+// Berserker Dwarves Reinforcement
+!?FU(ES_761_CheckIfMonIsEligible);
+!#VA(mon:x) (result:x);
+
+!!VR(result)&(mon)=(MON_BERSERKER_DWARF):S(TRUE);
+
+// Ranged Death Stare
+!?FU(ES_995_CheckIfMonIsEligible);
+!#VA(mon:x) (result:x);
+
+!!VR(result)&(mon)=(MON_CATOBLEPAS):S(TRUE);
+
+// Gnoll Shamans Stike First
+!?FU(ES_996_CheckIfMonIsEligible);
+!#VA(mon:x) (result:x);
+
+!!VR(result)&(mon)=(MON_GNOLL_SHAMAN):S(TRUE);
+
+// Grand Manouvre
+!?FU(ES_997_CheckIfMonIsEligible);
+!#VA(mon:x) (result:x);
+
+!!VR(result)&(mon)=(MON_SHARPSHOOTER_ELF):S(TRUE);
+
+*************************************************************
+**** Fix TUM werewolf faction with Mixed Neutrals option ****
+*************************************************************
+; The following lines must be executed later than Mixed Neutrals
+!?FU(OnAfterErmInited);
+!!MA:O(MON_DIRE_WEREWOLF)/(TOWN_NECROPOLIS);
+
+********************************************************
+**** Enable Horn of the Abyss (artifact) for Utopia ****
+********************************************************
+; Allows HotA to be generated as one of the Utopia reward
+!?OB(OBJ_DRAGON_UTOPIA);
+!!FU(tum_SetHotAAvailability):P(TRUE);
+
+!$OB(OBJ_DRAGON_UTOPIA);
+!!FU(tum_SetHotAAvailability):P(FALSE);
+
+; Rotton Dragon Valley
+!?OB(OBJ_NEW_WOG_OBJECTS)/83;
+!!FU(tum_SetHotAAvailability):P(TRUE);
+
+!$OB(OBJ_NEW_WOG_OBJECTS)/83;
+!!FU(tum_SetHotAAvailability):P(FALSE);
+
+; Magic Utopia
+!?OB(OBJ_NEW_WOG_OBJECTS)/84;
+!!FU(tum_SetHotAAvailability):P(TRUE);
+
+!$OB(OBJ_NEW_WOG_OBJECTS)/84;
+!!FU(tum_SetHotAAvailability):P(FALSE);
+
+; Ultimate Dragon Utopia
+!?OB(OBJ_NEW_WOG_OBJECTS)/115;
+!!FU(tum_SetHotAAvailability):P(TRUE);
+
+!$OB(OBJ_NEW_WOG_OBJECTS)/115;
+!!FU(tum_SetHotAAvailability):P(FALSE);
+
+!?FU(tum_SetHotAAvailability)&i^tum_emerald_on^;
+!#VA(isAvail:x);
+
+!!if&(isAvail);
+  !!UN:A(ART_HORN_OF_THE_ABYSS)/0;
+  !!UN:A(ART_HORN_OF_THE_ABYSS)/3/(ART_LEVEL_RELIC);
+!!el;
+  !!UN:A(ART_HORN_OF_THE_ABYSS)/1;
+  !!UN:A(ART_HORN_OF_THE_ABYSS)/3/(ART_LEVEL_SPECIAL);
+!!en;
+
+***************************************************
+**** Match new monsters with their lower forms ****
+***************************************************
+!?FU(OnAfterErmInited);
+; Match the faction of a few neutral creatures with new factions
+; Crystal Dragon
+!!MA:O(MON_RUBY_CRYSTAL_DRAGON)/?(faction:y);
+!!MA:O(MON_TOPAZ_CRYSTAL_DRAGON)/(faction);
+!!MA:O(MON_AMETHYST_CRYSTAL_DRAGON)/(faction);
+!!MA:O(MON_EMERALD_CRYSTAL_DRAGON)/(faction);
+!!MA:O(MON_SAPPHIRE_CRYSTAL_DRAGON)/(faction);
+
+; Faerie Dragon
+!!MA:O(MON_FAERIE_DRAGON)/?(faction);
+!!MA:O(MON_PRIMAL_FAERIE_DRAGON)/(faction);
+
+; Enchanter
+!!MA:O(MON_ENCHANTER)/?(faction);
+!!MA:O(MON_SPELLWEAVER)/(faction);
+
+; Peasant
+!!MA:O(MON_PEASANT)/?(faction);
+!!MA:O(MON_CONSCRIPT)/(faction);
+!!MA:O(MON_SQUIRE)/(faction);
+
+; Rogue
+!!MA:O(MON_ROGUE)/?(faction);
+!!MA:O(MON_ASSASSIN)/(faction);
+
+; Gorynych
+!!MA:O(MON_GORYNYCH)/?(faction);
+!!MA:O(MON_TIAMAT)/(faction);
+
+; Dracolich
+!!MA:O(MON_DRACOLICH)/?(faction);
+!!MA:O(MON_NECROSS_DRAGON)/(faction);
+
+***********************************************************************
+**** Match the R10/R11 exp with Blood Dragon for level 8+ monsters ****
+***********************************************************************
+!?FU(OnAfterErmInited);
+!!MA:F(MON_BLOOD_DRAGON)/?(bloodFightValue:y);
+!!EA(MON_BLOOD_DRAGON):L?(r10Exp:y) P?(topExp:y);
+!!FU(GetMaxMonsterId):P?(lastMon:y);
+
+!!re i/(MON_FIRST_TUM)/(lastMon);
+  !!MA:Fi/?(fightValue:y);
+
+  !!EAi&(fightValue)>=(bloodFightValue):L(r10Exp) P(topExp);
+!!en;
+
+*******************************************************
+**** Fix Astral Spirit summoning massive Air Elem. ****
+*******************************************************
+; Remove spells of Astral Spirits without a hero
+!?FU(OnBattleRound)&i^battle_round^=0/i^battle_hero_1^=(NO_HERO)/i^battle_ai_1^;
+!!re i/(BATTLE_DEFENDER_STACK_FIRST)/(BATTLE_DEFENDER_STACK_LAST);
+  !!BMi:T?(type:y);
+
+  !!BMi&(type)=(MON_ASTRAL_SPIRIT_D):E0;
+!!en;
+
+*******************************
+**** Manage Creature Stats ****
+*******************************
+; Managing creature stats for gameplay or mod compatibility reasons
+!?FU(OnAfterErmInited);
+; Rebalance Centaur Stack Exp Bonus
+; For some reason, Centaur has stronger growth on stack exp bonus damage than Centaur Captain, this script intended to nerf it
+!!UN:P(WOG_OPT_STACK_EXPERIENCE)/?(stackExp:y);
+
+!!if&(stackExp);
+  ; Max Damage
+  !!EA(MON_CENTAUR_CAPTAIN):B2/1/77/43/?(r0:y)/?(r1:y)/?(r2:y)/?(r3:y)/?(r4:y)/?(r5:y)/?(r6:y)/?(r7:y)/?(r8:y)/?(r9:y)/?(r10:y);
+  !!EA(MON_CENTAUR):B2/1/77/43/(r0:y)/(r1:y)/(r2:y)/(r3:y)/(r4:y)/(r5:y)/(r6:y)/(r7:y)/(r8:y)/(r9:y)/(r10:y);
+  ; Min Damage
+  !!EA(MON_CENTAUR_CAPTAIN):B3/1/109/43/?(r0:y)/?(r1:y)/?(r2:y)/?(r3:y)/?(r4:y)/?(r5:y)/?(r6:y)/?(r7:y)/?(r8:y)/?(r9:y)/?(r10:y);
+  !!EA(MON_CENTAUR):B3/1/109/43/(r0:y)/(r1:y)/(r2:y)/(r3:y)/(r4:y)/(r5:y)/(r6:y)/(r7:y)/(r8:y)/(r9:y)/(r10:y);
+!!en;
+
+************************************************
+**** Fix AI crashes with Devilish Sacrifice ****
+************************************************
+; Dirty Fix: Prevent Ai from casting Devilish Sacrifice until Majaczek sorted out his crap
+!?FU(ES_759_GetAiVictim);
+!!VRx3:S(NO_STACK);
+
+
+********************* The following code would only be applied to TUM Chinese *********************
+
+
+********************************
+**** Disable Emissary Banks ****
+********************************
+; Bad fix: Temporarily disable Emissary CBs as they appear to be buggy
+!?FU(tum_DisableEmissaryCreatureBanks)&i^tum_wogcn_on^;
+!!re i/119/122;
+  !!VRi^CB_%i_Replace_Objects^:S(FALSE);
+!!en;
+
+!#FU(tum_DisableEmissaryCreatureBanks):P;
+
+*************************************************
+**** Replace Dens of Thieves with Treehouses ****
+*************************************************
+; Here we uses Den of Thieves for the replacement of Treehouses as the original repalcent - Mage Schools does not fit in tiles
+!?FU(OnAfterErmInstructions)&i^tum_wogcn_on^;
+!!VRi^CB_133_Replace_0_Type_Number^:S(OBJ_DEN_OF_THIEVES);
+!!VRi^CB_133_Replace_0_Percentage^:S15;
+
+*******************************************************************
+**** Rebalance the growth of Sacred Phoenix and Divine Phoenix ****
+*******************************************************************
+; Reduce the growth of Firebird and Phoenix but gives one extra to be recruited if Castle is built in the town
+!?FU(OnAfterErmInstructions)&i^tum_wogcn_on^;
+; Set all the growth of phoenix to 1
+!!MA:G(MON_FIREBIRD)/1;
+!!MA:G(MON_PHOENIX)/1;
+
+!?FU(OnEveryDay)&i^timerWeekday^=1/i^timerOnce^/i^tum_wogcn_on^; 
+; Loop though all the towns and give one extra Phoenix to towns with Castle Built
+!!VR(x:y):S-1;
+
+!!re i;
+  !!UN:U(OBJ_TOWN)/(ANY_OBJ)/-1/(x)/(y:y)/(z:y);
+  !!br&(x)<0;
+
+  ; Check the town type and if Castle is built, add one extra if castle is built
+  !!CA(x)/(y)/(z):T?(townType:y) B3/9;
+
+  !!if&1/(townType)=(TOWN_CONFLUX);
+    !!CA(x)/(y)/(z):M1/6/d/d1;
+  !!en;
+!!en;
+
+********************************************************
+**** Disable Illithids and Alhoons' ability to cast ****
+********************************************************
+; Bad Fix: Temporarily disable these creature's ability to cast until Majaczek fix them
+!?FU(OnAfterErmInstructions)&i^tum_wogcn_on^;
+!!SN:L^amethyst2_4.dll^/?(amethyst:y) A(amethyst)/^ChangeCreatureTable^/?(address:y);
+!!SN:E(address)/1/274/^Spell 1=9^ E(address)/1/274/^Spell 2=8^ E(address)/1/274/^Spell 3=3^;
+!!SN:E(address)/1/282/^Spell 1=9^ E(address)/1/282/^Spell 2=8^ E(address)/1/282/^Spell 3=3^;

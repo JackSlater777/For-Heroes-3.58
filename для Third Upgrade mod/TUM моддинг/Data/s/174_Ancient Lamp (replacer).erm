@@ -1,0 +1,223 @@
+ZVSE
+*Blank Creature Bank Template*
+by Perry R for ERA 3
+created 2020
+
+The idea of this template is that you can create new creature banks (CB) relatively fast by choosing any object and turn it into a scripted CB. You just need to open the erm file and edit the first part of the script and make your settings.
+For each new CB, you just copy and place a new ERM file with the name of the creature bank in your mod folder.
+The object (the new CB) can be anything. From a blank object to a Pandora Box (in theory). You just need an object ID. I recommend using the blank WoG Objects because they have no functionality.
+When you want to use object IDs that already have a functionality in-game to turn them into custom CBs, like Dragon Fly Hives, Learning Stones, or Tree of Knowledge, the standard reaction will be disabled and my script takes control.
+Later when fully developed it will emulate a 100% working creature bank like in HotA. Ideally, there will be no visual difference. If this can be achieved I don't know yet.
+Depending on your ERM skill this template will of course also allow any possible modification to your creature bank. You can create custom CB texts, fights, special rewards and conditions. I only provided the most basic functions to simulate already existing CBs.
+
+If you want any improvements or find any bugs please report on Heroes Community.
+
+
+
+****************************************************************************************************
+****************************************************************************************************
+Parameter Settings:
+-1 always means DISABLED
+
+******Object Type and Name********
+*#VRi^CB_174_Type_Number^:S63;           (Write here type number of the object)
+*#VRi^CB_174_SubType_Number^:S149;        (Write here subtype number of the object)
+!#VRi^CB_174_Type_Number^:S16;           (Write here type number of the object)
+!#VRi^CB_174_SubType_Number^:S19;        (Write here subtype number of the object)
+
+!#VRs^CB_174_CB_Name^:S^Древняя Лампа^;
+!#VRs^CB_174_CB_Greeting_Text^:S^You have found an Ancient Lamp.^; (Set the text that shows when you visit the CB)
+!#VRs^CB_174_CB_Cleared_Text^:S^You are approaching this building what once seems to have been a creature bank. It's deserted.^; (Set the text that shows when you visit after the CB was cleared)
+
+
+******Guards********
+Set the guards and the number of each slot.
+!#VRi^CB_174_Guards_Type_Slot_0^:S209;    (Write here the Type of Creatures Guarding the CB. Check ERM help. The name of the creature in Slot 0 will be displayed when you defeat the CB.)
+!#VRi^CB_174_Guards_Type_Slot_1^:S209;
+!#VRi^CB_174_Guards_Type_Slot_2^:S209;
+!#VRi^CB_174_Guards_Type_Slot_3^:S209;
+!#VRi^CB_174_Guards_Type_Slot_4^:S209;
+!#VRi^CB_174_Guards_Type_Slot_5^:S-1;
+!#VRi^CB_174_Guards_Type_Slot_6^:S-1;
+!#VRi^CB_174_Guards_Type_Slot_7^:S-1;
+
+!#VRi^CB_174_Guards_Number_Slot_0^:S5; (Write here the Number of Creatures Guarding the CB for each slot. If no type for that slot is selected (-1) also put in (-1) for the number.)
+!#VRi^CB_174_Guards_Number_Slot_1^:S5;
+!#VRi^CB_174_Guards_Number_Slot_2^:S5;
+!#VRi^CB_174_Guards_Number_Slot_3^:S5;
+!#VRi^CB_174_Guards_Number_Slot_4^:S5;
+!#VRi^CB_174_Guards_Number_Slot_5^:S-1;
+!#VRi^CB_174_Guards_Number_Slot_6^:S-1;
+!#VRi^CB_174_Guards_Number_Slot_7^:S-1;
+
+!#VRi^CB_174_Different_Size^:S1;
+
+
+******Rewards********
+You can choose several rewards. The rewards are processed one after the other.
+!#VRi^CB_174_Reward_Wood^:S-1;             (Write here the amount of Wood 1-1000000)
+!#VRi^CB_174_Reward_Mercury^:S-1;          (Write here the amount of Mercury 1-1000000)
+!#VRi^CB_174_Reward_Ore^:S-1;              (Write here the amount of Ore 1-1000000)
+!#VRi^CB_174_Reward_Sulfur^:S-1;           (Write here the amount of Sulfur 1-1000000)
+!#VRi^CB_174_Reward_Crystal^:S-1;          (Write here the amount of Crystal 1-1000000)
+!#VRi^CB_174_Reward_Gems^:S-1;             (Write here the amount of Gems 1-1000000)
+!#VRi^CB_174_Reward_Gold^:S-1;             (Write here the amount of Gold 1-1000000)
+!#VRi^CB_174_Reward_Mithril^:S-1;          (Write here the amount of Mithril 1-1000000)
+
+!#VRi^CB_174_Reward_Creatures_Type^:S40;   (The Type of Creature 0-196. Also works with higher creature IDs from mods)
+!#VRi^CB_174_Reward_Creatures_Number^:S1;  (The amount of Creatures 0-10000)
+!#VRi^CB_174_Reward_1_Creatures_Type^:S-1;
+!#VRi^CB_174_Reward_1_Creatures_Number^:S-1;
+Random Creatures can also be generated in a certain range x1-x2 and faction, for example on Castle Creatures (0-14). If you want to use this option go to the reward section Line ~375 and enable the code.
+
+!#VRi^CB_174_Reward_Experience^:S-1;       (The amount of Experience 1-9999999)
+
+!#VRi^CB_174_Reward_1_Artifacts_Class^:S-2;(-2=disabled, #-(set) artifact level (-1=random, 1=no class, 2=treasure, 4=minor, 8=major, 16=relic))
+!#VRi^CB_174_Reward_1_Artifacts_Specific^:S-1; (0-999 This setting will overwrite the random reward. Also works with emerald)
+!#VRi^CB_174_Reward_2_Artifacts_Class^:S-2;
+!#VRi^CB_174_Reward_2_Artifacts_Specific^:S-1;
+!#VRi^CB_174_Reward_3_Artifacts_Class^:S-2;
+!#VRi^CB_174_Reward_3_Artifacts_Specific^:S-1;
+!#VRi^CB_174_Reward_4_Artifacts_Class^:S-2;
+!#VRi^CB_174_Reward_4_Artifacts_Specific^:S-1;
+Random Artifacts can also be generated in a certain range x1-x2. If you want to use this option go to the reward section Line ~409 and enable the code.
+
+!#VRi^CB_174_Reward_PrimSkill^:S-1;     (0-Attack, 1-Defense, 2-Power Skill, 3-Knowledge, 4-random, 5-all)
+!#VRi^CB_174_Reward_PrimSkill_Amount^:S-1; (1-99)
+
+!#VRi^CB_174_Reward_Spell_Points^:S-1;     (0-Attack, 1-Defense, 2-Power Skill, 3-Knowledge, 4-random)
+!#VRi^CB_174_Reward_Spell^:S-1;     (-1=disabled, 0-69 Spell ID, 70=Random, 71=Random LvL1, 72=Random LvL2, 73=Random LvL3, 74=Random LvL4, 75=Random LvL5)
+
+!#VRi^CB_174_Reward_Scales_with_size^:S1;(1=yes, 0=no, Requires CB_174_Different_Size to be active, when defeating bigger CB the rewards are increased. Level 1=1 (your settings), Level 2=*1,5, Level 3=*2, Level 4=*3 increase. Artifacts might increase in class for level 3 and 4. But never to relicts.)
+
+
+******Type of Object you want to replace********
+*The objects should match in size, for now. Choose Up to 5 Objects that might be replaced, each with individual chance. I recommend to replace mostly other CBs.*
+*If you replace a object that has a "shifted" yellow enter square you can correct it with the "shift" parameter.*
+
+!#VRi^CB_174_Replace_Objects^:S1;       (1=yes, 0=no. You should only chose "No" if you plan to create a custom map and place your CB yourself. With "No" the replace settings below will have no effect)
+
+!#VRi^CB_174_Replace_0_Type_Number^:S16; Хранилище существ
+!#VRi^CB_174_Replace_0_SubType_Number^:S6; Улей Змиев
+!#VRi^CB_174_Replace_0_Percentage^:S100; 100%, т.к. на снегу, см. ресивер TR по поиску
+!#VRi^CB_174_Replace_0_X_Offset^:S0; (Offset for the yellow entrance +-)
+
+!#VRi^CB_174_Replace_1_Type_Number^:S-1;
+!#VRi^CB_174_Replace_1_SubType_Number^:S-1;
+!#VRi^CB_174_Replace_1_Percentage^:S0;
+!#VRi^CB_174_Replace_1_X_Offset^:S0;
+
+!#VRi^CB_174_Replace_2_Type_Number^:S-1;
+!#VRi^CB_174_Replace_2_SubType_Number^:S-1;
+!#VRi^CB_174_Replace_2_Percentage^:S0;
+!#VRi^CB_174_Replace_2_X_Offset^:S0;
+
+!#VRi^CB_174_Replace_3_Type_Number^:S-1;
+!#VRi^CB_174_Replace_3_SubType_Number^:S-1;
+!#VRi^CB_174_Replace_3_Percentage^:S0;
+!#VRi^CB_174_Replace_3_X_Offset^:S0;
+
+!#VRi^CB_174_Replace_4_Type_Number^:S-1;
+!#VRi^CB_174_Replace_4_SubType_Number^:S-1;
+!#VRi^CB_174_Replace_4_Percentage^:S0;
+!#VRi^CB_174_Replace_4_X_Offset^:S0;
+
+!#VRi^CB_174_Replace_5_Type_Number^:S-1;
+!#VRi^CB_174_Replace_5_SubType_Number^:S-1;
+!#VRi^CB_174_Replace_5_Percentage^:S0;
+!#VRi^CB_174_Replace_5_X_Offset^:S0;
+
+!#VRi^CB_174_Replace_6_Type_Number^:S-1;
+!#VRi^CB_174_Replace_6_SubType_Number^:S-1;
+!#VRi^CB_174_Replace_6_Percentage^:S0;
+!#VRi^CB_174_Replace_6_X_Offset^:S0;
+
+
+******Battlefield********
+!#VRi^CB_174_Battlefield_Type^:S-1;     (Input (-1 til 25). Write here the Type of Battlefield you want to fight on. Current Terrain=-1. Look in ERM help under BA:B for detailed list)
+
+
+******Misc********
+!#VRi^CB_174_Revisit^:S0;               (Write here the number of days after which the CB can be visited again for example after 28 days)
+!#VRi^CB_174_Custom_Growth^:S0;         (Write here the number in percent% in which the CB should increase its guard EVERY week. If you write 10 the growth is exactly like neutrals grow)
+!#VRi^CB_174_Custom_Sound^:S1;          (1=yes, 0=no, if activated you need to find the correct sound file of the object you want to replace, use the SN trigger for it. That is necessary so that it can be replaced and your custom file can be played.)
+!#VRs^CB_174_CB_Sound^:S^ROGUE.wav^;    (Set the name of the sound file that should be played when visiting the object, only works when CB_174_Custom_Sound is set active)
+!#VRi^CB_174_Guards_Type_Slot_Upgrade_0^:S-1; (-1 means disabled. Type in the number of which the first creature (Slot 0) should upgrade to. Chance that the creature in slot 0 gets upgraded if possible. 20%)
+!#VRi^CB_174_Generate_Random_CB^:S0;    (Not implemented, 1=yes, 0=no, I'll only do it if there is demand. This will generate a totaly random creature bank. Could be interesting.)
+!#VRi^CB_174_Stack_Experience^:S1;      (1= Enable Stack Experience, 0=Disable Stack Experience, Requirea the Stack Experience Option 900 from WoG to be enabled)
+
+
+
+*?OB16/19;
+*!OBv998/v999/v1000:S;   // Удаляем стандартные свойства объекта
+*!VRy1:S4 +R3;           // Рандомим число от 4 до 7  (стандарт)
+*!VRy1:S7 +R5;           // Рандомим число от 7 до 12
+*!HEv998/v999/v1000:C37/y1/-1/0/-1/0/-1/0/-1/0/-1/0/-1/0;
+*!UN:Ov998/v999/v1000;   // Удаляем объект
+
+
+*******************
+*Delete object after visiting
+*$OB16/19;
+*!UN:Ov998/v999/v1000;
+
+
+****************************************************************************************************
+*Replace Objects when map starts
+*!?FU(OnEveryDay)&i^tum_replaceObj_on^;
+!?FU(OnEveryDay);
+
+!!if&x1=1/x3=1:;                   (Run once at day 1)
+  !!VRy1:Si^CB_174_Replace_Objects^; !!FU&y1=0:E;
+  !!VRi:S0;
+  !!VRj:S0;
+
+  !!VRy1:Si^CB_174_Type_Number^;   // 63
+  !!VRy2:Si^CB_174_SubType_Number^;    // 149
+
+  !!re i/0/6/1:;
+    !!VRy3:Si^CB_174_Replace_%Vi_Type_Number^;
+    !!VRy4:Si^CB_174_Replace_%Vi_SubType_Number^;
+    !!VRy5:Si^CB_174_Replace_%Vi_Percentage^;
+    !!VRy7:Si^CB_174_Replace_%Vi_X_Offset^;
+    !!if&y3>=0/y4>=0/y5>0:;
+    !!UN:Uy3/-1/?y6;
+    !!VRv2:S-1;
+    !!DO(CB_174_Replace)/1/y6/1:Py3/y4/y1/y2/y5/y7;
+    !!en:;
+  !!en:;
+!!en:;
+
+********************************************************************************
+!?FU(CB_174_Replace);
+;x1 - тип объекта под замену
+;x2 - подтип объекта под замену
+;x3 - тип объекта на замену
+;x4 - подтип объекта на замену
+
+!!UN:Ux1/-1/-1/2; // Получить координаты объекта типа x1, подтипа -1 (любой), с первого объекта (-1), v-переменная с координатами (v2)
+
+!!VRy2:S0T99;                           (Calc chance to replace)
+!!if&x5>y2:;
+!!OBv2/v3/v4:T?y5 U?y6;                 (Get Type and Subtype)
+!!TRv2/v3/v4:T?j/?i/?i/?i/?i/?i/?i/?i; // j - тип почвы под объектом
+!!FU&j<>3:E;                           // Выход, если объект не на снегу
+
+!!VRy30:Sv2+x6;                           (Offset in x)
+!!UN:X?y10/?y20; !!VRy10:-1; Get Map size to prevent wrong placement of x-coordinate
+
+!!if&x1=y5/x2=y6/y30<=y10/y30>=0:; If type and subtype match and if object is not outside of map
+  *!OBv2/v3/v4&x1=y5/x2=y6:B;           (Remove a description hint for an object.)
+  !!UN:Ov2/v3/v4/0/0;                   (delete old object)
+  !!OBv2/v3/v4:C-1;                     (Clear Control Word of deleted Object)
+  !!VRv2:+x6;                           (Offset in x)
+  !!UN:Iv2/v3/v4/x3/x4/x3/x4/-1/0;   // Поместить объект типа х3 подтипа х4 в координаты v2/v3/v4
+*  !UN:Iv2/v3/v4/x3/x4/0;            // Поместить объект типа х3 подтипа х4 в координаты v2/v3/v4
+  !!POv2/v3/v4:N0;
+  !!VRi^CB_174_Set_Flag_%v2_%v3_%v4^:S1;
+  *!TRv2/v3/v4:E1;
+  *!IF:L^Map Start %V1 %V2 %V3^;
+  *!OBv2/v3/v4&x1=x3/x2=x4:H900;
+!!en:;
+!!en:;
+
