@@ -3,29 +3,6 @@ ZVSE2
 *** HotA Scouting
 
 
-*?FU(OnAfterErmInstructions);                   // Перед началом новой игры или после загрузки старой
-*!FU(Fun_SetDescriptionFromERT):P0/3/1/179620;  // Устанавливаем базовое описание навыка
-*!FU(Fun_SetDescriptionFromERT):P0/3/2/179621;  // Устанавливаем продвинутое описание навыка
-*!FU(Fun_SetDescriptionFromERT):P0/3/3/179622;  // Устанавливаем экспертное описание навыка
-
-*!FU(SetHotaScouting):P3/2/8;                   // Устанавливаем значение продвинутого навыка (5 - дефолт, +3)
-*!FU(SetHotaScouting):P3/3/10;                  // Устанавливаем значение экспертного навыка  (5 - дефолт, +5)
-
-*?FU(OnAfterLoadGame);                          // После загрузки
-*!FU(Fun_SetDescriptionFromERT):P0/3/1/179620;  // Устанавливаем базовое описание навыка
-*!FU(Fun_SetDescriptionFromERT):P0/3/2/179621;  // Устанавливаем продвинутое описание навыка
-*!FU(Fun_SetDescriptionFromERT):P0/3/3/179622;  // Устанавливаем экспертное описание навыка
-
-*!FU(SetHotaScouting):P3/2/8;                   // Устанавливаем значение продвинутого навыка (5 - дефолт, +3)
-*!FU(SetHotaScouting):P3/3/10;                  // Устанавливаем значение экспертного навыка  (5 - дефолт, +5)
-
-*?FU(SetHotaScouting);
-; x1 - навык, x2 - уровень (0..3), x3 - значение
-*!VRy1:S6547928;                                // Находим адрес в памяти для навыка
-*!VRx2:*4; !!VRy1:+x2;                          // Адрес требуемого ранга вторичного навыка
-*!VRe1:Sx3;                                     // Без конвертации процента
-*!UN:Cy1/4/x3;                                  // Устанавливаем значение
-
 !$OB81;                                         // Пост-триггер посещения ученого
 !!FU(HotA_CalculateScoutingRadiusAndReveal):P;
 
@@ -39,6 +16,12 @@ ZVSE2
 !!FU(HotA_CalculateScoutingRadiusAndReveal):P;
 
 !?FU(OnEquipArt)|v998=(ART_SPECULUM)/v998=(ART_SPYGLASS);// Герой надел телескоп (52) или подзорную трубу (53)
+!!FU(HotA_CalculateScoutingRadiusAndReveal):P;
+
+!?FU(OnCloseHeroScreen);                        // Игрок закрыл экран героя
+!!FU(HotA_CalculateScoutingRadiusAndReveal):P;
+
+!?FU(OnAfterHeroInteraction);                   // После диалога двух героев
 !!FU(HotA_CalculateScoutingRadiusAndReveal):P;
 
 !?FU(HotA_CalculateScoutingRadiusAndReveal);    // Рассчитываем радиус разведки
