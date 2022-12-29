@@ -11,7 +11,6 @@ ZVSE2
 *!FU(SetHotaScouting):P3/2/8;                   // Устанавливаем значение продвинутого навыка (5 - дефолт, +3)
 *!FU(SetHotaScouting):P3/3/10;                  // Устанавливаем значение экспертного навыка  (5 - дефолт, +5)
 
-
 *?FU(OnAfterLoadGame);                          // После загрузки
 *!FU(Fun_SetDescriptionFromERT):P0/3/1/179620;  // Устанавливаем базовое описание навыка
 *!FU(Fun_SetDescriptionFromERT):P0/3/2/179621;  // Устанавливаем продвинутое описание навыка
@@ -20,7 +19,6 @@ ZVSE2
 *!FU(SetHotaScouting):P3/2/8;                   // Устанавливаем значение продвинутого навыка (5 - дефолт, +3)
 *!FU(SetHotaScouting):P3/3/10;                  // Устанавливаем значение экспертного навыка  (5 - дефолт, +5)
 
-
 *?FU(SetHotaScouting);
 ; x1 - навык, x2 - уровень (0..3), x3 - значение
 *!VRy1:S6547928;                                // Находим адрес в памяти для навыка
@@ -28,31 +26,20 @@ ZVSE2
 *!VRe1:Sx3;                                     // Без конвертации процента
 *!UN:Cy1/4/x3;                                  // Устанавливаем значение
 
-
 !$OB81;                                         // Пост-триггер посещения ученого
 !!FU(HotA_CalculateScoutingRadiusAndReveal):P;
-
 
 !$OB104;                                        // Пост-триггер посещения университета
 !!FU(HotA_CalculateScoutingRadiusAndReveal):P;
 
-
 !$OB113;                                        // Пост-триггер посещения хижины ведьмы
 !!FU(HotA_CalculateScoutingRadiusAndReveal):P;
 
-
-*?HL-1;
-!?FU(OnHeroGainLevel);                          // Текущий герой апнул лвл
-*?FU31200;                                      // Текущий герой апнул лвл - пост-триггер
-*?FU(OnErmFunction 31200);
-*!IF:M^Мы в триггере^;
+!?FU(OnAfterHeroGainLevel);                     // Пост-триггер лвл-апа
 !!FU(HotA_CalculateScoutingRadiusAndReveal):P;
 
-
-*?AE1|v998=52/v998=53;
 !?FU(OnEquipArt)|v998=(ART_SPECULUM)/v998=(ART_SPYGLASS);// Герой надел телескоп (52) или подзорную трубу (53)
 !!FU(HotA_CalculateScoutingRadiusAndReveal):P;
-
 
 !?FU(HotA_CalculateScoutingRadiusAndReveal);    // Рассчитываем радиус разведки
 !!HE-1:P?y1/?y2/?y3;                            // Получаем координаты героя: y1 - X, y2 - Y, y3 - L

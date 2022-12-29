@@ -565,6 +565,14 @@ Returned Values:
 
 !!UN:P195/?y21; [Check if Replace Objects is enabled: y21=1 if yes]
 
+!!VRy20:S0; [initialize object counter to 0]
+!!VRy20:+1; [add one to object counter]
+!!VRy11:Sy20 *7; [number to add to index variable]
+!!VRy10:S593 +y11; [new index number]
+!!VRvy10:C112/0/0/-1/0/1/0; [windmill]
+
+!!FU671&y20>0:P57/-1/0/y20/80; [replace 80% of obelisks]
+
 ** TABLE of Y OBJECTS **
 
 !!VRy20:S0; [initialize object counter to 0]
@@ -1495,7 +1503,7 @@ Number replaced with Mithril: %V6^;
 
 !!FU|y4=16/y8=1/y50=1:E; [Exit if artifact was a relic, replaced or Commanders are disabled]
 
-!!VRx1&y4>=2/y4<=8:+1; [add 1 to counter: replace 1 in 5 treasure/minor/major artifacts]
+!!VRx1&y4=4:+1; [add 1 to counter: replace 1 in 5 minor artifacts]
 !!VRy6&x1>=5/v955>6:S146 R8; [Commander artifact #, excluding Slava's Ring]
 !!UN&x1>=5/v955>6:Ov952/v953/v954/0/0; [delete old artifact, no redraw]
 !!UN&x1>=5/v955>6:Iv952/v953/v954/5/y6/5/y6/-1/0; [place new artifact, no redraw]
