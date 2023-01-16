@@ -1,6 +1,0 @@
-Battle;allwait;b_allwait.def;729;8;12;12;;;
-Advmap;manualf;m_manualF.def;610;27;16;22;;;
-Advmap;automf;m_automf.def;610;50;16;22;;;
-Advmap;autowm;m_autowm.def;610;74;16;22;;;
-Advmap;choiceB;m_choiceB.def;610;97;16;22;;;
-Advmap;indicator;m_indy.def;602;25;9;97;;;

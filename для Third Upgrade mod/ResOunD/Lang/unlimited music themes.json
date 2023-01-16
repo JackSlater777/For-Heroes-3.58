@@ -1,0 +1,9 @@
+{
+  "umt": {
+    "randomizationIntervalDays": "1",
+    "minTrackPlaybackTime":      "40",
+    "playThemeTracksSequently":  "TRUE",
+    "treatCombatThemeSpecially": "TRUE",
+    "treatAiThemeSpecially":     "TRUE"
+  }
+}

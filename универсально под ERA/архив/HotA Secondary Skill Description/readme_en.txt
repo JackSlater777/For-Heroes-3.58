@@ -1,2 +1,0 @@
-HotA Secondary Skill Description
-

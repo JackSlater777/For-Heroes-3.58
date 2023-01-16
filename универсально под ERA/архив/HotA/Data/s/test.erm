@@ -1,0 +1,20 @@
+ZVSE2
+
+*** HotA Interference
+
+*?FU(OnSetupBattlefield)&i^battle_hero_1^>(NO_HERO);
+*!UN:C(COMBAT_MANAGER)/(UNC_INT32)/?(combatManager:y);
+*!UN:C(combatManager)/21460/(UNC_INT32)/?(spellPowerAttacker:y);  // 21460 = 53D4 (hex) - hero attack spell power
+*!IF:L^%(spellPowerAttacker)^;
+*!UN:C(combatManager)/21464/(UNC_INT32)/?(spellPowerDefender:y);  // 21464 = 53D8 (hex) - hero defence spell power
+*!IF:L^%(spellPowerDefender)^;
+
+;i^my_var^
+;%i(my_var)
+;i^battle_hero_%(side)^
+;004E4950/this/hero
+;!HEi^battle_hero_side^:Z?(hero);
+;!SN:E004E4950/(this_call_float)/(hero);
+;e1 -< вернёт резист
+
+**end

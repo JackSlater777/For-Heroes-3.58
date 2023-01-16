@@ -1,0 +1,35 @@
+{
+	"caption": {
+		"Cn_Simp": "",
+		"en_US": "HotA",
+		"ru_RU": "HotA"
+	},
+	"description": {
+		"full": {
+			"Cn_Simp": "",
+			"en_US": "readme_en.txt",
+			"ru_RU": "readme_ru.txt"
+		},
+		"short": {
+			"Cn_Simp": "",
+			"en_US": "",
+			"ru_RU": ""
+		}
+	},
+	"author": "slater777",
+	"homepage": "",
+	"icon": {
+		"file": "",
+		"index": 0
+	},
+	"mod_version": "0.0",
+	"priority": 1,
+	"compatibility": {
+		"class": "default",
+		"entries": {}
+	},
+	"platform": "era",
+	"info_version": "1.0",
+	"plugins": {},
+	"category": "gameplay"
+}

@@ -164,7 +164,7 @@ Random Artifacts can also be generated in a certain range x1-x2. If you want to 
 
 ****************************************************************************************************
 *Replace Objects when map starts
-*!?FU(OnEveryDay)&i^tum_replaceObj_on^;
+*?FU(OnEveryDay)&i^tum_replaceObj_on^;
 !?FU(OnEveryDay);
 
 !!if&x1=1/x3=1:;                   (Run once at day 1)
@@ -220,4 +220,3 @@ Random Artifacts can also be generated in a certain range x1-x2. If you want to 
   *!OBv2/v3/v4&x1=x3/x2=x4:H900;
 !!en:;
 !!en:;
-

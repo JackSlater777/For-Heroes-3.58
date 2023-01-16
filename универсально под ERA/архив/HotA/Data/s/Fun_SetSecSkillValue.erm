@@ -1,0 +1,57 @@
+ZVSE2
+
+** ver 1.0
+
+!?FU(Fun_SetSecSkillValue);
+; x1 - secondary skill number (0..27)
+; x2 - skill lvl (0..3)
+; x3 - skill value
+; x4 - specific value (???)
+; Example:
+; ?FU(OnAfterLoadGame); !FU(Fun_SetSecSkillValue):P23/2/33; // Advanced (2) Defence (23) reduces damage by 33%
+!!FU|x2<0/x2>3:E;
+!!FU&x1=0:E;                            // Pathfinding - reduce penalty from terrain???
+!!FU(Fun_SetSecSkillValuePercent)&x1=1:P6547944/x2/x3;  // Shooting
+!!FU(Fun_SetSecSkillValuePercent)&x1=2:P6548072/x2/x3;  // Logistics
+!!FU(Fun_SetSecSkillValueInteger)&x1=3:P6547928/x2/x3;  // Scouting
+!!FU(Fun_SetSecSkillValuePercent)&x1=4:P6548024/x2/x3;  // Diplomacy
+!!FU&x1=5:E;                            // Navigation
+!!FU(Fun_SetSecSkillValueInteger)&x1=6:P6547880/x2/x3;  // Leadership
+!!FU&x1=7:E;                            // Wisdom
+!!FU(Fun_SetSecSkillValueInteger)&x1=8:P6547912/x2/x3;  // Mysticism
+!!FU(Fun_SetSecSkillValueInteger)&x1=9:P6547864/x2/x3;  // Luck
+!!FU&x1=10:E;                           // Ballistics
+!!FU(Fun_SetSecSkillValuePercent)&x1=11:P6548008/x2/x3; // Eagle Eye
+!!FU(Fun_SetSecSkillValuePercent)&x1=12:P6547896/x2/x3; // Necromancy 
+!!FU(Fun_SetSecSkillValueInteger)&x1=13:P6547992/x2/x3; // Estates
+!!FU&x1=14:E;                           // Fire Magic
+!!FU&x1=15:E;                           // Wind Magic
+!!FU&x1=16:E;                           // Water Magic
+!!FU&x1=17:E;                           // Earth Magic
+!!FU&x1=18:E;                           // Scholar
+!!FU&x1=19:E;                           // Tactics
+!!FU&x1=20:E;                           // Artillery
+!!FU(Fun_SetSecSkillValuePercent)&x1=21:P6548056/x2/x3; // Learning
+!!FU(Fun_SetSecSkillValuePercent)&x1=22:P6547960/x2/x3; // Offence
+!!FU(Fun_SetSecSkillValuePercent)&x1=23:P6547976/x2/x3; // Defence
+!!FU(Fun_SetSecSkillValuePercent)&x1=24:P6548104/x2/x3; // Intelligence 
+!!FU(Fun_SetSecSkillValuePercent)&x1=25:P6548088/x2/x3; // Sorcery
+!!FU(Fun_SetSecSkillValuePercent)&x1=26:P6548040/x2/x3; // Resistance
+!!FU&x1=27:E;                           // First Aid
+
+!?FU(Fun_SetSecSkillValuePercent);      // install a new percent value for a secondary skill
+; x1 - secondary skill address
+; x2 - skill lvl (0..3)
+; x3 - value (percent)
+!!VRy1:Sx2 *4 +x1;                      // calculate skill address
+!!VRe1:Sx3:100; !!SN:X?y2 Xe1 X?y3 Xy2; // convert to percent
+!!UN:Cy1/4/y3;                          // replace with new value
+
+!?FU(Fun_SetSecSkillValueInteger);      // install a new integer value for a secondary skill
+; x1 - secondary skill address
+; x2 - skill lvl (0..3)
+; x3 - value (integer)
+!!VRy1:Sx2 *4 +x1;                      // calculate skill address
+!!UN:Cy1/4/x3;                          // replace with new value
+
+** end
