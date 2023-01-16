@@ -1,6 +1,7 @@
 ZVSE2
 
 
+
 !?FU(gem_CreateERMHook);
 !!SN:Ex1/1/4854758/(Before_CB_MSG_Hook);[0x4A13E6 - for common CB]
 !!SN:Ex1/1/4857430/(Before_CB_MSG_Hook);[0x4A1E56 - for Dragon Utopia]
