@@ -1,0 +1,26 @@
+ZVSE2
+
+
+!#FU(WOG_GetGeneralText):P84/?s^artifactStr^;
+
+
+!?FU(OnAdventureMapRightMouseClick)&i^mouse_item^=(ITEM_ADVMAP_ADVENTURE_MAP)/i^mouse_flags^=(MOUSE_FLAG_RMB)/i^key_ctrl^=(FALSE)/i^key_shift^=(FALSE)/i^key_alt^=(FALSE);
+!!OW:Cd/?(clickedPalyer:y);             [текущий игрок]
+
+!!VR(playerBitMask:y):S1 Sd<<(clickedPalyer); [бит.маска текущего игрока]
+
+!!TRi^mouse_mapX^/i^mouse_mapY^/i^mouse_mapZ^:V?(tileBitMask:y); [бит.маска видимости квадрата]
+!!VR(tileBitMask):&(playerBitMask);     [если квадрат не видим для игрока]
+
+!!if&(tileBitMask);
+  !!OBi^mouse_mapX^/i^mouse_mapY^/i^mouse_mapZ^:T?(objType:y) U?(artId:y); [тип/подтип объекта]
+
+  !!if&(objType)=(OBJ_ARTIFACT);
+    !!SN:H^art^/(artId)/0/?(desc:z);
+
+    !!IF:Q1/(PIC_TYPE_ART)/(artId)/(MSG_TYPE_POPUP)^%s(artifactStr)^;
+    !!CM:R0;                            [отмена стандартной реакции на клик]
+  !!en;
+!!en;
+
+** end

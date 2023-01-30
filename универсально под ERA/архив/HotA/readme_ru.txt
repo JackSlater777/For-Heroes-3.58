@@ -13,6 +13,11 @@ HotA Arts
 Description and Values.
 
 
+HotA Hints
+
+Hints when visiting Creature Banks.
+
+
 HotA Secondary Skill Description
 
 Secondary Skill Description

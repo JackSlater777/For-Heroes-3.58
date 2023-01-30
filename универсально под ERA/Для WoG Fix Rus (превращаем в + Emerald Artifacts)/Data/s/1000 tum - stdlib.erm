@@ -1,0 +1,57 @@
+ZVSE2
+
+
+!?FU(OnAfterErmInstructions);
+!!FU(tum_CheckPlugins):P;
+
+
+!?FU(OnAfterLoadGame);
+!!FU(tum_CheckPlugins):P;
+
+
+!?FU(tum_CheckPlugins);
+!!SN:L^emerald3_3.era^/?(emer3:y);
+!!SN:L^emerald3_3.dll^/?(emer3Var:y);
+!!SN:L^emerald_v202a.era^/?(emer2:y);
+!!VRi^tum_emerald_on^|(emer3)<>0/(emer3Var)<>0/(emer2)<>0:S(TRUE);
+
+!!SN:L^wogcn.dll^/?(wogcn:y);
+!!VRi^tum_wogcn_on^&(wogcn)<>0:S(TRUE);
+
+
+************************************************
+**** Disable unused artifacts from the game ****
+************************************************
+; All the blank artifacts would be disabled if ACM is not presented
+!?FU(tum_DisableUnusedArtifacts)&i^Advanced_Classes_Mod_Active^=(FALSE);
+!!re i/(ART_BLANK_HELMET)/(ART_BLANK_HORN);
+  !!UN:Ai/1;
+!!en;
+
+!#FU(tum_DisableUnusedArtifacts):P;
+
+
+*******************************************************
+**** Function to get the latest artifact ID of TUM ****
+*******************************************************
+; For Emerald 3 by Majaczek only
+!?FU(GetMaxArtifactId);
+!#VA(result:x);
+
+!!if&i^tum_emerald_on^;
+  !!re i/(ART_LAST_WOG)/999;
+    ; get the first character of the name of the artifact
+    !!SN:H^art^/i/0/?z1;
+
+    !!UN:C9597928/1/?(firstChar:y);
+
+    ; end the loop if the first character is #
+    !!br&(firstChar)=35;
+  !!en;
+
+  !!VR(result):Si -1;
+!!el;
+  !!VR(result):S(ART_LAST_WOG);
+!!en;
+
+** end

@@ -1,0 +1,92 @@
+ZVSE2
+
+
+!?FU(gem_SetSecSkillValue);
+!#VA(skillId:x) (skillLvl:x) (skillValue:x);
+
+; Example:
+; ?FU(OnAfterLoadGame); !FU(gem_SetSecSkillValue):P23/2/33; // Advanced (2) Defence (23) reduces damage by 33%
+
+!!FU|(skillLvl)<=0/(skillLvl)>3:E;
+
+!!FU&(skillId)=0:E;                                                              // Pathfinding
+!!FU(gem_SetSecSkillValuePercent)&(skillId)=1:P6547944/(skillLvl)/(skillValue);  // Shooting
+!!FU(gem_SetSecSkillValuePercent)&(skillId)=2:P6548072/(skillLvl)/(skillValue);  // Logistics
+!!FU(gem_SetSecSkillValueInteger)&(skillId)=3:P6547928/(skillLvl)/(skillValue);  // Scouting
+!!FU(gem_SetSecSkillValuePercent)&(skillId)=4:P6548024/(skillLvl)/(skillValue);  // Diplomacy
+!!FU&(skillId)=5:E;                                                              // Navigation
+!!FU(gem_SetSecSkillValueInteger)&(skillId)=6:P6547880/(skillLvl)/(skillValue);  // Leadership
+!!FU&(skillId)=7:E;                                                              // Wisdom
+!!FU(gem_SetSecSkillValueInteger)&(skillId)=8:P6547912/(skillLvl)/(skillValue);  // Mysticism
+!!FU(gem_SetSecSkillValueInteger)&(skillId)=9:P6547864/(skillLvl)/(skillValue);  // Luck
+!!FU&(skillId)=10:E;                                                             // Ballistics
+!!FU(gem_SetSecSkillValuePercent)&(skillId)=11:P6548008/(skillLvl)/(skillValue); // Eagle Eye
+!!FU(gem_SetSecSkillValuePercent)&(skillId)=12:P6547896/(skillLvl)/(skillValue); // Necromancy 
+!!FU(gem_SetSecSkillValueInteger)&(skillId)=13:P6547992/(skillLvl)/(skillValue); // Estates
+!!FU&(skillId)=14:E;                                                             // Fire Magic
+!!FU&(skillId)=15:E;                                                             // Wind Magic
+!!FU&(skillId)=16:E;                                                             // Water Magic
+!!FU&(skillId)=17:E;                                                             // Earth Magic
+!!FU&(skillId)=18:E;                                                             // Scholar
+!!FU&(skillId)=19:E;                                                             // Tactics
+!!FU&(skillId)=20:E;                                                             // Artillery
+!!FU(gem_SetSecSkillValuePercent)&(skillId)=21:P6548056/(skillLvl)/(skillValue); // Learning
+!!FU(gem_SetSecSkillValuePercent)&(skillId)=22:P6547960/(skillLvl)/(skillValue); // Offence
+!!FU(gem_SetSecSkillValuePercent)&(skillId)=23:P6547976/(skillLvl)/(skillValue); // Defence
+!!FU(gem_SetSecSkillValuePercent)&(skillId)=24:P6548104/(skillLvl)/(skillValue); // Intelligence 
+!!FU(gem_SetSecSkillValuePercent)&(skillId)=25:P6548088/(skillLvl)/(skillValue); // Sorcery
+!!FU(gem_SetSecSkillValuePercent)&(skillId)=26:P6548040/(skillLvl)/(skillValue); // Resistance
+!!FU&(skillId)=27:E;                                                             // First Aid
+
+
+!?FU(gem_SetSecSkillValuePercent);                        // Set a new percent value for a secondary skill
+!#VA(basicAddr:x) (skillLvl:x) (skillPercentValue:x);
+
+!!VR(addr:y):S(skillLvl) *4 +(basicAddr);                 // Calculate skill address
+!!VR(skillValue:e):S(skillPercentValue) :100; 
+!!SN:X?(addr2:y) X(skillValue) X?(addr3:y) X(addr2);      // Convert to percent
+!!UN:C(addr)/4/(addr3);                                   // Replace with new value
+
+
+!?FU(gem_SetSecSkillValueInteger);                        // Set a new integer value for a secondary skill
+!#VA(basicAddr:x) (skillLvl:x) (skillIntegerValue:x);
+
+!!VR(addr:y):S(skillLvl) *4 +(basicAddr);                 // Calculate skill address
+!!UN:C(addr)/4/(skillIntegerValue);                       // Replace with new value
+
+
+!?FU(gem_GetSpecBuilduingName);
+!#VA(buildId:x) (name:x);
+
+!!VR(offset:y):S(buildId) *(SIZEOF_PTR);
+!!UN:C6968380/(offset)/(SIZEOF_PTR)/?(builNamePtr:y);
+!!SN:B(builNamePtr:y)/d/?s^temp^;
+!!VR(name):Zs^temp^;
+!!SN:W^temp^;
+
+!?FU(gem_SetSpecBuilduingName);
+!#VA(buildId:x) (name:x);
+
+!!VR(offset:y):S(buildId) *(SIZEOF_PTR);
+!!UN:C6968380/(offset)/(SIZEOF_PTR)/?(builNamePtr:y);
+!!SN:B(builNamePtr:y)/d/z(name);
+
+
+!?FU(gem_GetSpecBuilduingDesc);
+!#VA(buildId:x) (desc:x);
+
+!!VR(offset:y):S(buildId) *(SIZEOF_PTR);
+!!UN:C6977652/(offset)/(SIZEOF_PTR)/?(buildDescPtr:y);
+!!SN:B(buildDescPtr:y)/d/?s^temp^;
+!!VR(desc):Zs^temp^;
+!!SN:W^temp^;
+
+
+!?FU(gem_SetSpecBuilduingDesc);
+!#VA(buildId:x) (desc:x);
+
+!!VR(offset:y):S(buildId) *(SIZEOF_PTR);
+!!UN:C6977652/(offset)/(SIZEOF_PTR)/?(buildDescPtr:y);
+!!SN:B(buildDescPtr:y)/d/z(desc);
+
+** end

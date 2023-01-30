@@ -1,0 +1,75 @@
+ZVSE2
+
+
+**************************************************************************************************
+Ring of Oblivion
+
+
+!?FU(gem_CreateERMHook);
+!!SN:Ex1/1/5128574/(tum_NullifyNecromancy);
+
+
+!?FU(OnSetupBattlefield)&i^tum_emerald_on^;
+; Check Heroes
+!!BH0:N?(attacker:y); [Get the attacker hero id]
+!!BH1:N?(defender:y); [Get the attacker hero id]
+
+!!if&(attacker)>=0;
+  !!FU(tum_CheckRingOfOblivion):P(attacker);
+!!el&(defender)>=0;
+  !!FU(tum_CheckRingOfOblivion):P(defender);
+!!en;
+
+
+!?FU(tum_CheckRingOfOblivion);
+!#VA(heroSide:x);
+
+!!HE(heroSide):A2/(ART_RING_OF_OBLIVION)/d/?(isEquipped:y);
+; Set flag
+!!if&(isEquipped);
+  !!VRi^art_RingOfOblivion^:S(TRUE);
+  *!UN:C7994448/1/5;
+!!en;
+
+
+!?FU(OnAfterBattle)&i^art_RingOfOblivion^;
+; Reset flag
+!!VRi^art_RingOfOblivion^:S(FALSE);
+*!UN:C7994448/1/0;
+
+
+!?FU(OnDwarfMagicResistance)&i^art_RingOfOblivion^;
+; Exit if the spell is not Resurrection or Animate Dead
+!!MR:S?(spell:y);
+!!FU&(spell)<>(SPELL_RESURRECTION)/(spell)<>(SPELL_ANIMATE_DEAD):E;
+
+; Set spell immunity to 100 if any hero has Ring of Oblivion
+!!MR:F100;
+
+
+!?FU(OnMonsterPhysicalDamage)&i^art_RingOfOblivion^;
+!!MF:N?(stackNumber:y);
+!!FU(tum_DeleteDeadStack):P(stackNumber);
+
+
+!?FU(OnMagicCorrectedResistance)&i^art_RingOfOblivion^;
+!!MR:N?(stackNumber:y);
+!!FU(tum_DeleteDeadStack):P(stackNumber);
+
+
+!?FU(tum_DeleteDeadStack);
+!#VA(stackNumber:x);
+
+!!BM(stackNumber):F?(monFlag:y);
+!!VR(monFlag):|268435456;
+!!BM(stackNumber):F(monFlag);
+
+
+!?FU(tum_NullifyNecromancy)&i^art_RingOfOblivion^;
+!!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y) C(ebp)/-4/4/?(necromancyPower:e);
+!!VR(necromancyPower):S0;
+!!UN:C(ebp)/-4/4/(necromancyPower);
+
+address for vampire fix 00443DB0
+
+** end

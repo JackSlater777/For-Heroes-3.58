@@ -1,0 +1,83 @@
+ZVSE2
+
+
+****************************************************************************************************
+**
+ Wayfarer's boots Part 1 
+**
+
+// Script by Archer30
+
+!?FU(OnAfterErmInstructions)&i^tum_emerald_on^;
+!!FU(NewIntArray):P52/?i^tum_terrainPenaltyValues^/(M_TEMP);
+
+; The following lines must be executed later than option 739 - pathfinding.erm - OnStartOrLoad in order to store the latest terrain penalty values
+!?FU(OnStartOrLoad)&i^tum_emerald_on^;
+!!VR(index:y):S0;
+
+!!re (address:y)/6546704/6546908/4;
+  !!UN:C(address)/(UNC_INT)/?(value:y);
+  !!SN:Mi^tum_terrainPenaltyValues^/(index)/(value);
+  !!VR(index):+1;
+!!en;
+
+!!VRi^tum_game_left^:S(FALSE);
+
+; Set or restore terrain penalty values depeding on whether Wayfarer's boots are equipped
+!?FU(tum_OnSetActiveHero)&i^tum_emerald_on^;
+!!if|i^timerIsAi^/999;
+  !!OW:A(CURRENT_PLAYER)/?i^tum_active_hero^;
+
+  !!if&i^tum_active_hero^>(NO_HERO);
+    !!HEi^tum_active_hero^:A2/(ART_WAYFARERS_BOOTS)/?(has:y)/?(equipped:y);
+
+    !!FU(tum_SetTerrainPenaltyValues):P(equipped);
+  !!en;
+!!en;
+
+!?FU(OnEquipArt)&i^tum_emerald_on^;
+!!if|i^timerIsAi^/999;
+  !!if&v998=(ART_WAYFARERS_BOOTS);
+    !!HE(CURRENT_HERO):N?(hero:y);
+    !!FU(tum_SetTerrainPenaltyValues)&i^tum_active_hero^=(hero):P(TRUE);
+  !!en;
+!!en;
+
+!?FU(OnUnequipArt)&i^tum_emerald_on^;
+!!if|i^timerIsAi^/999;
+  !!if&v998=(ART_WAYFARERS_BOOTS);
+    !!HE(CURRENT_HERO):N?(hero:y);
+    !!FU(tum_SetTerrainPenaltyValues)&i^tum_active_hero^=(hero):P(FALSE);
+  !!en;
+!!en;
+
+!?FU(tum_SetTerrainPenaltyValues);
+!#VA(equippedWayfarersBoots:x);
+
+; Set Bonuses
+!!if&(equippedWayfarersBoots)>0;
+  !!re (address:y)/6546704/6546908/4;
+    !!UN:C(address)/(UNC_INT)/100;
+  !!en;
+; Set original values
+!!el;
+  !!SN:Mi^tum_terrainPenaltyValues^/?(size:y);
+
+  !!if&(size)>0;
+    !!VR(index:y):S0;
+
+    !!re (address:y)/6546704/6546908/4;
+      !!SN:Mi^tum_terrainPenaltyValues^/(index)/?(value:y);
+      !!UN:C(address)/(UNC_INT)/(value);
+      !!VR(index):+1;
+    !!en;
+  !!en;
+!!en;
+
+**
+ Restore the original values of terrain penalties 
+**
+; The following lines must be executed ealier than option 739 - pathfinding.erm - OnGameLeave to be overriden.
+; Wayfarer's Boots Part 2
+!?FU(OnGameLeave)&i^tum_emerald_on^;
+!!FU(tum_SetTerrainPenaltyValues):P(FALSE);

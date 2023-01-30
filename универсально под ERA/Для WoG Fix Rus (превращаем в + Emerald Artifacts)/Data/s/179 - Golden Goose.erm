@@ -1,0 +1,21 @@
+ZVSE2
+
+
+(Golden Goose), +7000 Gold per day
+ 
+****************************************************************************************************
+*Golden Goose*
+
+!?FU(OnEveryDay)&i^tum_emerald_on^/i^timerOnce^; [Runs once each Turn]
+!!DO(CheckGoldenGoose)/0/(HERO_LAST_WOG)/1&x3=1/x1>1:P; [loop through heroes]
+
+
+!?FU(CheckGoldenGoose);
+!!HEx16:O?(heroOwner:y);                     
+!!FU&(heroOwner)=-1:E;
+!!HEx16:A2/(ART_GOLDEN_GOOSE)/d/?(isEquipped:y);
+!!if&(isEquipped);
+  !!OW:R(heroOwner)/6/d7000;
+!!en;
+
+** end
