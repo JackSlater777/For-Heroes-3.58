@@ -1,12 +1,10 @@
 ZVSE2
 
+*******************************
+**** Pendant of Reflection ****
+*******************************
 
-(Pendant of Reflection), +20% MR Dwarve Type
- 
-****************************************************************************************************
-*Pendant of Reflection*
-
-!?MR2&i^tum_emerald_on^;                    [Magic Resistance Trigger]
+!?FU(OnDwarfMagicResistance)&i^tum_emerald_on^;              
 !!MR:N?(monNum:y);                          [Get Creature Number]
 !!BM(monNum):I?(monSide:y);                 [Get Creature Side]
 !!BA:H(monSide)/?(heroId:y);                [Get Hero Number of creature side]

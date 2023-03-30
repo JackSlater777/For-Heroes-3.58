@@ -1,0 +1,37 @@
+ZVSE2
+
+**********************
+**** Golden Goose ****
+**********************
+// Script by Archer30
+
+!?FU(OnEveryDay)&i^tum_emerald_on^/i^timerOnce^;
+!!UN:P727/?(backpackArt:y);             [Check Backpac Artifact option of Era Scripts]
+
+!!re i/(HERO_FIRST)/(HERO_LAST_WOG);
+  !!HEi:O?(owner:y);
+
+  !!if&(owner)>(NO_OWNER);
+    !!HEi:A2/(ART_GOLDEN_GOOSE)/?(has:y)/?(equipped:y);
+
+    !!co&(has)=0;
+    !!co&(equipped)=0/(backpackArt)<>(TRUE);
+
+    !!OW:R(owner)/(RES_GOLD)/d7000;
+  !!en;
+!!en;
+
+!!re i/(HERO_FIRST)/(HERO_LAST_WOG);
+  !!HEi:O?(owner:y);
+
+  !!if&(owner)>(NO_OWNER);
+    !!HEi:A2/(ART_SACK_OF_ENDLESS_GOLD)/?(has:y)/?(equipped:y);
+
+    !!co&(has)=0;
+    !!co&(equipped)=0/(backpackArt)<>(TRUE);
+
+    !!OW:R(owner)/(RES_GOLD)/d250;
+  !!en;
+!!en;
+
+** end
