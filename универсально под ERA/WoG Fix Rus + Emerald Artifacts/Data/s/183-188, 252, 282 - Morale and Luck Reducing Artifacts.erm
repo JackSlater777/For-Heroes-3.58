@@ -1,0 +1,90 @@
+ZVSE2
+
+(Pendant of Downfall) -2 Morale to Enemies
+(Ring of Suppression) -1 Morale to Enemies
+(Hideous Mask) -1 Morale to Enemies
+(Runes of Imminency) -1 Luck to Enemies
+(Demon's Horseshoe) -1 Luck to Enemies
+(Shaman's Puppet) -2 Luck to Enemies
+(Pendant of Despair) -3 Morale and Luck to Enemies
+
+****************************************************************************************************
+*Morale and Luck reducing artefacts*
+Script by Daemon_n and JackSlater (26.01.23)
+
+
+!?FU(gem_CreateERMHook);
+!!SN:Ex1/1/4447691/(gem_MinusMorale);
+!!SN:Ex1/1/4501536/(gem_MinusLuck);
+
+
+!?FU(gem_MinusMorale);
+!!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y) C(ebp:y)/20/4/?(oppHero:y);
+
+!!VR(moralReduction:y):S0; [Reset var]
+
+!!if&(oppHero);
+  !!SN:E5084256/(CALLCONV_THISCALL)/(oppHero)/(ART_PENDANT_OF_DESPAIR);
+  !!if&v1;
+    !!VR(moralReduction): -3;
+  !!en;
+
+  !!SN:E5084256/(CALLCONV_THISCALL)/(oppHero)/(ART_CLOAK_OF_DEATHS_SHADOW);
+  !!if&v1;
+    !!VR(moralReduction): -2;
+  !!en;
+
+  !!SN:E5084256/(CALLCONV_THISCALL)/(oppHero)/(ART_PENDANT_OF_DOWNFALL);
+  !!if&v1;
+    !!VR(moralReduction): -2;
+  !!en;
+
+  !!SN:E5084256/(CALLCONV_THISCALL)/(oppHero)/(ART_HIDEOUS_MASK);
+  !!if&v1;
+    !!VR(moralReduction): -1;
+  !!en;
+  
+  !!SN:E5084256/(CALLCONV_THISCALL)/(oppHero)/(ART_RING_OF_SUPPRESSION);
+  !!if&v1;
+    !!VR(moralReduction): -1;
+  !!en;
+
+  !!UN:Cx1/(STRUCT_HOOK_CONTEXT_ESI)/4/d(moralReduction);
+!!en;
+
+
+!?FU(gem_MinusLuck);
+!!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y) C(ebp:y)/16/4/?(oppHero:y);
+
+!!VR(luckReduction:y):S0; [Reset var]
+
+!!if&(oppHero);
+  !!SN:E5084256/(CALLCONV_THISCALL)/(oppHero)/(ART_PENDANT_OF_DESPAIR);
+  !!if&v1;
+    !!VR(luckReduction): -3;
+  !!en;
+
+  !!SN:E5084256/(CALLCONV_THISCALL)/(oppHero)/(ART_CLOAK_OF_DEATHS_SHADOW);
+  !!if&v1;
+    !!VR(luckReduction): -2;
+  !!en;
+
+  !!SN:E5084256/(CALLCONV_THISCALL)/(oppHero)/(ART_SHAMANS_PUPPET);
+  !!if&v1;
+    !!VR(luckReduction): -2;
+  !!en;
+
+  !!SN:E5084256/(CALLCONV_THISCALL)/(oppHero)/(ART_DEMONS_HORSESHOE);
+  !!if&v1;
+    !!VR(luckReduction): -1;
+  !!en;
+  
+  !!SN:E5084256/(CALLCONV_THISCALL)/(oppHero)/(ART_RUNES_OF_IMMINENCY);
+  !!if&v1;
+    !!VR(luckReduction): -1;
+  !!en;
+
+  !!UN:Cx1/(STRUCT_HOOK_CONTEXT_EAX)/4/d(luckReduction);
+!!en;
+
+** end

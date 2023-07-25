@@ -1,0 +1,35 @@
+{
+	"caption": {
+		"Cn_Simp": "",
+		"en_US": "WoG Graphics Fix RUS",
+		"ru_RU": "WoG Graphics Fix RUS"
+	},
+	"description": {
+		"full": {
+			"Cn_Simp": "",
+			"en_US": "readme.txt",
+			"ru_RU": "readmeru.txt"
+		},
+		"short": {
+			"Cn_Simp": "",
+			"en_US": "WoG Graphics Expansion. \r\n\r\nAuthor: Grossmaster\r\n\r\nAlso used materials made by:\r\nValery\r\nHotA Crew\r\nKuririn\r\nFred79\r\nMod Design Team\r\nDocent Picolan\r\nTotkotoriy\r\nAstaroth\r\nFcst1\r\nGrayface",
+			"ru_RU": "Графическое дополнение для WoG. \r\n\r\n- Автор мода Grossmaster\r\n\r\nТакже были использованы материалы, за авторстом которых стоят:\r\nValery\r\nHotA Crew\r\nKuririn\r\nFred79\r\nMod Design Team\r\nDocent Picolan\r\nTotkotoriy\r\nAstaroth\r\nFcst1\r\nGrayface\r\nRaistlin"
+		}
+	},
+	"author": "Grossmaster",
+	"homepage": "",
+	"icon": {
+		"file": "Icon.ico",
+		"index": 0
+	},
+	"mod_version": "2.11.0",
+	"priority": 1,
+	"compatibility": {
+		"class": "default",
+		"entries": {}
+	},
+	"platform": "era",
+	"info_version": "1.0",
+	"plugins": {},
+	"category": "graphics"
+}

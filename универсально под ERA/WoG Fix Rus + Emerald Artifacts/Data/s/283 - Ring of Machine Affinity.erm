@@ -1,0 +1,90 @@
+Z VSE2
+
+**********************************
+**** Ring of Machine Affinity ****
+**********************************
+
+!?FU(gem_CreateERMHook);
+!!SN:Ex1/1/4687160/(gem_DoubleTentHeal);
+!!SN:Ex1/1/5138208/(gem_GetExtraAttackToShooters);
+!!SN:Ex1/1/4456313/(gem_GetExtraShotToBallista);
+*!SN:Ex1/1/4479733/(gem_GetExtraShotToCatapult);
+
+00445AF5 = 4479733
+00445B52 = 4479826
+
+!?FU(gem_DoubleTentHeal)&i^tum_emerald_on^;
+!!BG:H?(heroId:y);
+
+!!if&(heroId)<>(NO_HERO);
+  !!HE(heroId):A2/(ART_RING_OF_MACHINE_AFFINITY)/d/?(isEquipped:y);
+  !!if&(isEquipped);
+    !!UN:Cx1/(STRUCT_HOOK_CONTEXT_EAX)/4/d<<1; [то же, что и *2]
+  !!en;
+!!en;
+
+
+!?FU(gem_GetExtraAttackToShooters)&i^tum_emerald_on^;
+!!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y) C(ebp)/-4/4/?(hero:y);
+!!UN:C(ebp)/12/4/?(monPtr:y) C(monPtr)/84/4/?(monAtk:y);
+!!UN:C(hero)/26/4/?(heroId:y) C(ebp)/8/4/?(monID:y);
+
+!!MA:X(monID)/?f;
+!!VRf:&(MON_FLAG_SHOOTER);
+
+!!if&f;
+  !!HE(heroId):A2/(ART_RING_OF_MACHINE_AFFINITY)/d/?(isEquipped:y);
+  !!HE(heroId):A2/(ART_AMMO_CART)/d/?(isEquipped2:y);
+  !!if&(isEquipped)/(isEquipped2);
+    !!VR(monAtk): +4;
+    !!UN:C(monPtr)/84/4/(monAtk);
+  !!en;
+!!en;
+
+
+!?FU(gem_GetExtraShotToBallista)&i^tum_emerald_on^;
+!!UN:Cx1/(STRUCT_HOOK_CONTEXT_ESI)/4/?(shooter:y) C(shooter)/52/4/?(monId:y);
+!!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y) C(ebp)/-4/4/?(target:y);
+
+!!BG:H?(heroId:y);
+
+!!if&(heroId)<>(NO_HERO)/(monId)=(MON_BALLISTA);
+  !!HE(heroId):A2/(ART_RING_OF_MACHINE_AFFINITY)/d/?(isEquipped:y);
+  !!SN&(isEquipped):E4453920/(CALLCONV_THISCALL)/(shooter)/(target);
+!!en;
+
+
+!?FU(gem_GetExtraShotToCatapult)&i^tum_emerald_on^;
+!!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBX)/4/?(shotsNumber:y);
+
+!!BG:H?(heroId:y);
+!!IF:L^heroId = %(heroId), shotsNumber = %(shotsNumber)^;
+
+!!if&(heroId)<>(NO_HERO);
+  !!HE(heroId):A2/(ART_RING_OF_MACHINE_AFFINITY)/d/?(isEquipped:y);
+  !!if&(isEquipped);
+    !!VR(shotsNumber): +1;
+    !!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBX)/4/(shotsNumber);
+  !!en;
+!!en;
+
+!!IF:L^shotsNumber = %(shotsNumber)^;
+
+
+
+
+
+
+
+
+*!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y) C(ebp)/-10/4/?(v17:y);
+*!UN:Cx1/(STRUCT_HOOK_CONTEXT_EDI)/4/?(v9:y);
+*!IF:L^v9 = %(v9), v17 = %(v17)^;
+
+*!UN:Cx1/(STRUCT_HOOK_CONTEXT_ESI)/4/?(v3:y);
+*!UN:Cx1/(STRUCT_HOOK_CONTEXT_EDI)/4/?(v13:y);
+*!IF:L^v3 = %(v3), v13 = %(v13)^;
+
+
+
+** end

@@ -1,0 +1,23 @@
+ZVSE2
+
+*******************************
+**** Pendant of Reflection ****
+*******************************
+
+!?FU(OnDwarfMagicResistance)&i^tum_emerald_on^;              
+!!MR:N?(monNum:y);                          [Get Creature Number]
+!!BM(monNum):I?(monSide:y);                 [Get Creature Side]
+!!BA:H(monSide)/?(heroId:y);                [Get Hero Number of creature side]
+
+!!if&(heroId)>=0;                           [if valid hero]
+  !!HE(heroId):A1/?(artId:y)/(ART_SLOT_NECK); [Check for Pendant of Reflection]
+
+  !!if&(artId)=(ART_PENDANT_OF_REFLECTION); [if equipped]
+    !!MR:F?(resistChance:y);                [get chance to resist spell]
+    !!VR(resistChance): +19;                [add +20% chance to resist]
+    !!VR(resistChance)&(resistChance)>=100:S100; [chance cannot be higher than 100% (Immune)]
+    !!MR:F(resistChance);                   [Apply increased resistance chance to that stack temporarily]
+  !!en;
+!!en;
+
+** end
