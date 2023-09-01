@@ -27,7 +27,6 @@ for Third Upgrade Mod by VMaiko
 *!UN:A37/(ART_PRISMATIC_EYE_OF_THE_GOD_DRAGON)/(ART_EYE_OF_THE_GREEN_DRAGON)/(ART_EYE_OF_THE_RED_DRAGON)/(ART_EYE_OF_THE_FAERIE_DRAGON)/(ART_EYE_OF_THE_RUST_DRAGON)/(ART_EYE_OF_THE_AZURE_DRAGON); 278
 
 
-!#UN:A12/0/0/0; [Ban Barbarian Lords Axe of Ferocity]
 !#FU(tum_SetUpNewComnbiArts)&i^tum_emerald_on^:P;
 
 ** end
