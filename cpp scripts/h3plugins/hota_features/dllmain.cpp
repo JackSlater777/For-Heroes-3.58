@@ -16,20 +16,33 @@ _LHF_(RMG_ObjGen_AfterObjListCreation)
     for (auto& objGen : objectGens)
     {
         int objectType = objGen->type;
-        if (objectType)
-        {
+        int objectSubtype = objGen->subtype;
+        //if (objectType)
+        //if (objectSubtype)
+        //{
             for (size_t i = 0; i < 2; i++)
             {
-                sprintf(h3_TextBuffer, "rmg.%d.%s", objectType, attrNames[i]);
-                // Проверяем атрибуты в json
+                sprintf(h3_TextBuffer, "rmg.%d.%d.%s", objectType, objectSubtype, attrNames[i]);
+                // Ищем тип и подтип в json
                 int attrValue = EraJS::readInt(h3_TextBuffer, success);
-                // Если найден, заменяем параметр объекта
+                // Если найдены тип и подтип, заменяем параметр объекта
                 if (success) {
                     *reinterpret_cast<int*>(reinterpret_cast<int>(objGen) + 12 + i * 4) = attrValue;
                     //H3Messagebox(Era::IntToStr(attrValue).c_str());
                 }
+                // Если подтип не найден, ищем по типу
+                else {
+                    sprintf(h3_TextBuffer, "rmg.%d.%s", objectType, attrNames[i]);
+                    // Ищем тип в json
+                    int attrValue = EraJS::readInt(h3_TextBuffer, success);
+                    // Если найден, заменяем параметр объекта
+                    if (success) {
+                        *reinterpret_cast<int*>(reinterpret_cast<int>(objGen) + 12 + i * 4) = attrValue;
+                        //H3Messagebox(Era::IntToStr(attrValue).c_str());
+                    }
+                }
             }
-        }
+        //}
         //Era::WriteStrToIni("type", Era::IntToStr(objGen->type).c_str(), Era::IntToStr(counter).c_str(), pathName);
         //Era::WriteStrToIni("subtype", Era::IntToStr(objGen->subtype).c_str(), Era::IntToStr(counter).c_str(), pathName);
         //Era::WriteStrToIni("value", Era::IntToStr(objGen->value).c_str(), Era::IntToStr(counter).c_str(), pathName);
@@ -55,7 +68,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
             plugin_On = 1;
             Era::ConnectEra();
             globalPatcher = GetPatcher();
-            _PI = globalPatcher->CreateInstance("RMG.plugin");
+            _PI = globalPatcher->CreateInstance("rmg_editor.plugin");
             _PI->WriteLoHook(0x5381EC, RMG_ObjGen_AfterObjListCreation);
         }
     case DLL_THREAD_ATTACH:
