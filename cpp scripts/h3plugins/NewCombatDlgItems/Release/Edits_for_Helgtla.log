@@ -1,0 +1,27 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  battle_CreatureDlg_SpellsPreview.cpp
+e:\pycharmprojects\for-heroes-3.58\cpp scripts\headers\Era/eraJson.hpp(27): warning C4800: "int": принудительное преобразование значения к логическому "true" или "false" (предупреждение о производительности)
+e:\pycharmprojects\for-heroes-3.58\cpp scripts\headers\Era/eraJson.hpp(42): warning C4800: "int": принудительное преобразование значения к логическому "true" или "false" (предупреждение о производительности)
+e:\pycharmprojects\for-heroes-3.58\cpp scripts\headers\Era/eraJson.hpp(54): warning C4800: "int": принудительное преобразование значения к логическому "true" или "false" (предупреждение о производительности)
+battle_CreatureDlg_SpellsPreview.cpp(15): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+  battle_Dlg_MonPreview.cpp
+e:\pycharmprojects\for-heroes-3.58\cpp scripts\headers\Era/eraJson.hpp(27): warning C4800: "int": принудительное преобразование значения к логическому "true" или "false" (предупреждение о производительности)
+e:\pycharmprojects\for-heroes-3.58\cpp scripts\headers\Era/eraJson.hpp(42): warning C4800: "int": принудительное преобразование значения к логическому "true" или "false" (предупреждение о производительности)
+e:\pycharmprojects\for-heroes-3.58\cpp scripts\headers\Era/eraJson.hpp(54): warning C4800: "int": принудительное преобразование значения к логическому "true" или "false" (предупреждение о производительности)
+  CreatureDlgHandler.cpp
+e:\pycharmprojects\for-heroes-3.58\cpp scripts\headers\Era/eraJson.hpp(27): warning C4800: "int": принудительное преобразование значения к логическому "true" или "false" (предупреждение о производительности)
+e:\pycharmprojects\for-heroes-3.58\cpp scripts\headers\Era/eraJson.hpp(42): warning C4800: "int": принудительное преобразование значения к логическому "true" или "false" (предупреждение о производительности)
+e:\pycharmprojects\for-heroes-3.58\cpp scripts\headers\Era/eraJson.hpp(54): warning C4800: "int": принудительное преобразование значения к логическому "true" или "false" (предупреждение о производительности)
+  dllmain.cpp
+e:\pycharmprojects\for-heroes-3.58\cpp scripts\headers\Era/eraJson.hpp(27): warning C4800: "int": принудительное преобразование значения к логическому "true" или "false" (предупреждение о производительности)
+e:\pycharmprojects\for-heroes-3.58\cpp scripts\headers\Era/eraJson.hpp(42): warning C4800: "int": принудительное преобразование значения к логическому "true" или "false" (предупреждение о производительности)
+e:\pycharmprojects\for-heroes-3.58\cpp scripts\headers\Era/eraJson.hpp(54): warning C4800: "int": принудительное преобразование значения к логическому "true" или "false" (предупреждение о производительности)
+  pch.cpp
+e:\pycharmprojects\for-heroes-3.58\cpp scripts\headers\Era/eraJson.hpp(27): warning C4800: "int": принудительное преобразование значения к логическому "true" или "false" (предупреждение о производительности)
+e:\pycharmprojects\for-heroes-3.58\cpp scripts\headers\Era/eraJson.hpp(42): warning C4800: "int": принудительное преобразование значения к логическому "true" или "false" (предупреждение о производительности)
+e:\pycharmprojects\for-heroes-3.58\cpp scripts\headers\Era/eraJson.hpp(54): warning C4800: "int": принудительное преобразование значения к логическому "true" или "false" (предупреждение о производительности)
+  Создание кода
+  All 480 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Создание кода завершено
+  Edits_for_Helgtla.vcxproj -> D:\Games\HoMM 3 ERA Daemon stable\Mods\Game Enhancement Mod\eraplugins\new_battle_interface_dlg.dll
+  Edits_for_Helgtla.vcxproj -> D:\Games\HoMM 3 ERA Daemon stable\Mods\Game Enhancement Mod\eraplugins\new_battle_interface_dlg.pdb (Full PDB)
