@@ -74,12 +74,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>D:\Games\HoMM 3 ERA Daemon stable\Mods\Game Enhancement Mod\eraplugins</OutDir>
+    <OutDir>E:\PycharmProjects\For-Heroes-3.58\cpp scripts\h3plugins\NewCombatDlgItems\Debug</OutDir>
     <TargetName>new_battle_interface_dlg</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>D:\Games\HoMM 3 ERA Daemon stable\Mods\Game Enhancement Mod\eraplugins</OutDir>
+    <OutDir>E:\PycharmProjects\For-Heroes-3.58\cpp scripts\h3plugins\NewCombatDlgItems\Debug</OutDir>
     <TargetName>new_battle_interface_dlg</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
