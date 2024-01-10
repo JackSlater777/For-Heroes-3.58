@@ -1,0 +1,4 @@
+Колизей магов:
+	sound:
+		enter: GAZEBO.wav (уже есть в базовой data)
+		loop: IVORTWLO.wav (в архиве HotA_Sounds.snd)
