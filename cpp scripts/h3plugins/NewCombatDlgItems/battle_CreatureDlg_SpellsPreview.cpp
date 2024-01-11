@@ -99,8 +99,19 @@ _LHF_(Dlg_CreatureInfo_Battle_BeforeCreate)
 }
 
 
+
+//_LHF_(Dlg_Debug_eax)
+//{
+//	H3DlgText* dlg_text = reinterpret_cast<H3DlgText*>(c->eax);
+//	H3Messagebox(dlg_text->GetH3String());
+//	return EXEC_DEFAULT;
+//}
+
+
 void Dlg_CreatureSpellInfo_HooksInit(PatcherInstance* pi)
 {
 	pi->WriteLoHook(0x5F4C5D, Dlg_CreatureInfo_RmcProc);
 	pi->WriteLoHook(0x5F3741, Dlg_CreatureInfo_Battle_BeforeCreate);
+
+	//pi->WriteLoHook(0x5F39C6, Dlg_Debug_eax);
 }

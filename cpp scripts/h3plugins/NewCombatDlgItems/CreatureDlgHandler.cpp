@@ -61,6 +61,12 @@ int __stdcall gem_Dlg_CreatureInfo_BattleCtor(HiHook* hook, H3CreatureInfoDlg* d
 }
 
 
+void __fastcall CreatureDlgSrollbar_Proc(INT32 tickId, H3BaseDlg* dlg)
+{
+
+}
+
+
 bool CreatureDlgHandler::AlignItems()
 {
 
@@ -143,6 +149,43 @@ bool CreatureDlgHandler::AlignItems()
 				align);
 			dlg->AddItem(description);
 		}
+	}
+
+	if (description)
+	{
+		//H3DlgPcx16* creature_skill_panel = H3DlgPcx16::Create(x, y, 0);
+		//auto* pcx = H3LoadedPcx16::Load("skillpnl.pcx");
+		//creature_skill_panel->SetWidth(pcx->width);
+		//creature_skill_panel->SetHeight(pcx->height);
+		//creature_skill_panel->SetPcx(pcx);
+		//dlg->AddItem(creature_skill_panel);
+		auto* pcx = H3LoadedPcx16::Load("skillslt.pcx");
+		int skill_width = pcx->width;
+		int skill_height = pcx->height;
+		
+		constexpr int SKILLS_VIEW_LIMIT = 6;
+
+		for (INT32 i = 0; i < SKILLS_VIEW_LIMIT; i++)
+		{
+			H3DlgPcx16* creature_skill_slot = H3DlgPcx16::Create(x + i * skill_width - 4, y - 6, skill_width, skill_height, -1, pcx->GetName());
+			dlg->AddItem(creature_skill_slot);
+		}
+
+		int creature_skills_number = 0;
+		int scroll_height = 0;
+
+		if (creature_skills_number > SKILLS_VIEW_LIMIT)
+		{
+			// scroll
+			scroll_height = 16;
+			auto* scroll = H3DlgScrollbar::Create(x - 4, y + skill_height - 6, skill_width * SKILLS_VIEW_LIMIT, scroll_height, 2020, 18, CreatureDlgSrollbar_Proc, false, 1, true);
+			dlg->AddItem(scroll);
+		}
+		
+		// skill desc
+		description->SetY(y + scroll_height + skill_height + 2);
+
+		pcx->Dereference();
 	}
 
 	return false;
@@ -313,6 +356,27 @@ _LHF_(gem_Dlg_CreatureInfo_notBattle_Created)
 {
 	H3CreatureInfoDlg* dlg = (H3CreatureInfoDlg*)c->eax;
 
+
+
+
+
+	//H3Hero* hero = reinterpret_cast <H3Hero*>(c->esi);
+	//int army_slot = IntAt(c->ebp + 0xC);
+	//DWORD creature_exp_struct = CDECL_2(DWORD, 0x718617, 1, hero->id + (army_slot << 16));
+
+	//if (creature_exp_struct)
+	//{
+	//	for (size_t i = 0; i < 20; i++)
+	//	{
+	//		int type = *reinterpret_cast<int*>(creature_exp_struct + 20 * i + 4);
+	//		H3Messagebox::RMB(Era::IntToStr(type).c_str());
+	//	}
+	//}
+
+
+
+
+
 	CreatureDlgHandler handler(dlg, nullptr);
 
 	if (dlg->GetY() + DLG_HEIGHT > P_AdventureMgr->dlg->GetHeight())
@@ -320,6 +384,8 @@ _LHF_(gem_Dlg_CreatureInfo_notBattle_Created)
 
 	return EXEC_DEFAULT;
 }
+
+
 _LHF_(gem_Dlg_CreatureInfo_BuyCreature)
 {
 	CreatureDlgHandler handler((H3CreatureInfoDlg*)c->eax, nullptr);
