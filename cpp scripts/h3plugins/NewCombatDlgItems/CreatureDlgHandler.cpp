@@ -151,42 +151,42 @@ bool CreatureDlgHandler::AlignItems()
 		}
 	}
 
-	if (description)
-	{
-		//H3DlgPcx16* creature_skill_panel = H3DlgPcx16::Create(x, y, 0);
-		//auto* pcx = H3LoadedPcx16::Load("skillpnl.pcx");
-		//creature_skill_panel->SetWidth(pcx->width);
-		//creature_skill_panel->SetHeight(pcx->height);
-		//creature_skill_panel->SetPcx(pcx);
-		//dlg->AddItem(creature_skill_panel);
-		auto* pcx = H3LoadedPcx16::Load("skillslt.pcx");
-		int skill_width = pcx->width;
-		int skill_height = pcx->height;
-		
-		constexpr int SKILLS_VIEW_LIMIT = 6;
 
-		for (INT32 i = 0; i < SKILLS_VIEW_LIMIT; i++)
-		{
-			H3DlgPcx16* creature_skill_slot = H3DlgPcx16::Create(x + i * skill_width - 4, y - 6, skill_width, skill_height, -1, pcx->GetName());
-			dlg->AddItem(creature_skill_slot);
-		}
 
-		int creature_skills_number = 0;
-		int scroll_height = 0;
 
-		if (creature_skills_number > SKILLS_VIEW_LIMIT)
-		{
-			// scroll
-			scroll_height = 16;
-			auto* scroll = H3DlgScrollbar::Create(x - 4, y + skill_height - 6, skill_width * SKILLS_VIEW_LIMIT, scroll_height, 2020, 18, CreatureDlgSrollbar_Proc, false, 1, true);
-			dlg->AddItem(scroll);
-		}
-		
-		// skill desc
-		description->SetY(y + scroll_height + skill_height + 2);
 
-		pcx->Dereference();
-	}
+
+	// JackSlater block - adds a panel for creature skills
+	//if (description)
+	//{
+	//	auto* pcx = H3LoadedPcx16::Load("skillslt.pcx");
+	//	int skill_width = pcx->width;
+	//	int skill_height = pcx->height;
+	//	
+	//	constexpr int SKILLS_VIEW_LIMIT = 6;
+
+	//	for (INT32 i = 0; i < SKILLS_VIEW_LIMIT; i++)
+	//	{
+	//		H3DlgPcx16* creature_skill_slot = H3DlgPcx16::Create(x + i * skill_width - 4, y - 6, skill_width, skill_height, -1, pcx->GetName());
+	//		dlg->AddItem(creature_skill_slot);
+	//	}
+
+	//	int creature_skills_number = 0;
+	//	int scroll_height = 0;
+
+	//	if (creature_skills_number > SKILLS_VIEW_LIMIT)
+	//	{
+	//		// scroll
+	//		scroll_height = 16;
+	//		auto* scroll = H3DlgScrollbar::Create(x - 4, y + skill_height - 6, skill_width * SKILLS_VIEW_LIMIT, scroll_height, 2020, 18, CreatureDlgSrollbar_Proc, false, 1, true);
+	//		dlg->AddItem(scroll);
+	//	}
+	//	
+	//	// skill desc
+	//	description->SetY(y + scroll_height + skill_height + 2);
+
+	//	pcx->Dereference();
+	//}
 
 	return false;
 }
@@ -359,16 +359,16 @@ _LHF_(gem_Dlg_CreatureInfo_notBattle_Created)
 
 
 
-
+	// JackSlater block - trying to access an army stack and exp
 	//H3Hero* hero = reinterpret_cast <H3Hero*>(c->esi);
 	//int army_slot = IntAt(c->ebp + 0xC);
-	//DWORD creature_exp_struct = CDECL_2(DWORD, 0x718617, 1, hero->id + (army_slot << 16));
+	//DWORD creature_exp_struct = CDECL_2(DWORD, 0x718617, 1, hero->id + (army_slot << 16)); // it works
 
 	//if (creature_exp_struct)
 	//{
 	//	for (size_t i = 0; i < 20; i++)
 	//	{
-	//		int type = *reinterpret_cast<int*>(creature_exp_struct + 20 * i + 4);
+	//		int type = *reinterpret_cast<int*>(creature_exp_struct + 20 * i + 4); // some ununderstandable numbers - definetely some exp skill parameters
 	//		H3Messagebox::RMB(Era::IntToStr(type).c_str());
 	//	}
 	//}
