@@ -157,36 +157,36 @@ bool CreatureDlgHandler::AlignItems()
 
 
 	// JackSlater block - adds a panel for creature skills
-	//if (description)
-	//{
-	//	auto* pcx = H3LoadedPcx16::Load("skillslt.pcx");
-	//	int skill_width = pcx->width;
-	//	int skill_height = pcx->height;
-	//	
-	//	constexpr int SKILLS_VIEW_LIMIT = 6;
+	if (description)
+	{
+		auto* pcx = H3LoadedPcx16::Load("skillslt.pcx");
+		int skill_width = pcx->width;
+		int skill_height = pcx->height;
+		
+		constexpr int SKILLS_VIEW_LIMIT = 6;
 
-	//	for (INT32 i = 0; i < SKILLS_VIEW_LIMIT; i++)
-	//	{
-	//		H3DlgPcx16* creature_skill_slot = H3DlgPcx16::Create(x + i * skill_width - 4, y - 6, skill_width, skill_height, -1, pcx->GetName());
-	//		dlg->AddItem(creature_skill_slot);
-	//	}
+		for (INT32 i = 0; i < SKILLS_VIEW_LIMIT; i++)
+		{
+			H3DlgPcx16* creature_skill_slot = H3DlgPcx16::Create(x + i * skill_width - 4, y - 6, skill_width, skill_height, -1, pcx->GetName());
+			dlg->AddItem(creature_skill_slot);
+		}
 
-	//	int creature_skills_number = 0;
-	//	int scroll_height = 0;
+		int creature_skills_number = 0;
+		int scroll_height = 0;
 
-	//	if (creature_skills_number > SKILLS_VIEW_LIMIT)
-	//	{
-	//		// scroll
-	//		scroll_height = 16;
-	//		auto* scroll = H3DlgScrollbar::Create(x - 4, y + skill_height - 6, skill_width * SKILLS_VIEW_LIMIT, scroll_height, 2020, 18, CreatureDlgSrollbar_Proc, false, 1, true);
-	//		dlg->AddItem(scroll);
-	//	}
-	//	
-	//	// skill desc
-	//	description->SetY(y + scroll_height + skill_height + 2);
+		if (creature_skills_number > SKILLS_VIEW_LIMIT)
+		{
+			// scroll
+			scroll_height = 16;
+			auto* scroll = H3DlgScrollbar::Create(x - 4, y + skill_height - 6, skill_width * SKILLS_VIEW_LIMIT, scroll_height, 2020, 18, CreatureDlgSrollbar_Proc, false, 1, true);
+			dlg->AddItem(scroll);
+		}
+		
+		// skill desc
+		description->SetY(y + scroll_height + skill_height + 2);
 
-	//	pcx->Dereference();
-	//}
+		pcx->Dereference();
+	}
 
 	return false;
 }
@@ -354,16 +354,45 @@ _LHF_(gem_Dlg_CreatureInfo_AddCreatureUpradeButton)
 
 _LHF_(gem_Dlg_CreatureInfo_notBattle_Created)
 {
+	// 0x4C6B5B
+
 	H3CreatureInfoDlg* dlg = (H3CreatureInfoDlg*)c->eax;
 
-
-
-
 	// JackSlater block - trying to access an army stack and exp
-	//H3Hero* hero = reinterpret_cast <H3Hero*>(c->esi);
-	//int army_slot = IntAt(c->ebp + 0xC);
-	//DWORD creature_exp_struct = CDECL_2(DWORD, 0x718617, 1, hero->id + (army_slot << 16)); // it works
+	H3Hero* hero = reinterpret_cast <H3Hero*>(c->esi);
+	// c->ebp + 8 - monArrPtr
+	// c->ebp + 10 - Hero
+	// c->ebp + 14 - ??? townPtr
+	// ebp
+	// -0000001C monQty              dd ?
+	// -00000018 a11                 db 4 dup(? )
+	// - 00000014 MonGradeID          dd ?
+	// -00000010 var_10              dd ?
+	// -0000000C var_C               dd ?
+	// -00000008                     db ? ; undefined
+	// - 00000007                     db ? ; undefined
+	// - 00000006                     db ? ; undefined
+	// - 00000005                     db ? ; undefined
+	// - 00000004 var_4               dd ?
+	// +00000000  s                  db 4 dup(? )
+	// + 00000004  r                  db 4 dup(? )
+	// + 00000008 MonArr              dd ? ; offset
+	// + 0000000C stack               dd ?
+	// +00000010 Hero                dd ? ; offset
+	// + 00000014 a5                  dd ? ; offset
+	// + 00000018 x                   dd ?
+	// +0000001C y                   dd ?
+	// +00000020 a9
+	// int army_slot = IntAt(c->ebp + 0xC);
+	//H3Messagebox::RMB(Era::IntToStr(army_slot).c_str());  // 0-6
+	//int monQty = IntAt(c->ebp - 0x1C);
+	//H3Messagebox::RMB(Era::IntToStr(monQty).c_str());
+	//int monArrPtr = IntAt(c->ebp + 0x8);
+	//H3Messagebox::RMB(Era::IntToStr(monArrPtr).c_str());
 
+
+
+	//DWORD creature_exp_struct = CDECL_2(DWORD, 0x718617, 1, hero->id + (army_slot << 16)); // it works
 	//if (creature_exp_struct)
 	//{
 	//	for (size_t i = 0; i < 20; i++)
