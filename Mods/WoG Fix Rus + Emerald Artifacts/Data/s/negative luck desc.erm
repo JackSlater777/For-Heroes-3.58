@@ -1,0 +1,15 @@
+ZVSE2
+
+
+*?FU(gem_CreateERMHook);
+*!SN:Ex1/1/4505740/(gem_luck_desc);
+004E3952 5126482
+4505740 44C08C
+
+
+!?FU(gem_luck_desc);
+!!SN:H^monname^/i^gem_MonMinusLuckChanger^/1/?z2;
+!!UN:Cx1/(STRUCT_HOOK_CONTEXT_EAX)/4/9598440;                         [set new ptr at mon name]
+!!VR(power:y):S2;
+!!VRi^gem_MonMinusLuckChanger^:S0;
+9598440 9275E8
