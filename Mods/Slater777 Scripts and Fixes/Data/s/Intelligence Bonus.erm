@@ -10,17 +10,17 @@ ZVSE2
 
 
 !?FU(js_IntAddDesc);
-!!SN:H^secskill^/24/1/?(intBaseDesc:z);
-!!VR(intBaseDescTotal:z):S^%(intBaseDesc)%T(intelDesc.basic)^;
-!!SN:H^secskill^/24/1/(intBaseDescTotal:z);
+!!SN:H^secskill^/24/1/?(skillDesc:z);
+!!VR(skillDesc:z): +^%T(intelDesc.basic)^;
+!!SN:H^secskill^/24/1/(skillDesc:z);
 
-!!SN:H^secskill^/24/2/?(intAdvDesc:z);
-!!VR(intAdvDescTotal:z):S^%(intAdvDesc)%T(intelDesc.advanced)^;
-!!SN:H^secskill^/24/2/(intAdvDescTotal:z);
+!!SN:H^secskill^/24/2/?(skillDesc:z);
+!!VR(skillDesc:z): +^%T(intelDesc.advanced)^;
+!!SN:H^secskill^/24/2/(skillDesc:z);
 
-!!SN:H^secskill^/24/3/?(intExpDesc:z);
-!!VR(intExpDescTotal:z):S^%(intExpDesc)%T(intelDesc.expert)^;
-!!SN:H^secskill^/24/3/(intExpDescTotal:z);
+!!SN:H^secskill^/24/3/?(skillDesc:z);
+!!VR(skillDesc:z): +^%T(intelDesc.expert)^;
+!!SN:H^secskill^/24/3/(skillDesc:z);
 
 
 !?HL-1;                                         [Level up trigger for intelligence]
