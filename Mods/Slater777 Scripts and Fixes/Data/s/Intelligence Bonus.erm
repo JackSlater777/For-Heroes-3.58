@@ -2,25 +2,25 @@ ZVSE2
 
 
 !?FU(OnAfterErmInstructions);
-!!FU(js_IntAddDesc):P;
+!!FU(js_IntelligenceAddDesc):P;
 
 
 !?FU(OnAfterLoadGame);
-!!FU(js_IntAddDesc):P;
+!!FU(js_IntelligenceAddDesc):P;
 
 
-!?FU(js_IntAddDesc);
-!!SN:H^secskill^/24/1/?(skillDesc:z);
-!!VR(skillDesc:z): +^%T(intelDesc.basic)^;
-!!SN:H^secskill^/24/1/(skillDesc:z);
+!?FU(js_IntelligenceAddDesc);
+!!SN:H^secskill^/(SKILL_INTELLIGENCE)/(SKILL_BASIC)/?(desc:z);
+!!SN:T^intelligence.desc^/?(desc1:z)/^percent^/20;
+!!SN:H^secskill^/(SKILL_INTELLIGENCE)/(SKILL_BASIC)/^%(desc)%(desc1)^;
 
-!!SN:H^secskill^/24/2/?(skillDesc:z);
-!!VR(skillDesc:z): +^%T(intelDesc.advanced)^;
-!!SN:H^secskill^/24/2/(skillDesc:z);
+!!SN:H^secskill^/(SKILL_INTELLIGENCE)/(SKILL_ADVANCED)/?(desc:z);
+!!SN:T^intelligence.desc^/?(desc2:z)/^percent^/40;
+!!SN:H^secskill^/(SKILL_INTELLIGENCE)/(SKILL_ADVANCED)/^%(desc)%(desc2)^;
 
-!!SN:H^secskill^/24/3/?(skillDesc:z);
-!!VR(skillDesc:z): +^%T(intelDesc.expert)^;
-!!SN:H^secskill^/24/3/(skillDesc:z);
+!!SN:H^secskill^/(SKILL_INTELLIGENCE)/(SKILL_EXPERT)/?(desc:z);
+!!SN:T^intelligence.desc^/?(desc3:z)/^percent^/60;
+!!SN:H^secskill^/(SKILL_INTELLIGENCE)/(SKILL_EXPERT)/^%(desc)%(desc3)^;
 
 
 !?HL-1;                                         [Level up trigger for intelligence]
@@ -45,7 +45,7 @@ ZVSE2
 
   !!if&(isAI:y)=0;
     !!HE-1:B0/?(heroName:z);                                [get hero name]
-    !!SN:T^intelDesc.lvlUpBonus^/?(msg:z)/^heroName^/(heroName:z);
+    !!SN:T^intelligence.lvlUpBonus^/?(msg:z)/^heroName^/(heroName:z);
     !!IF:Q2/(skillPic:y)/1/1/(msg:z);                        [If Bonus Show Picture]
   !!en;
 

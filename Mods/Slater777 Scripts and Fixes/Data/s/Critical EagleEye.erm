@@ -1,0 +1,92 @@
+ZVSE2
+** Author orig.  : Algor
+** Updated by    : Archer30
+** Name          : Critical Sorcery
+** Name rus.     : Критическое Волшебство
+** Options       : 789
+
+
+!?FU(OnAfterErmInstructions);
+!!FU(js_EagleEyeAddDesc):P;
+
+
+!?FU(OnAfterLoadGame);
+!!FU(js_EagleEyeAddDesc):P;
+
+
+!?FU(js_EagleEyeAddDesc);
+!!SN:H^secskill^/(SKILL_EAGLE_EYE)/(SKILL_BASIC)/?(desc:z);
+!!SN:T^eagleeye.desc^/?(desc1:z)/^percent^/10;
+!!SN:H^secskill^/(SKILL_EAGLE_EYE)/(SKILL_BASIC)/^%(desc)%(desc1)^;
+
+!!SN:H^secskill^/(SKILL_EAGLE_EYE)/(SKILL_ADVANCED)/?(desc);
+!!SN:T^eagleeye.desc^/?(desc2:z)/^percent^/20;
+!!SN:H^secskill^/(SKILL_EAGLE_EYE)/(SKILL_ADVANCED)/^%(desc)%(desc2)^;
+
+!!SN:H^secskill^/(SKILL_EAGLE_EYE)/(SKILL_EXPERT)/?(desc);
+!!SN:T^eagleeye.desc^/?(desc3:z)/^percent^/30;
+!!SN:H^secskill^/(SKILL_EAGLE_EYE)/(SKILL_EXPERT)/^%(desc)%(desc3)^;
+
+; Change the description of spec
+!!re i/(HERO_FIRST)/(HERO_LAST_WOG);
+  !!HEi:X?(spec:y)/?(spec2:y);
+
+  !!if&(spec)=0/(spec2)=(SKILL_EAGLE_EYE);
+    !!SN:H^spec^/i/2/?(desc:z);
+    !!VR(desc): +^%T(eagleeye.spec)^;
+    !!SN:H^spec^/i/2/(desc:z);
+  !!en;
+
+!!en;
+
+; Change the description of artifacts
+!!SN:H^art^/(ART_BIRD_OF_PERCEPTION)/1/?(desc);
+!!SN:T^eagleeye.desc^/?(desc1:z)/^percent^/5;
+!!SN:H^art^/(ART_BIRD_OF_PERCEPTION)/1/^%(desc)%(desc1)^;
+
+!!SN:H^art^/(ART_STOIC_WATCHMAN)/1/?(desc);
+!!SN:T^eagleeye.desc^/?(desc2:z)/^percent^/10;
+!!SN:H^art^/(ART_STOIC_WATCHMAN)/1/^%(desc)%(desc2)^;
+
+!!SN:H^art^/(ART_EMBLEM_OF_COGNIZANCE)/1/?(desc);
+!!SN:T^eagleeye.desc^/?(desc3:z)/^percent^/15;
+!!SN:H^art^/(ART_EMBLEM_OF_COGNIZANCE)/1/^%(desc)%(desc3)^;
+
+*!SN:H^art^/(ART_RING_OF_THE_MAGI)/1/?(desc);
+*!SN:T^es.789.desc^/?(desc4:z)/^percent^/50;
+*!SN:H^art^/(ART_RING_OF_THE_MAGI)/1/^%(desc)%(desc4)^;
+
+!?FU(OnMagicCorrectedResistance); [перед расчетом сопротивления]
+!!BG:A?y1;                    [y1 - тип действия (1 - герой колдует заклинание)]
+!!FU&y1<>(BATTLE_ACTION_HERO_CAST):E; [выход, если не колдовство героя]
+
+!!BG:S?y2 Q?y3;               [y2/y3 - номер заклинания/сторона]
+!!MR:F?y4;                    [y4 - конечный урон заклинания]
+!!FU&y4<=0:E;                 [выход, если маг.урона нет]
+
+!!BA:Hy3/?y5;                 [y2 - номер колдующего героя]
+!!FU&y5<0:E;                  [выход, если героя нет (а вдруг?:)]
+!!UN:C42231940/4/?y6;         [y6 - номер отряда-цели заклинания]
+!!UN:C6919200/4/?y7;          [...]
+!!VRy6:-y7 -21708 :1352;      [...]
+
+!!HEy5:S(SKILL_EAGLE_EYE)/?y9;               [y9 - Уровень навыка Орлоглаза героя (0..3)]
+!!HEy5:X?y7/?y8/d/d/d/d/d;    [y7=0,y8=25 для специалистов по Орлоглазу]
+!!VRy9&y7=0/y8=(SKILL_EAGLE_EYE):+1;         [y9 - Уровень навыка Орлоглаза героя (0..3) + 1 для специалистов]
+!!VRy9:*10;                   [y9 шанс критического удара заклианния 10% за каждый уровень навыка/специализацию]
+!!HEy5:A2/(ART_BIRD_OF_PERCEPTION)/?i/?y11 A2/(ART_STOIC_WATCHMAN)/?i/?y12 A2/(ART_EMBLEM_OF_COGNIZANCE)/?i/?y13; A2/139/?i/?y14; [y11-y14 - Ожерелье/Кольцо/Накидка/Сборник Мага надетые на героя]
+!!VRy9&y11>0:+5;              [+5% крит за Ожерелье]
+!!VRy9&y12>0:+10;             [+10% крит за Кольцо]
+!!VRy9&y13>0:+15;             [+15% крит за Накидку]
+*!VRy9&y14>0:+50;             [+50% крит за Накидку]
+
+!!VRy10:S0 R99;               [y10 -случайное число (0..99)]
+
+!!if&y10<y9;
+  !!VRy4:*3 :2;               [y4 - полуторный урон при критическом эффекте]
+  !!MR:Fy4;                   [установка полуторного урона при критическом эффекте]
+
+  !!BMy6&i^battle_isVisible^:V82; [дополнительная анимация на целевом стеке при критическом эффекте]
+!!en;
+
+** end
