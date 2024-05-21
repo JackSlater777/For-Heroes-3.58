@@ -1,12 +1,12 @@
 ZVSE2
 
 ** Wogify ERM script v1.9 - Donald X. Vaccarino
-** with updates by Timothy Pulver and Anders Jonsson, rennyo, Archer30
+** with updates by Timothy Pulver and Anders Jonsson, rennyo, daemon_n, Archer30
 ** Requires WOG version 3.58f or later
 ** Add WOG objects to a map on day one
 ** WoGify Name: script00.erm
 ** Updated: October 31, 2004
-** Updated: Oct 2022 by daemon_n and Archer30
+** Updated: Jun 2023 by daemon_n and Archer30
 
 ** In addition to normal WOG objects, the following scripted objects as well as
 ** non-object scripts may be used, though none are essential and all can be
@@ -121,14 +121,14 @@ ZVSE2
 ** Variables: v1-v3 (temporary)
 
 ** Add Warlord's Banner Artifacts to some Creature Banks
-** Functions: FU25, FU27
+** Functions: FU(WOG_IFY_CreatureBanks_AddWarlordBanners)
 
 ** Level 7+ Creatures Only Receive 50% Stack Experience
 ** Functions: FU29
 
 ********************************************************************************
 
-** Disable all blank artifacts (other scripts has to reenable them, if use any of them
+** Disable all the blank artifacts (other scripts has to re-enable them, if use any of them)
 !#UN:A161/1 A162/1 A163/1 A164/1 A165/1 A166/1 A167/1 A168/1 A169/1 A170/1;
 
 ** Auto-disable "Arrow Towers Gain Experience" for Network Games
@@ -136,7 +136,7 @@ ZVSE2
 !?FU(OnAfterErmInstructions); [Post-instruction trigger]
 !!UN:V?y-1/?y-2/?y-3/?y-4/?y-5; [Get game info: y-4=1 for a Network game]
 !!UN:P1/?y-6; [Check if Arrow Tower Experience is enabled: y-6=0 if YES]
-!!UN&y-4=1/y-6=0:P1/1; [Disable Arrow Tower Experience if a Network game]
+!!UN&y-4=1/y-6=0:P1/1; [Disable Arrow Tower Experience in a Network game]
 !!IF&y-4=1/y-6=0:M^%T(wog.1.arrowTower)^; [Display message that Arrow Tower Experience option was disabled]
 
 ********************************************************************************
@@ -236,7 +236,7 @@ ZVSE2
 !!if|(spell)<(SPELL_FIRST)/(spell)>(SPELL_LAST_WOG); [Exit if not a valid spell number]
   !!VR(result):S99;
   !!VRy-94:S(result);
-  !!IF:M^{ERM Error:} FU%(WOG_CHECK_SPELL_BAN) function was called with invalid arguments^;
+  *!IF:M^{ERM Error:} FU%(WOG_CHECK_SPELL_BAN) function was called with invalid arguments^;
   !!FU:E;
 !!en;
 
@@ -256,7 +256,7 @@ ZVSE2
 
 !!VR(result):S0; [Set to 0 if spell is available]
 !!VR(result)&(banned):S1; [Set to 1 if spell is banned]
-!!VR(result)&(disabled):S2; [Set to 2 if spell is disabled]
+!!VR(result)&(disabled):S2; [Set to 2 if spell is disabled in the map]
 !!VR(result)&(disabled)/(banned):S3; [Set y-94 to 3 if spell is banned and disabled]
 !!VRy-94:S(result);                     [legacy]
 
@@ -301,7 +301,7 @@ Returned Values:
 !!if|(minLvl)<0/(minLvl)>5/(maxLvl)<0/(maxLvl)>5/(spType)<0/(spType)>2/(schoolBit)<0/(schoolBit)>15/(restrictBanned)<0/(restrictBanned)>3/(numExclSpells)<0/(numExclSpells)>9;
   ; Set y-99 to 99 for an invalid parameter: mast skip loop
   !!VRy-99:S99;
-  !!IF:M^{ERM Error:} FU%(WOG_GENERATE_SPELL) function was called with invalid arguments^;
+  * !IF:M^{ERM Error:} FU%(WOG_GENERATE_SPELL) function was called with invalid arguments^;
   !!FU:E;
 !!en;
 
@@ -544,20 +544,6 @@ Returned Values:
 !#TM19:S1/1/1/255; [timer day one for all players]
 !#VRv950:S0; [assume we haven't done the conversion yet]
 
-*** Start of Additions by Anders Jonsson ***
-!#UN:P3/?v1; (Check if commanders are active)
-!#UN&v1=1:A146/1;
-!#UN&v1=1:A147/1;
-!#UN&v1=1:A148/1;
-!#UN&v1=1:A149/1;
-!#UN&v1=1:A150/1;
-!#UN&v1=1:A151/1;
-!#UN&v1=1:A152/1;
-!#UN&v1=1:A153/1;
-!#UN&v1=1:A154/1;
-!#UN&v1=1:A155/1; (Disable Commander Artifacts if commanders are inactive)
-*** End of Additions by Anders Jonsson ***
-
 !#VRi^wog_195_objReplaceMult^:S100;   [Default percentage of the original WoG replacement chance]
 !#VRi^wog_195_howlingHollow_on^:S(TRUE);    [compatibility setting with mods - Archer]
 
@@ -585,97 +571,104 @@ Returned Values:
 !!VRz4:Sz100002;
 !!VRz-1:S^^;
 !!IF:D1/1/-1/2/3/-1/-1/-1/4/-1/-1/-1/-1/-1/-1/-1;
-!!IF:F1/-1/-1/-1/-1/0; [enabled cancel button]
-!!UN:P248/?y26; [check if "Display WoGification Messages" is enabled: y26]
-!!IF&y26=1:E1/1; [display WoGification dialogue box if enabled]
-!!UN:R5/1/1; [Change cursor to "wait" hourglass cursor]
-!!UN:R7/0/1; [Show cursor and disable changing]
+!!IF:F1/-1/-1/-1/-1/0;          [enabled cancel button]
+!!UN:P248/?y26;                 [check if "Display WoGification Messages" is enabled: y26]
+!!IF&y26=1:E1/1;                [display WoGification dialogue box if enabled]
+!!UN:R5/1/1;                    [Change cursor to "wait" hourglass cursor]
+!!UN:R7/0/1;                    [Show cursor and disable changing]
 
-!!VRv950:S1; [note we've done conversion]
+!!VRv950:S1;                    [note we've done conversion]
 
-!!UN:X?v957/?v958; [get map size and underground flag]
+!!UN:X?v957/?v958;              [get map size and underground flag]
 
-!!UN:P900/?y22; [Check if Stack Experience is enabled: y22]
-!!UN:P143/?y23; [Check if New Artifacts is enabled: y23]
-!!UN:P234/?y24; [Check if Warlord's Banner is disabled: y24]
-!!UN&y22=0:A156/1; [If Stack Experience is disabled, disable Warlord's Banner]
+!!UN:P900/?y22;                 [Check if Stack Experience is enabled: y22]
+!!UN:P143/?y23;                 [Check if New Artifacts is enabled: y23]
+!!UN:P234/?y24;                 [Check if Warlord's Banner is disabled: y24]
+
+!!if|y22=0/y24=1;               [If Stack Experience is disabled, disable Warlord's Banner]
+  !!UN:A156/1 P234/1 P234/?y24; [set "banned" and set "blocked"]
+!!en;
+
 
  [If Stack Experience enabled, New WoG Artifacts enabled, and]
  [Warlord's Banners not banned, add Banners to Creature Banks]
-!!FU25&y22=1/y23=1/y24=0:P;
+!!FU(WOG_IFY_CreatureBanks_AddWarlordBanners)&y22=1/y23=1/y24=0:P;
 
 ** Convert Objects
 ** table fields: type/subtype/footprint/terrain/back wall/edge x/edge y
 ** footprint values:  0 = Y, 1 = RY, 2 = YR, 3 = RYR, 4 = other
 
-!!UN:P195/?y21; [Check if Replace Objects is enabled: y21=1 if yes]
+!!UN:P195/?y21;                         [Check if Replace Objects is enabled: y21=1 if yes]
 
 ** TABLE of Y OBJECTS **
 
-!!VRy20:S0; [initialize object counter to 0]
-!!UN:P104/?y3; [check if Arcane Tower script is enabled]
-!!VRy3&y21=0:S0; [set y3 to 0 if Replace Objects isn't enabled]
-!!VRy20&y3=1:+1; [add one to object counter]
-!!VRy11&y3=1:Sy20 *7; [number to add to index variable]
-!!VRy10&y3=1:S593 +y11; [new index number]
-!!VRvy10&y3=1:C63/ 9/0/-1/0/1/0; [arcane tower] [table of Y objects]
+!!VRy20:S0;                                [initialize object counter to 0]
+!!UN:P104/?y3;                             [check if Arcane Tower script is enabled]
+!!VRy3&y21=0:S0;                           [set y3 to 0 if Replace Objects isn't enabled]
+!!VRy20&y3=1:+1;                           [add one to object counter]
+!!VRy11&y3=1:Sy20 *7;                      [number to add to index variable]
+!!VRy10&y3=1:S593 +y11;                    [new index number]
+!!VRvy10&y3=1:C63/ 9/0/-1/0/1/0;           [arcane tower] [table of Y objects]
 
-!!UN:P110/?y3; [check if Magic Mushrooms script is enabled]
-!!VRy3&y21=0:S0; [set y3 to 0 if Replace Objects isn't enabled]
-!!VRy20&y3=1:+1; [add one to object counter]
-!!VRy11&y3=1:Sy20 *7; [number to add to index variable]
-!!VRy10&y3=1:S593 +y11; [new index number]
-!!VRvy10&y3=1:C63/14/0/-1/0/1/0; [air mushroom]
+!!UN:P110/?y3;                             [check if Magic Mushrooms script is enabled]
+!!VRy3&y21=0:S0;                           [set y3 to 0 if Replace Objects isn't enabled]
+!!VRy20&y3=1:+1;                           [add one to object counter]
+!!VRy11&y3=1:Sy20 *7;                      [number to add to index variable]
+!!VRy10&y3=1:S593 +y11;                    [new index number]
+!!VRvy10&y3=1:C63/14/0/-1/0/1/0;           [air mushroom]
 
-!!VRy20&y3=1:+1; [add one to object counter]
-!!VRy11&y3=1:Sy20 *7; [number to add to index variable]
-!!VRy10&y3=1:S593 +y11; [new index number]
-!!VRvy10&y3=1:C63/18/0/-1/0/1/0; [water mushroom]
+!!VRy20&y3=1:+1;                           [add one to object counter]
+!!VRy11&y3=1:Sy20 *7;                      [number to add to index variable]
+!!VRy10&y3=1:S593 +y11;                    [new index number]
+!!VRvy10&y3=1:C63/18/0/-1/0/1/0;           [water mushroom]
 
-!!VRy20&y3=1:+1; [add one to object counter]
-!!VRy11&y3=1:Sy20 *7; [number to add to index variable]
-!!VRy10&y3=1:S593 +y11; [new index number]
-!!VRvy10&y3=1:C63/23/0/-1/1/1/0; [earth mushroom]
+!!VRy20&y3=1:+1;                           [add one to object counter]
+!!VRy11&y3=1:Sy20 *7;                      [number to add to index variable]
+!!VRy10&y3=1:S593 +y11;                    [new index number]
+!!VRvy10&y3=1:C63/23/0/-1/1/1/0;           [earth mushroom]
 
-!!VRy20&y3=1:+1; [add one to object counter]
-!!VRy11&y3=1:Sy20 *7; [number to add to index variable]
-!!VRy10&y3=1:S593 +y11; [new index number]
-!!VRvy10&y3=1:C63/29/0/-1/0/1/0; [fire mushroom]
+!!VRy20&y3=1:+1;                           [add one to object counter]
+!!VRy11&y3=1:Sy20 *7;                      [number to add to index variable]
+!!VRy10&y3=1:S593 +y11;                    [new index number]
+!!VRvy10&y3=1:C63/29/0/-1/0/1/0;           [fire mushroom]
 
-!!UN:P12/?y3; [check if Living Skull skull script is enabled]
-!!VRy3&y21=0:S0; [set y3 to 0 if Replace Objects isn't enabled]
-!!VRy20&y3=1:+1; [add one to object counter]
-!!VRy11&y3=1:Sy20 *7; [number to add to index variable]
-!!VRy10&y3=1:S593 +y11; [new index number]
-!!VRvy10&y3=1:C63/50/0/-1/1/1/0; [living skull]
+!!UN:P12/?y3;                              [check if Living Skull skull script is enabled]
+!!VRy3&y21=0:S0;                           [set y3 to 0 if Replace Objects isn't enabled]
+!!VRy20&y3=1:+1;                           [add one to object counter]
+!!VRy11&y3=1:Sy20 *7;                      [number to add to index variable]
+!!VRy10&y3=1:S593 +y11;                    [new index number]
+!!VRvy10&y3=1:C63/50/0/-1/1/1/0;           [living skull]
 
-!!UN:P17/?y3; [check if Potion Fountains script is enabled]
-!!VRy3&y21=0:S0; [set y3 to 0 if Replace Objects isn't enabled]
-!!VRy20&y3=1:+1; [add one to object counter]
-!!VRy11&y3=1:Sy20 *7; [number to add to index variable]
-!!VRy10&y3=1:S593 +y11; [new index number]
-!!VRvy10&y3=1:C63/48/0/-1/0/0/0; [valhalla fountain]
+!!UN:P17/?y3;                              [check if Potion Fountains script is enabled]
+!!VRy3&y21=0:S0;                           [set y3 to 0 if Replace Objects isn't enabled]
+!!VRy20&y3=1:+1;                           [add one to object counter]
+!!VRy11&y3=1:Sy20 *7;                      [number to add to index variable]
+!!VRy10&y3=1:S593 +y11;                    [new index number]
+!!VRvy10&y3=1:C63/48/0/-1/0/0/0;           [valhalla fountain]
 
-!!UN:P18/?y3; [check if Alms House script is enabled]
-!!VRy3&y21=0:S0; [set y3 to 0 if Replace Objects isn't enabled]
-!!VRy20&y3=1:+1; [add one to object counter]
-!!VRy11&y3=1:Sy20 *7; [number to add to index variable]
-!!VRy10&y3=1:S593 +y11; [new index number]
-!!VRvy10&y3=1:C63/24/0/ 3/0/1/0; [alms house using snowy artifact merchant]
+!!UN:P18/?y3;                              [check if Alms House script is enabled]
+!!VRy3&y21=0:S0;                           [set y3 to 0 if Replace Objects isn't enabled]
+!!VRy20&y3=1:+1;                           [add one to object counter]
+!!VRy11&y3=1:Sy20 *7;                      [number to add to index variable]
+!!VRy10&y3=1:S593 +y11;                    [new index number]
+!!VRvy10&y3=1:C63/24/0/ 3/0/1/0;           [alms house using snowy artifact merchant]
 
-!!UN:P70/?y3; [check if Death Chamber script is enabled]
-!!VRy3&y21=0:S0; [set y3 to 0 if Replace Objects isn't enabled]
-!!VRy20&y3=1:+1; [add one to object counter]
-!!VRy11&y3=1:Sy20 *7; [number to add to index variable]
-!!VRy10&y3=1:S593 +y11; [new index number]
-!!VRvy10&y3=1:C63/15/0/-1/0/1/0; [death chamber]
+!!UN:P70/?y3;                              [check if Death Chamber script is enabled]
+!!VRy3&y21=0:S0;                           [set y3 to 0 if Replace Objects isn't enabled]
+!!VRy20&y3=1:+1;                           [add one to object counter]
+!!VRy11&y3=1:Sy20 *7;                      [number to add to index variable]
+!!VRy10&y3=1:S593 +y11;                    [new index number]
+!!VRvy10&y3=1:C63/15/0/-1/0/1/0;           [death chamber]
 
 !!if&y20>0;
   !!FU(WOG_195_CalcReplaceChance):P60/?y30;
-  !!FU671:P88/-1/0/y20/y30; [replace 60% of level 1 magic shrines]
-  !!FU671:P100/-1/0/y20/20; [replace 20% of learning stones]
-  !!FU671:P113/-1/0/y20/15; [replace 15% of witch huts]
-  !!FU671:P112/-1/0/y20/10; [replace 10% of windmills]
+  !!FU(WOG_195_CalcReplaceChance):P20/?y31;
+  !!FU(WOG_195_CalcReplaceChance):P15/?y32;
+  !!FU(WOG_195_CalcReplaceChance):P10/?y33;
+  !!FU671:P88/-1/0/y20/y30;                [replace 60% of level 1 magic shrines]
+  !!FU671:P100/-1/0/y20/y31;               [replace 20% of learning stones]
+  !!FU671:P113/-1/0/y20/y32;               [replace 15% of witch huts]
+  !!FU671:P112/-1/0/y20/y33;               [replace 10% of windmills]
 !!en;
 
 
@@ -768,6 +761,7 @@ Returned Values:
 !!VRy10&y3=1:S593 +y11; [new index number]
 !!VRvy10&y3=1:C16/11/1/-1/1/1/0; [hunting lodge]   [table of non-level 8 RY Objects]
 
+; Already moved to new script
 *!UN:P109/?y3; [check if Market of Time script is enabled]
 *!VRy3&y21=0:S0; [set y3 to 0 if Replace Objects isn't enabled]
 *!VRy20&y3=1:+1; [add one to object counter]
@@ -1279,31 +1273,7 @@ Returned Values:
 *!FU671&y20>0:P93/-1/0/y20/70; [replace 70% of scrolls]
 
 
-
 ------------
-** This section is Anders' code for adding Mithril for the Mithril script.
-*** Replace Resource Piles ***
-!!VRy1&870:S1;
-!!UN&870:U79/-1/?v1;  (Get number of resource piles on map(for replacing with Mithril))
-!!VRy3:S10;
-!!VRy3&v1<10:Sv1;       (1 of the ten first stacks will always be replaced. If less than ten stacks total, one will still be replaced)
-!!VRy1&870:S1 Ry3;      (Draw random number to see what pile to start with)
-!!VRv5:Sv70 +v70 -1;    (Get replacing frequency)
-!!VRv6:S0; (Check for number of replaced piles of Mithril)
-!!DO8179/y1/v1/1&870:P; (Cycle through all resource piles, replace one in what value v70 holds)
-
-*** Campfires ***
-!!IF:V9/1;
-!!UN&870:U12/-1/?v1;   (Get number of campfires on map(for replacing with Mithril))
-!!VRy3:S10;
-!!VRy3&v1<10:Sv1;      (1 of the ten first stacks will always be replaced. If less than ten stacks total, one will still be replaced)
-!!VRy1&870:S1 Ry3;     (Draw random number to see what pile to start with)
-!!VRv5:Sv70 +v70 -1;    (Get replacing frequency)
-!!DO8179/y1/v1/1&870:P;(Cycle through all Campfires, replace one in what value v70 holds)
-
-!!IF:V870/0;    (set Flag to indicate that Mithril has been added)
-** End of Mithril section.
--------------
 
 
 ** convert some artifacts
@@ -1336,6 +1306,7 @@ Returned Values:
 !!UN|y3=1/y4=1:U54/-1/?v951; [get number of monsters]
 !!VRv952:S-2; [Initialize v952 to last object for faster UN:U format]
 !!DO680/1/v951/1|y3=1/y4=1:Py3/y4; [loop through all monsters]
+!!FU(H3Quests_RefreshData):P(FALSE);
 
 ** add SoD terrains
 
@@ -1364,8 +1335,8 @@ Returned Values:
 !!VRz2:Sz100004;
 !!VRz4:S^../data/zvs/lib1.res/wogoption.bmp^;
 !!VRz5:Sz100005;
-!!IF:D1/1/0/2/4/0/0/0/5/0/0/0/0/0/0/0;
-!!IF:F1/0/0/0/0/0; [remove cancel button]
+!!IF:D1/1/^^/2/4/^^/^^/^^/5/^^/^^/^^/^^/^^/^^/^^;
+!!IF:F1/^^/^^/^^/^^/(FALSE); [remove cancel button]
 !!UN:P248/?y-1; [check if "Display WoGification Messages" is enabled: y-1]
 !!IF&y-1=1:E1/1; [display WoGification dialogue box if enabled]
 !!UN:R7/0/0; [Show mouse cursor and enable changing]
@@ -1403,7 +1374,7 @@ Returned Values:
 !!VRy2&y3=4:S0 R99; [reroll percentile dice: y2]
 
 !!if&y2<x5;
-  !!if&x1=57;
+  !!if&x1=(OBJ_OBELISK);
     !!MTv952/v953/v954:N?y4; [If an Obelisk is replaced, get Obelisk number: y4]
     !!UN:L-2/y4/1; [If an Obelisk is replaced, set it to "visited" for all players]
   !!en;
@@ -1428,6 +1399,7 @@ Returned Values:
 ** function to check for replace-ability
 
 !?FU674;
+!#VA(objType:x);
 
 !!VRy1:Sv955 *7 +602; [now vy1 is footprint]
 !!VRy2:Sy1 +1; [now vy2 is terrain required]
@@ -1436,6 +1408,7 @@ Returned Values:
 
 !!TR952:T?y5/d/d/d/d/d/d/d; [get terrain]
 !!VRy4&vy2<>-1/vy2<>y5:S0; [wrong terrain]
+!!VRy4&(objType)=(OBJ_DRAGON_UTOPIA)/y5=8:S0; [Skip Utopias on water]
 
 !!FU686:P0/-1; [test square above yellow for redness]
 !!VRy6:Sv966;
@@ -1528,7 +1501,16 @@ Returned Values:
 
 !!VRy20:S0; [Initialize y20 to 0]
 !!UN&v955<=128:Av955/?y20; [y20=1 if artifact to be replaced is disabled - prevents quest hut artifacts being replaced]
-!!FU|v955<7/v955=128/v955>=141/y20=1:E; [Skip this artifact if it's Armageddon's Blade, a new WoG Artifact or a quest hut artifact]
+
+ [Check for a customized (or ERM-placed) artifact]
+!!UN:P904/1; [Disable error messages]
+!!UN:P905/0; [Reset P905 ERM error status to 0]
+!!AR952:M1/?z1; [Check for a custom text string]
+!!UN:P905/?y36 P905/(FALSE); [Check for error: y36=1 if error, meaning non-customized, or y36=0 if no error, meaning customized]
+!!UN:P904/0; [Enable error messages]
+
+ [Skip this artifact if it's Armageddon's Blade, a new WoG Artifact, a customized artifact or a quest hut artifact]
+!!FU|v955<7/v955=128/v955>=141/y20=1/y36=0:E;
 
 !!UN:Av955/3/?y4; [get artifact class into y4]
 !!VRx2&y4=16/v955<128:+1; [add 1 to counter: replace 1 in 4 relics with WoG Relics]
@@ -1661,8 +1643,13 @@ Returned Values:
  [x1=1 if replacing some monster with WoG monsters is enabled]
  [x2=1 if replacing some L3 monsters with ghosts is enabled]
 !!UN:U54/-1/-2/952; [get x/y/l of yellow square of monster into v952-v954]
-!!VRy2:S0 R99; [roll percentile dice]
-!!FU681&y2<50:Py2/x1/x2; [greatest chance is 50% - to save time only go on half the time]
+!!VR(random:y):S0 R99; [roll percentile dice]
+!!FU&(random)>=50:E; [Exit if roll is 50 or higher: greatest chance is 50% - to save time only go on half the time]
+
+!!FU(WOG_CheckIfMonIsEligibleToBeRepalced):P952/?(result:y);
+!!FU&(result)<>(TRUE):E;
+
+!!FU681:P(random)/x1/x2; [Possible conversion (greatest chance is 50%)]
 
 ** end of function
 
@@ -1762,7 +1749,8 @@ Returned Values:
 
  [If Passable Terrain script active, make squares passable again]
 !!UN:P63/?y7; [Check if Passable Terrain script is enabled: y7]
-!!FU:E;       [Exit if Passable Terrain isn't enabled]
+!!FU&y7<>1:E; [Exit if Passable Terrain isn't enabled]
+
 !!UN:X?y8/?y9;          [Map size: y8]
 !!VRy10&y6=1:Sv953 -4;  [Starting y-coordinate for loop: y10]
 !!VRy11&y6=1:Sv953 +1;  [Ending y-coordinate for loop: y11]
@@ -1834,35 +1822,29 @@ Returned Values:
 ** end of function
 
  [Set up Warlord's Banner artifacts on map]
-!?FU25;
-!!UN:U16/-1/?y2; [Number of Creature Banks on map: y2]
-!!VRv1:S-1; [Initialize v1 to first object for faster UN:U format]
-!!DO27/1/y2/1&y2>0:P16; [Loop through all Creature Banks]
-!!UN:U24/-1/?y3; [Number of Derelict Ships on map: y2]
-!!VRv1:S-1; [Initialize v1 to first object for faster UN:U format]
-!!DO27/1/y3/1&y3>0:P24; [Loop through all Creature Banks]
-!!UN:U25/-1/?y4; [Number of Dragon Utopias on map: y2]
-!!VRv1:S-1; [Initialize v1 to first object for faster UN:U format]
-!!DO27/1/y4/1&y4>0:P25; [Loop through all Creature Banks]
-!!UN:U84/-1/?y5; [Number of Crypts on map: y2]
-!!VRv1:S-1; [Initialize v1 to first object for faster UN:U format]
-!!DO27/1/y5/1&y5>0:P84; [Loop through all Crypts]
-!!UN:U85/-1/?y6; [Number of Shipwrecks on map: y2]
-!!VRv1:S-1; [Initialize v1 to first object for faster UN:U format]
-!!DO27/1/y6/1&y6>0:P85; [Loop through all Shipwrecks]
+!?FU(WOG_IFY_CreatureBanks_AddWarlordBanners);
+
+!#VA(creatureBanks[5]:y);
+
+!!VR(creatureBanks[0]):C(OBJ_CREATURE_BANK)/(OBJ_DERELICT_SHIP)/(OBJ_DRAGON_UTOPIA)/(OBJ_CRYPT)/(OBJ_SHIPWRECK);
+
+!!re i/0/(creatureBanks[SIZE])/1/-1;
+  !!VRv2:S-1;                                     [Initialize v1 to first object for faster UN:U format]
+  !!UN:U(creatureBanks[i])/(ANY_OBJ)/?(objNum:y); [Number of Creature Banks on map: y2]
+
+  !!re j/0/(objNum)/1/-1;
+    !!UN:U(creatureBanks[i])/-1/-1/2;             [Store Creature Bank Coordinates in v1/v2/v3]
+    !!VRr:R0/0/1;
+    !!CB2&r:A3/(ART_WARLORDS_BANNER);             [Add a Banner to 50% of Creature Banks]
+    !!if&(creatureBanks[i])=(OBJ_DRAGON_UTOPIA);
+      !!CB2:A3/(ART_WARLORDS_BANNER);             [Add an extra Banner to all Dragon Utopias]
+    !!en;
+  !!en;
+!!en;
 
 ** end of function
 
- [Add Banners to some Creature Banks]
-!?FU27;
-!!UN:Ux1/-1/-1/1; [Store Creature Bank Coordinates in v1/v2/v3]
-!!VRy1:S0 R1; [Random number from 0..1: y1]
-!!CB1&y1=1:A3/156; [Add a Banner to 50% of Creature Banks]
-!!CB1&x1=25:A3/156; [Add an extra Banner to all Dragon Utopias]
-
-** end of function
-
-; Level 1 & 2 Spells Scrools are replaced by Archer30
+// Level 1 & 2 Spells Scrools are replaced by Archer30
 ; This script must be executed later than all the classic WoG replacements. Otherwise you won't have spells scrolls replaced by other objects
 !?FU(OnEveryDay)&i^timerDay^=1/i^timerOnce^;
 !!UN:P252/?(wogOption:y);
@@ -1893,7 +1875,7 @@ Returned Values:
 !!if&(level)<=2;
   !!VR(type:y):R0/0/1;
   ; Remove the spell scroll
-  !!UN:O(x)/(y)/(z)/0;
+  !!UN:O(x)/(y)/(z)/1/0;
 
   !!if&(type)=0;
     !!FU(WOG_252_GenerateRandomStandardChest):P(x)/(y)/(z);
@@ -1941,3 +1923,24 @@ Returned Values:
 ; Change its content according to chance
 !!VR(random:y):R0/0/5;
 !!AR(x)/(y)/(z):Vd(random);             [gold amount = 100 * AR:V value for ]
+
+// Allow to pick up Lost Bottles after defeating the guards
+; This script allow to pick up Lost Bottles and remove it from the map. These bottles are known to block H3 pathfinding and becomes a problem for custom maps.
+; AI players will never pick up Lost Bottles
+!$OB(OBJ_CREATURE_BANK)/19&(ERM_FLAG_IS_HUMAN);
+; Exit if the Utopia has not been cleared
+!!CB998:T?(isCleared:y);
+!!FU&(isCleared)<>(TRUE):E;
+
+!!IF:Q1/^%T(wog.138.lostBottle0)^;
+
+!!if&1;
+  !!VR(random:y):R0/0/255;
+  !!FU(GetTextFileString):P^randtvrn^/(random)/?(randInfo:z);
+  !!SN:T^wog.138.lostBottle1^/?(msg:z)/^info^/(randInfo);
+  !!IF:M^%(msg)^;
+
+  !!VR(random:y):R0/1/6;
+  !!SN:P^pickup0%(random)^;
+  !!UN:Ov998/v999/v1000/1;
+!!en;
