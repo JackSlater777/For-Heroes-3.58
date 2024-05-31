@@ -47,21 +47,22 @@ ZVSE2
 *!VR(replace)&(objType)=(OBJ_RALLY_FLAG):S(TRUE);
 *!VR(replace)&(objType)=(OBJ_CREATURE_BANK)/(objSubtype)=2:S(TRUE);
 *!VR(replace)&(objType)=(OBJ_CREATURE_BANK)/(objSubtype)=3:S(TRUE);
-!!VR(replace)&(objType)=(OBJ_REFUGEE_CAMP):S(TRUE);
+!!VR(replace)&(objType)=(OBJ_WAR_MACHINE_FACTORY):S(TRUE);
 
 ; exit if not searchable types
 !!FU&(replace)<>(TRUE):E;
 
-; generate 10% chance
-!!VR(random:y):R0/0/9; 
-!!FU&(random)<>0:E;
+; generate 100% chance
+*!VR(random:y):R0/0/9; 
+*!FU&(random)<>0:E;
 
 ; set a new object type
 !!VR(objType):S(OBJ_NEW_WOG_OBJECTS);
 !!VR(objSubtype):S(OBJ_OPT_MARKET_OF_TIME);
 
 ; delete current and create a new object
-!!UN:O(x)/(y)/(z)/1/(ERM_REPLACE_NO_REDRAW); 
+!!UN:O(x)/(y)/(z)/1/(ERM_REPLACE_NO_REDRAW);
+!!VR(x): +1; // add x-offset 
 !!UN:I(x)/(y)/(z)/(objType)/(objSubtype)/(ERM_REPLACE_NO_REDRAW);
 
 

@@ -1,0 +1,28 @@
+ZVSE2
+
+
+!?FU(OnAfterErmInstructions);
+!!FU(js_BallisticsAddDesc):P;
+
+
+!?FU(js_BallisticsAddDesc);
+!!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_BASIC)/?(desc:z);
+!!VR(desc): +^%T(ballistics.desc)^;
+!!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_BASIC)/(desc:z);
+
+!!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_ADVANCED)/?(desc);
+!!VR(desc): +^%T(ballistics.desc)^;
+!!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_ADVANCED)/(desc:z);
+
+!!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_EXPERT)/?(desc);
+!!VR(desc): +^%T(ballistics.desc)^;
+!!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_EXPERT)/(desc:z);
+
+
+!?FU(OnSetupBattlefield);
+!!re i/(BATTLE_LEFT)/i^battle_hero_vs_hero^;
+  !!HEi^battle_hero_%i^:S(SKILL_BALLISTICS)/?(skillLvl:y);
+  !!if&(skillLvl:y);
+    !!FU(WOG_Battle_SetSideSpellEffects):Pi/i/(SPELL_PRECISION)/50/(SKILL_EXPERT)/(FALSE);
+  !!en;
+!!en;
