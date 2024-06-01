@@ -6,17 +6,17 @@ ZVSE2
 
 
 !?FU(js_BallisticsAddDesc);
-!!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_BASIC)/?(desc:z);
-!!VR(desc): +^%T(ballistics.desc)^;
-!!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_BASIC)/(desc:z);
+!!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_BASIC)/?(descBaseBallistics:z);
+!!VR(descBaseBallistics:z): +^%T(ballistics.desc)^;
+!!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_BASIC)/(descBaseBallistics:z);
 
-!!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_ADVANCED)/?(desc);
-!!VR(desc): +^%T(ballistics.desc)^;
-!!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_ADVANCED)/(desc:z);
+!!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_ADVANCED)/?(descAdvBallistics:z);
+!!VR(descAdvBallistics:z): +^%T(ballistics.desc)^;
+!!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_ADVANCED)/(descAdvBallistics:z);
 
-!!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_EXPERT)/?(desc);
-!!VR(desc): +^%T(ballistics.desc)^;
-!!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_EXPERT)/(desc:z);
+!!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_EXPERT)/?(descExpBallistics:z);
+!!VR(descExpBallistics:z): +^%T(ballistics.desc)^;
+!!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_EXPERT)/(descExpBallistics:z);
 
 
 !?FU(OnSetupBattlefield);

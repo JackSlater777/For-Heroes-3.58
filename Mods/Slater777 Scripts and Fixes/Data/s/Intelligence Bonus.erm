@@ -5,22 +5,22 @@ ZVSE2
 !!FU(js_IntelligenceAddDesc):P;
 
 
-!?FU(OnAfterLoadGame);
-!!FU(js_IntelligenceAddDesc):P;
+*?FU(OnAfterLoadGame);
+*!FU(js_IntelligenceAddDesc):P;
 
 
 !?FU(js_IntelligenceAddDesc);
-!!SN:H^secskill^/(SKILL_INTELLIGENCE)/(SKILL_BASIC)/?(desc:z);
+!!SN:H^secskill^/(SKILL_INTELLIGENCE)/(SKILL_BASIC)/?(descBaseIntel:z);
 !!SN:T^intelligence.desc^/?(desc1:z)/^percent^/20;
-!!SN:H^secskill^/(SKILL_INTELLIGENCE)/(SKILL_BASIC)/^%(desc)%(desc1)^;
+!!SN:H^secskill^/(SKILL_INTELLIGENCE)/(SKILL_BASIC)/^%(descBaseIntel)%(desc1)^;
 
-!!SN:H^secskill^/(SKILL_INTELLIGENCE)/(SKILL_ADVANCED)/?(desc:z);
+!!SN:H^secskill^/(SKILL_INTELLIGENCE)/(SKILL_ADVANCED)/?(descAdvIntel:z);
 !!SN:T^intelligence.desc^/?(desc2:z)/^percent^/40;
-!!SN:H^secskill^/(SKILL_INTELLIGENCE)/(SKILL_ADVANCED)/^%(desc)%(desc2)^;
+!!SN:H^secskill^/(SKILL_INTELLIGENCE)/(SKILL_ADVANCED)/^%(descAdvIntel)%(desc2)^;
 
-!!SN:H^secskill^/(SKILL_INTELLIGENCE)/(SKILL_EXPERT)/?(desc:z);
+!!SN:H^secskill^/(SKILL_INTELLIGENCE)/(SKILL_EXPERT)/?(descExpIntel:z);
 !!SN:T^intelligence.desc^/?(desc3:z)/^percent^/60;
-!!SN:H^secskill^/(SKILL_INTELLIGENCE)/(SKILL_EXPERT)/^%(desc)%(desc3)^;
+!!SN:H^secskill^/(SKILL_INTELLIGENCE)/(SKILL_EXPERT)/^%(descExpIntel)%(desc3)^;
 
 
 !?HL-1;                                         [Level up trigger for intelligence]

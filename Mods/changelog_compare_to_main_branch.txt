@@ -1,0 +1,40 @@
+Mod list changes:
+- added "10Sskills"
+- added "BattleSpeed"
+- added "HD Portraits - 32 bit"
+- added "HotA"
+- added "Slater777 Scripts and Fixes"
+- added "XXL"
+- added "WoG Fix Rus + Emerald Artifacts"
+- deleted "Enhanced Henchmen"
+- deleted "Era Scripts Eng"
+- deleted "Advanced Classes Mod"
+- deleted "Mixed Neutrals"
+- deleted "Random wallpaper"
+- deleted "Stalker Spells Mod"
+- deleted "Wog Fix Lite"
+- deleted "NewSpells"
+
+File list changes:
+- ERA Scripts Rus:
+    - /Lang/era_scripts_dlg.json:
+        - fixed syntax
+    - /Data/s/option 796 - use of the scrolls and banners.erm
+        - ai no longer breaks arts/scrolls/banners
+        - exp from breaking arts is no longer granted, you still can break arts to clean a backpack
+        - mana from breaking scrolls is no longer granted, you still can break scrolls to clean a backpack
+    - /Data/s/interface - artefact helper.erm
+        - disabled artifact hints on adv map
+
+- Game Enhancement Mod:
+    - /lang/RMG_CustomizeObjectProperties.json:
+        - added objects with qty restriction
+
+- Wog Scripts:
+    - /Data/s/33 wog - castle upgrading.erm:
+        - the cost of upgrading building equals sum of building costs of non-upg and upg buildings
+        - extra growth from upgrading building equals basic growth
+    - /Data/s/69 wog - market of time.erm:
+        - it replaces only war factories
+    - /Data/s/78 wof - wogify.erm:
+        - look at txt-file with the same name

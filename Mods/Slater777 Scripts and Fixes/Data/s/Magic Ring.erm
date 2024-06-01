@@ -7,26 +7,26 @@ ZVSE2
 !!FU(js_RingOfMagiAddDesc):P;
 
 
-!?FU(OnAfterLoadGame);
-!!FU(js_RingOfMagiAddDesc):P;
+*?FU(OnAfterLoadGame);
+*!FU(js_RingOfMagiAddDesc):P;
 
 
 !?FU(js_RingOfMagiAddDesc);
-!!SN:H^art^/(ART_COLLAR_OF_CONJURING)/1/?(artDescr:z);
-!!VR(artDescr:z): +^%T(artDesc.76)^;
-!!SN:H^art^/(ART_COLLAR_OF_CONJURING)/1/(artDescr:z);
+!!SN:H^art^/(ART_COLLAR_OF_CONJURING)/1/?(artDesc76:z);
+!!VR(artDesc76:z): +^%T(artDesc.76)^;
+!!SN:H^art^/(ART_COLLAR_OF_CONJURING)/1/(artDesc76:z);
 
-!!SN:H^art^/(ART_RING_OF_CONJURING)/1/?(artDescr:z);
-!!VR(artDescr:z): +^%T(artDesc.77)^;
-!!SN:H^art^/(ART_RING_OF_CONJURING)/1/(artDescr:z);
+!!SN:H^art^/(ART_RING_OF_CONJURING)/1/?(artDesc77:z);
+!!VR(artDesc77:z): +^%T(artDesc.77)^;
+!!SN:H^art^/(ART_RING_OF_CONJURING)/1/(artDesc77:z);
 
-!!SN:H^art^/(ART_CAPE_OF_CONJURING)/1/?(artDescr:z);
-!!VR(artDescr:z): +^%T(artDesc.78)^;
-!!SN:H^art^/(ART_CAPE_OF_CONJURING)/1/(artDescr:z);
+!!SN:H^art^/(ART_CAPE_OF_CONJURING)/1/?(artDesc78:z);
+!!VR(artDesc78:z): +^%T(artDesc.78)^;
+!!SN:H^art^/(ART_CAPE_OF_CONJURING)/1/(artDesc78:z);
 
-!!SN:H^art^/(ART_RING_OF_THE_MAGI)/1/?(artDescr:z);
-!!VR(artDescr:z): +^%T(artDesc.139)^;
-!!SN:H^art^/(ART_RING_OF_THE_MAGI)/1/(artDescr:z);
+!!SN:H^art^/(ART_RING_OF_THE_MAGI)/1/?(artDesc139:z);
+!!VR(artDesc139:z): +^%T(artDesc.139)^;
+!!SN:H^art^/(ART_RING_OF_THE_MAGI)/1/(artDesc139:z);
 
 
 !?FU(OnBeforeBattleUniversal);

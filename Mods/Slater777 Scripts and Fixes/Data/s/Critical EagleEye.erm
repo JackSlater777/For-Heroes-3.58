@@ -1,60 +1,52 @@
 ZVSE2
-** Author orig.  : Algor
-** Updated by    : Archer30
-** Name          : Critical Sorcery
-** Name rus.     : Критическое Волшебство
-** Options       : 789
 
 
 !?FU(OnAfterErmInstructions);
 !!FU(js_EagleEyeAddDesc):P;
 
 
-!?FU(OnAfterLoadGame);
-!!FU(js_EagleEyeAddDesc):P;
+*?FU(OnAfterLoadGame);
+*!FU(js_EagleEyeAddDesc):P;
 
 
 !?FU(js_EagleEyeAddDesc);
-!!SN:H^secskill^/(SKILL_EAGLE_EYE)/(SKILL_BASIC)/?(desc:z);
+!!SN:H^secskill^/(SKILL_EAGLE_EYE)/(SKILL_BASIC)/?(descBaseEagle:z);
 !!SN:T^eagleeye.desc^/?(desc1:z)/^percent^/10;
-!!SN:H^secskill^/(SKILL_EAGLE_EYE)/(SKILL_BASIC)/^%(desc)%(desc1)^;
+!!SN:H^secskill^/(SKILL_EAGLE_EYE)/(SKILL_BASIC)/^%(descBaseEagle)%(desc1)^;
 
-!!SN:H^secskill^/(SKILL_EAGLE_EYE)/(SKILL_ADVANCED)/?(desc);
+!!SN:H^secskill^/(SKILL_EAGLE_EYE)/(SKILL_ADVANCED)/?(descAdvEagle:z);
 !!SN:T^eagleeye.desc^/?(desc2:z)/^percent^/20;
-!!SN:H^secskill^/(SKILL_EAGLE_EYE)/(SKILL_ADVANCED)/^%(desc)%(desc2)^;
+!!SN:H^secskill^/(SKILL_EAGLE_EYE)/(SKILL_ADVANCED)/^%(descAdvEagle)%(desc2)^;
 
-!!SN:H^secskill^/(SKILL_EAGLE_EYE)/(SKILL_EXPERT)/?(desc);
+!!SN:H^secskill^/(SKILL_EAGLE_EYE)/(SKILL_EXPERT)/?(descExpEagle:z);
 !!SN:T^eagleeye.desc^/?(desc3:z)/^percent^/30;
-!!SN:H^secskill^/(SKILL_EAGLE_EYE)/(SKILL_EXPERT)/^%(desc)%(desc3)^;
+!!SN:H^secskill^/(SKILL_EAGLE_EYE)/(SKILL_EXPERT)/^%(descExpEagle)%(desc3)^;
 
 ; Change the description of spec
 !!re i/(HERO_FIRST)/(HERO_LAST_WOG);
   !!HEi:X?(spec:y)/?(spec2:y);
 
   !!if&(spec)=0/(spec2)=(SKILL_EAGLE_EYE);
-    !!SN:H^spec^/i/2/?(desc:z);
-    !!VR(desc): +^%T(eagleeye.spec)^;
-    !!SN:H^spec^/i/2/(desc:z);
+    !!SN:H^spec^/i/2/?(descSpecEagle:z);
+    !!VR(descSpecEagle): +^%T(eagleeye.spec)^;
+    !!SN:H^spec^/i/2/(descSpecEagle:z);
   !!en;
 
 !!en;
 
 ; Change the description of artifacts
-!!SN:H^art^/(ART_BIRD_OF_PERCEPTION)/1/?(desc);
+!!SN:H^art^/(ART_BIRD_OF_PERCEPTION)/1/?(artDesc63:z);
 !!SN:T^eagleeye.desc^/?(desc1:z)/^percent^/5;
-!!SN:H^art^/(ART_BIRD_OF_PERCEPTION)/1/^%(desc)%(desc1)^;
+!!SN:H^art^/(ART_BIRD_OF_PERCEPTION)/1/^%(artDesc63)%(desc1)^;
 
-!!SN:H^art^/(ART_STOIC_WATCHMAN)/1/?(desc);
+!!SN:H^art^/(ART_STOIC_WATCHMAN)/1/?(artDesc64:z);
 !!SN:T^eagleeye.desc^/?(desc2:z)/^percent^/10;
-!!SN:H^art^/(ART_STOIC_WATCHMAN)/1/^%(desc)%(desc2)^;
+!!SN:H^art^/(ART_STOIC_WATCHMAN)/1/^%(artDesc64)%(desc2)^;
 
-!!SN:H^art^/(ART_EMBLEM_OF_COGNIZANCE)/1/?(desc);
+!!SN:H^art^/(ART_EMBLEM_OF_COGNIZANCE)/1/?(artDesc65:z);
 !!SN:T^eagleeye.desc^/?(desc3:z)/^percent^/15;
-!!SN:H^art^/(ART_EMBLEM_OF_COGNIZANCE)/1/^%(desc)%(desc3)^;
+!!SN:H^art^/(ART_EMBLEM_OF_COGNIZANCE)/1/^%(artDesc65)%(desc3)^;
 
-*!SN:H^art^/(ART_RING_OF_THE_MAGI)/1/?(desc);
-*!SN:T^es.789.desc^/?(desc4:z)/^percent^/50;
-*!SN:H^art^/(ART_RING_OF_THE_MAGI)/1/^%(desc)%(desc4)^;
 
 !?FU(OnMagicCorrectedResistance); [перед расчетом сопротивления]
 !!BG:A?y1;                    [y1 - тип действия (1 - герой колдует заклинание)]
@@ -78,7 +70,6 @@ ZVSE2
 !!VRy9&y11>0:+5;              [+5% крит за Ожерелье]
 !!VRy9&y12>0:+10;             [+10% крит за Кольцо]
 !!VRy9&y13>0:+15;             [+15% крит за Накидку]
-*!VRy9&y14>0:+50;             [+50% крит за Накидку]
 
 !!VRy10:S0 R99;               [y10 -случайное число (0..99)]
 
