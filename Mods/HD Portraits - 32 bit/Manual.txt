@@ -1,3 +1,0 @@
-In the Data - Pcx - HDportains folder, you can use your own portraits - they must be 32-bit and png
-by default are HD portraits from the reissue
-To process poor quality portraits use Topaz Gigapixel AI which enlarges and redraws images without losing quality

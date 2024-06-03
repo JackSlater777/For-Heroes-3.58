@@ -1,7 +1,0 @@
-Портреты героев к ремастеру HD Edition - содержит материалы расширенного издания
-Моды должны быть подключенны в таком порядке:
-HD Edition graphics fixes
-HD Edition Topaz A.I. fix
-HD Portraits - 32 bit
-HD localization
-HD Edition

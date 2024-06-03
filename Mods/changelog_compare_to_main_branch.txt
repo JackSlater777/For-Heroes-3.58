@@ -1,18 +1,15 @@
 Mod list changes:
 - added "10Sskills"
 - added "BattleSpeed"
-- added "HD Portraits - 32 bit"
-- added "HotA"
-- added "Slater777 Scripts and Fixes"
+- added "HotA" (inactive)
+- added "Slater777 Scripts and Fixes" and "Slater777 Scripts and Fixes plus Emerald Artifacts" (inactive - emerald is buggy though)
 - added "XXL"
-- added "WoG Fix Rus + Emerald Artifacts"
 - deleted "Enhanced Henchmen"
 - deleted "Era Scripts Eng"
 - deleted "Advanced Classes Mod"
 - deleted "Mixed Neutrals"
 - deleted "Random wallpaper"
 - deleted "Stalker Spells Mod"
-- deleted "Wog Fix Lite"
 - deleted "NewSpells"
 
 File list changes:

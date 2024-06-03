@@ -1,4 +1,0 @@
-Warehouse:
-	sound:
-		enter: WERHOUSE.wav
-		loop: в зависимости от типа

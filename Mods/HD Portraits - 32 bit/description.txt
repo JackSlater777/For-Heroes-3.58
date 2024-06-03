@@ -1,7 +1,0 @@
-Hero portraits for the HD Edition remaster - contains materials from the extended edition
-Mods must be connected in this order: 
-HD Edition graphics fixes
-HD Edition Topaz A.I. fix
-HD Portraits - 32 bit
-HD localization
-HD Edition
