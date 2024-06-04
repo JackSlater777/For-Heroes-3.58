@@ -1,0 +1,13 @@
+### Hota warehouses
+- passability
+- add to zobjcts
+- erm from tum + check and fix
+- replacing
+
+
+### Watermill to underground/sand?
+- add to zobjcts
+
+
+### Hota banks
+-ждем доработки RMG_CustomizeObjectProperties (GEM)

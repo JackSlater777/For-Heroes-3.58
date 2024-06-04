@@ -1,5 +1,8 @@
 {
   "newArts":  {
     "ringOfOblivionBanSpells": "Кольцо Забвения делает все потери героя безвозвратными!"
+  },
+  "misc":  {
+    "endl": "\n"
   }
 }

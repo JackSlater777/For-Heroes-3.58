@@ -2,7 +2,7 @@ Mod list changes:
 - added "10Sskills"
 - added "BattleSpeed"
 - added "HotA" (inactive)
-- added "Slater777 Scripts and Fixes" and "Slater777 Scripts and Fixes plus Emerald Artifacts" (inactive - emerald is buggy though)
+- added "Slater777 Scripts and Fixes" and "Slater777 Scripts and Fixes plus Emerald Artifacts" (inactive - emerald is laggy)
 - added "XXL"
 - deleted "Enhanced Henchmen"
 - deleted "Era Scripts Eng"
@@ -23,9 +23,11 @@ File list changes:
     - /Data/s/interface - artefact helper.erm
         - disabled artifact hints on adv map
 
-- Game Enhancement Mod:
+- Slater777 Scripts and Fixes:
     - /lang/RMG_CustomizeObjectProperties.json:
-        - added objects with qty restriction
+        - added objects with qty restriction (requires RMG_CustomizeObjectProperties.era from Game Enhancement Mod)
+    - /lang/RMG obj value density updater.json:
+        - edited objects value and density (requires RMG obj value density updater.dll from Game Enhancement Mod)
 
 - Wog Scripts:
     - /Data/s/33 wog - castle upgrading.erm:

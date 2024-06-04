@@ -1,0 +1,1 @@
+для корректной работы RMG нужен Game Enhancement Mod
