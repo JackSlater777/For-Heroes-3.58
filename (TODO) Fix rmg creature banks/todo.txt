@@ -1,2 +1,5 @@
+TODO: смержить RMG_CustomizeObjectProperties и RMG obj value density updater
+
+
 - черная башня имеет криво расположенную охрану
 - айди объектов съезжает

@@ -13,6 +13,11 @@ ZVSE2
 !!FU(js_HomeOfTheBat):P16/18/-1;
 !!FU(js_Grotto):P16/20/-1;
 
+!!UN:P900/?y22;                 [Check if Stack Experience is enabled: y22]
+!!UN:P143/?y23;                 [Check if New Artifacts is enabled: y23]
+!!UN:P234/?y24;                 [Check if Warlord's Banner is disabled: y24]
+!!FU(js_WogBanks_AddWarlordBanners)&y22=1/y23=1/y24=0:P;
+
 
 !?FU(js_HuntingLodge);
 ; x1 - objType, x2 - objSubtype; x3 - terrainType
@@ -24,8 +29,8 @@ ZVSE2
 ** footprint values:  0 = Y, 1 = RY, 2 = YR, 3 = RYR, 4 = other
 !!VRvy10:Cx1/x2/1/x3/0/1/0;
 !!if&(objCounter:y)>0;
-  !!FU(WOG_195_CalcReplaceChance):P25/?(replacePercent:y);
-  !!FU(js_WogBanksReplace):P16/3/1/(objCounter:y)/(replacePercent:y); [replace 25% of Тайник Бесов]
+  !!FU(WOG_195_CalcReplaceChance):P30/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/3/1/(objCounter:y)/(replacePercent:y); [replace 30% of Тайник Бесов] / 5000 (TODO: -> 1500) value
 !!en;
 
 
@@ -39,12 +44,8 @@ ZVSE2
 ** footprint values:  0 = Y, 1 = RY, 2 = YR, 3 = RYR, 4 = other
 !!VRvy10:Cx1/x2/1/x3/0/2/0;
 !!if&(objCounter:y)>0;
-  !!FU(WOG_195_CalcReplaceChance):P15/?(replacePercent:y);
-  !!FU(js_WogBanksReplace):P16/0/1/(objCounter:y)/(replacePercent:y); [replace 15% of Склад Циклопов]
-  !!FU(WOG_195_CalcReplaceChance):P15/?(replacePercent:y);
-  !!FU(js_WogBanksReplace):P16/4/1/(objCounter:y)/(replacePercent:y); [replace 15% of Склад Медуз]
-  !!FU(WOG_195_CalcReplaceChance):P15/?(replacePercent:y);
-  !!FU(js_WogBanksReplace):P16/5/1/(objCounter:y)/(replacePercent:y); [replace 15% of Нага Банк]
+  !!FU(WOG_195_CalcReplaceChance):P30/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/4/1/(objCounter:y)/(replacePercent:y); [replace 30% of Склад Медуз] / 1500 value
 !!en;
 
 
@@ -58,12 +59,12 @@ ZVSE2
 ** footprint values:  0 = Y, 1 = RY, 2 = YR, 3 = RYR, 4 = other
 !!VRvy10:Cx1/x2/1/x3/0/1/0;
 !!if&(objCounter:y)>0;
-  !!FU(WOG_195_CalcReplaceChance):P10/?(replacePercent:y);
-  !!FU(js_WogBanksReplace):P16/0/1/(objCounter:y)/(replacePercent:y); [replace 10% of Склад Циклопов]
-  !!FU(WOG_195_CalcReplaceChance):P10/?(replacePercent:y);
-  !!FU(js_WogBanksReplace):P16/4/1/(objCounter:y)/(replacePercent:y); [replace 10% of Склад Медуз]
-  !!FU(WOG_195_CalcReplaceChance):P10/?(replacePercent:y);
-  !!FU(js_WogBanksReplace):P16/5/1/(objCounter:y)/(replacePercent:y); [replace 10% of Нага Банк]
+  !!FU(WOG_195_CalcReplaceChance):P7/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/0/1/(objCounter:y)/(replacePercent:y); [replace 7% of Склад Циклопов]
+  !!FU(WOG_195_CalcReplaceChance):P7/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/4/1/(objCounter:y)/(replacePercent:y); [replace 7% of Склад Медуз]
+  !!FU(WOG_195_CalcReplaceChance):P7/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/5/1/(objCounter:y)/(replacePercent:y); [replace 7% of Нага Банк]
 !!en;
 
 
@@ -77,12 +78,12 @@ ZVSE2
 ** footprint values:  0 = Y, 1 = RY, 2 = YR, 3 = RYR, 4 = other
 !!VRvy10:Cx1/x2/1/x3/0/1/0;
 !!if&(objCounter:y)>0;
-  !!FU(WOG_195_CalcReplaceChance):P10/?(replacePercent:y);
-  !!FU(js_WogBanksReplace):P16/0/1/(objCounter:y)/(replacePercent:y); [replace 10% of Склад Циклопов]
-  !!FU(WOG_195_CalcReplaceChance):P10/?(replacePercent:y);
-  !!FU(js_WogBanksReplace):P16/4/1/(objCounter:y)/(replacePercent:y); [replace 10% of Склад Медуз]
-  !!FU(WOG_195_CalcReplaceChance):P10/?(replacePercent:y);
-  !!FU(js_WogBanksReplace):P16/5/1/(objCounter:y)/(replacePercent:y); [replace 10% of Нага Банк]
+  !!FU(WOG_195_CalcReplaceChance):P7/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/0/1/(objCounter:y)/(replacePercent:y); [replace 7% of Склад Циклопов]
+  !!FU(WOG_195_CalcReplaceChance):P7/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/4/1/(objCounter:y)/(replacePercent:y); [replace 7% of Склад Медуз]
+  !!FU(WOG_195_CalcReplaceChance):P7/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/5/1/(objCounter:y)/(replacePercent:y); [replace 7% of Нага Банк]
 !!en;
 
 
@@ -96,8 +97,8 @@ ZVSE2
 ** footprint values:  0 = Y, 1 = RY, 2 = YR, 3 = RYR, 4 = other
 !!VRvy10:Cx1/x2/1/x3/0/2/1; 0/1/0
 !!if&(objCounter:y)>0;
-  !!FU(WOG_195_CalcReplaceChance):P25/?(replacePercent:y);
-  !!FU(js_WogBanksReplace):P16/1/1/(objCounter:y)/(replacePercent:y); [replace 25% of Склад Гномов]
+  !!FU(WOG_195_CalcReplaceChance):P30/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/1/1/(objCounter:y)/(replacePercent:y); [replace 30% of Склад Гномов]
 !!en;
 
 
@@ -113,3 +114,19 @@ ZVSE2
 !!VRx4:-1; [deal with replacements numbered 0 to x4]
 !!VRv952:S-2; [Initialize v952 to last object for faster UN:U format]
 !!DO672/0/v951/1:Px1/x2/x3/x4/x5; [do a loop for each object]
+
+
+!?FU(js_WogBanks_AddWarlordBanners);
+!#VA(wogCreatureBanks[5]:y);
+!!VR(wogCreatureBanks[0]):C11/12/17/18/20; [all subtypes]
+
+!!re i/0/(wogCreatureBanks[SIZE])/1/-1;
+  !!VRv2:S-1;                                     [Initialize v1 to first object for faster UN:U format]
+  !!UN:U(OBJ_CREATURE_BANK)/(wogCreatureBanks[i])/?(objNum:y); [Number of Creature Banks on map: y2]
+
+  !!re j/0/(objNum)/1/-1;
+    !!UN:U(OBJ_CREATURE_BANK)/(wogCreatureBanks[i])/-1/2;      [Store Creature Bank Coordinates in v1/v2/v3]
+    !!VRr:R0/0/1;
+    !!CB2&r:A3/(ART_WARLORDS_BANNER);             [Add a Banner to 50% of Creature Banks]
+  !!en;
+!!en;
