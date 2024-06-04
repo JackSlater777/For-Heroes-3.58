@@ -1,0 +1,115 @@
+ZVSE2
+
+
+!?FU(OnEveryDay)&i^timerDay^=1;
+!!UN:P195/?y21; [Check if Replace Objects is enabled: y21=1 if yes]
+!!FU&y21=0:E;
+!!UN:P138/?y3; [check if New Creature Banks option is enabled]
+!!FU&y3=1:E;
+
+!!FU(js_HuntingLodge):P16/11/-1;
+!!FU(js_SnowCoveredGrotto):P16/12/3; snow
+!!FU(js_TranslyvanianTavern):P16/17/-1; 
+!!FU(js_HomeOfTheBat):P16/18/-1;
+!!FU(js_Grotto):P16/20/-1;
+
+
+!?FU(js_HuntingLodge);
+; x1 - objType, x2 - objSubtype; x3 - terrainType
+!!VR(objCounter:y):S1; [initialize object counter to 1]
+!!VRy11:S(objCounter:y) *7; [number to add to index variable]
+!!VRy10:S593 +y11; [new index number]
+
+** table fields: type/subtype/footprint/terrain/back wall/edge x/edge y
+** footprint values:  0 = Y, 1 = RY, 2 = YR, 3 = RYR, 4 = other
+!!VRvy10:Cx1/x2/1/x3/0/1/0;
+!!if&(objCounter:y)>0;
+  !!FU(WOG_195_CalcReplaceChance):P25/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/3/1/(objCounter:y)/(replacePercent:y); [replace 25% of Тайник Бесов]
+!!en;
+
+
+!?FU(js_SnowCoveredGrotto);
+; x1 - objType, x2 - objSubtype; x3 - terrainType
+!!VR(objCounter:y):S1; [initialize object counter to 1]
+!!VRy11:S(objCounter:y) *7; [number to add to index variable]
+!!VRy10:S593 +y11; [new index number]
+
+** table fields: type/subtype/footprint/terrain/back wall/edge x/edge y
+** footprint values:  0 = Y, 1 = RY, 2 = YR, 3 = RYR, 4 = other
+!!VRvy10:Cx1/x2/1/x3/0/2/0;
+!!if&(objCounter:y)>0;
+  !!FU(WOG_195_CalcReplaceChance):P15/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/0/1/(objCounter:y)/(replacePercent:y); [replace 15% of Склад Циклопов]
+  !!FU(WOG_195_CalcReplaceChance):P15/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/4/1/(objCounter:y)/(replacePercent:y); [replace 15% of Склад Медуз]
+  !!FU(WOG_195_CalcReplaceChance):P15/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/5/1/(objCounter:y)/(replacePercent:y); [replace 15% of Нага Банк]
+!!en;
+
+
+!?FU(js_TranslyvanianTavern);
+; x1 - objType, x2 - objSubtype; x3 - terrainType
+!!VR(objCounter:y):S1; [initialize object counter to 1]
+!!VRy11:S(objCounter:y) *7; [number to add to index variable]
+!!VRy10:S593 +y11; [new index number]
+
+** table fields: type/subtype/footprint/terrain/back wall/edge x/edge y
+** footprint values:  0 = Y, 1 = RY, 2 = YR, 3 = RYR, 4 = other
+!!VRvy10:Cx1/x2/1/x3/0/1/0;
+!!if&(objCounter:y)>0;
+  !!FU(WOG_195_CalcReplaceChance):P10/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/0/1/(objCounter:y)/(replacePercent:y); [replace 10% of Склад Циклопов]
+  !!FU(WOG_195_CalcReplaceChance):P10/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/4/1/(objCounter:y)/(replacePercent:y); [replace 10% of Склад Медуз]
+  !!FU(WOG_195_CalcReplaceChance):P10/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/5/1/(objCounter:y)/(replacePercent:y); [replace 10% of Нага Банк]
+!!en;
+
+
+!?FU(js_HomeOfTheBat);
+; x1 - objType, x2 - objSubtype; x3 - terrainType
+!!VR(objCounter:y):S1; [initialize object counter to 1]
+!!VRy11:S(objCounter:y) *7; [number to add to index variable]
+!!VRy10:S593 +y11; [new index number]
+
+** table fields: type/subtype/footprint/terrain/back wall/edge x/edge y
+** footprint values:  0 = Y, 1 = RY, 2 = YR, 3 = RYR, 4 = other
+!!VRvy10:Cx1/x2/1/x3/0/1/0;
+!!if&(objCounter:y)>0;
+  !!FU(WOG_195_CalcReplaceChance):P10/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/0/1/(objCounter:y)/(replacePercent:y); [replace 10% of Склад Циклопов]
+  !!FU(WOG_195_CalcReplaceChance):P10/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/4/1/(objCounter:y)/(replacePercent:y); [replace 10% of Склад Медуз]
+  !!FU(WOG_195_CalcReplaceChance):P10/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/5/1/(objCounter:y)/(replacePercent:y); [replace 10% of Нага Банк]
+!!en;
+
+
+!?FU(js_Grotto);
+; x1 - objType, x2 - objSubtype; x3 - terrainType
+!!VR(objCounter:y):S1; [initialize object counter to 1]
+!!VRy11:S(objCounter:y) *7; [number to add to index variable]
+!!VRy10:S593 +y11; [new index number]
+
+** table fields: type/subtype/footprint/terrain/back wall/edge x/edge y
+** footprint values:  0 = Y, 1 = RY, 2 = YR, 3 = RYR, 4 = other
+!!VRvy10:Cx1/x2/1/x3/0/2/1; 0/1/0
+!!if&(objCounter:y)>0;
+  !!FU(WOG_195_CalcReplaceChance):P25/?(replacePercent:y);
+  !!FU(js_WogBanksReplace):P16/1/1/(objCounter:y)/(replacePercent:y); [replace 25% of Склад Гномов]
+!!en;
+
+
+!?FU(js_WogBanksReplace);  modified FU671 from 78 wog
+!!UN:Ux1/x2/?v951; [count number of replaceable objects]
+
+*!VR(objType:y):Sx1;
+*!VR(objSubtype:y):Sx2;
+*!VR(qty:y):Sv951;
+*!IF:M^obj_type=%(objType), obj_subtype=%(objSubtype), qty=%(qty)^;
+
+!!VRv951:-1; [added by JHV 7/23/2008]
+!!VRx4:-1; [deal with replacements numbered 0 to x4]
+!!VRv952:S-2; [Initialize v952 to last object for faster UN:U format]
+!!DO672/0/v951/1:Px1/x2/x3/x4/x5; [do a loop for each object]
