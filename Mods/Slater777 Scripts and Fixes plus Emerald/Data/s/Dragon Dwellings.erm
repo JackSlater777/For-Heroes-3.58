@@ -32,7 +32,7 @@ ZVSE2
 ** footprint values:  0 = Y, 1 = RY, 2 = YR, 3 = RYR, 4 = other
 !!VRvy10:Cx1/x2/1/x3/0/0/0;
 !!if&(objCounter:y)>0;
-  !!FU(js_DragonDwellingsReplace):P78/-1/1/(objCounter:y)/(replacePercent:y); [replace 100% of Refugee Camps]
+  *!FU(js_DragonDwellingsReplace):P78/-1/1/(objCounter:y)/(replacePercent:y); [replace 100% of Refugee Camps]
   !!FU(js_DragonDwellingsReplace):P80/-1/1/(objCounter:y)/(replacePercent:y); [replace 100% of Святилище]
   !!FU(js_DragonDwellingsReplace):P97/-1/1/(objCounter:y)/(replacePercent:y); [replace 100% of Den of Thieves]
 !!en;

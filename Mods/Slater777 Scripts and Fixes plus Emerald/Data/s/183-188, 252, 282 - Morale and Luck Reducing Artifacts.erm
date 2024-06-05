@@ -128,7 +128,7 @@ Script by Daemon_n and JackSlater (26.01.23)
   !!if&(equipped)>0;
     !!SN:H^art^/(art)/0/?(artName:z);
     !!SN:Mi^tum_negativeMoraleArtsList^/i/?(moraleReduction:y);
-    !!VR(negativeMoraleArtDesc):+^%T(misc.endl)%(artName) -%(moraleReduction)^;
+    !!VR(negativeMoraleArtDesc):+^%T(gem.endl)%(artName) -%(moraleReduction)^;
     !!VR(totalMoralReduction):+(moraleReduction);
   !!en;
 !!en;
@@ -163,7 +163,7 @@ Script by Daemon_n and JackSlater (26.01.23)
   !!if&(equipped)>0;
     !!SN:H^art^/(art)/0/?(artName:z);
     !!SN:Mi^tum_negativeLuckArtsList^/i/?(luckReduction:y);
-    !!VR(negativeLuckArtDesc):+^%T(misc.endl)%(artName) -%(luckReduction)^;
+    !!VR(negativeLuckArtDesc):+^%T(gem.endl)%(artName) -%(luckReduction)^;
     !!VR(totalLuckReduction):+(luckReduction);
   !!en;
 !!en;
