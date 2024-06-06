@@ -1,4 +1,8 @@
 # Дичайшие лаги во время хода АИ
+- решение проблем с лагами
+- копирование всего из Slater777 Scripts and Fixes в Slater777 Scripts and Fixes plus Emerald
+- ??? подгрузка через RMG_CustomizeObjectProperties через json в обход текстовиков?
+- или добавить в скопированные из Slater777 Scripts and Fixes текстовики строчек на новые артефакты
 
 
 # написать скрипты для колчана и кольца родства с машинами

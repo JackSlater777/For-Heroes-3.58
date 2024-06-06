@@ -6,13 +6,14 @@
 
 ### Hota warehouses
 - plugin
-- LOOP-sound
+- LOOP-sound - см HotA_Warehouses.snd
 - ai priority (ai не посещает вархаусы)
 
 
 ### Колизей магов
 - plugin
-- LOOP-sound, enter sound
+- LOOP-sound: см HotA.snd/IVORTWLO.wav
+- enter sound: как у ученого/камня опыта
 
 
 ### Hota warehouses: захват
