@@ -1,7 +1,7 @@
 ZVSE2
 
 
-!?FU(OnEveryDay)&i^timerDay^=1;
+!?FU(OnEveryDay)&i^timerOnce^/i^timerDay^=1;
 !!UN:P195/?y21; [Check if Replace Objects is enabled: y21=1 if yes]
 !!FU&y21=0:E;
 !!UN:P137/?y3; [check if Level 8 Creature Dwellings option is enabled]

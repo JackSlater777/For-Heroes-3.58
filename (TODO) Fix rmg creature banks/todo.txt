@@ -1,5 +1,7 @@
-TODO: смержить RMG_CustomizeObjectProperties и RMG obj value density updater
+# RMG_CustomizeObjectProperties - у объектов с ограничением на зону в 1 иногда наблюдается дублирование объекта рядом
 
+# смержить RMG_CustomizeObjectProperties и RMG obj value density updater
 
-- черная башня имеет криво расположенную охрану
-- айди объектов съезжает
+# черная башня имеет криво расположенную охрану
+
+# айди объектов съезжает

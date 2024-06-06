@@ -1,13 +1,27 @@
+### Совместимость с era scripts
+- добавить def с флагом владельца для avmoilpm.def (нефтяная вышка - сейчас разновидность водяной мельницы)
+- добавить def с флагом владельца для avtprosp.def (старатель - сейчас разновидность мистического сада)
+- добавить замену def'ов в логику скрипта (скопировать скрипт и переписать option 879 - capture mills and gardens.erm)
+
+
 ### Hota warehouses
-- passability
-- add to zobjcts
-- erm from tum + check and fix
-- replacing
+- plugin
+- LOOP-sound
+- ai priority (ai не посещает вархаусы)
 
 
-### Watermill to underground/sand?
-- add to zobjcts
+### Колизей магов
+- plugin
+- LOOP-sound, enter sound
+
+
+### Hota warehouses: захват
+- добавить def'ы с флагом владельца
+- написать erm-скрипт на замену def'ов и логику (за основу взять option 879 - capture mills and gardens.erm)
+
+
+### Баг??? - Почва подземелья на поверхности
 
 
 ### Hota banks
--ждем доработки RMG_CustomizeObjectProperties (GEM)
+- ждем доработки RMG_CustomizeObjectProperties (GEM)

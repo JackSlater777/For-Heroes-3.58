@@ -1,1 +1,3 @@
-для корректной работы RMG нужен Game Enhancement Mod
+Для корректной работы мода нужны:
+- Wog Fix Lite
+- Game Enhancement Mod

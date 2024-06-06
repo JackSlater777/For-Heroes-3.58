@@ -4,7 +4,7 @@ ZVSE2
 !#DC(OBJ_HOTA_WAREHOUSE)                 = 142;
 
 
-!?FU(OnEveryDay)&i^timerDay^=1;
+!?FU(OnEveryDay)&i^timerOnce^/i^timerDay^=1;
 !!FU(js_HotaWarehouses):P;
 
 
