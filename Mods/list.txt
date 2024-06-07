@@ -3,9 +3,9 @@ WoG
 Era Erm Framework
 BattleQueue
 BattleSpeed
-Game Enhancement Mod
 Quick Savings
 WoG Scripts
+Game Enhancement Mod
 WoG Scripts Rus
 Difficulty Mod
 WoG Fix Lite
@@ -15,5 +15,6 @@ Secondary Skills Scrolling
 AMER_HumanAI
 ERA Scripts Rus
 Slater777 Scripts and Fixes
+Slater777 Scripts and Fixes plus Emerald
 WoG Rus
 XXL
