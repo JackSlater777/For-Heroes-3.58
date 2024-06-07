@@ -1,0 +1,6 @@
+ZVSE2
+
+
+*?FU(OnAdventureMapRightMouseClick);
+*!UN:U5/161/?(objNum:y);
+*!IF:L^%(objNum:y)^;
