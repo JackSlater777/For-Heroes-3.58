@@ -7,8 +7,8 @@ ZVSE2
 // To-do: Restrain the use of Life Drain/Attract Dead Souls abilities
 
 !?FU(gem_CreateERMHook);
-!!SN:Ex1/1/5128574/(tum_NullifyNecromancy);
-!!SN:Ex1/1/4472337/(tum_MakeLossesIrretrievable);
+!!SN:Ex1/1/5128574/(tum_OnCalcNecromancyPower); [Trigger on calculating Necromancy power]
+!!SN:Ex1/1/4472337/(js_MakeLossesIrretrievable);
 !!SN:Ex1/1/4681149/(tum_BeforeBattleResultsMsg);
 
 
@@ -18,7 +18,7 @@ ZVSE2
 !!en;
 
 
-!?FU(OnSetupBattlefield)&i^tum_emerald_on^;
+!?FU(OnSetupBattlefield);
 ; Check Heroes
 !!re i/(BATTLE_LEFT)/i^battle_hero_vs_hero^;
   !!HEi^battle_hero_%i^:A2/(ART_RING_OF_OBLIVION)/d/?(isEquipped:y);
@@ -54,13 +54,13 @@ ZVSE2
 !!BM(stackNumber):F(monFlag);
 
 
-!?FU(tum_NullifyNecromancy)&i^tum_roo_equipped^;
+!?FU(tum_OnCalcNecromancyPower)&i^tum_roo_equipped^;
 !!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y) C(ebp)/-4/4/?(necromancyPower:e);
 !!VR(necromancyPower):S0;
 !!UN:C(ebp)/-4/4/(necromancyPower);
 
 
-!?FU(tum_MakeLossesIrretrievable)&i^tum_roo_equipped^;
+!?FU(js_MakeLossesIrretrievable)&i^tum_roo_equipped^;
 !!UN:Cx1/(STRUCT_HOOK_CONTEXT_EAX)/4/?(currentStackCount:y);
 !!UN:Cx1/(STRUCT_HOOK_CONTEXT_ESI)/4/?(currentStackPtr:y);
 !!UN:C(currentStackPtr)/248/4/?(currentStack:y) C(currentStackPtr)/244/4/?(side:y);
