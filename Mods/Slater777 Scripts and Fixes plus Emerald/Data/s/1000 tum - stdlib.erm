@@ -40,14 +40,6 @@ ZVSE2
 
 !#FU(tum_DisableUnusedArtifacts):P;
 
-**********************************************************
-**** Restore the original values of terrain penalties ****
-**********************************************************
-; The following lines must be executed ealier than option 739 - pathfinding.erm - OnGameLeave to be overriden.
-; Wayfarer's Boots Part 2
-!?FU(OnGameLeave)&i^tum_emerald_on^;
-!!FU(tum_SetTerrainPenaltyValues):P(FALSE);
-
 *******************************************************
 **** Function to get the latest artifact ID of TUM ****
 *******************************************************

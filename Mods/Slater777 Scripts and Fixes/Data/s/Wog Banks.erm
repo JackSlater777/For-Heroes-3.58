@@ -105,9 +105,9 @@ ZVSE2
 !?FU(js_WogBanksReplace);  modified FU671 from 78 wog
 !!UN:Ux1/x2/?v951; [count number of replaceable objects]
 
-*!VR(objType:y):Sx1;
-*!VR(objSubtype:y):Sx2;
-*!VR(qty:y):Sv951;
+!!VR(objType:y):Sx1;
+!!VR(objSubtype:y):Sx2;
+!!VR(qty:y):Sv951;
 *!IF:M^obj_type=%(objType), obj_subtype=%(objSubtype), qty=%(qty)^;
 
 !!VRv951:-1; [added by JHV 7/23/2008]

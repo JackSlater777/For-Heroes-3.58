@@ -2,8 +2,10 @@ Mod list changes:
 - added "10Sskills"
 - added "BattleSpeed"
 - added "HotA" (inactive)
-- added "Slater777 Scripts and Fixes" and "Slater777 Scripts and Fixes plus Emerald Artifacts" (inactive - emerald is laggy)
+- added "Slater777 Scripts and Fixes" and "Slater777 Scripts and Fixes plus Emerald Artifacts"
 - added "XXL"
+- added "RMG Customizer"
+- added "RMG Object Value Density Editor"
 - deleted "Enhanced Henchmen"
 - deleted "Era Scripts Eng"
 - deleted "Advanced Classes Mod"
@@ -22,12 +24,6 @@ File list changes:
         - mana from breaking scrolls is no longer granted, you still can break scrolls to clean a backpack
     - /Data/s/interface - artefact helper.erm
         - disabled artifact hints on adv map
-
-- Slater777 Scripts and Fixes:
-    - /lang/RMG_CustomizeObjectProperties.json:
-        - added objects with qty restriction (requires RMG_CustomizeObjectProperties.era from Game Enhancement Mod)
-    - /lang/RMG obj value density updater.json:
-        - edited objects value and density (requires RMG obj value density updater.dll from Game Enhancement Mod)
 
 - Wog Scripts:
     - /Data/s/33 wog - castle upgrading.erm:

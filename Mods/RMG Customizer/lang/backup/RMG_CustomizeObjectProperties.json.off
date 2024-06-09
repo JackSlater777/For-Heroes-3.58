@@ -1,0 +1,1150 @@
+{
+	"RMG": {
+		"text": {
+			"dlg": {
+				"zoneLimit": "zoneLimit",
+				"mapLimit": "mapLimit"
+			}
+		},
+		"objectGeneration": {
+			"16": {
+				"21": {
+					"isEnabled": true,
+					"name": "Beholders Sanctuary",
+					"properties": [
+						"SANCT_WT.def 001111110011111111111111111111111111111111111111 100000000000000000000000000000000000000000000000 100000000 100000000 16 21 0 0"
+					],
+					"sound": {
+						"enter": null,
+						"loop": "LOOPBEHD.wav"
+					},
+					"value": 2500,
+					"density": 100,
+					"states": [
+						{
+							"guardians": {
+								"type": [
+									74,
+									74,
+									74,
+									74,
+									74,
+									-1,
+									-1
+								],
+								"count": [
+									10,
+									10,
+									10,
+									10,
+									10,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								3000
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 30,
+							"upgrade": 50,
+							"artifactTypeCounts": [
+								0,
+								1,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									74,
+									74,
+									74,
+									74,
+									74,
+									-1,
+									-1
+								],
+								"count": [
+									15,
+									15,
+									15,
+									15,
+									15,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								5000
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 30,
+							"upgrade": 50,
+							"artifactTypeCounts": [
+								0,
+								1,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									74,
+									74,
+									74,
+									74,
+									74,
+									-1,
+									-1
+								],
+								"count": [
+									20,
+									20,
+									20,
+									20,
+									20,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								6000
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 30,
+							"upgrade": 50,
+							"artifactTypeCounts": [
+								0,
+								0,
+								1,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									74,
+									74,
+									74,
+									74,
+									74,
+									-1,
+									-1
+								],
+								"count": [
+									30,
+									30,
+									30,
+									30,
+									30,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								9000
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 10,
+							"upgrade": 50,
+							"artifactTypeCounts": [
+								0,
+								0,
+								0,
+								1
+							]
+						}
+					]
+				},
+				"24": {
+					"isEnabled": true,
+					"name": "Mansion",
+					"properties": [
+						"avmnsion.def 000111111111111111111111111111111111111111111111 010000000000000000000000000000000000000000000000 111111111 011111111 16 24 0 0"
+					],
+					"sound": {
+						"enter": "mansionv.wav",
+						"loop": "LOOPMANS.wav"
+					},
+					"value": 5000,
+					"density": 50,
+					"states": [
+						{
+							"guardians": {
+								"type": [
+									63,
+									63,
+									63,
+									63,
+									63,
+									-1,
+									-1
+								],
+								"count": [
+									8,
+									8,
+									8,
+									8,
+									8,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								2,
+								0,
+								2,
+								2,
+								2,
+								2500
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 30,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								0,
+								1,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									63,
+									63,
+									63,
+									63,
+									63,
+									-1,
+									-1
+								],
+								"count": [
+									12,
+									12,
+									12,
+									12,
+									12,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								3,
+								0,
+								3,
+								3,
+								3,
+								5000
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 30,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								0,
+								1,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									63,
+									63,
+									63,
+									63,
+									63,
+									-1,
+									-1
+								],
+								"count": [
+									16,
+									16,
+									16,
+									16,
+									16,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								4,
+								0,
+								4,
+								4,
+								4,
+								7500
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 30,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								0,
+								1,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									63,
+									63,
+									63,
+									63,
+									63,
+									-1,
+									-1
+								],
+								"count": [
+									20,
+									20,
+									20,
+									20,
+									20,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								5,
+								0,
+								5,
+								5,
+								5,
+								10000
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 10,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								0,
+								1,
+								0
+							]
+						}
+					]
+				},
+				"26": {
+					"isEnabled": true,
+					"name": "Red Tower",
+					"properties": [
+						"avredtwr.def 110111111101111111111111111111111111111111111111 001000000000000000000000000000000000000000000000 111111111 011111111 16 26 0 0"
+					],
+					"sound": {
+						"enter": "REDTWRVS.wav",
+						"loop": "REDTWRLO.wav"
+					},
+					"value": 4000,
+					"density": 20,
+					"states": [
+						{
+							"guardians": {
+								"type": [
+									114,
+									114,
+									114,
+									114,
+									114,
+									-1,
+									-1
+								],
+								"count": [
+									7,
+									7,
+									7,
+									7,
+									7,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								0
+							],
+							"creatureRewardType": 130,
+							"creatureRewardCount": 1,
+							"chance": 30,
+							"upgrade": 50,
+							"artifactTypeCounts": [
+								0,
+								0,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									114,
+									114,
+									114,
+									114,
+									114,
+									-1,
+									-1
+								],
+								"count": [
+									14,
+									14,
+									14,
+									14,
+									14,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								0
+							],
+							"creatureRewardType": 130,
+							"creatureRewardCount": 2,
+							"chance": 30,
+							"upgrade": 50,
+							"artifactTypeCounts": [
+								0,
+								0,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									114,
+									114,
+									114,
+									114,
+									114,
+									-1,
+									-1
+								],
+								"count": [
+									21,
+									21,
+									21,
+									21,
+									21,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								0
+							],
+							"creatureRewardType": 130,
+							"creatureRewardCount": 3,
+							"chance": 30,
+							"upgrade": 50,
+							"artifactTypeCounts": [
+								0,
+								0,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									114,
+									114,
+									114,
+									114,
+									114,
+									-1,
+									-1
+								],
+								"count": [
+									28,
+									28,
+									28,
+									28,
+									28,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								0
+							],
+							"creatureRewardType": 130,
+							"creatureRewardCount": 4,
+							"chance": 10,
+							"upgrade": 50,
+							"artifactTypeCounts": [
+								0,
+								0,
+								0,
+								0
+							]
+						}
+					]
+				},
+				"27": {
+					"isEnabled": true,
+					"name": "Black Tower",
+					"properties": [
+						"avblktwr.def 101111111111111111111111111111111111111111111111 010000000000000000000000000000000000000000000000 111111111 011100011 16 27 0 0",
+						"avblktgr.def 101111111111111111111111111111111111111111111111 010000000000000000000000000000000000000000000000 111111111 000010100 16 27 0 0",
+						"avblktsn.def 101111111111111111111111111111111111111111111111 010000000000000000000000000000000000000000000000 111111111 000001000 16 27 0 0"
+					],
+					"sound": {
+						"enter": "BLCKTWRS.wav",
+						"loop": "BLCKTWRL.wav"
+					},
+					"isNotBank": true,
+					"value": 1500,
+					"density": 100,
+					"states": [
+						{
+							"guardians": {
+								"type": [
+									-1,
+									26,
+									-1,
+									-1,
+									-1,
+									-1,
+									-1
+								],
+								"count": [
+									0,
+									1,
+									0,
+									0,
+									0,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								2000
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 30,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								1,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									-1,
+									27,
+									-1,
+									-1,
+									-1,
+									-1,
+									-1
+								],
+								"count": [
+									0,
+									1,
+									0,
+									0,
+									0,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								2250
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 30,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								1,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									-1,
+									82,
+									-1,
+									-1,
+									-1,
+									-1,
+									-1
+								],
+								"count": [
+									0,
+									1,
+									0,
+									0,
+									0,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								3500
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 30,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								1,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									-1,
+									83,
+									-1,
+									-1,
+									-1,
+									-1,
+									-1
+								],
+								"count": [
+									0,
+									1,
+									0,
+									0,
+									0,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								3750
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 10,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								1,
+								0,
+								0
+							]
+						}
+					]
+				},
+				"29": {
+					"isEnabled": true,
+					"name": "Churchyard",
+					"properties": [
+						"avcmetry.def 000111111111111111111111111111111111111111111111 010000000000000000000000000000000000000000000000 011000001 011000001 16 29 0 0",
+						"avcmetrs.def 000111111111111111111111111111111111111111111111 010000000000000000000000000000000000000000000000 000001000 000001000 16 29 0 0",
+						"avcmetrh.def 000111111111111111111111111111111111111111111111 010000000000000000000000000000000000000000000000 000110100 000110100 16 29 0 0"
+					],
+					"sound": {
+						"enter": "CEMETRY.wav",
+						"loop": "LOOPCMTR.wav"
+					},
+					"value": 1500,
+					"density": 100,
+					"states": [
+						{
+							"guardians": {
+								"type": [
+									59,
+									59,
+									59,
+									59,
+									59,
+									59,
+									-1
+								],
+								"count": [
+									15,
+									15,
+									15,
+									15,
+									15,
+									15,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								2500
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 100,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								1,
+								0,
+								0
+							]
+						}
+					]
+				},
+				"30": {
+					"isEnabled": true,
+					"name": "Experimental Shop",
+					"properties": [
+						"AVXbnk90.def 001111111111111111111111111111111111111111111111 100000000000000000000000000000000000000000000000 111111111 011110111 16 30 0 0",
+						"AVXbnk9s.def 001111111111111111111111111111111111111111111111 100000000000000000000000000000000000000000000000 111111111 000001000 16 30 0 0"
+					],
+					"sound": {
+						"enter": null,
+						"loop": "LOOPEXSH.wav"
+					},
+					"value": 3500,
+					"density": 80,
+					"states": [
+						{
+							"guardians": {
+								"type": [
+									33,
+									33,
+									33,
+									33,
+									33,
+									-1,
+									-1
+								],
+								"count": [
+									5,
+									5,
+									5,
+									5,
+									5,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								0
+							],
+							"creatureRewardType": 40,
+							"creatureRewardCount": 1,
+							"chance": 30,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								0,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									33,
+									33,
+									33,
+									33,
+									33,
+									-1,
+									-1
+								],
+								"count": [
+									10,
+									10,
+									10,
+									10,
+									10,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								0
+							],
+							"creatureRewardType": 40,
+							"creatureRewardCount": 2,
+							"chance": 30,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								0,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									33,
+									33,
+									33,
+									33,
+									33,
+									-1,
+									-1
+								],
+								"count": [
+									15,
+									15,
+									15,
+									15,
+									15,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								0
+							],
+							"creatureRewardType": 40,
+							"creatureRewardCount": 3,
+							"chance": 30,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								0,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									33,
+									33,
+									33,
+									33,
+									33,
+									-1,
+									-1
+								],
+								"count": [
+									20,
+									20,
+									20,
+									20,
+									20,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								0
+							],
+							"creatureRewardType": 40,
+							"creatureRewardCount": 4,
+							"chance": 10,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								0,
+								0,
+								0
+							]
+						}
+					]
+				},
+				"31": {
+					"isEnabled": true,
+					"name": "Wolf Raider Picket",
+					"properties": [
+						"AVXbnk80.def 101111111111111111111111111111111111111111111111 010000000000000000000000000000000000000000000000 111111111 011111111 16 31 0 0"
+					],
+					"sound": {
+						"enter": null,
+						"loop": "LOOPPICK.wav"
+					},
+					"value": 9500,
+					"density": 70,
+					"states": [
+						{
+							"guardians": {
+								"type": [
+									87,
+									87,
+									87,
+									87,
+									87,
+									-1,
+									-1
+								],
+								"count": [
+									10,
+									10,
+									10,
+									10,
+									10,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								0
+							],
+							"creatureRewardType": 94,
+							"creatureRewardCount": 4,
+							"chance": 30,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								0,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									87,
+									87,
+									87,
+									87,
+									87,
+									-1,
+									-1
+								],
+								"count": [
+									15,
+									15,
+									15,
+									15,
+									15,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								0
+							],
+							"creatureRewardType": 94,
+							"creatureRewardCount": 6,
+							"chance": 30,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								0,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									87,
+									87,
+									87,
+									87,
+									87,
+									-1,
+									-1
+								],
+								"count": [
+									20,
+									20,
+									20,
+									20,
+									20,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								0
+							],
+							"creatureRewardType": 94,
+							"creatureRewardCount": 8,
+							"chance": 30,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								0,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									87,
+									87,
+									87,
+									87,
+									87,
+									-1,
+									-1
+								],
+								"count": [
+									30,
+									30,
+									30,
+									30,
+									30,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								0
+							],
+							"creatureRewardType": 94,
+							"creatureRewardCount": 12,
+							"chance": 10,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								0,
+								0,
+								0
+							]
+						}
+					]
+				}
+			}
+		}
+	}
+}

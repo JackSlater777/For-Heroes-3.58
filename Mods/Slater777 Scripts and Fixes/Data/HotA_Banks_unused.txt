@@ -1,1 +1,0 @@
-см. lang/disabled/RMG_CustomizeObjectProperties.json

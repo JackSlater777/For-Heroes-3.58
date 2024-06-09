@@ -1,83 +1,121 @@
 ZVSE2
 
 
-****************************************************************************************************
-**
- Wayfarer's boots Part 1 
-**
-
+**************************
+**** Wayfarer's boots ****
+**************************
 // Script by Archer30
+// Walk on any terrain just like having Expert Pathfinding
+// The scripts works only for human to reduce spamming in era tracking.erm
 
-!?FU(OnAfterErmInstructions)&i^tum_emerald_on^;
-!!FU(NewIntArray):P52/?i^tum_terrainPenaltyValues^/(M_TEMP);
+
+!?FU(tum_OnCalcMovementPointsCost)&i^tum_emerald_on^/i^timerIsHuman^;
+!#VA(hook:x);
+
+; Skip if it is already at Expert Pathfinding
+!!UN:C(hook)/(STRUCT_HOOK_CONTEXT_EBP)/(UNC_INT)/?(ebp:y);
+!!UN:C(ebp)/12/(UNC_INT)/?(patchFindingLevel:y);
+!!FU&(patchFindingLevel)>=(SKILL_EXPERT):E;
+
+; Get the hero
+!!OW:Ai^timerOwner^/?(hero:y);
+!!FU&(hero)<=(NO_HERO):E;
+
+; Check if the hero has Wayfarer's boots
+!!HE(hero):A2/(ART_WAYFARERS_BOOTS)/?(has:y)/?(equipped:y);
+
+; Change the input arg of pathfinding level to Expert
+!!UN&(equipped)>0:C(ebp)/12/(UNC_INT)/(SKILL_EXPERT);
+
+
+// For AI we just give free movements (400) to improve the performance
+!?FU(OnEveryDay)&i^tum_emerald_on^/i^timerIsAi^;
+*!FU:E;
+
+!!re i/(HERO_FIRST)/(HERO_LAST_WOG);
+  !!HEi:O?(owner:y);
+
+  !!if&(owner)=i^timerOwner^;
+    !!HEi:A2/(ART_WAYFARERS_BOOTS)/?(has:y)/?(equipped:y);
+
+    !!HEi&(equipped)>0:Wd400/1 Gd400;
+  !!en;
+!!en;
+
+
+
+**** Old version ****
+
+*?FU(OnAfterErmInstructions)&i^tum_emerald_on^;
+*!FU(NewIntArray):P52/?i^tum_terrainPenaltyValues^/(M_TEMP);
 
 ; The following lines must be executed later than option 739 - pathfinding.erm - OnStartOrLoad in order to store the latest terrain penalty values
-!?FU(OnStartOrLoad)&i^tum_emerald_on^;
-!!VR(index:y):S0;
+*?FU(OnStartOrLoad)&i^tum_emerald_on^;
+*!VR(index:y):S0;
 
-!!re (address:y)/6546704/6546908/4;
-  !!UN:C(address)/(UNC_INT)/?(value:y);
-  !!SN:Mi^tum_terrainPenaltyValues^/(index)/(value);
-  !!VR(index):+1;
-!!en;
+*!re (address:y)/6546704/6546908/4;
+  *!UN:C(address)/(UNC_INT)/?(value:y);
+  *!SN:Mi^tum_terrainPenaltyValues^/(index)/(value);
+  *!VR(index):+1;
+*!en;
 
-!!VRi^tum_game_left^:S(FALSE);
+*!VRi^tum_game_left^:S(FALSE);
 
 ; Set or restore terrain penalty values depeding on whether Wayfarer's boots are equipped
-!?FU(tum_OnSetActiveHero)&i^tum_emerald_on^;
-!!if|i^timerIsAi^/999;
-  !!OW:A(CURRENT_PLAYER)/?i^tum_active_hero^;
+*?FU(tum_OnSetActiveHero)&i^tum_emerald_on^;
+*!if|i^timerIsAi^/999;
+  *!OW:A(CURRENT_PLAYER)/?i^tum_active_hero^;
 
-  !!if&i^tum_active_hero^>(NO_HERO);
-    !!HEi^tum_active_hero^:A2/(ART_WAYFARERS_BOOTS)/?(has:y)/?(equipped:y);
+  *!if&i^tum_active_hero^>(NO_HERO);
+    *!HEi^tum_active_hero^:A2/(ART_WAYFARERS_BOOTS)/?(has:y)/?(equipped:y);
 
-    !!FU(tum_SetTerrainPenaltyValues):P(equipped);
-  !!en;
-!!en;
+    *!FU(tum_SetTerrainPenaltyValues):P(equipped);
+  *!en;
+*!en;
 
-!?FU(OnEquipArt)&i^tum_emerald_on^;
-!!if|i^timerIsAi^/999;
-  !!if&v998=(ART_WAYFARERS_BOOTS);
-    !!HE(CURRENT_HERO):N?(hero:y);
-    !!FU(tum_SetTerrainPenaltyValues)&i^tum_active_hero^=(hero):P(TRUE);
-  !!en;
-!!en;
+*?FU(OnEquipArt)&i^tum_emerald_on^;
+*!if|i^timerIsAi^/999;
+  *!if&v998=(ART_WAYFARERS_BOOTS);
+    *!HE(CURRENT_HERO):N?(hero:y);
+    *!FU(tum_SetTerrainPenaltyValues)&i^tum_active_hero^=(hero):P(TRUE);
+  *!en;
+*!en;
 
-!?FU(OnUnequipArt)&i^tum_emerald_on^;
-!!if|i^timerIsAi^/999;
-  !!if&v998=(ART_WAYFARERS_BOOTS);
-    !!HE(CURRENT_HERO):N?(hero:y);
-    !!FU(tum_SetTerrainPenaltyValues)&i^tum_active_hero^=(hero):P(FALSE);
-  !!en;
-!!en;
+*?FU(OnUnequipArt)&i^tum_emerald_on^;
+*!if|i^timerIsAi^/999;
+  *!if&v998=(ART_WAYFARERS_BOOTS);
+    *!HE(CURRENT_HERO):N?(hero:y);
+    *!FU(tum_SetTerrainPenaltyValues)&i^tum_active_hero^=(hero):P(FALSE);
+  *!en;
+*!en;
 
-!?FU(tum_SetTerrainPenaltyValues);
-!#VA(equippedWayfarersBoots:x);
+*?FU(tum_SetTerrainPenaltyValues);
+*#VA(equippedWayfarersBoots:x);
 
 ; Set Bonuses
-!!if&(equippedWayfarersBoots)>0;
-  !!re (address:y)/6546704/6546908/4;
-    !!UN:C(address)/(UNC_INT)/100;
-  !!en;
+*!if&(equippedWayfarersBoots)>0;
+  *!re (address:y)/6546704/6546908/4;
+    *!UN:C(address)/(UNC_INT)/100;
+  *!en;
 ; Set original values
-!!el;
-  !!SN:Mi^tum_terrainPenaltyValues^/?(size:y);
+*!el;
+  *!SN:Mi^tum_terrainPenaltyValues^/?(size:y);
 
-  !!if&(size)>0;
-    !!VR(index:y):S0;
+  *!if&(size)>0;
+    *!VR(index:y):S0;
 
-    !!re (address:y)/6546704/6546908/4;
-      !!SN:Mi^tum_terrainPenaltyValues^/(index)/?(value:y);
-      !!UN:C(address)/(UNC_INT)/(value);
-      !!VR(index):+1;
-    !!en;
-  !!en;
-!!en;
+    *!re (address:y)/6546704/6546908/4;
+      *!SN:Mi^tum_terrainPenaltyValues^/(index)/?(value:y);
+      *!UN:C(address)/(UNC_INT)/(value);
+      *!VR(index):+1;
+    *!en;
+  *!en;
+*!en;
 
 **
  Restore the original values of terrain penalties 
 **
 ; The following lines must be executed ealier than option 739 - pathfinding.erm - OnGameLeave to be overriden.
 ; Wayfarer's Boots Part 2
-!?FU(OnGameLeave)&i^tum_emerald_on^;
-!!FU(tum_SetTerrainPenaltyValues):P(FALSE);
+*?FU(OnGameLeave)&i^tum_emerald_on^;
+*!FU(tum_SetTerrainPenaltyValues):P(FALSE);

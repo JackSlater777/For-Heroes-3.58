@@ -729,9 +729,9 @@ Held with the right hand, Sacred War Hammer casts expert Bless at the beginning 
 Tiara of Knowledge	3000																			x	S	{Tiara of Knowledge}
 
 Increases your knowledge skill by 5 and renders units immune to Hypnotize and Forgetfulness.
-Shield of the Ancients	15000															x					S	"{Shield of the Ancients}
+Древний Сигиль	15000															x					S	"{Древний Сигиль}
 
-Increases hero's spellpower skill by +12."
+Повышает Колдовскую Силу героя на 12 баллов."
 Minor Phylactery	4000						x	x	x	x	x										S	"{Minor Phylactery}
 
 Summons scary Demiliches to help you in the battlefield."
