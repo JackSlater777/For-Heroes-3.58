@@ -1,13 +1,16 @@
 ZVSE2
 
-*?FU(OnKeyPressed_AdvMap)&x1=(KEY_Q):
-*!UN:U5/161/?(objNum:y);
+*?FU(OnKeyPressed_AdvMap)&x1=(KEY_Q);
+*!UN:U16/11/?(objNum:y);
 *!IF:L^%(objNum:y)^;
+
+
+
 
 *!re i/21/35;(end_value);
   *!FU(gem_ShowObjects):P16/i/500;
-
 *!en;
+
 
 *?FU(gem_ShowObjects);
 *!VRx3&x3=0:S500;

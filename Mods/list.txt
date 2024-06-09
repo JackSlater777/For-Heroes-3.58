@@ -14,9 +14,9 @@ TrainerX
 Secondary Skills Scrolling
 AMER_HumanAI
 ERA Scripts Rus
-RMG Customizer
 Slater777 Scripts and Fixes
 Slater777 Scripts and Fixes plus Emerald
 RMG Object Value Density Editor
+RMG Customizer
 WoG Rus
 XXL

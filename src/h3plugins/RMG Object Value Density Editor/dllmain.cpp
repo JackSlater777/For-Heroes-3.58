@@ -22,7 +22,7 @@ _LHF_(RMG_ObjGen_AfterObjListCreation)
         //{
             for (size_t i = 0; i < 2; i++)
             {
-                sprintf(h3_TextBuffer, "rmg.%d.%d.%s", objectType, objectSubtype, attrNames[i]);
+                sprintf(h3_TextBuffer, "rmg.objectValueDensityEditor.%d.%d.%s", objectType, objectSubtype, attrNames[i]);
                 // Ищем тип и подтип в json
                 int attrValue = EraJS::readInt(h3_TextBuffer, success);
                 // Если найдены тип и подтип, заменяем параметр объекта
@@ -32,7 +32,7 @@ _LHF_(RMG_ObjGen_AfterObjListCreation)
                 }
                 // Если подтип не найден, ищем по типу
                 else {
-                    sprintf(h3_TextBuffer, "rmg.%d.%s", objectType, attrNames[i]);
+                    sprintf(h3_TextBuffer, "rmg.objectValueDensityEditor.%d.%s", objectType, attrNames[i]);
                     // Ищем тип в json
                     int attrValue = EraJS::readInt(h3_TextBuffer, success);
                     // Если найден, заменяем параметр объекта

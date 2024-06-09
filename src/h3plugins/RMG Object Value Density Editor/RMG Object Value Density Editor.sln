@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.33130.400
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RMG obj value density updater", "RMG obj value density updater.vcxproj", "{0BB1D5BC-05D7-480E-8479-86601764DEFC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RMG Object Value Density Editor", "RMG Object Value Density Editor.vcxproj", "{0BB1D5BC-05D7-480E-8479-86601764DEFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +26,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {049AE012-EE10-4D05-B2A7-B4312A48A9A6}
+		SolutionGuid = {C987ED71-1472-44D9-80F9-E29429BC2E80}
 	EndGlobalSection
 EndGlobal

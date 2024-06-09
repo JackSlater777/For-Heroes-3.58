@@ -1,22 +1,22 @@
 ZVSE2
 
 
-!?FU(OnEveryDay)&i^timerOnce^/i^timerDay^=1;
-!!UN:P195/?y21; [Check if Replace Objects is enabled: y21=1 if yes]
-!!FU&y21=0:E;
-!!UN:P138/?y3; [check if New Creature Banks option is enabled]
-!!FU&y3=1:E;
+*?FU(OnEveryDay)&i^timerOnce^/i^timerDay^=1;
+*!UN:P195/?y21; [Check if Replace Objects is enabled: y21=1 if yes]
+*!FU&y21=0:E;
+*!UN:P138/?y3; [check if New Creature Banks option is enabled]
+*!FU&y3=1:E;
 
-!!FU(js_HuntingLodge):P16/11/-1;
-!!FU(js_SnowCoveredGrotto):P16/12/3; snow
-!!FU(js_TranslyvanianTavern):P16/17/-1; 
-!!FU(js_HomeOfTheBat):P16/18/-1;
-!!FU(js_Grotto):P16/20/-1;
+*!FU(js_HuntingLodge):P16/11/-1;
+*!FU(js_SnowCoveredGrotto):P16/12/3; snow
+*!FU(js_TranslyvanianTavern):P16/17/-1; 
+*!FU(js_HomeOfTheBat):P16/18/-1;
+*!FU(js_Grotto):P16/20/-1;
 
-!!UN:P900/?y22;                 [Check if Stack Experience is enabled: y22]
-!!UN:P143/?y23;                 [Check if New Artifacts is enabled: y23]
-!!UN:P234/?y24;                 [Check if Warlord's Banner is disabled: y24]
-!!FU(js_WogBanks_AddWarlordBanners)&y22=1/y23=1/y24=0:P;
+*!UN:P900/?y22;                 [Check if Stack Experience is enabled: y22]
+*!UN:P143/?y23;                 [Check if New Artifacts is enabled: y23]
+*!UN:P234/?y24;                 [Check if Warlord's Banner is disabled: y24]
+*!FU(js_WogBanks_AddWarlordBanners)&y22=1/y23=1/y24=0:P;
 
 
 !?FU(js_HuntingLodge);
