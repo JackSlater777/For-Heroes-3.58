@@ -1,6 +1,7 @@
 ZVSE2
 
-** ENHANCED ARTIFACTS  -  ERM script 71
+
+;#UN:P71/?i^wog_71_enabled^;
 
 
 !?FU(OnAfterErmInstructions)&i^wog_71_enabled^=0;  // Если не включена опция с таким же эффектом
@@ -9,19 +10,19 @@ ZVSE2
 
 !?FU(js_RingOfMagiAddDesc);
 !!SN:H^art^/(ART_COLLAR_OF_CONJURING)/1/?(artDesc76:z);
-!!VR(artDesc76:z): +^%T(artDesc.76)^;
+!!VR(artDesc76:z): +^%T(jsMod.artifact.76.addDesc)^;
 !!SN:H^art^/(ART_COLLAR_OF_CONJURING)/1/(artDesc76:z);
 
 !!SN:H^art^/(ART_RING_OF_CONJURING)/1/?(artDesc77:z);
-!!VR(artDesc77:z): +^%T(artDesc.77)^;
+!!VR(artDesc77:z): +^%T(jsMod.artifact.77.addDesc)^;
 !!SN:H^art^/(ART_RING_OF_CONJURING)/1/(artDesc77:z);
 
 !!SN:H^art^/(ART_CAPE_OF_CONJURING)/1/?(artDesc78:z);
-!!VR(artDesc78:z): +^%T(artDesc.78)^;
+!!VR(artDesc78:z): +^%T(jsMod.artifact.78.addDesc)^;
 !!SN:H^art^/(ART_CAPE_OF_CONJURING)/1/(artDesc78:z);
 
 !!SN:H^art^/(ART_RING_OF_THE_MAGI)/1/?(artDesc139:z);
-!!VR(artDesc139:z): +^%T(artDesc.139)^;
+!!VR(artDesc139:z): +^%T(jsMod.artifact.139.addDesc)^;
 !!SN:H^art^/(ART_RING_OF_THE_MAGI)/1/(artDesc139:z);
 
 

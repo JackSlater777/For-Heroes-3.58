@@ -1,28 +1,59 @@
 ZVSE2
 
+// Script by JackSlater
 
-!?FU(OnAfterErmInstructions)&i^wog_71_enabled^=0;  // Если не включена опция с брелком, накладывающим точность
+!?FU(OnAfterErmInstructions);
 !!FU(js_BallisticsAddDesc):P;
 
 
 !?FU(js_BallisticsAddDesc);
 !!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_BASIC)/?(descBaseBallistics:z);
-!!VR(descBaseBallistics:z): +^%T(ballistics.desc)^;
+!!SN:T^jsMod.secSkill.ballistics.desc.addDesc^/?(addDesc1:z)/^points^/3;
+!!VR(descBaseBallistics:z): +(addDesc1:z);
 !!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_BASIC)/(descBaseBallistics:z);
 
 !!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_ADVANCED)/?(descAdvBallistics:z);
-!!VR(descAdvBallistics:z): +^%T(ballistics.desc)^;
+!!SN:T^jsMod.secSkill.ballistics.desc.addDesc^/?(addDesc2:z)/^points^/6;
+!!VR(descAdvBallistics:z): +(addDesc2:z);
 !!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_ADVANCED)/(descAdvBallistics:z);
 
 !!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_EXPERT)/?(descExpBallistics:z);
-!!VR(descExpBallistics:z): +^%T(ballistics.desc)^;
+!!SN:T^jsMod.secSkill.ballistics.desc.addDesc^/?(addDesc3:z)/^points^/9;
+!!VR(descExpBallistics:z): +(addDesc3:z);
 !!SN:H^secskill^/(SKILL_BALLISTICS)/(SKILL_EXPERT)/(descExpBallistics:z);
 
 
-!?FU(OnSetupBattlefield);
-!!re i/(BATTLE_LEFT)/i^battle_hero_vs_hero^;
-  !!HEi^battle_hero_%i^:S(SKILL_BALLISTICS)/?(skillLvl:y);
-  !!if&(skillLvl:y);
-    !!FU(WOG_Battle_SetSideSpellEffects):Pi/i/(SPELL_PRECISION)/50/(SKILL_EXPERT)/(FALSE);
-  !!en;
+; This is for displaying bonus in non-combat dlg 
+; Bug with crInfoPtr = null if click on creature specialization!
+*?FU(tum_OnAfterHeroSpecCreatureInfo)&i^tum_js_InCombat^=(FALSE);
+*!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y);
+*!UN:C(ebp)/-4/4/?(hero:y);
+*!UN:C(ebp)/12/4/?(crInfoPtr:y); C
+;!IF:L^%(crInfoPtr:y)^;
+*!UN:C(crInfoPtr)/16/4/?f; 10
+*!UN:C(hero)/26/4/?(heroId:y);
+*!UN:C(ebp)/8/4/?(monID:y);
+
+*!VRf:&(MON_FLAG_SHOOTER);
+*!HE(heroId):S(SKILL_BALLISTICS)/?(ballisticsLvl:y);
+
+*!if&f/(ballisticsLvl:y)>0;
+  *!UN&(ballisticsLvl:y)=1:C(crInfoPtr)/84/4/d3;
+  *!UN&(ballisticsLvl:y)=2:C(crInfoPtr)/84/4/d6;
+  *!UN&(ballisticsLvl:y)=3:C(crInfoPtr)/84/4/d9;
+*!en;
+
+
+; Adding bonus in battle
+!?FU(tum_GiveAttackAsPrecision);
+!!UN:Cx1/(STRUCT_HOOK_CONTEXT_ESI)/4/?(monStack:y); 
+!!UN:C(monStack:y)/244/4/?(side:y); F4
+!!BA:H(side:y)/?(heroNum:y);
+!!FU&(heroNum:y)<0:E;
+!!HE(heroNum:y):S(SKILL_BALLISTICS)/?(ballisticsLvl:y);
+
+!!if&(ballisticsLvl:y)>0;
+  !!UN&(ballisticsLvl:y)=1:Cx1/(STRUCT_HOOK_CONTEXT_EBX)/4/d3;
+  !!UN&(ballisticsLvl:y)=2:Cx1/(STRUCT_HOOK_CONTEXT_EBX)/4/d6;
+  !!UN&(ballisticsLvl:y)=3:Cx1/(STRUCT_HOOK_CONTEXT_EBX)/4/d9;
 !!en;

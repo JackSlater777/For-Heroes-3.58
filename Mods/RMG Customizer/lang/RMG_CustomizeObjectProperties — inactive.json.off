@@ -1,0 +1,369 @@
+{
+	"RMG": {
+		"objectGeneration": {
+			"16": {
+				"21": {
+					"isEnabled": true,
+					"name": "Святилище Бехолдеров",
+					"properties": [
+						"SANCT_WT.def 001111110011111111111111111111111111111111111111 100000000000000000000000000000000000000000000000 100000000 100000000 16 21 0 0"
+					],
+					"sound": {
+						"enter": null,
+						"loop": "LOOPBEHD.wav"
+					},
+					"value": 2500,
+					"density": 100,
+					"states": [
+						{
+							"guardians": {
+								"type": [
+									74,
+									74,
+									74,
+									74,
+									74,
+									-1,
+									-1
+								],
+								"count": [
+									10,
+									10,
+									10,
+									10,
+									10,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								3000
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 30,
+							"upgrade": 50,
+							"artifactTypeCounts": [
+								0,
+								1,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									74,
+									74,
+									74,
+									74,
+									74,
+									-1,
+									-1
+								],
+								"count": [
+									15,
+									15,
+									15,
+									15,
+									15,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								5000
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 30,
+							"upgrade": 50,
+							"artifactTypeCounts": [
+								0,
+								1,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									74,
+									74,
+									74,
+									74,
+									74,
+									-1,
+									-1
+								],
+								"count": [
+									20,
+									20,
+									20,
+									20,
+									20,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								6000
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 30,
+							"upgrade": 50,
+							"artifactTypeCounts": [
+								0,
+								0,
+								1,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									74,
+									74,
+									74,
+									74,
+									74,
+									-1,
+									-1
+								],
+								"count": [
+									30,
+									30,
+									30,
+									30,
+									30,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								9000
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 10,
+							"upgrade": 50,
+							"artifactTypeCounts": [
+								0,
+								0,
+								0,
+								1
+							]
+						}
+					]
+				},
+				"27": {
+					"isEnabled": true,
+					"name": "Чёрная Башня",
+					"properties": [
+						"avblktwr.def 101111111111111111111111111111111111111111111111 010000000000000000000000000000000000000000000000 111111111 011100011 16 27 0 0",
+						"avblktgr.def 101111111111111111111111111111111111111111111111 010000000000000000000000000000000000000000000000 111111111 000010100 16 27 0 0",
+						"avblktsn.def 101111111111111111111111111111111111111111111111 010000000000000000000000000000000000000000000000 111111111 000001000 16 27 0 0"
+					],
+					"sound": {
+						"enter": "BLCKTWRS.wav",
+						"loop": "BLCKTWRL.wav"
+					},
+					"isNotBank": true,
+					"value": 1500,
+					"density": 100,
+					"states": [
+						{
+							"guardians": {
+								"type": [
+									-1,
+									26,
+									-1,
+									-1,
+									-1,
+									-1,
+									-1
+								],
+								"count": [
+									0,
+									1,
+									0,
+									0,
+									0,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								2000
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 30,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								1,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									-1,
+									27,
+									-1,
+									-1,
+									-1,
+									-1,
+									-1
+								],
+								"count": [
+									0,
+									1,
+									0,
+									0,
+									0,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								2250
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 30,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								1,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									-1,
+									82,
+									-1,
+									-1,
+									-1,
+									-1,
+									-1
+								],
+								"count": [
+									0,
+									1,
+									0,
+									0,
+									0,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								3500
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 30,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								1,
+								0,
+								0
+							]
+						},
+						{
+							"guardians": {
+								"type": [
+									-1,
+									83,
+									-1,
+									-1,
+									-1,
+									-1,
+									-1
+								],
+								"count": [
+									0,
+									1,
+									0,
+									0,
+									0,
+									0,
+									0
+								]
+							},
+							"resources": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								0,
+								3750
+							],
+							"creatureRewardType": -1,
+							"creatureRewardCount": 0,
+							"chance": 10,
+							"upgrade": 0,
+							"artifactTypeCounts": [
+								0,
+								1,
+								0,
+								0
+							]
+						}
+					]
+				}
+			}
+		}
+	}
+}

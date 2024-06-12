@@ -3,13 +3,9 @@ ZVSE2
 ************************************
 **** Spell Empowering Artifacts ****
 ************************************
+// Script by JackSlater and daemon_n
 
 *** For Human ***
-!?FU(gem_CreateERMHook);
-!!SN:Ex1/1/5882096/(tum_Dlg_SpellBook_Create);
-!!SN:Ex1/1/5884912/(tum_DestroySpellBook_Dlg);
-
-
 !?FU(tum_Dlg_SpellBook_Create);
 !!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y) C(ebp)/10/4/?(mode:y);
 
@@ -48,7 +44,7 @@ ZVSE2
 !!UN:Cx1/(STRUCT_HOOK_CONTEXT_ESI)/4/?(heroPtr:y) C(heroPtr)/26/2/?(heroId:y);
 !!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y) C(ebp)/8/4/?(spellId:y) C(ebp)/12/4/?(damage:e);
 
-!!FU(tum_GetBonusDmgPercentage):P(spellId)/(heroId)/?(maxBonusDmgPercentage:y);
+!!FU(tum_GetBonusSpellDmgPercentage):P(spellId)/(heroId)/?(maxBonusDmgPercentage:y);
 
 !!if&(maxBonusDmgPercentage);
   !!VR(bonusDmgPercentage:y):S100 +(maxBonusDmgPercentage);
@@ -60,7 +56,7 @@ ZVSE2
 *** For AI ***
 !?FU(OnMagicBasicResistance)&i^battle_aiOnly^;
 !!BG:A?(actionType:y);
-!!FU&(actionType)<>1:E;                       [Выход, если не каст героем]
+!!FU&(actionType)<>(BATTLE_ACTION_HERO_CAST):E;
 
 !!BG:Q?(side:y);
 !!BA:H(side)/?(heroId:y);
@@ -68,7 +64,7 @@ ZVSE2
 
 !!MR:S?(spellId:y) D?(damage:y);
 
-!!FU(tum_GetBonusDmgPercentage):P(spellId)/(heroId)/?(maxBonusDmgPercentage:y);
+!!FU(tum_GetBonusSpellDmgPercentage):P(spellId)/(heroId)/?(maxBonusDmgPercentage:y);
 
 !!if&(maxBonusDmgPercentage);
   !!VR(bonusDmgPercentage:y):S100 +(maxBonusDmgPercentage);
@@ -77,7 +73,7 @@ ZVSE2
 !!en;
 
 
-!?FU(tum_GetBonusDmgPercentage);
+!?FU(tum_GetBonusSpellDmgPercentage);
 !#VA(spellId:x) (heroId:x) (maxBonusDmgPercentage:x);
 
 !!SS(spellId):S?(magicSchoolBitSet:y);
@@ -124,5 +120,3 @@ ZVSE2
 
   !!VRi:Sd<<1 -1;  [1, 2, 4, 8]
 !!en;
-
-** end

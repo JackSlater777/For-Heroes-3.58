@@ -2,21 +2,18 @@
 - проверить все снежные дефы из хоты (гильдия воров, дерево, хижина ведьмы и тд)
 
 
-### Hota warehouses: захват
-+ добавить def'ы с флагом владельца
-- написать erm-скрипт на замену def'ов и логику (за основу взять option 879 - capture mills and gardens.erm)
-
-
 ### Hota warehouses
 - plugin
 - LOOP-sound - см HotA_Warehouses.snd
 - ai priority (ai не посещает вархаусы)
 
 
+### Hota warehouses: захват
++ добавить def'ы с флагом владельца
+- написать erm-скрипт на замену def'ов и логику (за основу взять option 879 - capture mills and gardens.erm)
+
+
 ### Колизей магов
 - plugin
 - LOOP-sound: см HotA.snd/IVORTWLO.wav
 - enter sound: как у ученого/камня опыта
-
-
-

@@ -1,0 +1,43 @@
+ZVSE2
+
+**********************************
+****     Treeborn Quiver      ****
+**********************************
+// Script by JackSlater
+
+; This is for displaying bonus in non-combat dlg 
+; Bug with crInfoPtr = null if click on creature specialization!
+*?FU(tum_OnAfterHeroSpecCreatureInfo)&i^tum_js_InCombat^=(FALSE);
+*!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y) C(ebp)/-4/4/?(hero:y);
+*!UN:C(ebp)/12/4/?(crInfoPtr:y) C(crInfoPtr)/16/4/?f;
+*!UN:C(hero)/26/4/?(heroId:y) C(ebp)/8/4/?(monID:y);
+
+*!VRf:&(MON_FLAG_SHOOTER);
+*!HE(heroId):A2/(ART_TREEBORN_QUIVER)/d/?(equipped:y);
+
+*!if&f/(equipped:y);
+  *!UN:C(crInfoPtr)/84/4/d4;
+*!en;
+
+
+; Adding bonus in battle
+!?FU(tum_GiveAttackAsPrecision);
+!!UN:Cx1/(STRUCT_HOOK_CONTEXT_ESI)/4/?(monStack:y); 
+!!UN:C(monStack:y)/244/4/?(side:y); F4
+!!BA:H(side:y)/?(heroNum:y);
+!!FU&(heroNum:y)<0:E;
+!!HE(heroNum:y):A2/(ART_TREEBORN_QUIVER)/d/?(equipped:y);
+!!UN&(equipped:y):Cx1/(STRUCT_HOOK_CONTEXT_EBX)/4/d4;
+
+
+!?FU(tum_OnShooting_AfterCheckAmmoCart_BeforeAmmoDecrement);
+!!BG:N?(stackNum:y);
+!!BM(stackNum:y):I?(side:y);
+!!BA:H(side:y)/?(heroNum:y);
+!!FU&(heroNum:y)<0:E;
+!!HE(heroNum:y):A2/(ART_TREEBORN_QUIVER)/d/?(equipped:y);
+!!if&(equipped:y);
+  ; Jump over ammo decrement
+  !!SN:X?y99/0; it is: return NO_EXEC_DEFAULT
+  !!UN:Cx1/(STRUCT_HOOK_CONTEXT_RET)/4/4454185; 43F729
+!!en;

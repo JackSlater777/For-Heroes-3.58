@@ -4,6 +4,7 @@ ZVSE2
 ; Requires: ERA 3.0+
 
 ; Constants for Third Upgrade Mod.
+; Edited by JackSlater
 
 
 ; ==============  ARTIFACTS  ===============
@@ -148,5 +149,5 @@ ZVSE2
 !#DC(ART_EVERCOLD_ICICLE) = 303;
 !#DC(ART_EMERALD_SLIPPERS) = 304;
 !#DC(ART_PHOENIX_FEATHER_CAPE) = 305;
-
+!#DC(ART_ARCHERS_DREAM) = 306;
 ; ============  END ARTIFACTS  =============

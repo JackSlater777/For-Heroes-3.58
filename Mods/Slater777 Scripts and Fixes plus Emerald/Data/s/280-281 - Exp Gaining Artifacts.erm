@@ -3,12 +3,9 @@ ZVSE2
 *******************************
 **** Exp Gaining Artifacts ****
 *******************************
+// Script by JackSlater
 
-!?FU(gem_CreateERMHook);
-!!SN:Ex1/1/5131017/(gem_GetLearningPower);
-
-
-!?FU(gem_GetLearningPower)&i^tum_emerald_on^;
+!?FU(tum_GetLearningPower);
 !!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y) C(ebp)/-4/4/?(learnPow:e);
 !!UN:Cx1/(STRUCT_HOOK_CONTEXT_ECX)/4/?(heroPtr:y) C(heroPtr)/26/2/?(heroId:y);
 
@@ -25,5 +22,3 @@ ZVSE2
 !!en;
 
 !!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y) C(ebp)/-4/4/(learnPow); [Set changed value]
-
-** end

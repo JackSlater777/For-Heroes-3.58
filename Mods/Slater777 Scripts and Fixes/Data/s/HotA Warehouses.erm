@@ -26,19 +26,19 @@ ZVSE2
 
 !?FU(OnAfterErmInstructions);
 ; creating object hint
-!!SN:T^hotaWarehouse.0^/?(objName:z);
+!!SN:T^jsMod.advObject.142.0^/?(objName:z);
 !!SN:H^object^/(OBJ_HOTA_WAREHOUSE)/0/(objName);
-!!SN:T^hotaWarehouse.1^/?(objName:z);
+!!SN:T^jsMod.advObject.142.1^/?(objName:z);
 !!SN:H^object^/(OBJ_HOTA_WAREHOUSE)/1/(objName);
-!!SN:T^hotaWarehouse.2^/?(objName:z);
+!!SN:T^jsMod.advObject.142.2^/?(objName:z);
 !!SN:H^object^/(OBJ_HOTA_WAREHOUSE)/2/(objName);
-!!SN:T^hotaWarehouse.3^/?(objName:z);
+!!SN:T^jsMod.advObject.142.3^/?(objName:z);
 !!SN:H^object^/(OBJ_HOTA_WAREHOUSE)/3/(objName);
-!!SN:T^hotaWarehouse.4^/?(objName:z);
+!!SN:T^jsMod.advObject.142.4^/?(objName:z);
 !!SN:H^object^/(OBJ_HOTA_WAREHOUSE)/4/(objName);
-!!SN:T^hotaWarehouse.5^/?(objName:z);
+!!SN:T^jsMod.advObject.142.5^/?(objName:z);
 !!SN:H^object^/(OBJ_HOTA_WAREHOUSE)/5/(objName);
-!!SN:T^hotaWarehouse.6^/?(objName:z);
+!!SN:T^jsMod.advObject.142.6^/?(objName:z);
 !!SN:H^object^/(OBJ_HOTA_WAREHOUSE)/6/(objName);
 
 
@@ -84,7 +84,7 @@ ZVSE2
   !!OB(CURRENT_OBJ):C(cWord:y);
 !!el;
   ; mock message - need to find a proper func in HD mod
-  !!IF&999:M^{%(objName:z)}%T(hotaWarehouse.visitedDlg)^;
+  !!IF&999:M^{%(objName:z)}%T(jsMod.advObject.142.visitedDlg)^;
 !!en;
 
 
@@ -97,9 +97,9 @@ ZVSE2
 !!if&(activeHero)<>(NO_HERO);
   !!VR(playerBits:y):S1 Sd<<(clickedPlayer);
   !!VR(cWord):Sd>>5 &(playerBits);
-  !!SN:T^hotaWarehouse.%(objSubtype)^/?(objName:z);
+  !!SN:T^jsMod.advObject.142.%(objSubtype)^/?(objName:z);
   !!if&(cWord);                       [if object is visited]
-    !!VR(objName): +^ %T(hotaWarehouse.visited)^;
+    !!VR(objName): +^ %T(jsMod.advObject.common.visited)^;
   !!en;
   !!MM:M^%(objName:z)^;
 !!en;
@@ -117,9 +117,9 @@ ZVSE2
     *!FU(js_Warehouse_GetResource):P(x)/(y)/(z)/?(resType:y)/?(resQty:y);
     !!VR(playerBits:y):S1 Sd<<(clickedPlayer);
     !!VR(cWord):Sd>>5 &(playerBits);
-    !!SN:T^hotaWarehouse.%(objSubtype)^/?(objName:z);
+    !!SN:T^jsMod.advObject.142.%(objSubtype)^/?(objName:z);
     !!if&(cWord);                       [if object is visited]
-      !!VR(objName): +^%T(gem.endl)%T(gem.endl)%T(hotaWarehouse.visited)^;
+      !!VR(objName): +^%T(gem.endl)%T(gem.endl)%T(jsMod.advObject.common.visited)^;
     !!en;
     !!SN:H^object^/(x)/(y)/(z)/(objName);
     *!MM:M^%(objName:z) %(cWord) %(resType) %(resQty)^;

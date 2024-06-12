@@ -1,90 +1,73 @@
-Z VSE2
+ZVSE2
 
 **********************************
 **** Ring of Machine Affinity ****
 **********************************
+// Script by JackSlater
 
-!?FU(gem_CreateERMHook);
-!!SN:Ex1/1/4687160/(gem_DoubleTentHeal);
-!!SN:Ex1/1/5138208/(gem_GetExtraAttackToShooters);
-!!SN:Ex1/1/4456313/(gem_GetExtraShotToBallista);
-*!SN:Ex1/1/4479733/(gem_GetExtraShotToCatapult);
+; TODO: replace b a h(side)/?(heroNum) with function from EEF when it is released
+; In it Hypnotize is checked
 
-00445AF5 = 4479733
-00445B52 = 4479826
 
-!?FU(gem_DoubleTentHeal)&i^tum_emerald_on^;
-!!BG:H?(heroId:y);
+; This is for displaying bonus in non-combat dlg 
+; Bug with crInfoPtr = null if click on creature specialization!
+*?FU(tum_OnAfterHeroSpecCreatureInfo)&i^tum_js_InCombat^=(FALSE);
+*!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y) C(ebp)/-4/4/?(hero:y);
+*!UN:C(ebp)/12/4/?(crInfoPtr:y) C(crInfoPtr)/16/4/?f;
+*!UN:C(hero)/26/4/?(heroId:y) C(ebp)/8/4/?(monID:y);
 
-!!if&(heroId)<>(NO_HERO);
-  !!HE(heroId):A2/(ART_RING_OF_MACHINE_AFFINITY)/d/?(isEquipped:y);
-  !!if&(isEquipped);
-    !!UN:Cx1/(STRUCT_HOOK_CONTEXT_EAX)/4/d<<1; [то же, что и *2]
-  !!en;
+*!VRf:&(MON_FLAG_SHOOTER);
+*!HE(heroId):A2/(ART_RING_OF_MACHINE_AFFINITY)/d/?(equipped:y);
+*!HE(heroId):A2/(ART_AMMO_CART)/d/?(equipped2:y);
+
+*!if&f/(equipped:y)/(equipped2:y);
+  *!UN:C(crInfoPtr)/84/4/d4;
+*!en;
+
+
+; Adding bonus in battle
+!?FU(tum_GiveAttackAsPrecision);
+!!UN:Cx1/(STRUCT_HOOK_CONTEXT_ESI)/4/?(monStack:y); 
+!!UN:C(monStack:y)/244/4/?(side:y); F4
+!!BA:H(side:y)/?(heroNum:y);
+!!FU&(heroNum:y)<0:E;
+!!HE(heroNum:y):A2/(ART_RING_OF_MACHINE_AFFINITY)/d/?(equipped:y);
+!!HE(heroNum:y):A2/(ART_AMMO_CART)/d/?(equipped2:y);
+!!UN&(equipped:y)/(equipped2:y):Cx1/(STRUCT_HOOK_CONTEXT_EBX)/4/d4;
+
+
+!?FU(tum_OnBeforeTentHeal);
+!!BG:N?(stackNum:y);
+!!BM(stackNum:y):I?(side:y);
+!!BA:H(side:y)/?(heroNum:y);
+!!FU&(heroNum:y)<0:E;
+!!HE(heroNum:y):A2/(ART_RING_OF_MACHINE_AFFINITY)/d/?(equipped:y);
+!!UN&(equipped:y):Cx1/(STRUCT_HOOK_CONTEXT_EAX)/4/d<<1; = x2
+
+
+!?FU(tum_OnBeforeCatapultActionType);
+!!BG:N?(stackNum:y);
+!!BM(stackNum:y):I?(side:y) T?(monType:y);
+!!BA:H(side:y)/?(heroNum:y);
+!!FU&(heroNum:y)<0:E;
+!!HE(heroNum:y):A2/(ART_RING_OF_MACHINE_AFFINITY)/d/?(equipped:y);
+
+!!if&(monType:y)=(MON_CATAPULT)/(equipped:y);
+  !!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y) C(ebp:y)/-20/4/d1; 
+  !!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBX)/4/d1;
 !!en;
 
 
-!?FU(gem_GetExtraAttackToShooters)&i^tum_emerald_on^;
-!!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y) C(ebp)/-4/4/?(hero:y);
-!!UN:C(ebp)/12/4/?(monPtr:y) C(monPtr)/84/4/?(monAtk:y);
-!!UN:C(hero)/26/4/?(heroId:y) C(ebp)/8/4/?(monID:y);
+!?FU(tum_OnBeforeShootActionType);
+!!UN:Cx1/(STRUCT_HOOK_CONTEXT_ESI)/4/?(shooterStack:y);
+!!UN:C(shooterStack:y)/52/4/?(monType:y); 34
+!!UN:C(shooterStack:y)/244/4/?(side:y); F4
+!!BA:H(side:y)/?(heroNum:y); // TODO - use func from EEF when it is ready and released 0043FE60
+!!FU&(heroNum:y)<0:E;
+!!HE(heroNum:y):A2/(ART_RING_OF_MACHINE_AFFINITY)/d/?(equipped:y);
 
-!!MA:X(monID)/?f;
-!!VRf:&(MON_FLAG_SHOOTER);
+!!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBX)/4/?(targetStack:y);
 
-!!if&f;
-  !!HE(heroId):A2/(ART_RING_OF_MACHINE_AFFINITY)/d/?(isEquipped:y);
-  !!HE(heroId):A2/(ART_AMMO_CART)/d/?(isEquipped2:y);
-  !!if&(isEquipped)/(isEquipped2);
-    !!VR(monAtk): +4;
-    !!UN:C(monPtr)/84/4/(monAtk);
-  !!en;
+!!if&(monType:y)=(MON_BALLISTA)/(equipped:y);
+  !!FU(tum_DoAdditionalShot):P(shooterStack:y)/(targetStack:y);
 !!en;
-
-
-!?FU(gem_GetExtraShotToBallista)&i^tum_emerald_on^;
-!!UN:Cx1/(STRUCT_HOOK_CONTEXT_ESI)/4/?(shooter:y) C(shooter)/52/4/?(monId:y);
-!!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y) C(ebp)/-4/4/?(target:y);
-
-!!BG:H?(heroId:y);
-
-!!if&(heroId)<>(NO_HERO)/(monId)=(MON_BALLISTA);
-  !!HE(heroId):A2/(ART_RING_OF_MACHINE_AFFINITY)/d/?(isEquipped:y);
-  !!SN&(isEquipped):E4453920/(CALLCONV_THISCALL)/(shooter)/(target);
-!!en;
-
-
-!?FU(gem_GetExtraShotToCatapult)&i^tum_emerald_on^;
-!!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBX)/4/?(shotsNumber:y);
-
-!!BG:H?(heroId:y);
-!!IF:L^heroId = %(heroId), shotsNumber = %(shotsNumber)^;
-
-!!if&(heroId)<>(NO_HERO);
-  !!HE(heroId):A2/(ART_RING_OF_MACHINE_AFFINITY)/d/?(isEquipped:y);
-  !!if&(isEquipped);
-    !!VR(shotsNumber): +1;
-    !!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBX)/4/(shotsNumber);
-  !!en;
-!!en;
-
-!!IF:L^shotsNumber = %(shotsNumber)^;
-
-
-
-
-
-
-
-
-*!UN:Cx1/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y) C(ebp)/-10/4/?(v17:y);
-*!UN:Cx1/(STRUCT_HOOK_CONTEXT_EDI)/4/?(v9:y);
-*!IF:L^v9 = %(v9), v17 = %(v17)^;
-
-*!UN:Cx1/(STRUCT_HOOK_CONTEXT_ESI)/4/?(v3:y);
-*!UN:Cx1/(STRUCT_HOOK_CONTEXT_EDI)/4/?(v13:y);
-*!IF:L^v3 = %(v3), v13 = %(v13)^;
-
-
-
-** end

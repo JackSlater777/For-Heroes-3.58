@@ -1,0 +1,33 @@
+ZVSE2
+
+
+!?FU(gem_CreateERMHook);
+!!UN:P(WOG_OPT_ENHANCED_WAR_MACHINES_I)/?y1; ^wog_54_enabled^
+!!UN:P(WOG_OPT_ENHANCED_WAR_MACHINES_II)/?y2; ^wog_55_enabled^
+!!UN:P(WOG_OPT_ENHANCED_WAR_MACHINES_III)/?y3; ^wog_73_enabled^
+!!UN:P(WOG_OPT_FIRST_AID_I)/?y4; i^wog_204_enabled^
+!!UN:P(WOG_OPT_FIRST_AID_II)/?y5; i^wog_190_enabled^
+; NEED CHECK FOR "ART OF WAR" OPTION!
+
+!!if&y1=0/y2=0/y3=0/y4=0/y5=0;
+  !!SN:Ex1/1/4687040/(tum_BattleMgr_TentHill); 4784C0
+!!en;
+
+
+!?FU(OnAfterErmInstructions)&i^wog_54_enabled^=(FALSE)/i^wog_55_enabled^=(FALSE)/i^wog_73_enabled^=(FALSE)/i^wog_204_enabled^=(FALSE)/i^wog_190_enabled^=(FALSE);
+!!SN:H^secskill^/(SKILL_FIRST_AID)/(SKILL_BASIC)/^%T(jsMod.secSkill.firstAid.desc.basic)^;
+!!SN:H^secskill^/(SKILL_FIRST_AID)/(SKILL_ADVANCED)/^%T(jsMod.secSkill.firstAid.desc.advanced)^;
+!!SN:H^secskill^/(SKILL_FIRST_AID)/(SKILL_EXPERT)/^%T(jsMod.secSkill.firstAid.desc.expert)^;
+
+
+!?FU(tum_BattleMgr_TentHill);
+!!BG:N?(stackNum:y);
+!!BM(stackNum:y):I?(side:y);
+!!BA:H(side:y)/?(heroNum:y);
+!!HE(heroNum:y):S(SKILL_FIRST_AID)/?(firstAidLvl:y);
+;!IF:L^firstAidLvl = %(firstAidLvl:y)^;
+!!if&(firstAidLvl:y)>0;
+  !!VR(minHeal:y):S20 *(firstAidLvl:y) +20;
+  ;!IF:L^minHeal = %(minHeal:y)^;
+  !!UN:C4687151/4/(minHeal:y); 47852F
+!!en;
