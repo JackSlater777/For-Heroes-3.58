@@ -6,28 +6,49 @@ ZVSE2
 // Script by Archer30
 ; Works with Backpack Artifact option
 ; Note that Golden Goose combination artifact does not include its components' effect by default - coz 004BA890 not patched by Emerald 3 yet?
-!?FU(tum_OnCalcArtGoldIncome);
-!#VA(hook:x);
 
-!!UN:P727/?(backpackArt:y);             [Check Backpack Artifact option of Era Scripts]
+; BUG - The hook causes the game crash during the ai turn 0x34353008
+*?FU(tum_OnCalcArtGoldIncome);
+*#VA(hook:x);
 
-!!UN:C(hook)/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y);
-!!UN:C(ebp)/8/4/?(player:y);
+*!UN:P727/?(backpackArt:y);             [Check Backpack Artifact option of Era Scripts]
+
+*!UN:C(hook)/(STRUCT_HOOK_CONTEXT_EBP)/4/?(ebp:y);
+*!IF:M^ebp= %(ebp:y)^;
+*!UN:C(ebp:y)/8/4/?(player:y);
+*!IF:M^player= %(player:y)^;
+
+*!re i/(HERO_FIRST)/(HERO_LAST_WOG);
+  *!HEi:O?(owner:y);
+
+  *!if&(owner:y)=(player:y);
+    *!HEi:A2/(ART_GOLDEN_GOOSE)/?(has:y)/?(equipped:y);
+    *!co&(has:y)=0;
+
+    *!if&(backpackArt:y)=(FALSE);
+      *!VR(bonusGold:y):S(equipped:y) *7000;
+    *!el;
+      *!VR(bonusGold:y):S(has:y) *7000;
+    *!en;
+
+    *!UN:C(hook)/(STRUCT_HOOK_CONTEXT_ECX)/4/d(bonusGold:y);
+  *!en;
+*!en;
+
+
+!?FU(OnEveryDay)&i^timerOnce^;
+!!UN:P727/?(backpackArt:y);             [Check Backpac Artifact option of Era Scripts]
 
 !!re i/(HERO_FIRST)/(HERO_LAST_WOG);
   !!HEi:O?(owner:y);
 
-  !!if&(owner)=(player);
+  !!if&(owner:y)>(NO_OWNER);
     !!HEi:A2/(ART_GOLDEN_GOOSE)/?(has:y)/?(equipped:y);
+
     !!co&(has:y)=0;
+    !!co&(equipped:y)=0/(backpackArt:y)<>(TRUE);
 
-    !!if&(backpackArt:y)=(FALSE);
-      !!VR(bonusGold:y):S(equipped:y) *7000;
-    !!el;
-      !!VR(bonusGold:y):S(has:y) *7000;
-    !!en;
-
-    !!UN:C(hook)/(STRUCT_HOOK_CONTEXT_ECX)/4/d(bonusGold:y);
+    !!OW:R(owner:y)/(RES_GOLD)/d7000;
   !!en;
 !!en;
 
