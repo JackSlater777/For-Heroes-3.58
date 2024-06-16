@@ -15,7 +15,6 @@ Secondary Skills Scrolling
 AMER_HumanAI
 ERA Scripts Rus
 Slater777 Scripts and Fixes
-Slater777 Scripts and Fixes plus Emerald
 RMG Customizer
 RMG Object Value Density Editor
 WoG Rus
