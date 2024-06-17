@@ -1,7 +1,9 @@
 // применение основного кода: расширение таблиц
 
-#include "emerald.h"
+//#include "emerald.h"
+#include "pch.h"
 
+typedef Era::TEvent* PEvent;
 
 
 ART_RECORD newtable[NEW_ARTS_AMOUNT];
@@ -26,7 +28,7 @@ unsigned char _magic[22] = {0x6A,0x01,0x6A,0x09,
 			//ƒл€ добавлени€ - дописываем свой арт в конец списка 
 			//и задаем ему заклинание через artspelltable
 
- char *dummy_hint = "Artifact sponsored by emerald.dll. Version from: "\
+ const char *dummy_hint = "Artifact sponsored by emerald.dll. Version from: "\
 					__DATE__ \
 					" "\
 					__TIME__;
@@ -86,10 +88,10 @@ void ExecErmSequence(char* _command)
 	  char *p;
 
 	  p = strtok(command, "!");
-	  ExecErmCmd(p);
+	  Era::ExecErmCmd(p);
 	  do {
 		p = strtok(NULL, "!");
-		if(p) ExecErmCmd(p);
+		if(p) Era::ExecErmCmd(p);
 	  } while(p);
 }
 
@@ -237,16 +239,15 @@ void __stdcall Emerald(PEvent e)	//основна€ функци€
 		emerald->WriteHiHook(0x4E6390, SPLICE_, EXTENDED_,THISCALL_, (void*)OnCreatureParamInit );
 
 
-	//костыли дл€ бога костылей!
-		
-	ExecErmCmd  = (void (__stdcall *)(char*))GetProcAddress(LoadLibraryA("era.dll"), "ExecErmCmd");
-	RegisterHandler  = (TRegisterHandler)GetProcAddress(LoadLibraryA("era.dll"), "RegisterHandler");
+		//костыли дл€ бога костылей!
+		Era::ExecErmCmd  = (void (__stdcall *)(char*))GetProcAddress(LoadLibraryA("era.dll"), "ExecErmCmd");
+		Era::RegisterHandler  = (Era::TRegisterHandler)GetProcAddress(LoadLibraryA("era.dll"), "RegisterHandler");
 
-		RegisterHandler(OnEquip, "OnEquipArt");
-		RegisterHandler(OnUnequip, "OnUnequipArt");
+		Era::RegisterHandler(OnEquip, "OnEquipArt");
+		Era::RegisterHandler(OnUnequip, "OnUnequipArt");
 		//RegisterHandler(OnBattleStart, "OnSetupBattlefield");//
-		RegisterHandler(OnBattleEnd, "OnAfterBattleUniversal");//
-		RegisterHandler(OnNewDay, "OnGlobalTimer");
+		Era::RegisterHandler(OnBattleEnd, "OnAfterBattleUniversal");//
+		Era::RegisterHandler(OnNewDay, "OnGlobalTimer");
 			
 		//emerald->WriteHiHook(0x5A7BF0, SPLICE_, EXTENDED_, FASTCALL_, (void*)MagicDamageHook);
 

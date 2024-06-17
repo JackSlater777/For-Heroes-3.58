@@ -1,12 +1,10 @@
 #pragma once
 //Данные, общие для всего модуля.
 
-#include <windows.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "..\..\include\era.h"
-#include "..\..\include\heroes.h"
-#include "..\..\include\patcher_x86_commented.hpp"
+//#include "pch.h"
+//#include "..\..\include\era.h"
+
+
 
 
 #define OLD_ARTS_AMOUNT	171
@@ -25,9 +23,9 @@ typedef struct
 	char allowed_artifacts[NEW_ARTS_AMOUNT];// 0x4E2B4
 }GAMEDATA;
 
-extern GAMEDATA save;
-extern Patcher * globalPatcher;
-extern PatcherInstance * emerald;
+//extern GAMEDATA save;
+//extern Patcher * globalPatcher;
+//extern PatcherInstance * emerald;
 
 extern ART_RECORD newtable[NEW_ARTS_AMOUNT];
 extern ART_BONUS newbtable[NEW_ARTS_AMOUNT];

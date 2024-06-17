@@ -9,14 +9,14 @@ void ParseArray(char* buf, char* name, int* cortage)
 
 }
 
-void ParseInt(char* buf, char* name, int* result)
+void ParseInt(char* buf, const char* name, int* result)
 { 
 	char *c = strstr(buf,name);
 	if(c!=NULL)
 		*result = atoi(c+strlen(name));
 }
 
-void ParseByte(char* buf, char* name, char* result)
+void ParseByte(char* buf, const char* name, char* result)
 { 
 	char *c = strstr(buf,name);
 	if(c!=NULL)
@@ -24,7 +24,7 @@ void ParseByte(char* buf, char* name, char* result)
 }
 
 
-void ParseStr(char* buf, char* name, char** res)
+void ParseStr(char* buf, const char* name, char** res)
 {
 	char *c = strstr(buf,name);
 	int l = strlen(name);
@@ -67,7 +67,7 @@ void ParseStr(char* buf, char* name, char** res)
 	}
 }
 
-int ParseTuple(char* buf, char* name, int** tuple) 
+int ParseTuple(char* buf, const char* name, int** tuple) 
 {
 	  int len=0;
 	  char *tmp = (char*)malloc(strlen(buf));

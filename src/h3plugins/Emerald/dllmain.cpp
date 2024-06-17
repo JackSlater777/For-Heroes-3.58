@@ -1,16 +1,21 @@
 // dllmain.cpp: определ€ет точку входа дл€ приложени€ DLL.
-#include "emerald.h"
+#include "pch.h"
 
-extern void __stdcall  Emerald(PEvent e);
 
+//#include "emerald.h"
+//#include "..\..\headers\header.h"
+
+
+typedef Era::TEvent* PEvent;
+
+extern void __stdcall Emerald(PEvent e);
 extern void __stdcall ReallocProhibitionTables(PEvent e);
 extern void __stdcall LoadConfigs(PEvent e);
 
 
-
 GAMEDATA save;
-Patcher * globalPatcher;
-PatcherInstance *emerald;
+Patcher* globalPatcher;
+PatcherInstance* emerald;
 
 void __stdcall InitData (PEvent e)
 {
@@ -19,45 +24,50 @@ void __stdcall InitData (PEvent e)
 
 void __stdcall StoreData (PEvent e)
 {
-	WriteSavegameSection(sizeof(save), (void*)&save, PINSTANCE_MAIN);
+	Era::WriteSavegameSection(sizeof(save), (void*)&save, PINSTANCE_MAIN);
 }
 
 
 void __stdcall RestoreData (PEvent e)
 {
-	ReadSavegameSection(sizeof(save), (void*)&save, PINSTANCE_MAIN);
+	Era::ReadSavegameSection(sizeof(save), (void*)&save, PINSTANCE_MAIN);
 }
 
 
 BOOL APIENTRY DllMain( HMODULE hModule,
-                       DWORD  ul_reason_for_call,
+                       DWORD  ul_reason_for_call, // TODO - из H3_API ???
                        LPVOID lpReserved
 					 )
 {
-	if (ul_reason_for_call == DLL_PROCESS_ATTACH)
+	static BOOL plugin_On = 0;
+	switch (ul_reason_for_call)
 	{
-		//инит Ёры, инит патчера
-		globalPatcher = GetPatcher();
-		emerald =  globalPatcher->CreateInstance(PINSTANCE_MAIN);
-		ConnectEra();
+	case DLL_PROCESS_ATTACH:
+		if (!plugin_On)
+		{
+			plugin_On = 1;
+			Era::ConnectEra();
+			globalPatcher = GetPatcher();
+			emerald = globalPatcher->CreateInstance(PINSTANCE_MAIN);
 
-		//Storing data
-		RegisterHandler(InitData, "OnAfterErmInstructions");
-		RegisterHandler(StoreData, "OnSavegameWrite");
-		RegisterHandler(RestoreData, "OnSavegameRead");
+			//Storing data
+			Era::RegisterHandler(InitData, "OnAfterErmInstructions");
+			Era::RegisterHandler(StoreData, "OnSavegameWrite");
+			Era::RegisterHandler(RestoreData, "OnSavegameRead");
 
+			//опосл€ выделени€ пам€ти под динамику		
+			Era::RegisterHandler(ReallocProhibitionTables, "OnAfterCreateWindow");
 
+			//RegisterHandler(LoadConfigs, "OnBeforeErmInstructions");
+			Era::RegisterHandler(LoadConfigs, "OnAfterCreateWindow");
 
-		//опосл€ выделени€ пам€ти под динамику		
-		RegisterHandler(ReallocProhibitionTables, "OnAfterCreateWindow");
-
-
-		//RegisterHandler(LoadConfigs, "OnBeforeErmInstructions");
-		RegisterHandler(LoadConfigs, "OnAfterCreateWindow");
-
-		//основной патчинг
-		RegisterHandler(Emerald, "OnAfterWoG");
+			//основной патчинг
+			Era::RegisterHandler(Emerald, "OnAfterWoG");
+		}
+	case DLL_THREAD_ATTACH:
+	case DLL_THREAD_DETACH:
+	case DLL_PROCESS_DETACH:
+		break;
 	}
 	return TRUE;
 }
-

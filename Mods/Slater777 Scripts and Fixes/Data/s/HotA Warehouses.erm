@@ -140,8 +140,14 @@ ZVSE2
   !!re i/1/(objQty:y);
     !!UN:U(OBJ_HOTA_WAREHOUSE)/-1/-1/2;          [store coordinates from the objects in v2, v3, v4]
     !!OBv2/v3/v4:T?(objType:y) U?(objSubtype:y);                  [(Get Type and Subtype)]
+    !!if&(objType:y)=(OBJ_HERO);
+      !!FU(gem_AdvMgr_HideHero):Pv2/v3/v4;
+    !!en;
     !!VR(resCount:y):S(qties[objSubtype]) Sd<<13;
     !!VR(cWord:y):S0 |(objSubtype:y) |(resCount); // add res type and count
     !!OBv2/v3/v4:C(cWord);
+    !!if&(objType:y)=(OBJ_HERO);
+      !!FU(gem_AdvMgr_ShowHero):Pv2/v3/v4;
+    !!en;
   !!en;
 !!en;
